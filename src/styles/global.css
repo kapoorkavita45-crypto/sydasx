@@ -107,9 +107,15 @@
 }
 
 html {
+  font-size: 90% !important; /* 10% smaller fonts site-wide */
   scroll-behavior: smooth;
   color-scheme: dark;
   width: 100%;
+}
+
+/* Footer Font Size Exemption — maintains 100% original size */
+footer, .footer, #footer {
+  font-size: 1.111rem;
 }
 
 body {
