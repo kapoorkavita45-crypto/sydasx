@@ -1,0 +1,196 @@
+---
+---
+
+<section id="portfolio" class="portfolio-cta-section">
+  <!-- Full Width Edge-to-Edge Ambient Glows -->
+  <div class="cta-glow cyan-glow"></div>
+  <div class="cta-glow purple-glow"></div>
+
+  <div class="container">
+    <!-- Floating Tech Chips Preview -->
+    <div class="floating-chips">
+      <span class="chip-item chip-1">E-Commerce Drops</span>
+      <span class="chip-item chip-2">Web3 Crypto DEX</span>
+      <span class="chip-item chip-3">3D WebGL Engines</span>
+      <span class="chip-item chip-4">AI Medical Triage</span>
+      <span class="chip-item chip-5">SaaS Telemetry Hubs</span>
+    </div>
+
+    <!-- Section Title & Subtitle -->
+    <div class="cta-header">
+      <h2 class="section-title">
+        Project <span class="text-gradient">Showcase</span>
+      </h2>
+      <p class="section-subtitle">
+        Explore production-grade platforms, web apps, 3D engines, and enterprise solutions engineered by SYDAS.x.
+      </p>
+    </div>
+
+    <!-- Prominent Reroute Button -->
+    <div class="cta-action">
+      <a href="/projects" class="btn btn-primary btn-lg showcase-explore-btn">
+        <span>Explore Our Projects</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Edge-to-Edge Metrics Grid -->
+    <div class="cta-stats-grid">
+      <div class="stat-card glass-panel">
+        <span class="stat-number text-gradient">500+</span>
+        <span class="stat-text">Active Themes & Specs</span>
+      </div>
+      <div class="stat-card glass-panel">
+        <span class="stat-number text-gradient">99.99%</span>
+        <span class="stat-text">System Uptime SLA</span>
+      </div>
+      <div class="stat-card glass-panel">
+        <span class="stat-number text-gradient">50+</span>
+        <span class="stat-text">Global Verticals</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .portfolio-cta-section {
+    padding: 6rem 0;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .cta-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(130px);
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  .cyan-glow {
+    top: 5%;
+    left: -150px;
+    background: var(--accent-cyan);
+  }
+
+  .purple-glow {
+    bottom: 5%;
+    right: -150px;
+    background: var(--accent-purple);
+  }
+
+  /* Floating Chips Header */
+  .floating-chips {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .chip-item {
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.45rem 1.1rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+  }
+
+  .chip-item:hover {
+    color: var(--accent-cyan);
+    border-color: var(--border-glow);
+    transform: translateY(-2px);
+  }
+
+  /* Title & Subtitle */
+  .cta-header {
+    text-align: center;
+    max-width: 850px;
+    margin: 0 auto 2.75rem;
+  }
+
+  .section-title {
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
+    margin-bottom: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+
+  .section-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+
+  /* Button Styling */
+  .cta-action {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .showcase-explore-btn {
+    padding: 1.15rem 3.2rem;
+    font-size: 1.2rem;
+    font-weight: 800;
+    border-radius: var(--radius-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    box-shadow: 0 0 35px rgba(0, 240, 255, 0.4);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .showcase-explore-btn:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 0 50px rgba(0, 240, 255, 0.6);
+  }
+
+  /* Full Width Stats Grid */
+  .cta-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    width: 100%;
+  }
+
+  .stat-card {
+    padding: 2.25rem 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .stat-number {
+    font-size: 2.4rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+  }
+
+  @media (max-width: 900px) {
+    .cta-stats-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
