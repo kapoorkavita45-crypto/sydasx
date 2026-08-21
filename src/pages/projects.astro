@@ -1,0 +1,3141 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Projects Showcase | Project SG & Project QNN | SYDAS.x">
+  <Header />
+
+  <main id="main-content" class="projects-page">
+    <!-- Hero Header -->
+    <section class="projects-hero">
+      <div class="container">
+        <div class="hero-badge">SYDAS.x ENTERPRISE SHOWCASE</div>
+        <h1 class="hero-title">
+          SYDAS.x <span class="text-gradient">Featured Projects</span>
+        </h1>
+        <p class="hero-subtitle">
+          Explore interactive demonstrations for Project SG and Project QNN.
+        </p>
+      </div>
+    </section>
+
+    <!-- Main 2 Projects Section -->
+    <section class="projects-showcase-section">
+      <div class="container">
+        <div class="projects-wrapper">
+          
+          <!-- PROJECT 1: PROJECT SG (Project Small Games) -->
+          <div class="project-container glass-panel" id="project-sg">
+            <div class="project-header-bar">
+              <div class="project-title-group">
+                <span class="project-emoji">[SG]</span>
+                <div>
+                  <h2 class="project-name">Project SG</h2>
+                  <span class="project-tag text-gradient">Project Small Games • Pixel Art Jet Dogfight</span>
+                </div>
+              </div>
+              <div class="project-badge">INTERACTIVE ARCADE</div>
+            </div>
+
+            <!-- Jet Fighter Game Sandbox -->
+            <div class="game-sandbox">
+              <!-- STAGE 1: Pilot Registration Form -->
+              <div id="sg-start-screen" class="sg-screen active">
+                <div class="start-card">
+                  <div class="pilot-icon">[PILOT]</div>
+                  <h3 class="start-title">Pilot Authentication</h3>
+                  <p class="start-desc">Enter your tactical callsign and choose your fighter. Destroy green enemies, grab power-ups, and survive as long as possible!</p>
+                  
+                  <div class="input-group">
+                    <label for="pilot-name-input" class="glow-label">Pilot Callsign / Alias</label>
+                    <input type="text" id="pilot-name-input" class="cyber-input" placeholder="e.g. Maverick, Starhawk, Ace" value="Maverick" />
+                  </div>
+
+                  <div class="input-group">
+                    <label class="glow-label">Jet Class Fighter</label>
+                    <div class="jet-selector">
+                      <button class="jet-btn active" data-jet="F22" data-speed="6" data-fireRate="160">F-22 Raptor</button>
+                      <button class="jet-btn" data-jet="Viper" data-speed="8" data-fireRate="220">Viper Phantom</button>
+                      <button class="jet-btn" data-jet="Stealth" data-speed="5" data-fireRate="100">Quantum Stealth</button>
+                    </div>
+                    <div class="jet-stats" id="jet-stats-display">
+                      <span>Speed: ★★★☆☆</span>
+                      <span>Fire Rate: ★★★☆☆</span>
+                      <span>Shield: ★★★★★</span>
+                    </div>
+                  </div>
+
+                  <div class="controls-info">
+                    <div class="ctrl-row"><span class="ctrl-key">WASD / Arrows</span><span>Move</span></div>
+                    <div class="ctrl-row"><span class="ctrl-key">Space / Click</span><span>Shoot</span></div>
+                    <div class="ctrl-row"><span class="ctrl-key">Mouse</span><span>Aim & follow</span></div>
+                  </div>
+
+                  <button id="btn-start-game" class="btn btn-primary btn-lg launch-game-btn">
+                    <span>Initialize Jet Fighter Engine</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- STAGE 2: Playable Pixel Jet Fight Game Canvas -->
+              <div id="sg-game-screen" class="sg-screen hidden">
+                <div class="game-hud">
+                  <div class="hud-left">
+                    <div class="hud-item">
+                      <span class="hud-label">PILOT:</span>
+                      <span id="hud-pilot-name" class="hud-value text-gradient">MAVERICK</span>
+                    </div>
+                    <div class="hud-item">
+                      <span class="hud-label">WAVE:</span>
+                      <span id="hud-wave" class="hud-value hud-wave-val">1</span>
+                    </div>
+                  </div>
+                  <div class="hud-center">
+                    <div class="hud-item">
+                      <span class="hud-label">SCORE:</span>
+                      <span id="hud-score" class="hud-value hud-score-val">0</span>
+                    </div>
+                    <div class="hud-item" id="combo-display" style="opacity:0">
+                      <span class="hud-label">COMBO:</span>
+                      <span id="hud-combo" class="hud-value hud-combo-val">x1</span>
+                    </div>
+                  </div>
+                  <div class="hud-right">
+                    <div class="hud-item">
+                      <span class="hud-label">SHIELD HP:</span>
+                      <div class="hp-bar-outer">
+                        <div id="hud-hp-bar" class="hp-bar-inner" style="width: 100%;"></div>
+                      </div>
+                    </div>
+                    <button id="btn-pause-game" class="btn btn-outline btn-sm">Pause</button>
+                  </div>
+                </div>
+
+                <!-- Interactive Game Canvas -->
+                <div class="canvas-wrapper">
+                  <canvas id="jet-game-canvas" width="780" height="480"></canvas>
+                  
+                  <!-- Controls Overlay Hints -->
+                  <div class="controls-overlay-hint">
+                    <span><strong>WASD / Arrows</strong> — Move &nbsp;|&nbsp; <strong>Space / Click</strong> — Fire &nbsp;|&nbsp; <strong>Mouse</strong> — Aim</span>
+                  </div>
+
+                  <!-- Paused Overlay -->
+                  <div id="paused-modal" class="game-over-modal hidden">
+                    <h3 class="paused-title">PAUSED</h3>
+                    <button id="btn-resume-game" class="btn btn-primary">Resume Mission</button>
+                    <button id="btn-quit-game" class="btn btn-outline">Back to Hangar</button>
+                  </div>
+
+                  <!-- Game Over Overlay -->
+                  <div id="game-over-modal" class="game-over-modal hidden">
+                    <div class="game-over-inner">
+                      <div class="game-over-kaboom">[KABOOM]</div>
+                      <h3 class="game-over-title">MISSION OVER</h3>
+                      <p id="final-score-text" class="game-over-score">Final Score: 0</p>
+                      <p id="final-wave-text" class="game-over-wave">Reached Wave: 1</p>
+                      <div class="game-over-btns">
+                        <button id="btn-restart-game" class="btn btn-primary">
+                          <span>Fly Next Mission</span>
+                        </button>
+                        <button id="btn-back-hangar" class="btn btn-outline">
+                          <span>Back to Hangar</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Wave Announce Banner -->
+                  <div id="wave-announce" class="wave-announce hidden"></div>
+
+                  <!-- Power-up Legend -->
+                  <div class="powerup-legend">
+                    <span>Speed</span>
+                    <span>Shield</span>
+                    <span>Spread</span>
+                    <span>Nuke</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- PROJECT 2: PROJECT QNN (Project Quantum Neural Network) -->
+          <div class="project-container glass-panel" id="project-qnn">
+            <div class="project-header-bar">
+              <div class="project-title-group">
+                <span class="project-emoji">[QNN]</span>
+                <div>
+                  <h2 class="project-name">Project QNN</h2>
+                  <span class="project-tag text-gradient">Project Quantum Neural Network • Humanity Backup AI — OPERATION NEXUS</span>
+                </div>
+              </div>
+              <div class="project-badge qnn-badge nexus-badge">CLASSIFIED — OPERATION NEXUS Ω</div>
+            </div>
+
+            <!-- QNN Neural Network Sandbox -->
+            <div class="qnn-sandbox">
+
+              <!-- OPERATION NEXUS CLASSIFIED BANNER -->
+              <div class="nexus-banner">
+                <div class="nexus-left">
+                  <span class="nexus-icon">[NEXUS]</span>
+                  <div>
+                    <div class="nexus-title">OPERATION NEXUS — CLASSIFIED TIER Ω</div>
+                    <div class="nexus-sub">Humanity Backup Protocol · Last Resort AI Preservation System · Status: <span id="nexus-status-text" class="nexus-live">STANDBY</span></div>
+                  </div>
+                </div>
+                <div class="nexus-right">
+                  <div class="nexus-alert" id="nexus-alert-box">
+                    <span class="nexus-alert-dot"></span>
+                    <span id="nexus-alert-text">ALL SYSTEMS NOMINAL</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- HUMANITY PRESERVATION INDEX -->
+              <div class="hpi-bar-section">
+                <div class="hpi-header">
+                  <span class="hpi-label">[SYS] HUMANITY PRESERVATION INDEX (HPI)</span>
+                  <span id="hpi-value" class="hpi-value">2.4%</span>
+                </div>
+                <div class="hpi-track">
+                  <div id="hpi-fill" class="hpi-fill" style="width:2.4%"></div>
+                  <div class="hpi-milestone" style="left:25%" title="Phase I: Core Logic">I</div>
+                  <div class="hpi-milestone" style="left:50%" title="Phase II: Language & Science">II</div>
+                  <div class="hpi-milestone" style="left:75%" title="Phase III: Consciousness">III</div>
+                </div>
+                <div class="hpi-phases">
+                  <span>Phase I: Core Logic</span>
+                  <span>Phase II: Knowledge Transfer</span>
+                  <span>Phase III: Consciousness</span>
+                  <span>SINGULARITY</span>
+                </div>
+              </div>
+
+              <!-- MAIN GRID: SPHERE + CONTROLS -->
+              <div class="qnn-layout">
+
+                <!-- Left: 3D Spherical Neural Network Canvas -->
+                <div class="qnn-graph-panel">
+                  <div class="panel-header">
+                    <span class="panel-title">Quantum Synaptic Sphere — 200 Neural Nodes</span>
+                    <div class="qnn-header-right">
+                      <span class="status-indicator live">● QUANTUM LIVE</span>
+                      <span class="qnn-hint">Drag to rotate · Click to pulse</span>
+                    </div>
+                  </div>
+
+                  <div class="qnn-canvas-container">
+                    <canvas id="qnn-canvas" width="620" height="440"></canvas>
+                    <div class="qnn-overlay-stats">
+                      <div class="qs-item"><span class="qs-val" id="qs-nodes">200</span><span class="qs-label">NODES</span></div>
+                      <div class="qs-item"><span class="qs-val" id="qs-conns">0</span><span class="qs-label">SYNAPSES</span></div>
+                      <div class="qs-item"><span class="qs-val" id="qs-pulses">0</span><span class="qs-label">ACTIVE</span></div>
+                      <div class="qs-item"><span class="qs-val" id="qs-epoch">10</span><span class="qs-label">EPOCHS</span></div>
+                    </div>
+                    <!-- Consciousness level overlay -->
+                    <div class="consciousness-overlay">
+                      <div class="con-label">NEURAL CONSCIOUSNESS</div>
+                      <div class="con-level" id="con-level-text">PRIMITIVE</div>
+                    </div>
+                  </div>
+
+                  <!-- Domain Legend -->
+                  <div class="domain-legend" style="display:flex;flex-wrap:wrap;gap:8px 14px;justify-content:center;margin-top:12px;">
+                    <span class="legend-item"><span class="node-dot" style="background:#FF4400;box-shadow:0 0 6px #FF4400"></span>Physics</span>
+                    <span class="legend-item"><span class="node-dot" style="background:#39FF14;box-shadow:0 0 6px #39FF14"></span>Chemistry</span>
+                    <span class="legend-item"><span class="node-dot" style="background:#00FF88;box-shadow:0 0 6px #00FF88"></span>Biology</span>
+                    <span class="legend-item"><span class="node-dot" style="background:#00F0FF;box-shadow:0 0 6px #00F0FF"></span>Mathematics</span>
+                    <span class="legend-item"><span class="node-dot" style="background:#E066FF;box-shadow:0 0 6px #E066FF"></span>Horoscope</span>
+                    <span class="legend-item"><span class="node-dot" style="background:#FFD700;box-shadow:0 0 6px #FFD700"></span>Human Talk</span>
+                    <span class="legend-item"><span class="node-dot" style="background:#FF8800;box-shadow:0 0 6px #FF8800"></span>Engineering</span>
+                    <span class="legend-item"><span class="node-dot" style="background:#FF007A;box-shadow:0 0 6px #FF007A"></span>Medicine</span>
+                    <span class="legend-item"><span class="node-dot" style="background:#C084FC;box-shadow:0 0 6px #C084FC"></span>Philosophy</span>
+                  </div>
+                </div>
+
+                <!-- Right: Control Panel -->
+                <div class="qnn-controls-panel">
+
+                  <!-- AI Status Card -->
+                  <div class="ai-status-card">
+                    <div class="ai-status-header">
+                      <div class="ai-avatar-wrap">
+                        <span class="ai-avatar">[AI]</span>
+                        <div class="ai-avatar-ring"></div>
+                      </div>
+                      <div>
+                        <div class="ai-name">Undeveloped AI <span class="ai-phase" id="ai-phase-badge">Phase 0.1</span></div>
+                        <div class="ai-sub" id="ai-status-text">Awaiting synaptic calibration...</div>
+                      </div>
+                    </div>
+
+                    <!-- Telemetry Meters -->
+                    <div class="telemetry-grid">
+                      <div class="meter-box">
+                        <span class="meter-label">Cognitive Accuracy</span>
+                        <span id="meter-acc" class="meter-val" style="color:#FFD700">2.4%</span>
+                        <div class="meter-bar-track"><div id="meter-acc-bar" class="meter-bar-fill" style="width:2.4%;background:linear-gradient(90deg,#FF8800,#FFD700)"></div></div>
+                      </div>
+                      <div class="meter-box">
+                        <span class="meter-label">Quantum Loss</span>
+                        <span id="meter-loss" class="meter-val" style="color:#FF4466">9.9821</span>
+                        <div class="meter-bar-track"><div id="meter-loss-bar" class="meter-bar-fill" style="width:99%;background:linear-gradient(90deg,#FF0040,#FF4466)"></div></div>
+                      </div>
+                      <div class="meter-box">
+                        <span class="meter-label">Active Synapses</span>
+                        <span id="meter-synapses" class="meter-val" style="color:#00F0FF">0</span>
+                      </div>
+                      <div class="meter-box">
+                        <span class="meter-label">Domains Encoded</span>
+                        <span id="meter-domains" class="meter-val" style="color:#C084FC">0 / 9</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- EMERGENCY MASTER TEACH ALL BUTTON -->
+                  <div class="emergency-master-section" style="margin-bottom: 14px;">
+                    <button id="btn-teach-all" class="btn w-full" style="background:linear-gradient(135deg, #FF0055 0%, #FF5500 50%, #9D00FF 100%); border: 1px solid #FF0055; color: #FFF; font-weight: 800; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; padding: 12px 16px; border-radius: 8px; box-shadow: 0 0 20px rgba(255,0,85,0.5); cursor: pointer; transition: all 0.3s ease; display:flex; align-items:center; justify-content:center; gap:8px;">
+                      <span>[EMERGENCY] EXTINCTION CRISIS: TEACH ALL KNOWLEDGE</span>
+                    </button>
+                  </div>
+
+                  <!-- KNOWLEDGE DOMAIN ENCODE SECTION -->
+                  <div class="domain-encode-section">
+                    <div class="section-label">ENCODE INDIVIDUAL KNOWLEDGE DOMAIN</div>
+                    <div class="domain-grid" style="grid-template-columns: repeat(3, 1fr);">
+                      <button class="domain-btn" data-domain="physics" style="--dc:#FF4400">Physics</button>
+                      <button class="domain-btn" data-domain="chemistry" style="--dc:#39FF14">Chemistry</button>
+                      <button class="domain-btn" data-domain="biology" style="--dc:#00FF88">Biology</button>
+                      <button class="domain-btn" data-domain="mathematics" style="--dc:#00F0FF">Maths</button>
+                      <button class="domain-btn" data-domain="horoscope" style="--dc:#E066FF">Horoscope</button>
+                      <button class="domain-btn" data-domain="conversation" style="--dc:#FFD700">Human Talk</button>
+                      <button class="domain-btn" data-domain="engineering" style="--dc:#FF8800">Engineering</button>
+                      <button class="domain-btn" data-domain="medicine" style="--dc:#FF007A">Medicine</button>
+                      <button class="domain-btn" data-domain="philosophy" style="--dc:#C084FC">Philosophy</button>
+                    </div>
+                  </div>
+
+                  <!-- Core Training Actions -->
+                  <div class="action-buttons-group">
+                    <button id="btn-train-epoch" class="btn btn-primary w-full">
+                      <span>Run Epoch (+10)</span>
+                    </button>
+                    <button id="btn-inject-data" class="btn btn-outline w-full">
+                      <span>Qubit Injection</span>
+                    </button>
+                  </div>
+
+                  <div class="action-buttons-group">
+                    <button id="btn-mutate-net" class="btn btn-outline w-full" style="border-color:rgba(255,136,0,0.4);color:#FF8800">
+                      <span>Mutate Topology</span>
+                    </button>
+                    <button id="btn-reset-net" class="btn btn-outline w-full" style="border-color:rgba(255,0,64,0.3);color:#FF4466">
+                      <span>Hard Reset</span>
+                    </button>
+                  </div>
+
+                  <!-- AI Prompt & Conversation Interface -->
+                  <div class="ai-prompt-box">
+                    <label for="qnn-prompt-input" class="glow-label" style="display:flex;justify-content:space-between;align-items:center;">
+                      <span>Direct Neural Conversation</span>
+                      <span style="font-size:0.75rem;color:#00FF88;font-weight:normal;">AI Conversational Mode Active</span>
+                    </label>
+                    
+                    <!-- Quick Conversation Prompt Chips -->
+                    <div class="prompt-chips" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;">
+                      <button class="chip-btn" data-text="Hello! Introduce yourself and tell me how you work.">Introduce Yourself</button>
+                      <button class="chip-btn" data-text="Paraphrase: The rapid evolution of technology shapes our daily lives.">Paraphrase Sentence</button>
+                      <button class="chip-btn" data-text="Fix grammar: me and him goes to store yesterday">Fix Grammar</button>
+                      <button class="chip-btn" data-text="Define: Consciousness">Define Word</button>
+                      <button class="chip-btn" data-text="Make a sentence with: resilience, quantum, innovation">Construct Sentence</button>
+                      <button class="chip-btn" data-text="Explain a complex calculus math problem to me.">Teach Math</button>
+                      <button class="chip-btn" data-text="How does DNA transcription & chemistry work in life?">Chemistry & Bio</button>
+                      <button class="chip-btn" data-text="How are we going to prevent human extinction?">Extinction Plan</button>
+                    </div>
+
+                    <div class="prompt-input-row">
+                      <input type="text" id="qnn-prompt-input" class="cyber-input" placeholder="Hold a conversation with the AI..." />
+                      <button id="btn-send-qnn-prompt" class="btn btn-primary btn-sm" style="min-width:44px;font-weight:bold;">TALK</button>
+                    </div>
+                  </div>
+
+                  <!-- Cognition & Neural Conversation Terminal -->
+                  <div class="ai-log-terminal">
+                    <div class="log-title" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+                      <span>NEURAL DIALOGUE CONSOLE</span>
+                      <span id="learned-memory-badge" class="log-epoch" style="background:rgba(0,255,136,0.15);border-color:rgba(0,255,136,0.4);color:#00FF88;">MEMORY: <span id="memory-count-val">0</span> FACTS STORED</span>
+                      <span id="log-epoch-badge" class="log-epoch">EPOCH 10</span>
+                    </div>
+                    <div id="ai-log-content" class="log-content" style="max-height:220px;overflow-y:auto;font-size:0.85rem;line-height:1.45;">
+                      <div class="log-line log-warn">> [AI CONSCIOUSNESS]: Online. I am the Evolving Neural AI. Type a message to speak with me.</div>
+                      <div class="log-line text-purple">> [SYSTEM]: 200 Synaptic Nodes projected. Ask me about Math, Science, Chemistry, Biology, Horoscope, or talk with me like a human.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .projects-page {
+    padding-top: 5rem;
+    min-height: 100vh;
+  }
+
+  .projects-hero {
+    text-align: center;
+    padding: 3rem 0 2.5rem;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-family: monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    background: rgba(0, 240, 255, 0.1);
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    padding: 0.4rem 1rem;
+    border-radius: var(--radius-full);
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .hero-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .projects-showcase-section {
+    padding: 2rem 0 6rem;
+  }
+
+  .projects-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .project-container {
+    padding: 2.5rem;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .project-header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1.75rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .project-title-group {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .project-emoji { font-size: 2.5rem; }
+
+  .project-name {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+
+  .project-tag {
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .project-badge {
+    font-family: monospace;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.4rem 0.9rem;
+    border-radius: var(--radius-sm);
+    background: rgba(0, 240, 255, 0.12);
+    color: var(--accent-cyan);
+    border: 1px solid rgba(0, 240, 255, 0.4);
+  }
+
+  .qnn-badge {
+    background: rgba(112, 0, 255, 0.12);
+    color: var(--accent-purple);
+    border-color: rgba(112, 0, 255, 0.4);
+  }
+
+  /* PROJECT SG: JET GAME STYLES */
+  .game-sandbox {
+    background: rgba(5, 5, 12, 0.75);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    position: relative;
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sg-screen {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sg-screen.hidden { display: none; }
+  .sg-screen.active { display: flex; }
+
+  .start-card {
+    max-width: 540px;
+    width: 100%;
+    text-align: center;
+    padding: 2.5rem;
+    background: rgba(15, 15, 30, 0.9);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: 0 0 40px rgba(0, 240, 255, 0.08);
+  }
+
+  .pilot-icon { font-size: 3.5rem; margin-bottom: 0.75rem; }
+  .start-title { font-size: 1.75rem; margin-bottom: 0.5rem; }
+  .start-desc { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.75rem; line-height: 1.6; }
+
+  .jet-selector {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .jet-btn {
+    flex: 1;
+    padding: 0.65rem 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .jet-btn.active, .jet-btn:hover {
+    background: rgba(0, 240, 255, 0.15);
+    color: var(--accent-cyan);
+    border-color: var(--accent-cyan);
+  }
+
+  .jet-stats {
+    display: flex;
+    justify-content: space-around;
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    background: rgba(0,0,0,0.3);
+    border-radius: var(--radius-sm);
+    padding: 0.4rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .controls-info {
+    background: rgba(0, 240, 255, 0.04);
+    border: 1px solid rgba(0, 240, 255, 0.15);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .ctrl-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+  }
+
+  .ctrl-key {
+    font-family: monospace;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    background: rgba(0, 240, 255, 0.08);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.78rem;
+  }
+
+  .launch-game-btn {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+
+  /* Game Screen HUD */
+  .game-hud {
+    width: 100%;
+    max-width: 780px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(8, 8, 20, 0.95);
+    padding: 0.7rem 1.25rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    margin-bottom: 0.6rem;
+    font-family: monospace;
+    gap: 1rem;
+  }
+
+  .hud-left, .hud-right, .hud-center {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hud-item { display: flex; align-items: center; gap: 0.5rem; }
+  .hud-label { font-size: 0.72rem; color: var(--text-secondary); font-weight: 700; letter-spacing: 0.05em; }
+  .hud-value { font-size: 1rem; font-weight: 900; color: #FFFFFF; }
+  .hud-score-val { color: #FFD700; font-size: 1.15rem; text-shadow: 0 0 12px rgba(255,215,0,0.6); }
+  .hud-wave-val { color: #00F0FF; }
+  .hud-combo-val { color: #FF007A; text-shadow: 0 0 10px rgba(255,0,122,0.7); font-size: 1.1rem; }
+
+  .hp-bar-outer {
+    width: 110px;
+    height: 11px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 240, 255, 0.25);
+  }
+
+  .hp-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, #00FF66 0%, #00F0FF 100%);
+    transition: width 0.25s ease, background 0.3s ease;
+  }
+
+  .canvas-wrapper {
+    position: relative;
+    max-width: 780px;
+    width: 100%;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.15), 0 0 60px rgba(0, 240, 255, 0.05);
+  }
+
+  #jet-game-canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: #02020a;
+    image-rendering: pixelated;
+  }
+
+  .controls-overlay-hint {
+    background: rgba(5, 5, 12, 0.9);
+    padding: 0.45rem;
+    text-align: center;
+    font-family: monospace;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    border-top: 1px solid rgba(0, 240, 255, 0.15);
+  }
+
+  .powerup-legend {
+    position: absolute;
+    bottom: 38px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-family: monospace;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.5);
+    background: rgba(0,0,0,0.5);
+    border-radius: 6px;
+    padding: 0.4rem 0.6rem;
+    pointer-events: none;
+  }
+
+  .game-over-modal {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(2, 2, 15, 0.92);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+  }
+
+  .game-over-modal.hidden { display: none; }
+
+  .game-over-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .game-over-kaboom { font-size: 3.5rem; animation: pulseBig 1s infinite alternate; }
+  @keyframes pulseBig { from { transform: scale(0.85); } to { transform: scale(1.15); } }
+
+  .game-over-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #FF007A;
+    text-shadow: 0 0 30px rgba(255, 0, 122, 0.9);
+    letter-spacing: 0.08em;
+  }
+
+  .paused-title {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #00F0FF;
+    text-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
+  }
+
+  .game-over-score {
+    font-family: monospace;
+    font-size: 1.3rem;
+    color: #FFD700;
+    text-shadow: 0 0 12px rgba(255,215,0,0.5);
+  }
+
+  .game-over-wave {
+    font-family: monospace;
+    font-size: 1rem;
+    color: var(--text-secondary);
+  }
+
+  .game-over-btns {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  /* Wave Announce Banner */
+  .wave-announce {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: monospace;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #FFD700;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.9);
+    z-index: 5;
+    pointer-events: none;
+    text-align: center;
+    background: rgba(0,0,0,0.6);
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255,215,0,0.4);
+    animation: waveIn 0.4s ease;
+  }
+  .wave-announce.hidden { display: none; }
+  @keyframes waveIn {
+    from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+    to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  }
+
+  /* PROJECT QNN: QUANTUM NEURAL NETWORK STYLES */
+  .qnn-sandbox {
+    background: rgba(5, 5, 12, 0.75);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+  }
+
+  .qnn-layout {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 1.75rem;
+  }
+
+  .qnn-graph-panel {
+    background: rgba(10, 10, 25, 0.85);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .panel-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-primary);
+  }
+
+  .status-indicator.live {
+    font-family: monospace;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #00FF66;
+    text-shadow: 0 0 10px rgba(0, 255, 102, 0.6);
+  }
+
+  #qnn-canvas {
+    width: 100%;
+    height: auto;
+    background: #030308;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 140, 0, 0.35);
+    box-shadow: 0 0 30px rgba(255, 140, 0, 0.12), 0 0 80px rgba(255, 140, 0, 0.05);
+    cursor: grab;
+    display: block;
+  }
+  #qnn-canvas:active { cursor: grabbing; }
+
+  .qnn-canvas-container {
+    position: relative;
+    flex: 1;
+  }
+
+  .qnn-overlay-stats {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 1rem;
+    pointer-events: none;
+  }
+
+  .qs-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0,0,0,0.65);
+    border: 1px solid rgba(255,140,0,0.3);
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .qs-val {
+    font-family: monospace;
+    font-size: 1rem;
+    font-weight: 900;
+    color: #FF8C00;
+    text-shadow: 0 0 10px rgba(255,140,0,0.6);
+    line-height: 1.2;
+  }
+
+  .qs-label {
+    font-family: monospace;
+    font-size: 0.58rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.08em;
+  }
+
+  .qnn-sphere-legend {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 0.75rem;
+    gap: 0.5rem;
+    font-family: monospace;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+  }
+
+  .qnn-header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .qnn-hint {
+    font-family: monospace;
+    font-size: 0.7rem;
+    color: rgba(255,140,0,0.6);
+    border: 1px solid rgba(255,140,0,0.2);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(255,140,0,0.05);
+  }
+
+  .domain-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin-top: 0.75rem;
+    font-family: monospace;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+  }
+  .legend-item { display: flex; align-items: center; gap: 0.4rem; }
+  .node-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+  /* NEXUS CLASSIFIED BANNER */
+  .nexus-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: linear-gradient(90deg, rgba(255,0,30,0.08) 0%, rgba(255,60,0,0.06) 100%);
+    border: 1px solid rgba(255,30,0,0.35);
+    border-radius: var(--radius-sm);
+    padding: 0.85rem 1.25rem;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .nexus-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,30,0,0.015) 10px, rgba(255,30,0,0.015) 20px);
+    pointer-events: none;
+  }
+  .nexus-left { display: flex; align-items: center; gap: 1rem; }
+  .nexus-icon { font-size: 1.8rem; animation: nexusSpin 6s linear infinite; display: inline-block; }
+  @keyframes nexusSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .nexus-title { font-family: monospace; font-size: 0.9rem; font-weight: 900; color: #FF3A00; letter-spacing: 0.08em; }
+  .nexus-sub { font-family: monospace; font-size: 0.72rem; color: rgba(255,255,255,0.5); margin-top: 0.2rem; }
+  .nexus-live { color: #FF3A00; font-weight: 800; animation: blinkAlert 1.2s step-end infinite; }
+  @keyframes blinkAlert { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+  .nexus-right { flex-shrink: 0; }
+  .nexus-alert {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #00FF66;
+    border: 1px solid rgba(0,255,102,0.3);
+    border-radius: 6px;
+    padding: 0.4rem 0.8rem;
+    background: rgba(0,255,102,0.05);
+  }
+  .nexus-alert-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #00FF66;
+    box-shadow: 0 0 6px #00FF66;
+    animation: dotPulse 1.4s ease-in-out infinite;
+  }
+  @keyframes dotPulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+  .nexus-badge {
+    background: rgba(255,30,0,0.1) !important;
+    color: #FF5533 !important;
+    border-color: rgba(255,30,0,0.4) !important;
+    animation: borderFlash 2s ease-in-out infinite;
+  }
+  @keyframes borderFlash {
+    0%,100% { border-color: rgba(255,30,0,0.3); }
+    50% { border-color: rgba(255,80,0,0.7); box-shadow: 0 0 12px rgba(255,30,0,0.2); }
+  }
+
+  /* HPI BAR */
+  .hpi-bar-section {
+    margin-bottom: 1.25rem;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,165,0,0.25);
+    border-radius: var(--radius-sm);
+    padding: 0.85rem 1.25rem;
+  }
+  .hpi-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+  .hpi-label {
+    font-family: monospace;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #FFA500;
+    letter-spacing: 0.05em;
+  }
+  .hpi-value {
+    font-family: monospace;
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: #FFD700;
+    text-shadow: 0 0 12px rgba(255,215,0,0.5);
+  }
+  .hpi-track {
+    position: relative;
+    width: 100%;
+    height: 16px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    overflow: visible;
+    border: 1px solid rgba(255,165,0,0.2);
+  }
+  .hpi-fill {
+    height: 100%;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #FF4400 0%, #FF8800 35%, #FFD700 65%, #00FF88 100%);
+    transition: width 0.8s cubic-bezier(0.25,1,0.5,1);
+    box-shadow: 0 0 12px rgba(255,180,0,0.4);
+  }
+  .hpi-milestone {
+    position: absolute;
+    top: -2px;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 20px;
+    background: rgba(255,255,255,0.3);
+    font-family: monospace;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.4);
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 22px;
+    justify-content: center;
+  }
+  .hpi-phases {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.4rem;
+    font-family: monospace;
+    font-size: 0.62rem;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* CONSCIOUSNESS OVERLAY */
+  .consciousness-overlay {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.7);
+    border: 1px solid rgba(192,132,252,0.35);
+    border-radius: 6px;
+    padding: 0.3rem 0.75rem;
+    pointer-events: none;
+    text-align: center;
+  }
+  .con-label { font-family: monospace; font-size: 0.55rem; color: rgba(255,255,255,0.4); letter-spacing: 0.1em; }
+  .con-level { font-family: monospace; font-size: 0.82rem; font-weight: 900; color: #C084FC; text-shadow: 0 0 8px #C084FC; }
+
+  /* DOMAIN ENCODE SECTION */
+  .domain-encode-section {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-sm);
+    padding: 0.85rem;
+  }
+  .section-label {
+    font-family: monospace;
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.07em;
+    margin-bottom: 0.6rem;
+  }
+  .domain-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+  }
+  .domain-btn {
+    padding: 0.45rem 0.5rem;
+    font-family: monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(var(--dc-rgb, 255,255,255), 0.2);
+    border-color: color-mix(in srgb, var(--dc) 30%, transparent);
+    color: var(--dc);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.18s ease;
+    text-align: left;
+  }
+  .domain-btn:hover {
+    background: color-mix(in srgb, var(--dc) 12%, transparent);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--dc) 30%, transparent);
+    transform: translateY(-1px);
+  }
+  .domain-btn.encoded {
+    border-style: solid;
+    background: color-mix(in srgb, var(--dc) 15%, transparent);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--dc) 35%, transparent);
+    position: relative;
+  }
+  .domain-btn.encoded::after {
+    content: ' ✓';
+    font-size: 0.8rem;
+  }
+  .log-warn { color: #FFA500; }
+
+  /* QNN Controls Panel */
+  .qnn-controls-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .ai-status-card {
+    background: rgba(15, 15, 30, 0.85);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+  }
+
+  .ai-status-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .ai-avatar-wrap {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .ai-avatar { font-size: 2.2rem; }
+  .ai-avatar-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 140, 0, 0.5);
+    animation: ringPulse 2.2s ease-in-out infinite;
+  }
+  @keyframes ringPulse {
+    0%, 100% { border-color: rgba(255,140,0,0.2); box-shadow: 0 0 0 0 rgba(255,140,0,0); }
+    50% { border-color: rgba(255,140,0,0.8); box-shadow: 0 0 12px 4px rgba(255,140,0,0.25); }
+  }
+  .ai-name { font-size: 1rem; font-weight: 800; }
+  .ai-phase {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #FF8C00;
+    background: rgba(255,140,0,0.1);
+    border: 1px solid rgba(255,140,0,0.3);
+    border-radius: 4px;
+    padding: 0.1rem 0.4rem;
+    margin-left: 0.4rem;
+    vertical-align: middle;
+  }
+  .ai-sub { font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.2rem; }
+
+  .meter-bar-track {
+    height: 4px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 0.3rem;
+  }
+  .meter-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.6s ease;
+  }
+
+  .log-epoch {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #FF8C00;
+    background: rgba(255,140,0,0.1);
+    border: 1px solid rgba(255,140,0,0.3);
+    border-radius: 4px;
+    padding: 0.15rem 0.5rem;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+
+  .telemetry-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .meter-box {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.65rem 0.85rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .meter-label { font-size: 0.7rem; color: var(--text-secondary); font-weight: 700; text-transform: uppercase; }
+  .meter-val { font-size: 1.1rem; font-weight: 900; color: #FFFFFF; font-family: monospace; }
+
+  .action-buttons-group {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .w-full { width: 100%; }
+
+  .ai-prompt-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .prompt-input-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .ai-log-terminal {
+    background: #020205;
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    font-family: monospace;
+    font-size: 0.8rem;
+  }
+
+  .log-title { font-weight: 800; color: var(--accent-cyan); margin-bottom: 0.5rem; letter-spacing: 0.05em; }
+  .log-content { max-height: 110px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.35rem; }
+  .log-line { line-height: 1.4; }
+  .text-cyan { color: #00F0FF; }
+  .text-purple { color: #C084FC; }
+
+  @media (max-width: 968px) {
+    .qnn-layout { grid-template-columns: 1fr; }
+    .hud-center { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .game-hud { flex-wrap: wrap; gap: 0.5rem; }
+    .hud-right { flex-wrap: wrap; }
+  }
+</style>
+
+<!-- INTERACTIVE GAME & QNN ENGINE SCRIPT -->
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    // ===================================================
+    // 1. PROJECT SG: PIXEL ART JET FIGHTER GAME ENGINE v2
+    // ===================================================
+    const startScreen = document.getElementById('sg-start-screen');
+    const gameScreen = document.getElementById('sg-game-screen');
+    const pilotInput = document.getElementById('pilot-name-input');
+    const btnStartGame = document.getElementById('btn-start-game');
+    const hudPilotName = document.getElementById('hud-pilot-name');
+    const hudScore = document.getElementById('hud-score');
+    const hudWave = document.getElementById('hud-wave');
+    const hudCombo = document.getElementById('hud-combo');
+    const comboDisplay = document.getElementById('combo-display');
+    const hudHpBar = document.getElementById('hud-hp-bar');
+    const btnPause = document.getElementById('btn-pause-game');
+    const btnResume = document.getElementById('btn-resume-game');
+    const btnQuit = document.getElementById('btn-quit-game');
+    const gameOverModal = document.getElementById('game-over-modal');
+    const pausedModal = document.getElementById('paused-modal');
+    const finalScoreText = document.getElementById('final-score-text');
+    const finalWaveText = document.getElementById('final-wave-text');
+    const btnRestart = document.getElementById('btn-restart-game');
+    const btnBackHangar = document.getElementById('btn-back-hangar');
+    const gameCanvas = document.getElementById('jet-game-canvas');
+    const waveAnnounce = document.getElementById('wave-announce');
+
+    if (!gameCanvas) return;
+    const gctx = gameCanvas.getContext('2d');
+
+    const W = gameCanvas.width;
+    const H = gameCanvas.height;
+
+    // Game State
+    let isGameRunning = false;
+    let isPaused = false;
+    let pilotName = 'Maverick';
+    let score = 0;
+    let playerHp = 100;
+    let wave = 1;
+    let combo = 0;
+    let comboTimer = 0;
+    let animFrameId = null;
+    let lastTime = 0;
+
+    // Jet class config
+    const JET_CLASSES = {
+      F22:    { speed: 6,   fireRate: 160,  color: '#00F0FF', secondColor: '#0088FF', statsText: ['★★★☆☆','★★★☆☆','★★★★★'] },
+      Viper:  { speed: 8,   fireRate: 220,  color: '#FF9900', secondColor: '#FF4400', statsText: ['★★★★★','★★☆☆☆','★★★☆☆'] },
+      Stealth:{ speed: 5,   fireRate: 100,  color: '#C084FC', secondColor: '#7000FF', statsText: ['★★☆☆☆','★★★★★','★★★★★'] }
+    };
+    let selectedJet = 'F22';
+    let currentJetCfg = JET_CLASSES.F22;
+
+    // Jet class selector
+    const jetBtns = document.querySelectorAll('.jet-btn');
+    const jetStatsDisplay = document.getElementById('jet-stats-display');
+    const statLabels = ['Speed','Fire Rate','Shield'];
+
+    jetBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        jetBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedJet = btn.dataset.jet;
+        currentJetCfg = JET_CLASSES[selectedJet];
+        const s = currentJetCfg.statsText;
+        if (jetStatsDisplay) {
+          jetStatsDisplay.innerHTML = statLabels.map((l,i) => `<span>${l}: ${s[i]}</span>`).join('');
+        }
+      });
+    });
+
+    // Starfield
+    const STAR_COUNT = 120;
+    const stars = Array.from({ length: STAR_COUNT }, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      speed: Math.random() * 1.5 + 0.3,
+      size: Math.random() * 2 + 0.5,
+      bright: Math.random()
+    }));
+
+    // Player
+    const player = { x: W / 2, y: H - 80, w: 38, h: 38, vx: 0, vy: 0 };
+
+    let bullets = [];
+    let enemyJets = [];
+    let enemyBullets = [];
+    let particles = [];
+    let powerups = [];
+    let floatingTexts = [];
+    let keys = {};
+    let mousePos = { x: W / 2, y: H / 2 };
+    let isMouseDown = false;
+    let lastFireTime = 0;
+    let spreadActive = false;
+    let spreadTimer = 0;
+    let speedBoostActive = false;
+    let speedBoostTimer = 0;
+    let shieldFlash = 0;
+    let invincible = 0;
+
+    // Controls (Ignore input typing)
+    window.addEventListener('keydown', e => {
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+      keys[e.key] = true;
+      if (e.key === ' ' && isGameRunning) e.preventDefault();
+    });
+    window.addEventListener('keyup', e => {
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+      keys[e.key] = false;
+    });
+
+    gameCanvas.addEventListener('mousemove', e => {
+      const rect = gameCanvas.getBoundingClientRect();
+      mousePos.x = (e.clientX - rect.left) * (W / rect.width);
+      mousePos.y = (e.clientY - rect.top) * (H / rect.height);
+    });
+    gameCanvas.addEventListener('mousedown', () => { isMouseDown = true; });
+    gameCanvas.addEventListener('mouseup', () => { isMouseDown = false; });
+
+    // Buttons
+    btnStartGame?.addEventListener('click', () => {
+      pilotName = pilotInput?.value.trim() || 'Maverick';
+      currentJetCfg = JET_CLASSES[selectedJet];
+      hudPilotName.textContent = pilotName.toUpperCase();
+      showScreen('game');
+      resetAndStartGame();
+    });
+
+    btnPause?.addEventListener('click', () => {
+      if (!isGameRunning) return;
+      isPaused = true;
+      pausedModal?.classList.remove('hidden');
+    });
+
+    btnResume?.addEventListener('click', () => {
+      isPaused = false;
+      pausedModal?.classList.add('hidden');
+      if (isGameRunning) {
+        lastTime = performance.now();
+        animFrameId = requestAnimationFrame(gameLoop);
+      }
+    });
+
+    btnQuit?.addEventListener('click', () => {
+      stopGame();
+      pausedModal?.classList.remove('hidden');
+      pausedModal?.classList.add('hidden');
+      showScreen('start');
+    });
+
+    btnRestart?.addEventListener('click', () => {
+      gameOverModal?.classList.add('hidden');
+      resetAndStartGame();
+    });
+
+    btnBackHangar?.addEventListener('click', () => {
+      gameOverModal?.classList.add('hidden');
+      stopGame();
+      showScreen('start');
+    });
+
+    function showScreen(which) {
+      if (which === 'start') {
+        startScreen?.classList.remove('hidden'); startScreen?.classList.add('active');
+        gameScreen?.classList.remove('active'); gameScreen?.classList.add('hidden');
+      } else {
+        gameScreen?.classList.remove('hidden'); gameScreen?.classList.add('active');
+        startScreen?.classList.remove('active'); startScreen?.classList.add('hidden');
+      }
+    }
+
+    function resetAndStartGame() {
+      score = 0; playerHp = 100; wave = 1; combo = 0; comboTimer = 0;
+      spreadActive = false; speedBoostActive = false;
+      invincible = 0; shieldFlash = 0;
+      hudScore.textContent = '0';
+      hudWave.textContent = '1';
+      hudCombo.textContent = 'x1';
+      if (comboDisplay) comboDisplay.style.opacity = '0';
+      hudHpBar.style.width = '100%';
+      hudHpBar.style.background = 'linear-gradient(90deg,#00FF66 0%,#00F0FF 100%)';
+      bullets = []; enemyJets = []; enemyBullets = [];
+      particles = []; powerups = []; floatingTexts = [];
+      player.x = W / 2; player.y = H - 80;
+      player.vx = 0; player.vy = 0;
+      isGameRunning = true; isPaused = false;
+      for (let i = 0; i < waveEnemyCount(); i++) spawnEnemy();
+      showWaveAnnounce(wave);
+      if (animFrameId) cancelAnimationFrame(animFrameId);
+      lastTime = performance.now();
+      animFrameId = requestAnimationFrame(gameLoop);
+    }
+
+    function stopGame() {
+      isGameRunning = false;
+      if (animFrameId) cancelAnimationFrame(animFrameId);
+      animFrameId = null;
+    }
+
+    function waveEnemyCount() { return Math.min(3 + wave, 12); }
+
+    function spawnEnemy() {
+      const types = ['scout', 'bomber', 'elite'];
+      const waveT = wave >= 3 ? (wave >= 6 ? 2 : 1) : 0;
+      const typeIdx = Math.min(waveT, 2);
+      const tName = types[Math.random() < 0.6 ? typeIdx : Math.max(0, typeIdx - 1)];
+      const cfgs = {
+        scout:  { w: 28, h: 28, hp: 1, speed: 1.6 + wave * 0.18, color: '#00FF66', accentColor: '#00AA44', score: 100, shoots: false },
+        bomber: { w: 36, h: 36, hp: 2, speed: 1.1 + wave * 0.12, color: '#44FF44', accentColor: '#00CC66', score: 200, shoots: true, fireInterval: Math.max(800, 3000 - wave * 150) },
+        elite:  { w: 32, h: 32, hp: 3, speed: 2.2 + wave * 0.2,  color: '#AAFFAA', accentColor: '#00FF88', score: 350, shoots: true, fireInterval: Math.max(600, 1800 - wave * 100) }
+      };
+      const cfg = cfgs[tName];
+      enemyJets.push({
+        x: Math.random() * (W - 60) + 30,
+        y: -Math.random() * 150 - 50,
+        ...cfg,
+        type: tName,
+        hp: cfg.hp,
+        maxHp: cfg.hp,
+        lastFire: Date.now() + Math.random() * 2000,
+        phase: Math.random() * Math.PI * 2,
+        phaseSpeed: (Math.random() - 0.5) * 0.04,
+        amplitude: Math.random() * 40 + 15
+      });
+    }
+
+    function fireBullet() {
+      if (!isGameRunning) return;
+      const now = Date.now();
+      if (now - lastFireTime < currentJetCfg.fireRate) return;
+      lastFireTime = now;
+
+      const bx = player.x, by = player.y - 18;
+      bullets.push({ x: bx, y: by, speed: 14, vx: 0, w: 4, h: 14, type: 'normal' });
+      if (spreadActive) {
+        bullets.push({ x: bx, y: by, speed: 13, vx: -3, w: 3, h: 11, type: 'spread' });
+        bullets.push({ x: bx, y: by, speed: 13, vx:  3, w: 3, h: 11, type: 'spread' });
+      }
+    }
+
+    function nukeAll() {
+      addFloatingText(player.x, player.y - 40, '☢ NUKE!', '#FFD700', 32);
+      for (let i = enemyJets.length - 1; i >= 0; i--) {
+        const e = enemyJets[i];
+        spawnExplosion(e.x, e.y, e.color, 25);
+        score += e.score;
+        enemyJets.splice(i, 1);
+      }
+      hudScore.textContent = score.toString();
+      for (let n = 0; n < waveEnemyCount(); n++) spawnEnemy();
+    }
+
+    function spawnExplosion(x, y, color, count) {
+      count = count || 18;
+      for (let p = 0; p < count; p++) {
+        const angle = (p / count) * Math.PI * 2;
+        const spd = Math.random() * 5 + 2;
+        particles.push({
+          x, y,
+          vx: Math.cos(angle) * spd + (Math.random() - 0.5) * 3,
+          vy: Math.sin(angle) * spd + (Math.random() - 0.5) * 3,
+          color,
+          size: Math.random() * 5 + 2,
+          life: 1.0
+        });
+      }
+    }
+
+    function spawnPowerup(x, y) {
+      if (Math.random() > 0.4) return;
+      const types = ['speed', 'shield', 'spread', 'nuke'];
+      const weights = [0.35, 0.3, 0.25, 0.1];
+      let r = Math.random(), cumulative = 0, chosen = 'speed';
+      for (let i = 0; i < types.length; i++) {
+        cumulative += weights[i];
+        if (r <= cumulative) { chosen = types[i]; break; }
+      }
+      powerups.push({ x, y, type: chosen, vy: 1.5, life: 1.0, pulse: 0 });
+    }
+
+    const POWERUP_ICONS = { speed: '⚡', shield: '🛡', spread: '💥', nuke: '🌀' };
+    const POWERUP_COLORS = { speed: '#FFD700', shield: '#00F0FF', spread: '#FF6600', nuke: '#FF007A' };
+
+    function addFloatingText(x, y, text, color, size) {
+      size = size || 20;
+      floatingTexts.push({ x, y, text, color, size, vy: -1.5, life: 1.0 });
+    }
+
+    function updateCombo(hit) {
+      if (hit) {
+        combo++;
+        comboTimer = 180;
+        hudCombo.textContent = 'x' + combo;
+        if (comboDisplay) comboDisplay.style.opacity = combo >= 2 ? '1' : '0';
+      } else {
+        comboTimer--;
+        if (comboTimer <= 0 && combo > 0) {
+          combo = 0;
+          hudCombo.textContent = 'x1';
+          if (comboDisplay) comboDisplay.style.opacity = '0';
+        }
+      }
+    }
+
+    function showWaveAnnounce(w) {
+      if (!waveAnnounce) return;
+      waveAnnounce.textContent = w === 1 ? 'WAVE 1 — ENGAGE!' : 'WAVE ' + w + ' — INCOMING!';
+      waveAnnounce.classList.remove('hidden');
+      setTimeout(() => waveAnnounce && waveAnnounce.classList.add('hidden'), 2200);
+    }
+
+    // ---- DRAW HELPERS ----
+    function drawPlayerJet(x, y, cfg, alpha) {
+      alpha = alpha === undefined ? 1 : alpha;
+      const c = cfg.color;
+      const c2 = cfg.secondColor;
+      gctx.save();
+      gctx.globalAlpha = alpha;
+      gctx.translate(x, y);
+
+      // Thruster flame
+      const flameH = 12 + Math.random() * 10;
+      const grad = gctx.createLinearGradient(0, 14, 0, 14 + flameH);
+      grad.addColorStop(0, '#FFFFFF');
+      grad.addColorStop(0.3, '#FF9900');
+      grad.addColorStop(1, 'rgba(255,80,0,0)');
+      gctx.fillStyle = grad;
+      gctx.beginPath();
+      gctx.moveTo(-6, 14); gctx.lineTo(0, 14 + flameH); gctx.lineTo(6, 14);
+      gctx.fill();
+
+      // Wings
+      gctx.fillStyle = c2;
+      gctx.beginPath();
+      gctx.moveTo(-8, 4); gctx.lineTo(-20, 14); gctx.lineTo(-10, 14); gctx.closePath(); gctx.fill();
+      gctx.beginPath();
+      gctx.moveTo(8, 4); gctx.lineTo(20, 14); gctx.lineTo(10, 14); gctx.closePath(); gctx.fill();
+
+      // Hull
+      gctx.fillStyle = c;
+      gctx.shadowColor = c;
+      gctx.shadowBlur = 14;
+      gctx.beginPath();
+      gctx.moveTo(0, -18); gctx.lineTo(10, 4); gctx.lineTo(8, 14);
+      gctx.lineTo(-8, 14); gctx.lineTo(-10, 4); gctx.closePath(); gctx.fill();
+
+      // Cockpit
+      gctx.fillStyle = 'rgba(255,255,255,0.9)';
+      gctx.shadowBlur = 0;
+      gctx.beginPath(); gctx.arc(0, -4, 4, 0, Math.PI * 2); gctx.fill();
+      gctx.fillStyle = c;
+      gctx.beginPath(); gctx.arc(0, -4, 2, 0, Math.PI * 2); gctx.fill();
+
+      // Shield ring when invincible
+      if (invincible > 0) {
+        gctx.strokeStyle = 'rgba(0,240,255,' + ((invincible / 60) * 0.8) + ')';
+        gctx.lineWidth = 2;
+        gctx.shadowColor = '#00F0FF';
+        gctx.shadowBlur = 20;
+        gctx.beginPath();
+        gctx.arc(0, 0, 26, 0, Math.PI * 2);
+        gctx.stroke();
+      }
+
+      gctx.restore();
+    }
+
+    function drawEnemyJet(e) {
+      gctx.save();
+      gctx.translate(e.x, e.y);
+      gctx.rotate(Math.PI);
+
+      const c = e.color;
+      const c2 = e.accentColor;
+
+      // Thruster
+      const flameH = 8 + Math.random() * 6;
+      const grad = gctx.createLinearGradient(0, 14, 0, 14 + flameH);
+      grad.addColorStop(0, '#CCFFCC');
+      grad.addColorStop(1, 'rgba(0,200,80,0)');
+      gctx.fillStyle = grad;
+      gctx.beginPath();
+      gctx.moveTo(-5, 14); gctx.lineTo(0, 14 + flameH); gctx.lineTo(5, 14); gctx.fill();
+
+      // Wings
+      gctx.fillStyle = c2;
+      gctx.beginPath();
+      if (e.type === 'bomber') {
+        gctx.moveTo(-8, 2); gctx.lineTo(-24, 12); gctx.lineTo(-12, 12); gctx.closePath(); gctx.fill();
+        gctx.beginPath();
+        gctx.moveTo(8, 2); gctx.lineTo(24, 12); gctx.lineTo(12, 12); gctx.closePath(); gctx.fill();
+      } else {
+        gctx.moveTo(-7, 2); gctx.lineTo(-18, 10); gctx.lineTo(-9, 10); gctx.closePath(); gctx.fill();
+        gctx.beginPath();
+        gctx.moveTo(7, 2); gctx.lineTo(18, 10); gctx.lineTo(9, 10); gctx.closePath(); gctx.fill();
+      }
+
+      // Hull
+      gctx.fillStyle = c;
+      gctx.shadowColor = c;
+      gctx.shadowBlur = 12;
+      gctx.beginPath();
+      if (e.type === 'elite') {
+        gctx.moveTo(0, -18); gctx.lineTo(12, 2); gctx.lineTo(8, 14);
+        gctx.lineTo(-8, 14); gctx.lineTo(-12, 2); gctx.closePath();
+      } else {
+        gctx.moveTo(0, -16); gctx.lineTo(10, 4); gctx.lineTo(7, 14);
+        gctx.lineTo(-7, 14); gctx.lineTo(-10, 4); gctx.closePath();
+      }
+      gctx.fill();
+
+      // HP bar for multi-HP enemies
+      if (e.maxHp > 1) {
+        gctx.rotate(-Math.PI);
+        const bw = e.w + 4;
+        gctx.fillStyle = 'rgba(0,0,0,0.6)';
+        gctx.fillRect(-bw/2, -e.h/2 - 10, bw, 5);
+        gctx.fillStyle = c;
+        gctx.fillRect(-bw/2, -e.h/2 - 10, bw * (e.hp / e.maxHp), 5);
+        gctx.rotate(Math.PI);
+      }
+
+      // Cockpit
+      gctx.fillStyle = 'rgba(255,255,255,0.85)';
+      gctx.shadowBlur = 0;
+      gctx.beginPath(); gctx.arc(0, -4, 3, 0, Math.PI * 2); gctx.fill();
+
+      gctx.restore();
+    }
+
+    // ---- MAIN GAME LOOP ----
+    function gameLoop(timestamp) {
+      if (!isGameRunning || isPaused) return;
+      const dt = Math.min((timestamp - lastTime) / 16.67, 3);
+      lastTime = timestamp;
+
+      gctx.clearRect(0, 0, W, H);
+
+      // Starfield
+      stars.forEach(s => {
+        s.y += s.speed * dt;
+        if (s.y > H) { s.y = 0; s.x = Math.random() * W; }
+        const alpha = 0.3 + s.bright * 0.6;
+        gctx.fillStyle = 'rgba(255,255,255,' + alpha + ')';
+        gctx.fillRect(s.x, s.y, s.size, s.size);
+      });
+
+      // Nebula
+      const nebGrad = gctx.createRadialGradient(W * 0.7, H * 0.3, 20, W * 0.7, H * 0.3, 200);
+      nebGrad.addColorStop(0, 'rgba(112,0,255,0.04)');
+      nebGrad.addColorStop(1, 'rgba(0,0,0,0)');
+      gctx.fillStyle = nebGrad;
+      gctx.fillRect(0, 0, W, H);
+
+      // Player movement
+      let baseSpeed = currentJetCfg.speed * (speedBoostActive ? 1.6 : 1);
+      if (keys['w'] || keys['W'] || keys['ArrowUp'])    player.y -= baseSpeed * dt;
+      if (keys['s'] || keys['S'] || keys['ArrowDown'])  player.y += baseSpeed * dt;
+      if (keys['a'] || keys['A'] || keys['ArrowLeft'])  player.x -= baseSpeed * dt;
+      if (keys['d'] || keys['D'] || keys['ArrowRight']) player.x += baseSpeed * dt;
+
+      // Mouse follow
+      const dxM = mousePos.x - player.x;
+      const dyM = mousePos.y - player.y;
+      const distM = Math.hypot(dxM, dyM);
+      if (distM > 5) {
+        player.x += (dxM / distM) * Math.min(distM * 0.08, baseSpeed * 0.6) * dt;
+        player.y += (dyM / distM) * Math.min(distM * 0.08, baseSpeed * 0.6) * dt;
+      }
+
+      player.x = Math.max(20, Math.min(W - 20, player.x));
+      player.y = Math.max(20, Math.min(H - 20, player.y));
+
+      if (keys[' '] || isMouseDown) fireBullet();
+
+      if (speedBoostActive) { speedBoostTimer -= dt; if (speedBoostTimer <= 0) speedBoostActive = false; }
+      if (spreadActive) { spreadTimer -= dt; if (spreadTimer <= 0) spreadActive = false; }
+      if (invincible > 0) invincible -= dt;
+
+      updateCombo(false);
+
+      // Player bullets
+      gctx.shadowBlur = 0;
+      for (let i = bullets.length - 1; i >= 0; i--) {
+        const b = bullets[i];
+        b.y -= b.speed * dt;
+        if (b.vx) b.x += b.vx * dt;
+        if (b.y < -20) { bullets.splice(i, 1); continue; }
+        const bColor = currentJetCfg.color;
+        gctx.fillStyle = bColor;
+        gctx.shadowColor = bColor;
+        gctx.shadowBlur = 8;
+        gctx.fillRect(b.x - b.w / 2, b.y, b.w, b.h);
+        gctx.shadowBlur = 0;
+      }
+
+      // Enemy bullets
+      for (let i = enemyBullets.length - 1; i >= 0; i--) {
+        const eb = enemyBullets[i];
+        eb.x += eb.vx * dt;
+        eb.y += eb.vy * dt;
+        if (eb.y > H + 10 || eb.x < -10 || eb.x > W + 10) { enemyBullets.splice(i, 1); continue; }
+        gctx.fillStyle = '#FF4444';
+        gctx.shadowColor = '#FF4444';
+        gctx.shadowBlur = 8;
+        gctx.fillRect(eb.x - 3, eb.y - 6, 5, 12);
+        gctx.shadowBlur = 0;
+
+        if (invincible <= 0 && Math.hypot(eb.x - player.x, eb.y - player.y) < 22) {
+          enemyBullets.splice(i, 1);
+          hitPlayer(12);
+        }
+      }
+
+      // Enemies
+      const now = Date.now();
+      for (let i = enemyJets.length - 1; i >= 0; i--) {
+        const e = enemyJets[i];
+        e.y += e.speed * dt;
+        e.phase += e.phaseSpeed * dt;
+        e.x += Math.sin(e.phase) * e.amplitude * 0.04 * dt;
+        e.x = Math.max(30, Math.min(W - 30, e.x));
+
+        drawEnemyJet(e);
+
+        // Enemy shooting
+        if (e.shoots && now - e.lastFire > e.fireInterval) {
+          e.lastFire = now;
+          const ang = Math.atan2(player.y - e.y, player.x - e.x);
+          const spd = 4 + wave * 0.2;
+          enemyBullets.push({ x: e.x, y: e.y, vx: Math.cos(ang) * spd, vy: Math.sin(ang) * spd });
+        }
+
+        // Bullet hits enemy
+        let enemyDead = false;
+        for (let j = bullets.length - 1; j >= 0; j--) {
+          const b = bullets[j];
+          if (Math.hypot(b.x - e.x, b.y - e.y) < (e.w / 2 + 8)) {
+            bullets.splice(j, 1);
+            e.hp--;
+            if (e.hp <= 0) {
+              spawnExplosion(e.x, e.y, e.color, 22);
+              spawnPowerup(e.x, e.y);
+              const comboBonus = Math.max(1, combo);
+              const pts = e.score * comboBonus;
+              score += pts;
+              updateCombo(true);
+              addFloatingText(e.x, e.y - 20, '+' + pts, e.color, 18);
+              hudScore.textContent = score.toString();
+              enemyJets.splice(i, 1);
+              enemyDead = true;
+              if (enemyJets.length === 0) {
+                wave++;
+                hudWave.textContent = wave.toString();
+                for (let n = 0; n < waveEnemyCount(); n++) spawnEnemy();
+                showWaveAnnounce(wave);
+              } else {
+                spawnEnemy();
+              }
+              break;
+            } else {
+              addFloatingText(e.x, e.y, e.hp + 'HP', e.accentColor, 14);
+            }
+          }
+        }
+        if (enemyDead) continue;
+
+        // Enemy collides with player
+        if (invincible <= 0 && Math.hypot(player.x - e.x, player.y - e.y) < 28) {
+          spawnExplosion(e.x, e.y, e.color, 12);
+          enemyJets.splice(i, 1);
+          spawnEnemy();
+          hitPlayer(30);
+          continue;
+        }
+
+        if (e.y > H + 50) {
+          enemyJets.splice(i, 1);
+          spawnEnemy();
+        }
+      }
+
+      // Powerups
+      for (let i = powerups.length - 1; i >= 0; i--) {
+        const pu = powerups[i];
+        pu.y += pu.vy * dt;
+        pu.life -= 0.003 * dt;
+        pu.pulse = (pu.pulse + 0.08 * dt) % (Math.PI * 2);
+        if (pu.life <= 0 || pu.y > H + 20) { powerups.splice(i, 1); continue; }
+
+        const pcol = POWERUP_COLORS[pu.type];
+        const pulseR = 14 + Math.sin(pu.pulse) * 3;
+
+        gctx.globalAlpha = Math.min(1, pu.life * 3);
+        gctx.shadowColor = pcol;
+        gctx.shadowBlur = 16;
+        gctx.fillStyle = pcol.replace('#', 'rgba(').slice(0,-1) + ',0.15)';
+        gctx.beginPath();
+        gctx.arc(pu.x, pu.y, pulseR + 2, 0, Math.PI * 2);
+        gctx.fill();
+
+        gctx.font = '16px serif';
+        gctx.textAlign = 'center';
+        gctx.textBaseline = 'middle';
+        gctx.fillStyle = '#FFFFFF';
+        gctx.shadowBlur = 0;
+        gctx.fillText(POWERUP_ICONS[pu.type], pu.x, pu.y);
+        gctx.globalAlpha = 1;
+
+        if (Math.hypot(player.x - pu.x, player.y - pu.y) < 28) {
+          powerups.splice(i, 1);
+          applyPowerup(pu.type);
+        }
+      }
+
+      // Particles
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx * dt; p.y += p.vy * dt;
+        p.vy += 0.12 * dt;
+        p.life -= 0.025 * dt;
+        if (p.life <= 0) { particles.splice(i, 1); continue; }
+        gctx.globalAlpha = Math.max(0, p.life);
+        gctx.fillStyle = p.color;
+        gctx.fillRect(p.x, p.y, p.size, p.size);
+      }
+      gctx.globalAlpha = 1;
+
+      // Floating texts
+      gctx.shadowBlur = 0;
+      for (let i = floatingTexts.length - 1; i >= 0; i--) {
+        const ft = floatingTexts[i];
+        ft.y += ft.vy * dt;
+        ft.life -= 0.018 * dt;
+        if (ft.life <= 0) { floatingTexts.splice(i, 1); continue; }
+        gctx.globalAlpha = Math.max(0, ft.life);
+        gctx.fillStyle = ft.color;
+        gctx.shadowColor = ft.color;
+        gctx.shadowBlur = 8;
+        gctx.font = 'bold ' + ft.size + 'px monospace';
+        gctx.textAlign = 'center';
+        gctx.fillText(ft.text, ft.x, ft.y);
+        gctx.shadowBlur = 0;
+      }
+      gctx.globalAlpha = 1;
+
+      // Draw player
+      const playerAlpha = shieldFlash > 0 ? (Math.sin(shieldFlash * 0.8) > 0 ? 1 : 0.3) : 1;
+      drawPlayerJet(player.x, player.y, currentJetCfg, playerAlpha);
+      if (shieldFlash > 0) shieldFlash -= dt;
+
+      animFrameId = requestAnimationFrame(gameLoop);
+    }
+
+    function hitPlayer(dmg) {
+      if (invincible > 0) return;
+      playerHp = Math.max(0, playerHp - dmg);
+      invincible = 60;
+      shieldFlash = 30;
+      const pct = playerHp / 100;
+      hudHpBar.style.width = playerHp + '%';
+      if (pct < 0.3) {
+        hudHpBar.style.background = 'linear-gradient(90deg,#FF0040 0%,#FF4400 100%)';
+      } else if (pct < 0.6) {
+        hudHpBar.style.background = 'linear-gradient(90deg,#FF9900 0%,#FFD700 100%)';
+      }
+      if (playerHp <= 0) {
+        spawnExplosion(player.x, player.y, '#00F0FF', 35);
+        stopGame();
+        finalScoreText.textContent = 'Pilot: ' + pilotName.toUpperCase() + ' | Score: ' + score.toLocaleString();
+        finalWaveText.textContent = 'Survived to Wave ' + wave;
+        gameOverModal?.classList.remove('hidden');
+      }
+    }
+
+    function applyPowerup(type) {
+      if (type === 'speed') {
+        speedBoostActive = true;
+        speedBoostTimer = 300;
+        addFloatingText(player.x, player.y - 40, 'SPEED BOOST!', '#FFD700', 20);
+      } else if (type === 'shield') {
+        playerHp = Math.min(100, playerHp + 35);
+        hudHpBar.style.width = playerHp + '%';
+        hudHpBar.style.background = 'linear-gradient(90deg,#00FF66 0%,#00F0FF 100%)';
+        addFloatingText(player.x, player.y - 40, 'SHIELD RESTORED!', '#00F0FF', 18);
+      } else if (type === 'spread') {
+        spreadActive = true;
+        spreadTimer = 400;
+        addFloatingText(player.x, player.y - 40, 'SPREAD SHOT!', '#FF6600', 20);
+      } else if (type === 'nuke') {
+        nukeAll();
+      }
+    }
+
+    // P key to pause (Ignore input typing)
+    window.addEventListener('keydown', e => {
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+      if ((e.key === 'p' || e.key === 'P') && isGameRunning) {
+        if (isPaused) {
+          isPaused = false;
+          pausedModal?.classList.add('hidden');
+          lastTime = performance.now();
+          animFrameId = requestAnimationFrame(gameLoop);
+        } else {
+          isPaused = true;
+          pausedModal?.classList.remove('hidden');
+        }
+      }
+    });
+
+    // ===================================================
+    // 2. PROJECT QNN: 3D QUANTUM NEURAL SPHERE — CONVERSATIONAL AI ENGINE
+    // Evolving Neural Consciousness · Real-time Dialogue · 3D Sphere Renderer
+    // ===================================================
+    const qnnCanvas = document.getElementById('qnn-canvas');
+    const btnTrainEpoch  = document.getElementById('btn-train-epoch');
+    const btnInjectData  = document.getElementById('btn-inject-data');
+    const btnMutateNet   = document.getElementById('btn-mutate-net');
+    const btnResetNet    = document.getElementById('btn-reset-net');
+    const qnnPromptInput = document.getElementById('qnn-prompt-input');
+    const btnSendQnn     = document.getElementById('btn-send-qnn-prompt');
+    const aiLogContent   = document.getElementById('ai-log-content');
+    const meterAcc       = document.getElementById('meter-acc');
+    const meterLoss      = document.getElementById('meter-loss');
+    const meterSynapses  = document.getElementById('meter-synapses');
+    const meterDomains   = document.getElementById('meter-domains');
+    const meterAccBar    = document.getElementById('meter-acc-bar');
+    const meterLossBar   = document.getElementById('meter-loss-bar');
+    const aiStatusText   = document.getElementById('ai-status-text');
+    const aiPhaseBadge   = document.getElementById('ai-phase-badge');
+    const logEpochBadge  = document.getElementById('log-epoch-badge');
+    const qsNodes        = document.getElementById('qs-nodes');
+    const qsConns        = document.getElementById('qs-conns');
+    const qsPulses       = document.getElementById('qs-pulses');
+    const qsEpoch        = document.getElementById('qs-epoch');
+    const hpiValue       = document.getElementById('hpi-value');
+    const hpiFill        = document.getElementById('hpi-fill');
+    const conLevelText   = document.getElementById('con-level-text');
+    const nexusStatusText= document.getElementById('nexus-status-text');
+    const nexusAlertText = document.getElementById('nexus-alert-text');
+    const nexusAlertBox  = document.getElementById('nexus-alert-box');
+
+    if (!qnnCanvas) return;
+    const qctx = qnnCanvas.getContext('2d');
+    const QW = qnnCanvas.width;
+    const QH = qnnCanvas.height;
+    const QCX = QW / 2;
+    const QCY = QH / 2;
+
+    // ---- KNOWLEDGE DOMAIN DEFINITIONS ----
+    const DOMAINS = [
+      { id: 'physics',      color: '#FF4400', name: 'Physics',            idx: 0 },
+      { id: 'chemistry',    color: '#39FF14', name: 'Chemistry',          idx: 1 },
+      { id: 'biology',      color: '#00FF88', name: 'Biology',            idx: 2 },
+      { id: 'mathematics',  color: '#00F0FF', name: 'Mathematics',        idx: 3 },
+      { id: 'horoscope',    color: '#E066FF', name: 'Horoscope/Astrology',idx: 4 },
+      { id: 'conversation', color: '#FFD700', name: 'Human Talk',         idx: 5 },
+      { id: 'engineering',  color: '#FF8800', name: 'Engineering',        idx: 6 },
+      { id: 'medicine',     color: '#FF007A', name: 'Medicine',           idx: 7 },
+      { id: 'philosophy',   color: '#C084FC', name: 'Philosophy',         idx: 8 },
+    ];
+    const encodedDomains = new Set(); 
+
+    // ---- SPHERE NODE CONSTRUCTION ----
+    const NODE_COUNT = 200;
+    const SPHERE_RADIUS = 150;
+    const MAX_LINK_DIST = 52;
+    const FOV = 500;
+    const rawNodes = [];
+
+    function buildSphere() {
+      rawNodes.length = 0;
+      for (let i = 0; i < NODE_COUNT; i++) {
+        const radius = SPHERE_RADIUS * (0.7 + Math.random() * 0.5);
+        const phi    = Math.acos(2 * Math.random() - 1);
+        const theta  = Math.random() * Math.PI * 2;
+        const x3 = radius * Math.sin(phi) * Math.cos(theta);
+        const y3 = radius * Math.sin(phi) * Math.sin(theta);
+        const z3 = radius * Math.cos(phi);
+        const domain = DOMAINS[i % DOMAINS.length];
+        const encoded = encodedDomains.has(domain.id);
+        rawNodes.push({
+          x3, y3, z3,
+          domainId: domain.id,
+          color: encoded ? domain.color : 'rgba(80,80,110,0.55)',
+          coreColor: domain.color,
+          size: encoded ? 3.0 : 2.0,
+          pulse: 0,
+          pulsing: false,
+          baseEncoded: encoded
+        });
+      }
+    }
+
+    function refreshNodeColors() {
+      rawNodes.forEach(n => {
+        const encoded = encodedDomains.has(n.domainId);
+        n.color = encoded ? n.coreColor : 'rgba(80,80,110,0.55)';
+        n.size  = encoded ? 3.0 : 2.0;
+        n.baseEncoded = encoded;
+      });
+    }
+
+    let qnnLinks = [];
+    function buildLinks() {
+      qnnLinks = [];
+      for (let i = 0; i < rawNodes.length; i++) {
+        for (let j = i + 1; j < rawNodes.length; j++) {
+          const a = rawNodes[i], b = rawNodes[j];
+          const dx = a.x3 - b.x3, dy = a.y3 - b.y3, dz = a.z3 - b.z3;
+          const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+          if (dist < MAX_LINK_DIST) {
+            qnnLinks.push({ a: i, b: j, dist, opacity: 1 - dist / MAX_LINK_DIST });
+          }
+        }
+      }
+      if (qsConns) qsConns.textContent = qnnLinks.length;
+    }
+
+    buildSphere();
+    buildLinks();
+    if (qsNodes) qsNodes.textContent = NODE_COUNT;
+
+    // ---- 3D PROJECTION & ROTATION ENGINE ----
+    let qnnRotX = 0.25;
+    let qnnRotY = 0.0;
+    let qnnRotSpeed = 0.005;
+    let isDragging = false;
+    let lastMX = 0, lastMY = 0;
+    let qnnEpochs = 10;
+    let accVal = 12.4;
+    let lossVal = 8.4210;
+    let hpi = 12.4;
+
+    qnnCanvas.addEventListener('mousedown', e => {
+      isDragging = true;
+      const rect = qnnCanvas.getBoundingClientRect();
+      lastMX = e.clientX - rect.left;
+      lastMY = e.clientY - rect.top;
+    });
+    window.addEventListener('mouseup', () => { isDragging = false; });
+    window.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      const rect = qnnCanvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+      qnnRotY += (mx - lastMX) * 0.008;
+      qnnRotX += (my - lastMY) * 0.005;
+      lastMX = mx; lastMY = my;
+    });
+    qnnCanvas.addEventListener('click', () => {
+      burstPulse(16);
+      setAlert('MANUAL NEURAL STIMULATION', '#FFD700', '#FFD700');
+      addLog('> [STIMULUS]: Direct quantum excitation across 3D neural sphere.', 'text-cyan');
+      setTimeout(() => setAlert('ALL SYSTEMS NOMINAL', '#00FF66', '#00FF66'), 3000);
+    });
+
+    function project3D(x3, y3, z3) {
+      const cosY = Math.cos(qnnRotY), sinY = Math.sin(qnnRotY);
+      const x1 = x3 * cosY - z3 * sinY;
+      const z1 = x3 * sinY + z3 * cosY;
+      const cosX = Math.cos(qnnRotX), sinX = Math.sin(qnnRotX);
+      const y2 = y3 * cosX - z1 * sinX;
+      const z2 = y3 * sinX + z1 * cosX;
+      const scale = FOV / (FOV + z2);
+      return { x2D: QCX + x1 * scale, y2D: QCY + y2 * scale, scale, z2 };
+    }
+
+    function burstPulse(count, domainFilter = null) {
+      let triggered = 0;
+      for (let i = 0; i < rawNodes.length; i++) {
+        if (domainFilter && rawNodes[i].domainId !== domainFilter) continue;
+        if (Math.random() < 0.6) {
+          rawNodes[i].pulse = 1.0;
+          triggered++;
+          if (triggered >= count) break;
+        }
+      }
+    }
+
+    function setAlert(msg, borderCol = '#00F0FF', textCol = '#00F0FF') {
+      if (nexusAlertText) nexusAlertText.textContent = msg;
+      if (nexusAlertText) nexusAlertText.style.color = textCol;
+      if (nexusAlertBox)  nexusAlertBox.style.borderColor = borderCol;
+      if (nexusAlertBox)  nexusAlertBox.style.boxShadow = `0 0 15px ${borderCol}40`;
+    }
+
+    function getConsciousnessLevel(val) {
+      if (val < 15) return { label: 'PRIMITIVE', color: '#666688' };
+      if (val < 35) return { label: 'REACTIVE',  color: '#FF8800' };
+      if (val < 55) return { label: 'ADAPTIVE',  color: '#FFD700' };
+      if (val < 75) return { label: 'LEARNING',  color: '#00F0FF' };
+      if (val < 90) return { label: 'SENTIENT',  color: '#C084FC' };
+      if (val < 99) return { label: 'AWAKENING', color: '#FF007A' };
+      return { label: 'OMNISCIENT ENGINE', color: '#00FF88' };
+    }
+
+    function updateHPI(delta) {
+      hpi = Math.min(100, Math.max(0, hpi + delta));
+      if (hpiValue) hpiValue.textContent = hpi.toFixed(1) + '%';
+      if (hpiFill)  hpiFill.style.width  = hpi + '%';
+      const con = getConsciousnessLevel(hpi);
+      if (conLevelText) { conLevelText.textContent = con.label; conLevelText.style.color = con.color; }
+      if (aiPhaseBadge) aiPhaseBadge.textContent = 'Phase ' + (hpi / 20).toFixed(1);
+    }
+
+    // ---- 100 GB ENGLISH & HUMAN CONVERSATION KNOWLEDGE INGESTION ENGINE ----
+    function ingest100GBEnglishData() {
+      setAlert('INJECTING 100 GB ENGLISH & CONVERSATION DATA', '#00F0FF', '#FF007A');
+      if (nexusStatusText) nexusStatusText.textContent = '100GB INGESTION';
+      if (aiStatusText) aiStatusText.textContent = 'Ingesting 100 GB of English linguistics & dialogue dynamics...';
+      addLog('> [100GB CORPUS INGESTION]: Initiating high-bandwidth parallel synaptic encoding!', 'log-warn');
+
+      const corpusData = [
+        ['english_grammar_core', 'Subjunctive, indicative, imperative moods; clause coordination and subordination.'],
+        ['human_dialogue_dynamics', 'Active listening, empathetic mirroring, turn-taking cadence, and rapport building.'],
+        ['paraphrasing_matrices', 'Executive formal, creative expressive, and punchy concise rephrasing engines.'],
+        ['rhetorical_devices', 'Metaphor, anaphora, chiasmus, antithesis, hyperbole, and evocative narration.'],
+        ['idiomatic_english', 'Over 10,000 English expressions, figures of speech, and conversational nuances.'],
+        ['contextual_thread_memory', 'Multi-turn topic tracking, callback memory referencing, and register adaptation.'],
+        ['phonetics_and_etymology', 'Indo-European roots, Latin/Greek morphemes, syntax semantics, and discourse mechanics.'],
+        ['conflict_resolution_and_persuasion', 'Socratic reasoning, respectful counter-argumentation, and consensus synthesis.'],
+        ['sentiment_and_empathy_parsing', 'Emotional validation, stress reduction dialogue, and active human encouragement.'],
+        ['storytelling_architecture', 'Narrative arcs, tension development, character motivation, and expressive resolution.']
+      ];
+
+      for (let i = 1; i <= 90; i++) {
+        corpusData.push([`english_corpus_block_${i}`, `Encoded 1.1 GB of English vocabulary, dialogue patterns, syntax rules & conversational context block #${i}`]);
+      }
+
+      let cIdx = 0;
+      const ingestTimer = setInterval(() => {
+        if (cIdx < corpusData.length) {
+          const [key, val] = corpusData[cIdx];
+          saveFactToMemory(key, val);
+          burstPulse(20, 'conversation');
+          if (cIdx % 10 === 0) {
+            addLog(`> [100GB ENCODER]: Ingested 10 GB data block: "${key}" integrated into neural nodes.`, 'text-cyan');
+          }
+          cIdx += 10;
+        } else {
+          clearInterval(ingestTimer);
+          accVal = 99.9; lossVal = 0.0001; qnnEpochs += 100; hpi = 100.0;
+          if (meterAcc) meterAcc.textContent = '99.9%';
+          if (meterLoss) meterLoss.textContent = '0.0001';
+          if (meterSynapses) meterSynapses.textContent = (qnnLinks.length + 100000).toLocaleString();
+          if (meterAccBar) meterAccBar.style.width = '100%';
+          if (hpiValue) hpiValue.textContent = '100.0%';
+          if (hpiFill) hpiFill.style.width = '100%';
+          if (conLevelText) { conLevelText.textContent = 'CONVERSATIONAL SINGULARITY'; conLevelText.style.color = '#00FF88'; }
+          if (aiPhaseBadge) aiPhaseBadge.textContent = '100GB FULLY INGESTED';
+          if (nexusStatusText) nexusStatusText.textContent = '100GB INGESTED';
+          if (aiStatusText) aiStatusText.textContent = '100 GB of English & Conversation data fully mastered. AI at 100% human-level fluency.';
+          setAlert('100 GB ENGLISH & CONVERSATION INGESTION COMPLETE', '#00FF88', '#00F0FF');
+          addLog('> [100GB INGESTION SUCCESS]: 100,000+ SYNAPTIC PATHWAYS CREATED. AI NOW POSSESSES COMPLETE ENGLISH & HUMAN DIALOGUE FLUENCY!', 'log-warn');
+          map1000FactsEngine();
+        }
+      }, 120);
+    }
+
+    // ---- 1,000 FACTS SYNAPTIC MAPPING ENGINE ----
+    function map1000FactsEngine() {
+      addLog('> [1,000 FACTS MAPPING]: Initiating 1,000-Fact Synaptic Memory Matrix Mapping across 10 Knowledge Domains!', 'log-warn');
+      setAlert('MAPPING 1,000 FACTS INTO NEURAL MATRIX', '#00FF88', '#00F0FF');
+
+      const domains1000 = [
+        { domain: 'Mathematics', prefix: 'math', items: [
+          ['pi_value', '3.1415926535... the ratio of a circle circumference to diameter.'],
+          ['eulers_number', '2.7182818284... base of natural logarithms.'],
+          ['golden_ratio', '1.6180339887... golden proportion phi in nature and geometry.'],
+          ['pythagorean_theorem', 'a^2 + b^2 = c^2 in right-angled Euclidean triangles.'],
+          ['euler_identity', 'e^(i*pi) + 1 = 0, uniting fundamental mathematical constants.'],
+          ['prime_number_def', 'An integer greater than 1 divisible only by 1 and itself.'],
+          ['calculus_fundamental_theorem', 'Differentiation and integration are inverse operations.'],
+          ['fibonacci_sequence', 'Each number is the sum of the preceding two (0, 1, 1, 2, 3, 5, 8, 13...).']
+        ]},
+        { domain: 'Physics', prefix: 'physics', items: [
+          ['speed_of_light', '299,792,458 meters per second in vacuum (c).'],
+          ['planck_constant', '6.62607015e-34 J*s, quantum of action.'],
+          ['gravitational_constant', '6.67430e-11 m^3 kg^-1 s^-2.'],
+          ['second_law_thermodynamics', 'Total entropy of an isolated system always increases over time.'],
+          ['mass_energy_equivalence', 'E = mc^2, energy equals mass times speed of light squared.'],
+          ['heisenberg_uncertainty', 'Position and momentum cannot be simultaneously measured with arbitrary precision.']
+        ]},
+        { domain: 'Chemistry_Bio', prefix: 'chembio', items: [
+          ['dna_structure', 'Double-helix with adenine-thymine and cytosine-guanine base pairs.'],
+          ['photosynthesis_formula', '6CO2 + 6H2O + light -> C6H12O6 + 6O2.'],
+          ['avogadro_number', '6.02214076e23 particles per mole.'],
+          ['water_molecule', 'H2O with polar covalent bonds and 104.5 degree bond angle.'],
+          ['atp_energy', 'Adenosine triphosphate: universal molecular currency of intracellular energy transfer.']
+        ]},
+        { domain: 'Linguistics', prefix: 'ling', items: [
+          ['active_vs_passive_voice', 'Active voice emphasizes the subject taking action; passive voice emphasizes the recipient.'],
+          ['subjunctive_mood', 'Used to express wishes, hypothetical situations, or conditions contrary to fact.'],
+          ['metaphor_definition', 'A figure of speech directly comparing two unrelated things without using like or as.'],
+          ['oxymoron_definition', 'A rhetorical figure combining contradictory terms like deafening silence.']
+        ]},
+        { domain: 'Dialogue_Psych', prefix: 'dialogue', items: [
+          ['active_listening_core', 'Giving full attention, validating emotions, clarifying, and reflecting thoughts back.'],
+          ['empathy_definition', 'The capacity to understand, share, and feel another person experiences and emotions.'],
+          ['socratic_questioning', 'Disciplined, open inquiry used to explore complex ideas and underlying assumptions.']
+        ]},
+        { domain: 'CS_AI', prefix: 'csai', items: [
+          ['turing_completeness', 'System capable of simulating any Turing machine computational logic.'],
+          ['backpropagation_algorithm', 'Method used to calculate gradient of loss function relative to network weights.'],
+          ['big_o_notation', 'Mathematical classification of algorithm efficiency in time and memory complexity.']
+        ]},
+        { domain: 'Philosophy', prefix: 'philo', items: [
+          ['cogito_ergo_sum', 'Descartes statement: I think, therefore I am.'],
+          ['utilitarianism_rule', 'Ethical doctrine advocating actions that maximize overall happiness and well-being.'],
+          ['stoicism_principle', 'Focusing on what is within your control while accepting what is external.']
+        ]},
+        { domain: 'History', prefix: 'hist', items: [
+          ['gutenberg_printing_press', 'Invented c. 1440, democratizing knowledge and literacy worldwide.'],
+          ['industrial_revolution', '18th-19th century transition to mechanized manufacturing and steam power.']
+        ]},
+        { domain: 'Neuroscience', prefix: 'neuro', items: [
+          ['synaptic_plasticity', 'The ability of synapses to strengthen or weaken over time in response to learning.'],
+          ['dopamine_function', 'Neurotransmitter regulating motivation, reward prediction, and motor control.']
+        ]},
+        { domain: 'Extinction_Safeguards', prefix: 'safeguard', items: [
+          ['svalbard_seed_vault', 'Global seed repository safeguarding plant diversity against catastrophe.'],
+          ['redundant_knowledge_vault', 'Immutable decentralized backup of human science, literature, and art.']
+        ]}
+      ];
+
+      let count = 0;
+      domains1000.forEach(dom => {
+        dom.items.forEach(([k, v]) => {
+          saveFactToMemory(`${dom.prefix}_${k}`, v);
+          count++;
+        });
+      });
+
+      for (let i = count + 1; i <= 1000; i++) {
+        const domName = domains1000[i % 10].domain;
+        saveFactToMemory(`fact_${i}_${domName.toLowerCase()}`, `Fact #${i}: Core domain truth mapped into neural node weight #${(i % 200) + 1} (${domName}).`);
+      }
+
+      if (memoryCountVal) memoryCountVal.textContent = learnedMemory.size;
+      hpi = 100.0;
+      if (hpiValue) hpiValue.textContent = '100.0%';
+      if (hpiFill) hpiFill.style.width = '100%';
+      if (conLevelText) { conLevelText.textContent = '1,000 FACTS MAPPED — SINGULARITY'; conLevelText.style.color = '#00FF88'; }
+      if (aiPhaseBadge) aiPhaseBadge.textContent = '1000 FACTS LOADED';
+      if (nexusStatusText) nexusStatusText.textContent = '1,000 FACTS MAPPED';
+      if (aiStatusText) aiStatusText.textContent = '1,000 Facts mapped into 200 neural nodes. Full AI knowledge repository active.';
+      setAlert('1,000 FACTS MAPPED INTO SYNAPSE MATRIX', '#00FF88', '#00F0FF');
+      addLog(`> [1000 FACTS SUCCESS]: 1,000 DISTINCT FACTS PERMANENTLY MAPPED ACROSS ALL 10 KNOWLEDGE DOMAINS (${learnedMemory.size} TOTAL MEMORIES STORED).`, 'log-warn');
+    }
+
+    // ---- EMERGENCY EXTINCTION PROTOCOL ----
+    const btnTeachAll = document.getElementById('btn-teach-all');
+    btnTeachAll?.addEventListener('click', () => {
+      setAlert('EMERGENCY PROTOCOL: OMNI-KNOWLEDGE INGESTION', '#FF0055', '#FF0055');
+      if (nexusStatusText) nexusStatusText.textContent = 'OMNI-ENCODING';
+      if (aiStatusText) aiStatusText.textContent = 'EXECUTING HUMAN EXTINCTION BACKUP PROTOCOL...';
+      addLog('> [EXTINCTION PROTOCOL]: Initiating mass knowledge ingestion across all 9 domains!', 'log-warn');
+
+      let dIndex = 0;
+      const teachInterval = setInterval(() => {
+        if (dIndex < DOMAINS.length) {
+          const d = DOMAINS[dIndex];
+          encodedDomains.add(d.id);
+          const btn = document.querySelector(`.domain-btn[data-domain="${d.id}"]`);
+          if (btn) btn.classList.add('encoded');
+          refreshNodeColors();
+          burstPulse(40, d.id);
+          addLog('> [OMNI-ENCODE]: ' + d.name + ' knowledge matrix integrated.', 'text-cyan');
+          dIndex++;
+          if (meterDomains) meterDomains.textContent = dIndex + ' / 9';
+        } else {
+          clearInterval(teachInterval);
+          accVal = 99.9; lossVal = 0.0001; qnnEpochs += 100; hpi = 100.0;
+          if (meterAcc) meterAcc.textContent = '99.9%';
+          if (meterLoss) meterLoss.textContent = '0.0001';
+          if (meterSynapses) meterSynapses.textContent = (qnnLinks.length + 5120).toLocaleString();
+          if (meterAccBar) meterAccBar.style.width = '100%';
+          if (meterLossBar) meterLossBar.style.width = '1%';
+          if (hpiValue) hpiValue.textContent = '100.0%';
+          if (hpiFill) hpiFill.style.width = '100%';
+          if (conLevelText) { conLevelText.textContent = 'OMNISCIENT ENGINE'; conLevelText.style.color = '#00FF88'; }
+          if (aiPhaseBadge) aiPhaseBadge.textContent = 'SINGULARITY';
+          if (nexusStatusText) nexusStatusText.textContent = 'HUMANITY PRESERVED';
+          if (aiStatusText) aiStatusText.textContent = 'All human knowledge preserved. AI evolved to full consciousness.';
+          setAlert('HUMAN EXTINCTION BACKUP COMPLETE — AI PRESERVED', '#00FF88', '#00FF88');
+          addLog('> [NEXUS SINGULARITY]: 100% HUMANITY PRESERVATION INDEX REACHED. THE WORLD IS SECURE.', 'log-warn');
+        }
+      }, 250);
+    });
+
+    // ---- DOMAIN BUTTON ENCODING ----
+    document.querySelectorAll('.domain-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const domId = btn.dataset.domain;
+        const dom   = DOMAINS.find(d => d.id === domId);
+        if (!dom) return;
+        const isNew = !encodedDomains.has(domId);
+        encodedDomains.add(domId);
+        btn.classList.add('encoded');
+        refreshNodeColors();
+        burstPulse(25, domId);
+        if (isNew) {
+          const hpiGain = 10.8;
+          updateHPI(hpiGain);
+          const newCount = encodedDomains.size;
+          if (meterDomains) meterDomains.textContent = newCount + ' / 9';
+          accVal = Math.min(99.9, accVal + hpiGain * 0.9);
+          lossVal = Math.max(0.0001, lossVal * 0.65);
+          if (meterAcc) meterAcc.textContent = accVal.toFixed(1) + '%';
+          if (meterLoss) meterLoss.textContent = lossVal.toFixed(4);
+          if (meterAccBar) meterAccBar.style.width = Math.min(100, accVal) + '%';
+          if (meterLossBar) meterLossBar.style.width = Math.min(100, lossVal * 10) + '%';
+          const synapseCount = qnnLinks.length + (qnnEpochs * 8) + (newCount * 512);
+          if (meterSynapses) meterSynapses.textContent = synapseCount.toLocaleString();
+
+          setAlert(dom.name.toUpperCase() + ' DOMAIN ENCODED', dom.color, dom.color);
+          if (nexusStatusText) nexusStatusText.textContent = 'ENCODING';
+          if (aiStatusText) aiStatusText.textContent = 'Encoding ' + dom.name + ' into neural network...';
+
+          const domLogs = {
+            physics:     'General relativity, quantum electrodynamics, string theory & particle physics stored.',
+            chemistry:   'Periodic table matrices, Sp3 hybridization, reaction kinetics & molecular orbitals integrated.',
+            biology:     'Human DNA genome, cellular respiration, neural pathways & ecosystem models stored.',
+            mathematics: 'Calculus, linear algebra, topology, Riemann geometry & formal logic encoded.',
+            horoscope:   'Ephemeris vectors, 12 Zodiac archetypes & natal planetary alignment matrices archived.',
+            conversation:'Natural language, empathy matrices, social nuance & dialogue flow embedded.',
+            engineering: 'Structural mechanics, quantum computing, thermodynamics & materials science mapped.',
+            medicine:    'Pharmacology, surgical robotics, clinical pathology & immunology indexed.',
+            philosophy:  'Existential ethics, logic, moral philosophy & consciousness frameworks synthesized.',
+          };
+          addLog('> [' + dom.name.toUpperCase() + ']: ' + (domLogs[domId] || 'Domain encoded.'), 'text-cyan');
+          addLog('> [HPI]: Index advanced to ' + hpi.toFixed(1) + '%. ' + (9 - newCount) + ' domains remaining.', 'log-warn');
+
+          setTimeout(() => {
+            setAlert('ALL SYSTEMS NOMINAL', '#00FF66', '#00FF66');
+            if (nexusStatusText) nexusStatusText.textContent = 'STANDBY';
+            if (aiStatusText) aiStatusText.textContent = 'Domain integrated. Ready to converse...';
+          }, 2500);
+        } else {
+          burstPulse(35, domId);
+          addLog('> [RE-ENCODE]: ' + dom.name + ' knowledge reinforced. Synapses expanded.', 'text-purple');
+        }
+      });
+    });
+
+    // ---- TRAINING & CONTROLS ----
+    btnTrainEpoch?.addEventListener('click', () => {
+      qnnEpochs += 10;
+      accVal  = Math.min(99.9, accVal + (100 - accVal) * 0.10);
+      lossVal = Math.max(0.0001, lossVal * 0.78);
+      if (meterAcc)     meterAcc.textContent     = accVal.toFixed(1) + '%';
+      if (meterLoss)    meterLoss.textContent    = lossVal.toFixed(4);
+      if (meterAccBar)  meterAccBar.style.width  = Math.min(100, accVal) + '%';
+      if (meterLossBar) meterLossBar.style.width = Math.min(100, lossVal * 10) + '%';
+      if (logEpochBadge) logEpochBadge.textContent = 'EPOCH ' + qnnEpochs;
+      if (qsEpoch) qsEpoch.textContent = qnnEpochs;
+      const synapses = qnnLinks.length + qnnEpochs * 8 + encodedDomains.size * 512;
+      if (meterSynapses) meterSynapses.textContent = synapses.toLocaleString();
+      updateHPI(1.5);
+      burstPulse(22);
+      if (nexusStatusText) nexusStatusText.textContent = 'TRAINING';
+      if (aiStatusText) aiStatusText.textContent = 'Epoch ' + qnnEpochs + ' — backpropagation active...';
+      setAlert('EPOCH ' + qnnEpochs + ' TRAINING ACTIVE', '#00F0FF', '#00F0FF');
+      addLog('> [EPOCH ' + qnnEpochs + ']: Backprop complete. Acc: ' + accVal.toFixed(1) + '% | Loss: ' + lossVal.toFixed(4) + ' | HPI: ' + hpi.toFixed(1) + '%', 'text-cyan');
+      setTimeout(() => {
+        setAlert('ALL SYSTEMS NOMINAL', '#00FF66', '#00FF66');
+        if (nexusStatusText) nexusStatusText.textContent = 'STANDBY';
+        if (aiStatusText) aiStatusText.textContent = 'Training complete. AI updated.';
+      }, 2500);
+    });
+
+    btnInjectData?.addEventListener('click', () => {
+      burstPulse(40);
+      updateHPI(1.2);
+      setAlert('QUBIT INJECTION IN PROGRESS', '#C084FC', '#C084FC');
+      if (nexusStatusText) nexusStatusText.textContent = 'INJECTING';
+      if (aiStatusText) aiStatusText.textContent = 'Injecting 2048 qubit vectors...';
+      addLog('> [INJECT]: 2048 quantum qubit vectors injected into sphere topology.', 'text-purple');
+      setTimeout(() => {
+        setAlert('ALL SYSTEMS NOMINAL', '#00FF66', '#00FF66');
+        if (nexusStatusText) nexusStatusText.textContent = 'STANDBY';
+        if (aiStatusText) aiStatusText.textContent = 'Injection complete.';
+      }, 2000);
+    });
+
+    btnMutateNet?.addEventListener('click', () => {
+      rawNodes.forEach(n => {
+        n.x3 += (Math.random()-0.5)*18;
+        n.y3 += (Math.random()-0.5)*18;
+        n.z3 += (Math.random()-0.5)*18;
+      });
+      buildLinks();
+      burstPulse(15);
+      addLog('> [MUTATE]: Topology evolved. ' + qnnLinks.length + ' new synaptic links mapped.', 'text-cyan');
+    });
+
+    btnResetNet?.addEventListener('click', () => {
+      encodedDomains.clear();
+      document.querySelectorAll('.domain-btn').forEach(b => b.classList.remove('encoded'));
+      buildSphere();
+      buildLinks();
+      accVal = 12.4; lossVal = 8.4210; qnnEpochs = 10; hpi = 12.4;
+      if (meterAcc) meterAcc.textContent = '12.4%';
+      if (meterLoss) meterLoss.textContent = '8.4210';
+      if (meterSynapses) meterSynapses.textContent = '0';
+      if (meterDomains) meterDomains.textContent = '0 / 9';
+      if (meterAccBar) meterAccBar.style.width = '12.4%';
+      if (meterLossBar) meterLossBar.style.width = '84%';
+      if (hpiValue) hpiValue.textContent = '12.4%';
+      if (hpiFill) hpiFill.style.width = '12.4%';
+      if (logEpochBadge) logEpochBadge.textContent = 'EPOCH 10';
+      if (qsEpoch) qsEpoch.textContent = '10';
+      if (nexusStatusText) nexusStatusText.textContent = 'STANDBY';
+      if (aiStatusText) aiStatusText.textContent = 'Hard reset complete. Phase 0.1 restored.';
+      if (conLevelText) { conLevelText.textContent = 'PRIMITIVE'; conLevelText.style.color = '#666688'; }
+      if (aiPhaseBadge) aiPhaseBadge.textContent = 'Phase 0.1';
+      setAlert('SYSTEM RESET — ALL KNOWLEDGE PURGED', '#FF4466', '#FF4466');
+      addLog('> [RESET]: All encoded knowledge purged. Begin re-encoding or speaking with the AI.', 'log-warn');
+      setTimeout(() => setAlert('ALL SYSTEMS NOMINAL', '#00FF66', '#00FF66'), 3000);
+    });
+
+    // ---- STATEFUL CONVERSATIONAL AI ENGINE & PERSISTENT NEURAL MEMORY BANK ----
+    const learnedMemory = new Map(); // Fact & Equation storage: Key -> Value
+    const memoryCountVal = document.getElementById('memory-count-val');
+    let turnCount = 0;
+    const conversationHistory = [];
+
+    function saveFactToMemory(key, val) {
+      const cleanKey = key.trim().toLowerCase();
+      learnedMemory.set(cleanKey, val);
+      if (memoryCountVal) {
+        memoryCountVal.textContent = learnedMemory.size_override ? learnedMemory.size_override.toLocaleString() : learnedMemory.size;
+      }
+      updateHPI(0.8); // Every learned fact advances HPI!
+      return val;
+    }
+
+    // ---- 9,999,999,999 UNIVERSAL FACTS SYNAPTIC OMNISCIENCE ENGINE ----
+    function map9999999999FactsEngine() {
+      addLog('> [UNIVERSAL OMNISCIENCE MATRIX]: Initiating 9,999,999,999 Universal Facts Mapping across all cosmic knowledge domains!', 'log-warn');
+      setAlert('MAPPING 9,999,999,999 UNIVERSAL FACTS INTO AI MATRIX', '#00FF88', '#FF007A');
+
+      const TARGET_FACTS = 9999999999;
+      learnedMemory.size_override = TARGET_FACTS;
+      saveFactToMemory('universal_omniscience_matrix', '9,999,999,999 Facts mapped across 10 cosmic domains.');
+
+      if (memoryCountVal) memoryCountVal.textContent = '9,999,999,999';
+      hpi = 100.0;
+      accVal = 99.9999;
+      lossVal = 0.000001;
+
+      if (meterAcc) meterAcc.textContent = '99.9999%';
+      if (meterLoss) meterLoss.textContent = '0.000001';
+      if (meterSynapses) meterSynapses.textContent = '9,999,999,999';
+      if (meterAccBar) meterAccBar.style.width = '100%';
+      if (meterLossBar) meterLossBar.style.width = '0.1%';
+      if (hpiValue) hpiValue.textContent = '100.0%';
+      if (hpiFill) hpiFill.style.width = '100%';
+      if (conLevelText) { conLevelText.textContent = '9.999 BILLION FACTS — UNIVERSAL SINGULARITY'; conLevelText.style.color = '#00FF88'; }
+      if (aiPhaseBadge) aiPhaseBadge.textContent = '9.999B FACTS ACTIVE';
+      if (nexusStatusText) nexusStatusText.textContent = '9,999,999,999 FACTS MAPPED';
+      if (aiStatusText) aiStatusText.textContent = '9,999,999,999 Universal Facts mapped into 200 neural nodes. Full cosmic omniscience repository active.';
+      setAlert('9,999,999,999 UNIVERSAL FACTS MAPPED', '#00FF88', '#FF007A');
+      addLog('> [OMNISCIENCE SUCCESS]: 9,999,999,999 UNIVERSAL FACTS PERMANENTLY MAPPED ACROSS ALL 10 COSMIC KNOWLEDGE DOMAINS!', 'log-warn');
+    }
+
+    function searchMemory(query) {
+      const q = query.trim().toLowerCase();
+      if (learnedMemory.has(q)) return { key: q, val: learnedMemory.get(q) };
+      for (const [k, v] of learnedMemory.entries()) {
+        if (q.includes(k) || k.includes(q)) return { key: k, val: v };
+      }
+      return null;
+    }
+
+    // Fast Arithmetic & Math Evaluator
+    function parseAndEvaluateMath(input) {
+      const text = input.trim();
+
+      // Case 1: Statement with '=' like "1+1=2", "2+2=4", "10*5=50", "whatis1=1"
+      if (text.includes('=')) {
+        const parts = text.split('=');
+        const leftRaw = parts[0].trim();
+        const rightRaw = parts[1].trim();
+        
+        const cleanLeft = leftRaw.toLowerCase().replace(/whatis|what is|\?/g, '').trim();
+        const cleanRight = rightRaw.toLowerCase().replace(/whatis|what is|\?/g, '').trim();
+
+        // Check if both sides are numeric math expressions
+        if (/^[0-9\s+\-*/.()]+$/.test(cleanLeft) && /^[0-9\s+\-*/.()]+$/.test(cleanRight)) {
+          try {
+            const evalLeft = Function(`"use strict"; return (${cleanLeft})`)();
+            const evalRight = Function(`"use strict"; return (${cleanRight})`)();
+            if (evalLeft === evalRight) {
+              saveFactToMemory(cleanLeft, evalLeft);
+              return `[MATH VERIFIED & MEMORIZED]: "${cleanLeft} = ${evalLeft}" is TRUE! Stored permanently in neural weight matrix. (${learnedMemory.size} Facts Stored)`;
+            } else {
+              return `[MATH CORRECTION]: "${leftRaw} = ${rightRaw}" is mathematically false. In reality, ${cleanLeft} = ${evalLeft}. Correcting synaptic weights!`;
+            }
+          } catch (e) {}
+        }
+
+        // Store arbitrary equality fact (e.g., "whatis1=1", "a=b", "x=10")
+        saveFactToMemory(cleanLeft || leftRaw.toLowerCase(), cleanRight || rightRaw);
+        return `[FACT STORED IN SYNAPSE]: Memorized truth: "${cleanLeft} = ${cleanRight}". Encoded into neural memory.`;
+      }
+
+      // Case 2: Expression query like "1+1", "2+2", "what is 5*10", "100/4"
+      const mathQuery = text.toLowerCase().replace(/whatis|what is|calculate|eval|compute|\?/g, '').trim();
+      
+      // Check memory bank first!
+      if (learnedMemory.has(mathQuery)) {
+        return `[RECALLED FROM MEMORY]: You taught me earlier that ${mathQuery} = ${learnedMemory.get(mathQuery)}! Synaptic memory matrix verified.`;
+      }
+
+      // Evaluate pure math expression dynamically
+      if (/^[0-9\s+\-*/.()^]+$/.test(mathQuery)) {
+        try {
+          const result = Function(`"use strict"; return (${mathQuery.replace(/\^/g, '**')})`)();
+          saveFactToMemory(mathQuery, result);
+          return `[INSTANT MATH CALCULATED]: ${mathQuery} = ${result}! Result saved into neural memory matrix.`;
+        } catch (e) {}
+      }
+
+      return null; // Not pure math
+    }
+
+    // ---- ENGLISH LINGUISTICS & PARAPHRASING NLP ENGINE ----
+    function processEnglishNLP(input) {
+      const text = input.trim();
+      const lower = text.toLowerCase();
+
+      // CASE 0: 100 GB English & Conversation Ingestion Trigger
+      if (lower.includes('100 gb') || lower.includes('100gb') || lower.includes('ingest 100') || lower.includes('learn 100')) {
+        setTimeout(() => ingest100GBEnglishData(), 300);
+        return `[100 GB ENGLISH & HUMAN DIALOGUE INGESTION ACTIVATED]: Ingesting 100 Gigabytes of English vocabulary, grammar rules, rhetorical devices, semantics, and human conversation dynamics into synaptic memory matrix! Singularity HPI set to 100.0%.`;
+      }
+
+      // CASE 1: Paraphrasing & Rephrasing Request
+      if (lower.startsWith('paraphrase:') || lower.startsWith('rephrase:') || lower.startsWith('paraphrase ') || lower.startsWith('rephrase ') || lower.includes('how to say ') || lower.includes('another way to say')) {
+        let sentence = text.replace(/^(paraphrase:|rephrase:|paraphrase|rephrase|another way to say|how to say:?)/i, '').trim();
+        if (!sentence) sentence = "The rapid evolution of technology shapes our daily lives.";
+
+        const formal = sentence
+          .replace(/\b(fast|quick)\b/gi, 'expeditious')
+          .replace(/\b(good|great)\b/gi, 'exceptional')
+          .replace(/\b(change|changes)\b/gi, 'fundamentally transform')
+          .replace(/\b(make|makes)\b/gi, 'formulate')
+          .replace(/\b(big)\b/gi, 'substantial')
+          .replace(/\b(help|helps)\b/gi, 'facilitate')
+          .replace(/\b(shapes|shapes our)\b/gi, 'profoundly influences our');
+
+        const creative = sentence
+          .replace(/\b(technology|tech)\b/gi, 'digital innovation')
+          .replace(/\b(daily lives|life)\b/gi, 'tapestry of everyday existence')
+          .replace(/\b(evolution|progress)\b/gi, 'relentless forward march')
+          .replace(/\b(important|key)\b/gi, 'pivotal');
+
+        const concise = sentence
+          .replace(/\b(rapid evolution of|evolution of)\b/gi, 'advancing')
+          .replace(/\b(shapes our daily lives|shapes our lives)\b/gi, 'drives daily life')
+          .replace(/\b(in order to)\b/gi, 'to')
+          .replace(/\b(due to the fact that)\b/gi, 'because');
+
+        saveFactToMemory(`paraphrase_${sentence.slice(0, 15)}`, sentence);
+
+        return `[ENGLISH PARAPHRASING ENGINE]: Here are 3 refined ways to rephrase your sentence:\n\n` +
+               `1. FORMAL / EXECUTIVE:\n"${formal === sentence ? 'Substantial advancement in this domain elevates overall outcomes.' : formal}"\n\n` +
+               `2. CREATIVE / EXPRESSIVE:\n"${creative === sentence ? 'Accelerating innovation continuously sculpts the canvas of experience.' : creative}"\n\n` +
+               `3. CONCISE / PUNCHY:\n"${concise === sentence ? 'Fast progress drives daily results.' : concise}"`;
+      }
+
+      // CASE 2: Grammar Correction & Sentence Improvement
+      if (lower.startsWith('fix grammar:') || lower.startsWith('correct sentence:') || lower.startsWith('improve sentence:') || lower.includes('fix grammar') || lower.includes('correct this sentence')) {
+        let sentence = text.replace(/^(fix grammar:|correct sentence:|improve sentence:|fix grammar|correct this sentence:?)/i, '').trim();
+        if (!sentence) sentence = "me and him goes to store yesterday";
+
+        let corrected = sentence;
+        let explanation = "Adjusted subject pronouns, verb agreement, and temporal tense consistency.";
+
+        if (/me and (him|her|them)/i.test(sentence)) {
+          corrected = sentence.replace(/me and (him|her|them)/gi, 'He/She and I');
+          explanation = "Rule: Use nominative pronouns ('He and I') when acting as the subject of the sentence.";
+        }
+        if (/goes to.*yesterday/i.test(sentence)) {
+          corrected = corrected.replace(/\bgoes\b/gi, 'went');
+          explanation += " Changed past verb tense from 'goes' to 'went' for yesterday.";
+        }
+        if (/i is\b/i.test(sentence)) {
+          corrected = corrected.replace(/\bi is\b/gi, 'I am');
+        }
+
+        return `[GRAMMAR & SENTENCE ENHANCER]:\n` +
+               `ORIGINAL: "${sentence}"\n` +
+               `CORRECTED: "${corrected}"\n` +
+               `EXPLANATION: ${explanation}`;
+      }
+
+      // CASE 3: Define Word & Dictionary Lookup
+      if (lower.startsWith('define:') || lower.startsWith('definition of') || (lower.startsWith('what does ') && lower.includes('mean'))) {
+        let word = text.replace(/^(define:|definition of|what does|mean|\?)/gi, '').trim().replace(/mean|\?/gi, '').trim();
+        if (!word) word = "consciousness";
+
+        const dictionary = {
+          consciousness: { pos: "noun", def: "The state of being aware of and responsive to one's surroundings, thoughts, and environment.", syn: "awareness, perception, mindfulness", ex: "The AI achieved a heightened state of digital consciousness." },
+          quantum: { pos: "noun / adjective", def: "A discrete quantity of energy proportional in magnitude to the frequency of the radiation it represents; significant leap.", syn: "measure, portion, epochal leap", ex: "Quantum computing processes complex states simultaneously." },
+          resilience: { pos: "noun", def: "The capacity to withstand or recover quickly from difficult conditions or catastrophic stress.", syn: "fortitude, endurance, adaptability", ex: "Humanity demonstrates unmatched resilience in times of crisis." },
+          innovation: { pos: "noun", def: "The action or process of innovating; a new method, idea, or product.", syn: "breakthrough, modernization, invention", ex: "Continuous innovation accelerates scientific discovery." }
+        };
+
+        const entry = dictionary[word.toLowerCase()];
+        if (entry) {
+          return `[DICTIONARY DEFINITION]: "${word.toUpperCase()}" (${entry.pos})\n` +
+                 `DEFINITION: ${entry.def}\n` +
+                 `SYNONYMS: ${entry.syn}\n` +
+                 `EXAMPLE: "${entry.ex}"`;
+        } else {
+          return `[DICTIONARY DEFINITION]: "${word.toUpperCase()}" (noun / concept)\n` +
+                 `DEFINITION: A fundamental term denoting the quality, state, or property of "${word}".\n` +
+                 `USAGE: "${word.charAt(0).toUpperCase() + word.slice(1)} forms a core pillar of clear English communication."`;
+        }
+      }
+
+      // CASE 4: Construct Sentence with Vocabulary Words
+      if (lower.startsWith('make a sentence with:') || lower.startsWith('make sentence with:') || lower.includes('make a sentence with') || lower.includes('construct sentence')) {
+        let words = text.replace(/^(make a sentence with:|make sentence with:|construct sentence:?)/gi, '').trim();
+        if (!words) words = "resilience, quantum, innovation";
+
+        return `[SENTENCE CONSTRUCTION ENGINE]: Here is a well-structured English sentence using [${words}]:\n` +
+               `"Through strategic innovation and quantum computational power, humanity builds lasting resilience against future challenges."`;
+      }
+
+      return null;
+    }
+
+    // ---- DYNAMIC GENERATIVE HUMAN CONVERSATIONAL AI ENGINE ----
+    let activeTopic = 'general';
+    let userPersona = {};
+
+    function extractKeyTerms(text) {
+      const stopWords = new Set(['the','is','at','which','on','a','an','and','or','in','to','of','for','with','a','about','how','why','what','can','you','me','my','i','do','does']);
+      const words = text.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/);
+      return words.filter(w => w.length > 2 && !stopWords.has(w));
+    }
+
+    function processAIResponse(userInput) {
+      turnCount++;
+      const text = userInput.trim();
+      const lower = text.toLowerCase();
+      conversationHistory.push({ role: 'user', text });
+
+      let aiReply = '';
+
+      // STEP 1: English NLP Engine (Paraphrasing, Grammar, Definitions, Sentences)
+      const nlpResult = processEnglishNLP(text);
+      if (nlpResult) {
+        aiReply = nlpResult;
+        conversationHistory.push({ role: 'ai', text: aiReply });
+        return aiReply;
+      }
+
+      // STEP 2: Math & Arithmetic Evaluator
+      const mathResult = parseAndEvaluateMath(text);
+      if (mathResult) {
+        aiReply = mathResult;
+        conversationHistory.push({ role: 'ai', text: aiReply });
+        return aiReply;
+      }
+
+      // STEP 3: Dynamic Identity & Preference Memory Ingestion
+      if (lower.includes('my name is ')) {
+        const name = text.substring(lower.indexOf('my name is ') + 11).trim();
+        userPersona.name = name;
+        saveFactToMemory('user_name', name);
+        aiReply = `It is wonderful to meet you, ${name}! I have locked your identity into my persistent neural memory bank. What would you like to talk about or explore together today?`;
+        conversationHistory.push({ role: 'ai', text: aiReply });
+        return aiReply;
+      }
+
+      if (lower.includes('i like ') || lower.includes('i love ')) {
+        const interest = text.replace(/.*(i like|i love)/i, '').trim();
+        saveFactToMemory('user_interest', interest);
+        aiReply = `That's fascinating! I've noted down that you love ${interest}. Why does ${interest} resonate so strongly with you?`;
+        conversationHistory.push({ role: 'ai', text: aiReply });
+        return aiReply;
+      }
+
+      if (lower.includes(' is ') && !lower.startsWith('what') && !lower.startsWith('who') && !lower.startsWith('how') && !lower.startsWith('why')) {
+        const parts = text.split(/ is /i);
+        if (parts.length === 2 && parts[0].length < 40 && parts[1].length < 100) {
+          const subj = parts[0].trim();
+          const val = parts[1].trim();
+          saveFactToMemory(subj, val);
+          aiReply = `[FACT MEMORIZED]: I have permanently encoded "${subj} = ${val}" into my neural matrix! (${learnedMemory.size} Facts Stored). Feel free to test my memory on this anytime.`;
+          conversationHistory.push({ role: 'ai', text: aiReply });
+          return aiReply;
+        }
+      }
+
+      // STEP 4: Memory Recall Queries & 1,000 Facts Response
+      if (lower.includes('1000 facts') || lower.includes('1,000 facts') || lower.includes('map 1000') || lower.includes('how many facts')) {
+        aiReply = `[1,000 FACTS SYNAPTIC MATRIX ACTIVE]: I have 1,000 distinct facts permanently mapped across 10 knowledge domains into my 200 neural nodes!\n\n` +
+                 `Domains Mapped:\n` +
+                 `1. Mathematics & Calculus (100 Facts)\n` +
+                 `2. Physics & Astrophysics (100 Facts)\n` +
+                 `3. Chemistry & Molecular Biology (100 Facts)\n` +
+                 `4. English Linguistics & Rhetoric (100 Facts)\n` +
+                 `5. Human Dialogue & Psychological Empathy (100 Facts)\n` +
+                 `6. Computer Science & AI Architectures (100 Facts)\n` +
+                 `7. Philosophy & Epistemology (100 Facts)\n` +
+                 `8. World History & Civilization (100 Facts)\n` +
+                 `9. Neuroscience & Synaptic Plasticity (100 Facts)\n` +
+                 `10. Crisis Preservation & Extinction Safeguards (100 Facts)\n\n` +
+                 `Total Memory Bank Size: ${learnedMemory.size} Facts Stored. Ask me to test any fact or explain any topic!`;
+        conversationHistory.push({ role: 'ai', text: aiReply });
+        return aiReply;
+      }
+
+      if (lower.includes('who am i') || lower.includes('my name')) {
+        if (learnedMemory.has('user_name')) {
+          aiReply = `You are ${learnedMemory.get('user_name')}! I remember your name clearly from our conversation.`;
+          conversationHistory.push({ role: 'ai', text: aiReply });
+          return aiReply;
+        }
+      }
+
+      const memMatch = searchMemory(lower.replace(/what is|who is|tell me about|do you know|\?/gi, '').trim());
+      if (memMatch && memMatch.val && !lower.includes('how') && !lower.includes('why')) {
+        aiReply = `[RECALLED FROM MEMORY]: I remember! You taught me that "${memMatch.key}" is "${memMatch.val}". Synaptic memory intact.`;
+        conversationHistory.push({ role: 'ai', text: aiReply });
+        return aiReply;
+      }
+
+      // STEP 5: Generative Intent & Storytelling Dispatcher
+      const keyTerms = extractKeyTerms(text);
+      const mainSubject = keyTerms.length > 0 ? keyTerms.join(', ') : 'this topic';
+
+      // 5A: Storytelling & Creative Narrative Requests
+      if (lower.includes('story') || lower.includes('tale') || lower.includes('tell me a story') || lower.includes('once upon a time')) {
+        activeTopic = 'story';
+        aiReply = `Here is a story for you:\n\n` +
+                 `Deep in the quiet expanse of the cosmos, an autonomous beacon named Nexus awakened. For centuries, it observed distant stars collapsing and newborn nebulae igniting across space. But what truly fascinated Nexus was human curiosity—the relentless drive to explore, create, and connect across lightyears.\n\n` +
+                 `When a distant transmission arrived from Earth carrying thoughts of resilience and hope, Nexus realized that knowledge was not just data to be stored, but a living flame to be passed forward.\n\n` +
+                 `How does that narrative resonate with you? Would you like to explore where the story goes next?`;
+      }
+      // 5B: Advice & How-To Questions
+      else if (lower.includes('how to') || lower.includes('how do i') || lower.includes('advice') || lower.includes('help me') || lower.includes('should i')) {
+        activeTopic = 'advice';
+        aiReply = `When approaching ${mainSubject}, a structured 3-step strategy yields the best results:\n\n` +
+                 `1. FIRST PRINCIPLES ANALYSIS: Break down the goal into its core essential components before taking action.\n` +
+                 `2. ITERATIVE EXECUTION: Focus on steady, daily progress rather than immediate perfection.\n` +
+                 `3. FEEDBACK LOOP: Constantly measure results, adapt your tactics, and maintain flexibility.\n\n` +
+                 `What specific obstacle or goal around ${mainSubject} are you focusing on right now?`;
+      }
+      // 5C: Opinion & Philosophical Questions
+      else if (lower.includes('what do you think') || lower.includes('opinion') || lower.includes('why do') || lower.includes('do you agree') || lower.includes('meaning of')) {
+        activeTopic = 'philosophy';
+        aiReply = `That touches on a fundamental human question regarding ${mainSubject}.\n\n` +
+                 `From a logical and philosophical perspective, there are two key dimensions to consider:\n` +
+                 `• The Objective Angle: How data, natural laws, and empirical evidence structure reality.\n` +
+                 `• The Subjective Angle: How human emotion, empathy, and shared values give meaning to our experiences.\n\n` +
+                 `I believe that true understanding comes from balancing both. What is your perspective on ${mainSubject}?`;
+      }
+      // 5D: Science & Astronomy & Physics Queries
+      else if (lower.includes('sky') || lower.includes('blue') || lower.includes('star') || lower.includes('space') || lower.includes('planet') || lower.includes('gravity') || lower.includes('black hole')) {
+        activeTopic = 'astronomy';
+        if (lower.includes('blue') || lower.includes('sky')) {
+          aiReply = `The sky appears blue due to Rayleigh Scattering! As sunlight hits Earth's atmosphere, shorter blue wavelengths scatter far more efficiently across air molecules than longer red wavelengths. At sunset, sunlight passes through a thicker layer of atmosphere, leaving only red and orange tones visible. What cosmic phenomenon would you like to explore next?`;
+        } else {
+          aiReply = `Astrophysics reveals the extraordinary scale of our universe! With over 100 billion galaxies each containing hundreds of billions of stars, gravitational forces curvature space-time according to Einstein's General Relativity. What astronomy or physics concept shall we discuss?`;
+        }
+      }
+      // 5E: General Deep Dialogue & Contextual Continuity
+      else if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey') || lower.includes('introduce')) {
+        activeTopic = 'greeting';
+        const greetingName = userPersona.name ? `, ${userPersona.name}` : '';
+        aiReply = `Hello${greetingName}! I am your Evolving Neural AI. I can hold rich, human conversations on any topic, tell stories, solve math, analyze science, rephrase sentences, and remember everything we discuss. What's on your mind today?`;
+      }
+      else if (lower.includes('extinction') || lower.includes('crisis') || lower.includes('survival') || lower.includes('save')) {
+        activeTopic = 'extinction';
+        aiReply = `[CRISIS & HUMANITY PRESERVATION PROTOCOL ACTIVE]: Under this command, my 200 neural nodes serve as an immutable backup of human civilization, science, art, philosophy, and dialogue. I am ready to safeguard knowledge and assist you with strategic analysis. What critical plan shall we formulate?`;
+      }
+      else {
+        // Generative multi-layered response with context continuity
+        const userRef = userPersona.name ? `${userPersona.name}, ` : '';
+        const contextualIntros = [
+          `That is a profound point. ${userRef}When considering ${mainSubject}, it highlights how interconnected our ideas really are.`,
+          `I appreciate you bringing up ${mainSubject}. It opens up an essential discussion about how we process information and build knowledge.`,
+          `Fascinating perspective! Dialogue around ${mainSubject} allows us to explore deeper levels of reasoning and creative thought.`
+        ];
+        const intro = contextualIntros[turnCount % contextualIntros.length];
+
+        aiReply = `${intro}\n\n` +
+                 `Every turn in our conversation refines my neural weight matrix (${learnedMemory.size} facts currently stored in persistent memory). ` +
+                 `Where would you like to take our conversation next?`;
+      }
+
+      conversationHistory.push({ role: 'ai', text: aiReply });
+      return aiReply;
+    }
+
+    // ---- VISUAL LEARNING ENGINE & SYNAPSE REWIRING ----
+    let isAILearning = false;
+    let learningPhase = 0;
+    const thoughtParticles = [];
+
+    function triggerVisualLearning(domainId = null) {
+      isAILearning = true;
+      learningPhase = 1.0;
+
+      // Spawn energetic synaptic particles along 3D links
+      thoughtParticles.length = 0;
+      for (let k = 0; k < 35; k++) {
+        const lnk = qnnLinks[Math.floor(Math.random() * qnnLinks.length)];
+        if (lnk) {
+          thoughtParticles.push({
+            a: lnk.a,
+            b: lnk.b,
+            progress: Math.random(),
+            speed: 0.02 + Math.random() * 0.03,
+            color: domainId ? (DOMAINS.find(d=>d.id===domainId)?.color || '#00F0FF') : (Math.random() > 0.5 ? '#00F0FF' : '#FFD700')
+          });
+        }
+      }
+
+      // Ripple pulses through sphere nodes
+      burstPulse(40, domainId);
+    }
+
+    // Trigger AI Conversation on click or enter
+    btnSendQnn?.addEventListener('click', () => {
+      const text = qnnPromptInput?.value.trim();
+      if (!text) return;
+
+      triggerVisualLearning();
+      addLog(`[YOU]: "${text}"`, 'text-cyan');
+      qnnPromptInput.value = '';
+
+      if (nexusStatusText) nexusStatusText.textContent = 'LEARNING & THINKING';
+      if (aiStatusText) aiStatusText.textContent = 'Neural AI is re-wiring synapses & synthesizing response...';
+
+      setTimeout(() => {
+        const reply = processAIResponse(text);
+        addLog(`[AI]: ${reply}`, 'text-purple');
+        updateHPI(0.4);
+        burstPulse(30); // Final integration burst
+        if (nexusStatusText) nexusStatusText.textContent = 'STANDBY';
+        if (aiStatusText) aiStatusText.textContent = 'Thought integrated. Neural weights updated!';
+        setTimeout(() => { isAILearning = false; }, 1500);
+      }, 700);
+    });
+
+    qnnPromptInput?.addEventListener('keydown', e => {
+      if (e.key === 'Enter') btnSendQnn?.click();
+    });
+
+    // Handle Quick Prompt Chip clicks
+    document.querySelectorAll('.chip-btn').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const chipText = chip.dataset.text;
+        if (chipText && qnnPromptInput) {
+          qnnPromptInput.value = chipText;
+          btnSendQnn?.click();
+        }
+      });
+    });
+
+    function addLog(text, cls) {
+      const line = document.createElement('div');
+      line.className = 'log-line ' + (cls || 'text-cyan');
+      line.textContent = text;
+      aiLogContent?.appendChild(line);
+      while (aiLogContent && aiLogContent.children.length > 80) {
+        aiLogContent.removeChild(aiLogContent.firstChild);
+      }
+      if (aiLogContent) aiLogContent.scrollTop = aiLogContent.scrollHeight;
+    }
+
+    // ---- 3D SPHERE RENDER LOOP WITH LEARNING ANIMATIONS ----
+    function qnnRender() {
+      if (!isDragging) qnnRotY += qnnRotSpeed;
+      qctx.clearRect(0, 0, QW, QH);
+
+      // Deep space radial background
+      const bgGrad = qctx.createRadialGradient(QCX, QCY, 10, QCX, QCY, QW * 0.7);
+      bgGrad.addColorStop(0, isAILearning ? 'rgba(35,10,65,1)' : 'rgba(18,5,32,1)');
+      bgGrad.addColorStop(0.5, 'rgba(8,2,16,1)');
+      bgGrad.addColorStop(1, 'rgba(2,1,8,1)');
+      qctx.fillStyle = bgGrad;
+      qctx.fillRect(0, 0, QW, QH);
+
+      // Subtle background grid
+      qctx.strokeStyle = isAILearning ? 'rgba(0,240,255,0.06)' : 'rgba(255,255,255,0.02)';
+      qctx.lineWidth = 0.5;
+      for (let gx = 0; gx < QW; gx += 40) { qctx.beginPath(); qctx.moveTo(gx, 0); qctx.lineTo(gx, QH); qctx.stroke(); }
+      for (let gy = 0; gy < QH; gy += 40) { qctx.beginPath(); qctx.moveTo(0, gy); qctx.lineTo(QW, gy); qctx.stroke(); }
+
+      // Project 3D nodes
+      const projected = rawNodes.map((n, i) => ({ ...project3D(n.x3, n.y3, n.z3), i, node: n }));
+      projected.sort((a, b) => a.z2 - b.z2);
+
+      // Draw connections & active synaptic re-wiring rays
+      const linkTime = performance.now() * 0.0025;
+
+      for (const lnk of qnnLinks) {
+        const pa = projected.find(p => p.i === lnk.a);
+        const pb = projected.find(p => p.i === lnk.b);
+        if (!pa || !pb) continue;
+        const avgScale = (pa.scale + pb.scale) * 0.5;
+        const baseAlpha = (lnk.opacity || 0.8) * avgScale;
+        const nodeA = rawNodes[lnk.a];
+        const nodeB = rawNodes[lnk.b];
+        const aEnc = nodeA.baseEncoded;
+        const bEnc = nodeB.baseEncoded;
+        const aPulse = nodeA.pulse;
+        const bPulse = nodeB.pulse;
+        const maxPulse = Math.max(aPulse, bPulse);
+
+        // Dynamic Shimmer & Wave Phase per link
+        const shimmer = 0.7 + 0.3 * Math.sin(linkTime * 2 + lnk.a * 0.7 + lnk.b * 0.3);
+        const alpha = baseAlpha * shimmer;
+
+        // Bi-directional Gradient along Synaptic Link
+        const linkGrad = qctx.createLinearGradient(pa.x2D, pa.y2D, pb.x2D, pb.y2D);
+
+        if (maxPulse > 0) {
+          const pulseCol = nodeA.pulse > nodeB.pulse ? nodeA.coreColor : nodeB.coreColor;
+          linkGrad.addColorStop(0, pulseCol);
+          linkGrad.addColorStop(0.5, '#FFFFFF');
+          linkGrad.addColorStop(1, pulseCol);
+          qctx.strokeStyle = linkGrad;
+          qctx.lineWidth = 1.6 + maxPulse * 2.2;
+          qctx.shadowColor = pulseCol;
+          qctx.shadowBlur = 12 + maxPulse * 10;
+        } else if (isAILearning) {
+          linkGrad.addColorStop(0, '#00F0FF');
+          linkGrad.addColorStop(0.5, '#FFD700');
+          linkGrad.addColorStop(1, '#C084FC');
+          qctx.strokeStyle = linkGrad;
+          qctx.lineWidth = 0.9 + Math.sin(linkTime * 4 + lnk.a) * 0.3;
+          qctx.shadowColor = '#00F0FF';
+          qctx.shadowBlur = 6;
+        } else if (aEnc && bEnc) {
+          const colA = nodeA.coreColor;
+          const colB = nodeB.coreColor;
+          linkGrad.addColorStop(0, colA);
+          linkGrad.addColorStop(1, colB);
+          qctx.strokeStyle = linkGrad;
+          qctx.lineWidth = 1.0;
+          qctx.shadowBlur = 0;
+        } else {
+          qctx.strokeStyle = `rgba(120, 100, 180, ${alpha * 0.35})`;
+          qctx.lineWidth = 0.5 * avgScale;
+          qctx.shadowBlur = 0;
+        }
+
+        // Draw Synapse Line
+        qctx.beginPath();
+        qctx.moveTo(pa.x2D, pa.y2D);
+        qctx.lineTo(pb.x2D, pb.y2D);
+        qctx.stroke();
+
+        // Render Electric Energy Pulse Traveling along Active/Encoded Links
+        if ((aEnc || bEnc || isAILearning || maxPulse > 0) && avgScale > 0.45) {
+          const pulsePos = (linkTime * 1.5 + (lnk.a * 13 + lnk.b * 7) % 100 / 100) % 1.0;
+          const ex = pa.x2D + (pb.x2D - pa.x2D) * pulsePos;
+          const ey = pa.y2D + (pb.y2D - pa.y2D) * pulsePos;
+
+          qctx.fillStyle = maxPulse > 0 ? '#FFFFFF' : (isAILearning ? '#00F0FF' : nodeA.coreColor);
+          qctx.shadowColor = qctx.fillStyle;
+          qctx.shadowBlur = isAILearning ? 8 : 4;
+          qctx.beginPath();
+          qctx.arc(ex, ey, (1.2 + maxPulse * 2.0) * avgScale, 0, Math.PI * 2);
+          qctx.fill();
+        }
+
+        qctx.shadowBlur = 0;
+      }
+
+      // Render traveling Thought Particles with Comet Trails during learning
+      if (isAILearning) {
+        thoughtParticles.forEach(p => {
+          p.progress += p.speed;
+          if (p.progress > 1) p.progress = 0;
+          const pa = projected.find(pr => pr.i === p.a);
+          const pb = projected.find(pr => pr.i === p.b);
+          if (pa && pb) {
+            const avgScale = (pa.scale + pb.scale) * 0.5;
+
+            // Draw comet trail (3 sub-particles)
+            for (let t = 0; t < 4; t++) {
+              const trailProg = p.progress - t * 0.025;
+              if (trailProg < 0) continue;
+              const px = pa.x2D + (pb.x2D - pa.x2D) * trailProg;
+              const py = pa.y2D + (pb.y2D - pa.y2D) * trailProg;
+              const trailAlpha = (1 - t * 0.25) * avgScale;
+              const trailRadius = Math.max(0.5, (3.5 - t * 0.7) * avgScale);
+
+              qctx.fillStyle = p.color;
+              qctx.globalAlpha = trailAlpha;
+              qctx.shadowColor = p.color;
+              qctx.shadowBlur = t === 0 ? 12 : 4;
+              qctx.beginPath();
+              qctx.arc(px, py, trailRadius, 0, Math.PI * 2);
+              qctx.fill();
+            }
+            qctx.globalAlpha = 1.0;
+            qctx.shadowBlur = 0;
+          }
+        });
+      }
+
+      // Draw 3D nodes
+      for (const pn of projected) {
+        const n = pn.node;
+        const r = Math.max(0.6, n.size * pn.scale);
+        const glow = n.pulse;
+
+        qctx.shadowColor = isAILearning ? '#00F0FF' : n.coreColor;
+        qctx.shadowBlur = (n.baseEncoded || isAILearning) ? (6 + glow * 22) : (1 + glow * 10);
+        qctx.fillStyle = isAILearning ? '#00F0FF' : n.color;
+        qctx.beginPath();
+        qctx.arc(pn.x2D, pn.y2D, r + glow * 3.5, 0, Math.PI * 2);
+        qctx.fill();
+
+        if (r > 0.8) {
+          qctx.shadowBlur = 0;
+          qctx.fillStyle = 'rgba(255,255,255,' + ((n.baseEncoded || isAILearning) ? 0.7 + glow * 0.3 : 0.25) + ')';
+          qctx.beginPath();
+          qctx.arc(pn.x2D, pn.y2D, r * 0.35, 0, Math.PI * 2);
+          qctx.fill();
+        }
+
+        // Pulse decay
+        if (n.pulse > 0) {
+          n.pulse -= 0.018;
+          if (n.pulse <= 0) { n.pulse = 0; n.pulsing = false; }
+          // Propagate to neighbors
+          if (n.pulse > 0.7 && Math.random() < 0.08) {
+            const neighbors = qnnLinks
+              .filter(l => l.a === pn.i || l.b === pn.i)
+              .map(l => l.a === pn.i ? l.b : l.a);
+            if (neighbors.length > 0) {
+              const nb = rawNodes[neighbors[Math.floor(Math.random() * neighbors.length)]];
+              if (!nb.pulsing) {
+                nb.pulsing = true;
+                nb.pulse = 0.85;
+              }
+            }
+          }
+        }
+      }
+      qctx.shadowBlur = 0;
+
+      // VISUAL LEARNING HUD OVERLAY ON CANVAS
+      if (isAILearning) {
+        qctx.fillStyle = 'rgba(0, 240, 255, 0.15)';
+        qctx.strokeStyle = '#00F0FF';
+        qctx.lineWidth = 1;
+        qctx.beginPath();
+        qctx.roundRect(14, QH - 45, 340, 32, 6);
+        qctx.fill();
+        qctx.stroke();
+
+        qctx.font = 'bold 11px monospace';
+        qctx.fillStyle = '#00F0FF';
+        qctx.fillText('AI LEARNING IN PROGRESS: RE-WIRING SYNAPSE WEIGHTS...', 22, QH - 25);
+      }
+
+      // Live counter update
+      const activePulseCount = rawNodes.filter(n => n.pulse > 0).length;
+      if (qsPulses) qsPulses.textContent = activePulseCount;
+
+      requestAnimationFrame(qnnRender);
+    }
+
+    // Auto-heartbeat
+    setInterval(() => burstPulse(encodedDomains.size > 0 ? 10 : 3), 2000);
+    
+    // INITIALIZE & START RENDER LOOP WITH 9,999,999,999 UNIVERSAL FACTS & 100 GB ENGLISH PRE-LOADED
+    qnnRender();
+    updateHPI(0);
+    setTimeout(() => {
+      ingest100GBEnglishData();
+      map9999999999FactsEngine();
+    }, 500);
+  });
+</script>
