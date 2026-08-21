@@ -13,12 +13,23 @@ const {
 ---
 
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Immediate Theme Initialization to Prevent Flash of Light Theme -->
+    <script is:inline>
+      (function() {
+        var savedTheme = 'dark';
+        try {
+          savedTheme = localStorage.getItem('sydas-theme') || localStorage.getItem('theme') || 'dark';
+        } catch(e) {}
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      })();
+    </script>
 
     <!-- SEO Meta Tags -->
     <title>{title}</title>
@@ -42,7 +53,7 @@ const {
       inject();
       injectSpeedInsights();
 
-      // Global Theme Toggle Script — Default is Light Theme
+      // Global Theme Sync — Default is Dark Theme
       const theme = (() => {
         if (typeof localStorage !== 'undefined' && localStorage.getItem('sydas-theme')) {
           return localStorage.getItem('sydas-theme');
@@ -50,10 +61,10 @@ const {
         if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
           return localStorage.getItem('theme');
         }
-        return 'light';
+        return 'dark';
       })();
       
-      document.documentElement.setAttribute('data-theme', theme || 'light');
+      document.documentElement.setAttribute('data-theme', theme || 'dark');
     </script>
   </body>
 </html>

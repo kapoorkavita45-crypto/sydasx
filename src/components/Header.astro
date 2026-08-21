@@ -181,12 +181,12 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Theme Circle Toggle Button Listener
+    // Theme Circle Toggle Button Listener (Default Dark Mode)
     const themeBtn = document.getElementById('theme-circle-btn');
     if (themeBtn) {
       themeBtn.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('sydas-theme', newTheme);
       });
