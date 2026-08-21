@@ -54,6 +54,91 @@
       name: 'Montserrat Clean',
       cssFamily: "'Montserrat', system-ui, sans-serif",
       googleFontUrl: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap'
+    },
+    poppins: {
+      name: 'Poppins Modern Geometric',
+      cssFamily: "'Poppins', sans-serif",
+      googleFontUrl: 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap'
+    },
+    roboto: {
+      name: 'Roboto Universal',
+      cssFamily: "'Roboto', sans-serif",
+      googleFontUrl: 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap'
+    },
+    dmsans: {
+      name: 'DM Sans Minimalist',
+      cssFamily: "'DM Sans', sans-serif",
+      googleFontUrl: 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&display=swap'
+    },
+    manrope: {
+      name: 'Manrope Tech',
+      cssFamily: "'Manrope', sans-serif",
+      googleFontUrl: 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap'
+    },
+    orbitron: {
+      name: 'Orbitron Cyberpunk',
+      cssFamily: "'Orbitron', sans-serif",
+      googleFontUrl: 'https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap'
+    },
+    rajdhani: {
+      name: 'Rajdhani Sci-Fi',
+      cssFamily: "'Rajdhani', sans-serif",
+      googleFontUrl: 'https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap'
+    },
+    audiowide: {
+      name: 'Audiowide Synthwave',
+      cssFamily: "'Audiowide', cursive",
+      googleFontUrl: 'https://fonts.googleapis.com/css2?family=Audiowide&display=swap'
+    },
+    exo2: {
+      name: 'Exo 2 Aerospace',
+      cssFamily: "'Exo 2', sans-serif",
+      googleFontUrl: 'https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800;900&display=swap'
+    },
+    cormorant: {
+      name: 'Cormorant Garamond Haute',
+      cssFamily: "'Cormorant Garamond', Georgia, serif",
+      googleFontUrl: 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap'
+    },
+    cinzel: {
+      name: 'Cinzel Roman Imperial',
+      cssFamily: "'Cinzel', serif",
+      googleFontUrl: 'https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&display=swap'
+    },
+    prata: {
+      name: 'Prata Luxury Atelier',
+      cssFamily: "'Prata', serif",
+      googleFontUrl: 'https://fonts.googleapis.com/css2?family=Prata&display=swap'
+    },
+    bodoni: {
+      name: 'Bodoni Moda Editorial',
+      cssFamily: "'Bodoni Moda', serif",
+      googleFontUrl: 'https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,800;1,400&display=swap'
+    },
+    fraunces: {
+      name: 'Fraunces Retro Velvet',
+      cssFamily: "'Fraunces', serif",
+      googleFontUrl: 'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&display=swap'
+    },
+    firacode: {
+      name: 'Fira Code Developer',
+      cssFamily: "'Fira Code', monospace",
+      googleFontUrl: 'https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&display=swap'
+    },
+    spacemono: {
+      name: 'Space Mono Futuristic',
+      cssFamily: "'Space Mono', monospace",
+      googleFontUrl: 'https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap'
+    },
+    ibmmono: {
+      name: 'IBM Plex Mono Matrix',
+      cssFamily: "'IBM Plex Mono', monospace",
+      googleFontUrl: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap'
+    },
+    inconsolata: {
+      name: 'Inconsolata Terminal',
+      cssFamily: "'Inconsolata', monospace",
+      googleFontUrl: 'https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;600;800&display=swap'
     }
   };
 

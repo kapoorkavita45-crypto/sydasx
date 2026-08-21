@@ -209,134 +209,300 @@
 
 
     <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!-- STEP 3: STYLING & CUSTOMIZATION STUDIO                         -->
+    <!-- STEP 3: STYLING & CUSTOMIZATION STUDIO (100+ OPTIONS)          -->
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <div id="step-3" class="builder-step hidden">
       <div class="section-header">
         <h2 class="section-title">
-          Customize <span class="text-gradient">Aesthetic & Theme</span>
+          Design Studio <span class="text-gradient">(100+ Visual Options)</span>
         </h2>
         <p class="section-subtitle">
-          Choose your website's background color, tab/accent styling, and typography font.
+          Customize every aesthetic dimension for <strong id="studio-brand-label" class="text-gradient">Your Brand</strong> — 40 Background Palettes, 40 Tab/Accent Colors, and 25 Google Fonts.
         </p>
       </div>
 
       <div class="step-card glass-panel">
         <div class="wizard-header">
-          <span class="wizard-step-badge">STEP 3 OF 3</span>
-          <h3 class="wizard-title">Design Studio</h3>
-          <p class="wizard-subtitle">Tailor the visual identity for <strong id="studio-brand-label" class="text-gradient">Your Brand</strong>.</p>
+          <span class="wizard-step-badge">STEP 3 OF 3 • 100+ DESIGN ASSETS</span>
+          <h3 class="wizard-title">Design Studio & Palette Matrix</h3>
+          <p class="wizard-subtitle">Pick from our 100+ curated presets or enter your own custom hex codes.</p>
         </div>
 
-        <!-- 1. Background Color Options -->
+        <!-- ───────────────────────────────────────────────────────────── -->
+        <!-- 1. BACKGROUND COLOR OPTIONS (40 PRESETS + CUSTOM PICKER)      -->
+        <!-- ───────────────────────────────────────────────────────────── -->
         <div class="style-section-block">
-          <label class="glow-label">1. Background Color Palette</label>
+          <div class="section-block-header">
+            <div>
+              <label class="glow-label">1. Background Color Palette (40 Options)</label>
+              <span class="block-sublabel">Select a canvas background or define custom HEX</span>
+            </div>
+            <div class="category-pills" id="bg-category-pills">
+              <button type="button" class="cat-pill active" data-cat="all">All (40)</button>
+              <button type="button" class="cat-pill" data-cat="cyber">Cyber & Deep Space (12)</button>
+              <button type="button" class="cat-pill" data-cat="luxury">Luxury & Metallics (12)</button>
+              <button type="button" class="cat-pill" data-cat="light">Modern Light & Minimal (16)</button>
+            </div>
+          </div>
+
           <div class="color-swatches-grid" id="bg-swatches-grid">
-            <button type="button" class="swatch-btn active" data-color="#08090d" style="background: #08090d;" title="Void Onyx">
-              <span class="swatch-name">Void Onyx</span>
-            </button>
-            <button type="button" class="swatch-btn" data-color="#060e1e" style="background: #060e1e;" title="Cyber Navy">
-              <span class="swatch-name">Cyber Navy</span>
-            </button>
-            <button type="button" class="swatch-btn" data-color="#0d0818" style="background: #0d0818;" title="Obsidian Purple">
-              <span class="swatch-name">Obsidian</span>
-            </button>
-            <button type="button" class="swatch-btn" data-color="#06130e" style="background: #06130e;" title="Emerald Noir">
-              <span class="swatch-name">Emerald Noir</span>
-            </button>
-            <button type="button" class="swatch-btn" data-color="#16080a" style="background: #16080a;" title="Crimson Stealth">
-              <span class="swatch-name">Crimson</span>
-            </button>
-            <button type="button" class="swatch-btn" data-color="#121316" style="background: #121316;" title="Carbon Titanium">
-              <span class="swatch-name">Carbon</span>
-            </button>
-            <button type="button" class="swatch-btn" data-color="#140b07" style="background: #140b07;" title="Sunset Amber">
-              <span class="swatch-name">Sunset</span>
-            </button>
-            <button type="button" class="swatch-btn" data-color="#0a0a0a" style="background: #0a0a0a;" title="Pure Charcoal">
-              <span class="swatch-name">Charcoal</span>
-            </button>
-            <button type="button" class="swatch-btn light-swatch" data-color="#f8fafc" style="background: #f8fafc; color: #0f172a;" title="Soft Pearl">
-              <span class="swatch-name">Soft Pearl</span>
-            </button>
-            <button type="button" class="swatch-btn light-swatch" data-color="#faf7f2" style="background: #faf7f2; color: #0f172a;" title="Champagne Luxury">
-              <span class="swatch-name">Champagne</span>
-            </button>
+            <!-- Cyber & Deep Space (12) -->
+            <button type="button" class="swatch-btn active" data-cat="cyber" data-color="#08090d" style="background: #08090d;" title="Void Onyx"><span class="swatch-name">Void Onyx</span></button>
+            <button type="button" class="swatch-btn" data-cat="cyber" data-color="#060e1e" style="background: #060e1e;" title="Cyber Navy"><span class="swatch-name">Cyber Navy</span></button>
+            <button type="button" class="swatch-btn" data-cat="cyber" data-color="#0d0818" style="background: #0d0818;" title="Obsidian Purple"><span class="swatch-name">Obsidian Purple</span></button>
+            <button type="button" class="swatch-btn" data-cat="cyber" data-color="#06130e" style="background: #06130e;" title="Emerald Noir"><span class="swatch-name">Emerald Noir</span></button>
+            <button type="button" class="swatch-btn" data-cat="cyber" data-color="#16080a" style="background: #16080a;" title="Crimson Stealth"><span class="swatch-name">Crimson Stealth</span></button>
+            <button type="button" class="swatch-btn" data-cat="cyber" data-color="#121316" style="background: #121316;" title="Carbon Titanium"><span class="swatch-name">Carbon Titanium</span></button>
+            <button type="button" class="swatch-btn" data-cat="cyber" data-color="#140b07" style="background: #140b07;" title="Sunset Amber"><span class="swatch-name">Sunset Amber</span></button>
+            <button type="button" class="swatch-btn" data-cat="cyber" data-color="#0a0a0a" style="background: #0a0a0a;" title="Pure Charcoal"><span class="swatch-name">Pure Charcoal</span></button>
+            <button type="button" class="swatch-btn" data-cat="cyber" data-color="#070a14" style="background: #070a14;" title="Midnight Nebula"><span class="swatch-name">Midnight Nebula</span></button>
+            <button type="button" class="swatch-btn" data-cat="cyber" data-color="#090714" style="background: #090714;" title="Abyssal Indigo"><span class="swatch-name">Abyssal Indigo</span></button>
+            <button type="button" class="swatch-btn" data-cat="cyber" data-color="#020205" style="background: #020205;" title="Cyberpunk Black"><span class="swatch-name">Cyberpunk Black</span></button>
+            <button type="button" class="swatch-btn" data-cat="cyber" data-color="#031008" style="background: #031008;" title="Matrix Deep"><span class="swatch-name">Matrix Deep</span></button>
+
+            <!-- Luxury & Metallics (12) -->
+            <button type="button" class="swatch-btn" data-cat="luxury" data-color="#120e06" style="background: #120e06;" title="Imperial Gold"><span class="swatch-name">Imperial Gold</span></button>
+            <button type="button" class="swatch-btn" data-cat="luxury" data-color="#120610" style="background: #120610;" title="Royal Velvet"><span class="swatch-name">Royal Velvet</span></button>
+            <button type="button" class="swatch-btn" data-cat="luxury" data-color="#160e08" style="background: #160e08;" title="Bronze Vintage"><span class="swatch-name">Bronze Vintage</span></button>
+            <button type="button" class="swatch-btn" data-cat="luxury" data-color="#181a20" style="background: #181a20;" title="Slate Graphite"><span class="swatch-name">Slate Graphite</span></button>
+            <button type="button" class="swatch-btn" data-cat="luxury" data-color="#1c1e24" style="background: #1c1e24;" title="Titanium Steel"><span class="swatch-name">Titanium Steel</span></button>
+            <button type="button" class="swatch-btn" data-cat="luxury" data-color="#08140c" style="background: #08140c;" title="Deep Emerald"><span class="swatch-name">Deep Emerald</span></button>
+            <button type="button" class="swatch-btn" data-cat="luxury" data-color="#081020" style="background: #081020;" title="Sapphire Royale"><span class="swatch-name">Sapphire Royale</span></button>
+            <button type="button" class="swatch-btn" data-cat="luxury" data-color="#140820" style="background: #140820;" title="Amethyst Royale"><span class="swatch-name">Amethyst Royale</span></button>
+            <button type="button" class="swatch-btn" data-cat="luxury" data-color="#1c080e" style="background: #1c080e;" title="Rich Burgundy"><span class="swatch-name">Rich Burgundy</span></button>
+            <button type="button" class="swatch-btn" data-cat="luxury" data-color="#1a1610" style="background: #1a1610;" title="Champagne Noir"><span class="swatch-name">Champagne Noir</span></button>
+            <button type="button" class="swatch-btn" data-cat="luxury" data-color="#16181d" style="background: #16181d;" title="Platinum Dusk"><span class="swatch-name">Platinum Dusk</span></button>
+            <button type="button" class="swatch-btn" data-cat="luxury" data-color="#140c08" style="background: #140c08;" title="Dark Cocoa"><span class="swatch-name">Dark Cocoa</span></button>
+
+            <!-- Modern Light & Minimalist (16) -->
+            <button type="button" class="swatch-btn light-swatch" data-cat="light" data-color="#f8fafc" style="background: #f8fafc; color: #0f172a;" title="Soft Pearl"><span class="swatch-name">Soft Pearl</span></button>
+            <button type="button" class="swatch-btn light-swatch" data-cat="light" data-color="#faf7f2" style="background: #faf7f2; color: #0f172a;" title="Champagne Luxury"><span class="swatch-name">Champagne Luxury</span></button>
+            <button type="button" class="swatch-btn light-swatch" data-cat="light" data-color="#ffffff" style="background: #ffffff; color: #000000;" title="Alabaster Pure"><span class="swatch-name">Alabaster Pure</span></button>
+            <button type="button" class="swatch-btn light-swatch" data-cat="light" data-color="#f0f9ff" style="background: #f0f9ff; color: #0369a1;" title="Frosted Ice"><span class="swatch-name">Frosted Ice</span></button>
+            <button type="button" class="swatch-btn light-swatch" data-cat="light" data-color="#f2fbf5" style="background: #f2fbf5; color: #15803d;" title="Sage Whisper"><span class="swatch-name">Sage Whisper</span></button>
+            <button type="button" class="swatch-btn light-swatch" data-cat="light" data-color="#faf5ff" style="background: #faf5ff; color: #6b21a8;" title="Lavender Mist"><span class="swatch-name">Lavender Mist</span></button>
+            <button type="button" class="swatch-btn light-swatch" data-cat="light" data-color="#fff1f2" style="background: #fff1f2; color: #be123c;" title="Rose Quartz"><span class="swatch-name">Rose Quartz</span></button>
+            <button type="button" class="swatch-btn light-swatch" data-cat="light" data-color="#faf6f0" style="background: #faf6f0; color: #78350f;" title="Desert Linen"><span class="swatch-name">Desert Linen</span></button>
+            <button type="button" class="swatch-btn light-swatch" data-cat="light" data-color="#f1f5f9" style="background: #f1f5f9; color: #334155;" title="Arctic Slate"><span class="swatch-name">Arctic Slate</span></button>
+            <button type="button" class="swatch-btn light-swatch" data-cat="light" data-color="#fffbeb" style="background: #fffbeb; color: #92400e;" title="Milk & Honey"><span class="swatch-name">Milk & Honey</span></button>
+            <button type="button" class="swatch-btn light-swatch" data-cat="light" data-color="#f8fafc" style="background: #f8fafc; color: #475569;" title="Morning Mist"><span class="swatch-name">Morning Mist</span></button>
+            <button type="button" class="swatch-btn light-swatch" data-cat="light" data-color="#f4f4f5" style="background: #f4f4f5; color: #27272a;" title="Modern Off-White"><span class="swatch-name">Modern Off-White</span></button>
+            <button type="button" class="swatch-btn light-swatch" data-cat="light" data-color="#fffdfa" style="background: #fffdfa; color: #713f12;" title="Cream Silk"><span class="swatch-name">Cream Silk</span></button>
+            <button type="button" class="swatch-btn light-swatch" data-cat="light" data-color="#eff6ff" style="background: #eff6ff; color: #1d4ed8;" title="Pale Azure"><span class="swatch-name">Pale Azure</span></button>
+            <button type="button" class="swatch-btn light-swatch" data-cat="light" data-color="#ecfdf5" style="background: #ecfdf5; color: #047857;" title="Muted Mint"><span class="swatch-name">Muted Mint</span></button>
+            <button type="button" class="swatch-btn light-swatch" data-cat="light" data-color="#fdf2f8" style="background: #fdf2f8; color: #9d174d;" title="Blossom Tint"><span class="swatch-name">Blossom Tint</span></button>
+          </div>
+
+          <!-- Custom Color Picker Row -->
+          <div class="custom-color-row">
+            <span class="custom-color-label">Or Pick Custom Hex Background:</span>
+            <div class="custom-input-wrap">
+              <input type="color" id="custom-bg-input" value="#08090d" class="color-picker-input" />
+              <span id="custom-bg-val" class="custom-hex-code">#08090d</span>
+            </div>
           </div>
         </div>
 
-        <!-- 2. Tab & Accent Colors Options -->
+        <!-- ───────────────────────────────────────────────────────────── -->
+        <!-- 2. TAB & ACCENT COLOR OPTIONS (40 PRESETS + CUSTOM PICKER)    -->
+        <!-- ───────────────────────────────────────────────────────────── -->
         <div class="style-section-block" style="margin-top: 1.5rem;">
-          <label class="glow-label">2. Tab & Accent Colors</label>
+          <div class="section-block-header">
+            <div>
+              <label class="glow-label">2. Tab & Accent Colors (40 Options)</label>
+              <span class="block-sublabel">Select button, tab & glowing accent styling</span>
+            </div>
+            <div class="category-pills" id="accent-category-pills">
+              <button type="button" class="cat-pill active" data-cat="all">All (40)</button>
+              <button type="button" class="cat-pill" data-cat="neon">Electric Neons (14)</button>
+              <button type="button" class="cat-pill" data-cat="jewel">Jewel & Luxury Tones (12)</button>
+              <button type="button" class="cat-pill" data-cat="tech">Modern Tech & Brand (14)</button>
+            </div>
+          </div>
+
           <div class="color-swatches-grid" id="accent-swatches-grid">
-            <button type="button" class="swatch-btn active" data-accent="#00f0ff" style="background: #00f0ff; color: #000;" title="Electric Cyan">
-              <span class="swatch-name">Electric Cyan</span>
-            </button>
-            <button type="button" class="swatch-btn" data-accent="#a855f7" style="background: #a855f7; color: #fff;" title="Neon Purple">
-              <span class="swatch-name">Neon Purple</span>
-            </button>
-            <button type="button" class="swatch-btn" data-accent="#10b981" style="background: #10b981; color: #fff;" title="Hyper Emerald">
-              <span class="swatch-name">Emerald</span>
-            </button>
-            <button type="button" class="swatch-btn" data-accent="#eab308" style="background: #eab308; color: #000;" title="Solar Gold">
-              <span class="swatch-name">Solar Gold</span>
-            </button>
-            <button type="button" class="swatch-btn" data-accent="#ff5722" style="background: #ff5722; color: #fff;" title="Flame Orange">
-              <span class="swatch-name">Flame Orange</span>
-            </button>
-            <button type="button" class="swatch-btn" data-accent="#ef4444" style="background: #ef4444; color: #fff;" title="Laser Crimson">
-              <span class="swatch-name">Laser Crimson</span>
-            </button>
-            <button type="button" class="swatch-btn" data-accent="#3b82f6" style="background: #3b82f6; color: #fff;" title="Hyper Blue">
-              <span class="swatch-name">Hyper Blue</span>
-            </button>
-            <button type="button" class="swatch-btn" data-accent="#ec4899" style="background: #ec4899; color: #fff;" title="Neon Pink">
-              <span class="swatch-name">Neon Pink</span>
-            </button>
-            <button type="button" class="swatch-btn" data-accent="#84cc16" style="background: #84cc16; color: #000;" title="Acid Lime">
-              <span class="swatch-name">Acid Lime</span>
-            </button>
-            <button type="button" class="swatch-btn" data-accent="#e2c08d" style="background: #e2c08d; color: #000;" title="Rose Gold">
-              <span class="swatch-name">Rose Gold</span>
-            </button>
+            <!-- Electric Neons (14) -->
+            <button type="button" class="swatch-btn active" data-cat="neon" data-accent="#00f0ff" style="background: #00f0ff; color: #000;" title="Electric Cyan"><span class="swatch-name">Electric Cyan</span></button>
+            <button type="button" class="swatch-btn" data-cat="neon" data-accent="#a855f7" style="background: #a855f7; color: #fff;" title="Neon Purple"><span class="swatch-name">Neon Purple</span></button>
+            <button type="button" class="swatch-btn" data-cat="neon" data-accent="#10b981" style="background: #10b981; color: #fff;" title="Hyper Emerald"><span class="swatch-name">Hyper Emerald</span></button>
+            <button type="button" class="swatch-btn" data-cat="neon" data-accent="#eab308" style="background: #eab308; color: #000;" title="Solar Gold"><span class="swatch-name">Solar Gold</span></button>
+            <button type="button" class="swatch-btn" data-cat="neon" data-accent="#ff5722" style="background: #ff5722; color: #fff;" title="Flame Orange"><span class="swatch-name">Flame Orange</span></button>
+            <button type="button" class="swatch-btn" data-cat="neon" data-accent="#ef4444" style="background: #ef4444; color: #fff;" title="Laser Crimson"><span class="swatch-name">Laser Crimson</span></button>
+            <button type="button" class="swatch-btn" data-cat="neon" data-accent="#3b82f6" style="background: #3b82f6; color: #fff;" title="Hyper Blue"><span class="swatch-name">Hyper Blue</span></button>
+            <button type="button" class="swatch-btn" data-cat="neon" data-accent="#ec4899" style="background: #ec4899; color: #fff;" title="Neon Pink"><span class="swatch-name">Neon Pink</span></button>
+            <button type="button" class="swatch-btn" data-cat="neon" data-accent="#84cc16" style="background: #84cc16; color: #000;" title="Acid Lime"><span class="swatch-name">Acid Lime</span></button>
+            <button type="button" class="swatch-btn" data-cat="neon" data-accent="#7c3aed" style="background: #7c3aed; color: #fff;" title="Ultra Violet"><span class="swatch-name">Ultra Violet</span></button>
+            <button type="button" class="swatch-btn" data-cat="neon" data-accent="#d946ef" style="background: #d946ef; color: #000;" title="Cyber Magenta"><span class="swatch-name">Cyber Magenta</span></button>
+            <button type="button" class="swatch-btn" data-cat="neon" data-accent="#06b6d4" style="background: #06b6d4; color: #000;" title="Plasma Turquoise"><span class="swatch-name">Plasma Turquoise</span></button>
+            <button type="button" class="swatch-btn" data-cat="neon" data-accent="#facc15" style="background: #facc15; color: #000;" title="Supernova Yellow"><span class="swatch-name">Supernova Yellow</span></button>
+            <button type="button" class="swatch-btn" data-cat="neon" data-accent="#f59e0b" style="background: #f59e0b; color: #000;" title="Radiant Amber"><span class="swatch-name">Radiant Amber</span></button>
+
+            <!-- Jewel & Luxury Tones (12) -->
+            <button type="button" class="swatch-btn" data-cat="jewel" data-accent="#9333ea" style="background: #9333ea; color: #fff;" title="Royal Amethyst"><span class="swatch-name">Royal Amethyst</span></button>
+            <button type="button" class="swatch-btn" data-cat="jewel" data-accent="#e11d48" style="background: #e11d48; color: #fff;" title="Imperial Ruby"><span class="swatch-name">Imperial Ruby</span></button>
+            <button type="button" class="swatch-btn" data-cat="jewel" data-accent="#2563eb" style="background: #2563eb; color: #fff;" title="Deep Sapphire"><span class="swatch-name">Deep Sapphire</span></button>
+            <button type="button" class="swatch-btn" data-cat="jewel" data-accent="#059669" style="background: #059669; color: #fff;" title="Colombian Emerald"><span class="swatch-name">Colombian Emerald</span></button>
+            <button type="button" class="swatch-btn" data-cat="jewel" data-accent="#ca8a04" style="background: #ca8a04; color: #000;" title="Canary Topaz"><span class="swatch-name">Canary Topaz</span></button>
+            <button type="button" class="swatch-btn" data-cat="jewel" data-accent="#ea580c" style="background: #ea580c; color: #fff;" title="Sunset Garnet"><span class="swatch-name">Sunset Garnet</span></button>
+            <button type="button" class="swatch-btn" data-cat="jewel" data-accent="#e2c08d" style="background: #e2c08d; color: #000;" title="Rose Gold"><span class="swatch-name">Rose Gold</span></button>
+            <button type="button" class="swatch-btn" data-cat="jewel" data-accent="#db2777" style="background: #db2777; color: #fff;" title="Tourmaline Pink"><span class="swatch-name">Tourmaline Pink</span></button>
+            <button type="button" class="swatch-btn" data-cat="jewel" data-accent="#4f46e5" style="background: #4f46e5; color: #fff;" title="Tanzanite Blue"><span class="swatch-name">Tanzanite Blue</span></button>
+            <button type="button" class="swatch-btn" data-cat="jewel" data-accent="#047857" style="background: #047857; color: #fff;" title="Jade Emperor"><span class="swatch-name">Jade Emperor</span></button>
+            <button type="button" class="swatch-btn" data-cat="jewel" data-accent="#f97316" style="background: #f97316; color: #000;" title="Coral Sunset"><span class="swatch-name">Coral Sunset</span></button>
+            <button type="button" class="swatch-btn" data-cat="jewel" data-accent="#d4af37" style="background: #d4af37; color: #000;" title="Champagne Citrine"><span class="swatch-name">Champagne Citrine</span></button>
+
+            <!-- Modern Tech & Brand (14) -->
+            <button type="button" class="swatch-btn" data-cat="tech" data-accent="#238636" style="background: #238636; color: #fff;" title="GitHub Green"><span class="swatch-name">GitHub Green</span></button>
+            <button type="button" class="swatch-btn" data-cat="tech" data-accent="#a259ff" style="background: #a259ff; color: #fff;" title="Figma Purple"><span class="swatch-name">Figma Purple</span></button>
+            <button type="button" class="swatch-btn" data-cat="tech" data-accent="#635bff" style="background: #635bff; color: #fff;" title="Stripe Indigo"><span class="swatch-name">Stripe Indigo</span></button>
+            <button type="button" class="swatch-btn" data-cat="tech" data-accent="#00dfd8" style="background: #00dfd8; color: #000;" title="Vercel Cyan"><span class="swatch-name">Vercel Cyan</span></button>
+            <button type="button" class="swatch-btn" data-cat="tech" data-accent="#5865f2" style="background: #5865f2; color: #fff;" title="Discord Blurple"><span class="swatch-name">Discord Blurple</span></button>
+            <button type="button" class="swatch-btn" data-cat="tech" data-accent="#0284c7" style="background: #0284c7; color: #fff;" title="Tailwind Sky"><span class="swatch-name">Tailwind Sky</span></button>
+            <button type="button" class="swatch-btn" data-cat="tech" data-accent="#3ecf8e" style="background: #3ecf8e; color: #000;" title="Supabase Green"><span class="swatch-name">Supabase Green</span></button>
+            <button type="button" class="swatch-btn" data-cat="tech" data-accent="#5e6ad2" style="background: #5e6ad2; color: #fff;" title="Linear Violet"><span class="swatch-name">Linear Violet</span></button>
+            <button type="button" class="swatch-btn" data-cat="tech" data-accent="#e9b949" style="background: #e9b949; color: #000;" title="Notion Yellow"><span class="swatch-name">Notion Yellow</span></button>
+            <button type="button" class="swatch-btn" data-cat="tech" data-accent="#16a34a" style="background: #16a34a; color: #fff;" title="Prisma Teal"><span class="swatch-name">Prisma Teal</span></button>
+            <button type="button" class="swatch-btn" data-cat="tech" data-accent="#ff6363" style="background: #ff6363; color: #fff;" title="Raycast Red"><span class="swatch-name">Raycast Red</span></button>
+            <button type="button" class="swatch-btn" data-cat="tech" data-accent="#805ad5" style="background: #805ad5; color: #fff;" title="Arc Purple"><span class="swatch-name">Arc Purple</span></button>
+            <button type="button" class="swatch-btn" data-cat="tech" data-accent="#10a37f" style="background: #10a37f; color: #fff;" title="OpenAI Green"><span class="swatch-name">OpenAI Green</span></button>
+            <button type="button" class="swatch-btn" data-cat="tech" data-accent="#1db954" style="background: #1db954; color: #000;" title="Spotify Green"><span class="swatch-name">Spotify Green</span></button>
+          </div>
+
+          <!-- Custom Accent Picker Row -->
+          <div class="custom-color-row">
+            <span class="custom-color-label">Or Pick Custom HEX Accent / Tab Color:</span>
+            <div class="custom-input-wrap">
+              <input type="color" id="custom-accent-input" value="#00f0ff" class="color-picker-input" />
+              <span id="custom-accent-val" class="custom-hex-code">#00f0ff</span>
+            </div>
           </div>
         </div>
 
-        <!-- 3. Font Typography Selection -->
+        <!-- ───────────────────────────────────────────────────────────── -->
+        <!-- 3. FONT TYPOGRAPHY SELECTION (25 GOOGLE FONTS)                -->
+        <!-- ───────────────────────────────────────────────────────────── -->
         <div class="style-section-block" style="margin-top: 1.5rem;">
-          <label class="glow-label">3. Typography & Font Style</label>
+          <div class="section-block-header">
+            <div>
+              <label class="glow-label">3. Typography & Google Fonts (25 Presets)</label>
+              <span class="block-sublabel">Select a master brand typeface</span>
+            </div>
+            <div class="category-pills" id="font-category-pills">
+              <button type="button" class="cat-pill active" data-cat="all">All (25)</button>
+              <button type="button" class="cat-pill" data-cat="sans">Modern Sans (8)</button>
+              <button type="button" class="cat-pill" data-cat="cyber">Cyber & High-Tech (6)</button>
+              <button type="button" class="cat-pill" data-cat="serif">Luxury Serif (6)</button>
+              <button type="button" class="cat-pill" data-cat="mono">Developer Mono (5)</button>
+            </div>
+          </div>
+
           <div class="font-selection-grid" id="font-selection-grid">
-            <button type="button" class="font-card-btn active" data-font="inter" style="font-family: 'Inter', sans-serif;">
+            <!-- Modern Sans (8) -->
+            <button type="button" class="font-card-btn active" data-cat="sans" data-font="inter" style="font-family: 'Inter', sans-serif;">
               <span class="font-title">Inter Modern</span>
-              <span class="font-sample">Clean, balanced & highly readable</span>
+              <span class="font-sample">Clean, balanced & highly legible</span>
             </button>
-            <button type="button" class="font-card-btn" data-font="outfit" style="font-family: 'Outfit', sans-serif;">
+            <button type="button" class="font-card-btn" data-cat="sans" data-font="outfit" style="font-family: 'Outfit', sans-serif;">
               <span class="font-title">Outfit Sleek</span>
               <span class="font-sample">Futuristic, geometric & bold</span>
             </button>
-            <button type="button" class="font-card-btn" data-font="space" style="font-family: 'Space Grotesk', sans-serif;">
+            <button type="button" class="font-card-btn" data-cat="sans" data-font="jakarta" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+              <span class="font-title">Plus Jakarta Sans</span>
+              <span class="font-sample">Neo-grotesque modern digital aesthetic</span>
+            </button>
+            <button type="button" class="font-card-btn" data-cat="sans" data-font="montserrat" style="font-family: 'Montserrat', sans-serif;">
+              <span class="font-title">Montserrat Clean</span>
+              <span class="font-sample">Universal, premium & corporate</span>
+            </button>
+            <button type="button" class="font-card-btn" data-cat="sans" data-font="poppins" style="font-family: 'Poppins', sans-serif;">
+              <span class="font-title">Poppins Geometric</span>
+              <span class="font-sample">Friendly, contemporary & rounded</span>
+            </button>
+            <button type="button" class="font-card-btn" data-cat="sans" data-font="roboto" style="font-family: 'Roboto', sans-serif;">
+              <span class="font-title">Roboto Universal</span>
+              <span class="font-sample">Standard reliable global system sans</span>
+            </button>
+            <button type="button" class="font-card-btn" data-cat="sans" data-font="dmsans" style="font-family: 'DM Sans', sans-serif;">
+              <span class="font-title">DM Sans Minimal</span>
+              <span class="font-sample">Crisp, low-contrast Swiss style</span>
+            </button>
+            <button type="button" class="font-card-btn" data-cat="sans" data-font="manrope" style="font-family: 'Manrope', sans-serif;">
+              <span class="font-title">Manrope Tech</span>
+              <span class="font-sample">Modern open-source technology typeface</span>
+            </button>
+
+            <!-- Cyber & Sci-Fi (6) -->
+            <button type="button" class="font-card-btn" data-cat="cyber" data-font="space" style="font-family: 'Space Grotesk', sans-serif;">
               <span class="font-title">Space Grotesk</span>
               <span class="font-sample">Cyberpunk, high-tech & mechanical</span>
             </button>
-            <button type="button" class="font-card-btn" data-font="playfair" style="font-family: 'Playfair Display', serif;">
-              <span class="font-title">Playfair Luxury</span>
-              <span class="font-sample">High couture, editorial & elegant serif</span>
-            </button>
-            <button type="button" class="font-card-btn" data-font="mono" style="font-family: 'JetBrains Mono', monospace;">
-              <span class="font-title">JetBrains Mono</span>
-              <span class="font-sample">Developer code, matrix & monospace</span>
-            </button>
-            <button type="button" class="font-card-btn" data-font="jakarta" style="font-family: 'Plus Jakarta Sans', sans-serif;">
-              <span class="font-title">Plus Jakarta</span>
-              <span class="font-sample">Neo-grotesque modern digital aesthetic</span>
-            </button>
-            <button type="button" class="font-card-btn" data-font="syne" style="font-family: 'Syne', sans-serif;">
+            <button type="button" class="font-card-btn" data-cat="cyber" data-font="syne" style="font-family: 'Syne', sans-serif;">
               <span class="font-title">Syne Avant-Garde</span>
               <span class="font-sample">High impact, daring & artistic display</span>
             </button>
-            <button type="button" class="font-card-btn" data-font="montserrat" style="font-family: 'Montserrat', sans-serif;">
-              <span class="font-title">Montserrat</span>
-              <span class="font-sample">Universal, premium & corporate</span>
+            <button type="button" class="font-card-btn" data-cat="cyber" data-font="orbitron" style="font-family: 'Orbitron', sans-serif;">
+              <span class="font-title">Orbitron Cyber</span>
+              <span class="font-sample">Geometric sci-fi futuristic headers</span>
+            </button>
+            <button type="button" class="font-card-btn" data-cat="cyber" data-font="rajdhani" style="font-family: 'Rajdhani', sans-serif;">
+              <span class="font-title">Rajdhani Sci-Fi</span>
+              <span class="font-sample">Condensed industrial aerospace style</span>
+            </button>
+            <button type="button" class="font-card-btn" data-cat="cyber" data-font="audiowide" style="font-family: 'Audiowide', cursive;">
+              <span class="font-title">Audiowide Synth</span>
+              <span class="font-sample">Retrofuturistic synthwave gaming font</span>
+            </button>
+            <button type="button" class="font-card-btn" data-cat="cyber" data-font="exo2" style="font-family: 'Exo 2', sans-serif;">
+              <span class="font-title">Exo 2 Aerospace</span>
+              <span class="font-sample">Technological aerodynamic typography</span>
+            </button>
+
+            <!-- Luxury & Editorial Serif (6) -->
+            <button type="button" class="font-card-btn" data-cat="serif" data-font="playfair" style="font-family: 'Playfair Display', serif;">
+              <span class="font-title">Playfair Luxury</span>
+              <span class="font-sample">High couture, editorial & elegant serif</span>
+            </button>
+            <button type="button" class="font-card-btn" data-cat="serif" data-font="cormorant" style="font-family: 'Cormorant Garamond', serif;">
+              <span class="font-title">Cormorant Garamond</span>
+              <span class="font-sample">Master heritage classical luxury serif</span>
+            </button>
+            <button type="button" class="font-card-btn" data-cat="serif" data-font="cinzel" style="font-family: 'Cinzel', serif;">
+              <span class="font-title">Cinzel Roman Imperial</span>
+              <span class="font-sample">Classical inscriptional Roman capitals</span>
+            </button>
+            <button type="button" class="font-card-btn" data-cat="serif" data-font="prata" style="font-family: 'Prata', serif;">
+              <span class="font-title">Prata Luxury Atelier</span>
+              <span class="font-sample">Teardrop terminals & high contrast</span>
+            </button>
+            <button type="button" class="font-card-btn" data-cat="serif" data-font="bodoni" style="font-family: 'Bodoni Moda', serif;">
+              <span class="font-title">Bodoni Moda Haute</span>
+              <span class="font-sample">Vogue-level fashion editorial elegance</span>
+            </button>
+            <button type="button" class="font-card-btn" data-cat="serif" data-font="fraunces" style="font-family: 'Fraunces', serif;">
+              <span class="font-title">Fraunces Velvet</span>
+              <span class="font-sample">Warm, organic retro-serif display</span>
+            </button>
+
+            <!-- Developer & Monospace (5) -->
+            <button type="button" class="font-card-btn" data-cat="mono" data-font="mono" style="font-family: 'JetBrains Mono', monospace;">
+              <span class="font-title">JetBrains Mono</span>
+              <span class="font-sample">Developer code, matrix & monospace</span>
+            </button>
+            <button type="button" class="font-card-btn" data-cat="mono" data-font="firacode" style="font-family: 'Fira Code', monospace;">
+              <span class="font-title">Fira Code Ligatures</span>
+              <span class="font-sample">Programmer code ligatures monospace</span>
+            </button>
+            <button type="button" class="font-card-btn" data-cat="mono" data-font="spacemono" style="font-family: 'Space Mono', monospace;">
+              <span class="font-title">Space Mono Matrix</span>
+              <span class="font-sample">Retro-cyber high-tech monospaced</span>
+            </button>
+            <button type="button" class="font-card-btn" data-cat="mono" data-font="ibmmono" style="font-family: 'IBM Plex Mono', monospace;">
+              <span class="font-title">IBM Plex Mono</span>
+              <span class="font-sample">Engineered corporate terminal style</span>
+            </button>
+            <button type="button" class="font-card-btn" data-cat="mono" data-font="inconsolata" style="font-family: 'Inconsolata', monospace;">
+              <span class="font-title">Inconsolata Terminal</span>
+              <span class="font-sample">Clean humanist monospace font</span>
             </button>
           </div>
         </div>
@@ -852,32 +1018,90 @@
 
 
     // ══════════════════════════════════════════════════════
-    // STEP 3: CUSTOMIZATION STUDIO CONTROLS
+    // STEP 3: CUSTOMIZATION STUDIO CONTROLS (100+ OPTIONS)
     // ══════════════════════════════════════════════════════
+    // Category Filter Buttons
+    function setupCategoryFilters(containerId, itemsSelector) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const pills = container.querySelectorAll('.cat-pill');
+      pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          pills.forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+          const cat = pill.getAttribute('data-cat') || 'all';
+          const items = document.querySelectorAll(itemsSelector);
+          items.forEach(item => {
+            const itemCat = item.getAttribute('data-cat');
+            if (cat === 'all' || itemCat === cat) {
+              item.style.display = '';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        });
+      });
+    }
+
+    setupCategoryFilters('bg-category-pills', '#bg-swatches-grid .swatch-btn');
+    setupCategoryFilters('accent-category-pills', '#accent-swatches-grid .swatch-btn');
+    setupCategoryFilters('font-category-pills', '#font-selection-grid .font-card-btn');
+
     // Background Swatches
-    bgSwatches.forEach(swatch => {
+    const bgSwatchesAll = document.querySelectorAll('#bg-swatches-grid .swatch-btn');
+    const customBgInput = document.getElementById('custom-bg-input');
+    const customBgVal = document.getElementById('custom-bg-val');
+
+    bgSwatchesAll.forEach(swatch => {
       swatch.addEventListener('click', () => {
-        bgSwatches.forEach(s => s.classList.remove('active'));
+        bgSwatchesAll.forEach(s => s.classList.remove('active'));
         swatch.classList.add('active');
         selectedBgColor = swatch.getAttribute('data-color') || '#08090d';
+        if (customBgInput) customBgInput.value = selectedBgColor.startsWith('#') && selectedBgColor.length === 7 ? selectedBgColor : '#08090d';
+        if (customBgVal) customBgVal.textContent = selectedBgColor;
         updateSummaryCard();
       });
     });
+
+    if (customBgInput) {
+      customBgInput.addEventListener('input', (e) => {
+        selectedBgColor = e.target.value;
+        if (customBgVal) customBgVal.textContent = selectedBgColor;
+        bgSwatchesAll.forEach(s => s.classList.remove('active'));
+        updateSummaryCard();
+      });
+    }
 
     // Accent Swatches
-    accentSwatches.forEach(swatch => {
+    const accentSwatchesAll = document.querySelectorAll('#accent-swatches-grid .swatch-btn');
+    const customAccentInput = document.getElementById('custom-accent-input');
+    const customAccentVal = document.getElementById('custom-accent-val');
+
+    accentSwatchesAll.forEach(swatch => {
       swatch.addEventListener('click', () => {
-        accentSwatches.forEach(s => s.classList.remove('active'));
+        accentSwatchesAll.forEach(s => s.classList.remove('active'));
         swatch.classList.add('active');
         selectedAccentColor = swatch.getAttribute('data-accent') || '#00f0ff';
+        if (customAccentInput) customAccentInput.value = selectedAccentColor.startsWith('#') && selectedAccentColor.length === 7 ? selectedAccentColor : '#00f0ff';
+        if (customAccentVal) customAccentVal.textContent = selectedAccentColor;
         updateSummaryCard();
       });
     });
 
+    if (customAccentInput) {
+      customAccentInput.addEventListener('input', (e) => {
+        selectedAccentColor = e.target.value;
+        if (customAccentVal) customAccentVal.textContent = selectedAccentColor;
+        accentSwatchesAll.forEach(s => s.classList.remove('active'));
+        updateSummaryCard();
+      });
+    }
+
     // Font Cards
-    fontCardBtns.forEach(card => {
+    const fontCardBtnsAll = document.querySelectorAll('#font-selection-grid .font-card-btn');
+    fontCardBtnsAll.forEach(card => {
       card.addEventListener('click', () => {
-        fontCardBtns.forEach(c => c.classList.remove('active'));
+        fontCardBtnsAll.forEach(c => c.classList.remove('active'));
         card.classList.add('active');
         selectedFontKey = card.getAttribute('data-font') || 'inter';
         selectedFontName = card.querySelector('.font-title')?.textContent || 'Inter Modern';
@@ -1454,25 +1678,75 @@ CRITICAL REQUIREMENTS:
     line-height: 1.35;
   }
 
-  /* STEP 3: STYLING STUDIO */
+  /* STEP 3: STYLING STUDIO (100+ OPTIONS) */
   .style-section-block {
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-md);
-    padding: 1.5rem;
+    padding: 1.75rem;
+  }
+
+  .section-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .block-sublabel {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-top: 0.2rem;
+  }
+
+  .category-pills {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .cat-pill {
+    padding: 0.35rem 0.8rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .cat-pill:hover {
+    background: rgba(0, 240, 255, 0.1);
+    color: var(--accent-cyan);
+    border-color: rgba(0, 240, 255, 0.3);
+  }
+
+  .cat-pill.active {
+    background: var(--accent-gradient);
+    color: #000000;
+    font-weight: 800;
+    border-color: transparent;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
   }
 
   .color-swatches-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 0.75rem;
-    margin-top: 0.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+    gap: 0.65rem;
+    margin-top: 0.5rem;
   }
 
   .swatch-btn {
-    padding: 0.85rem 0.5rem;
+    padding: 0.75rem 0.5rem;
     border-radius: 10px;
-    border: 2px solid rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.12);
     cursor: pointer;
     font-size: 0.75rem;
     font-weight: 700;
@@ -1480,28 +1754,76 @@ CRITICAL REQUIREMENTS:
     transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
     color: #ffffff;
     box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .swatch-btn.light-swatch {
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.06);
+    border-color: rgba(0, 0, 0, 0.12);
   }
 
   .swatch-btn:hover {
     transform: translateY(-2px);
     border-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   }
 
   .swatch-btn.active {
     border-color: var(--accent-cyan);
-    box-shadow: 0 0 16px rgba(0, 240, 255, 0.5);
-    transform: scale(1.03);
+    box-shadow: 0 0 16px rgba(0, 240, 255, 0.6);
+    transform: scale(1.04);
+  }
+
+  .custom-color-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed rgba(255, 255, 255, 0.08);
+  }
+
+  .custom-color-label {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  .custom-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 0.25rem 0.6rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .color-picker-input {
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background: transparent;
+    padding: 0;
+  }
+
+  .custom-hex-code {
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: var(--accent-cyan);
+    font-weight: 700;
   }
 
   .font-selection-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     gap: 0.75rem;
-    margin-top: 0.75rem;
+    margin-top: 0.5rem;
   }
 
   .font-card-btn {
@@ -1518,12 +1840,13 @@ CRITICAL REQUIREMENTS:
   .font-card-btn:hover {
     background: rgba(255, 255, 255, 0.06);
     border-color: var(--accent-cyan);
+    transform: translateY(-2px);
   }
 
   .font-card-btn.active {
-    background: rgba(0, 240, 255, 0.06);
+    background: rgba(0, 240, 255, 0.08);
     border-color: var(--accent-cyan);
-    box-shadow: 0 0 16px rgba(0, 240, 255, 0.15);
+    box-shadow: 0 0 16px rgba(0, 240, 255, 0.25);
   }
 
   .font-title {
@@ -1535,7 +1858,7 @@ CRITICAL REQUIREMENTS:
 
   .font-sample {
     display: block;
-    font-size: 0.75rem;
+    font-size: 0.73rem;
     color: var(--text-secondary);
     line-height: 1.3;
   }
