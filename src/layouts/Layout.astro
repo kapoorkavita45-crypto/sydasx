@@ -38,7 +38,9 @@ const {
 
     <script>
       import { inject } from '@vercel/analytics';
+      import { injectSpeedInsights } from '@vercel/speed-insights';
       inject();
+      injectSpeedInsights();
 
       // Global Theme Toggle Script — Default is Light Theme
       const theme = (() => {
