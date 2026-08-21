@@ -1,0 +1,179 @@
+---
+---
+
+<section class="pixel-odyssey-section">
+  <div class="pixel-backgrounds">
+    <div class="pixel-bg bg-1 active" style="background-image: url('/images/pixel-scientist.png');"></div>
+    <div class="pixel-bg bg-2" style="background-image: url('/images/pixel-engine.png');"></div>
+    <div class="pixel-bg bg-3" style="background-image: url('/images/pixel-planets.png');"></div>
+    <div class="pixel-bg bg-4" style="background-image: url('/images/pixel-galaxy.png');"></div>
+  </div>
+
+  <div class="pixel-overlay"></div>
+</section>
+
+<style>
+  .pixel-odyssey-section {
+    position: relative;
+    height: 480px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+  }
+
+  .pixel-backgrounds {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+  }
+
+  .pixel-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+    image-rendering: pixelated;
+    filter: brightness(0.85) contrast(1.1);
+  }
+
+  .pixel-bg.active {
+    opacity: 1;
+  }
+
+  .pixel-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.85) 100%),
+                linear-gradient(180deg, rgba(5, 5, 10, 0.8) 0%, transparent 40%, rgba(5, 5, 10, 0.95) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .pixel-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+  }
+
+  .pixel-hud {
+    background: rgba(8, 8, 16, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 2.5rem;
+    border-radius: 16px;
+    max-width: 750px;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
+  }
+
+  .pixel-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(0, 240, 255, 0.12);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 1.2rem;
+  }
+
+  .pixel-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent-cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent-cyan);
+    animation: blinkDot 1s step-end infinite;
+  }
+
+  .pixel-hud-title {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    letter-spacing: 0.15em;
+  }
+
+  .pixel-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    color: #fff;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    min-height: 2.4rem;
+  }
+
+  .pixel-caption {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    min-height: 3rem;
+  }
+
+  .pixel-stage-toggles {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .pixel-btn {
+    padding: 0.6rem 1.2rem;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-secondary);
+    border: none;
+    border-radius: 8px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .pixel-btn:hover {
+    background: rgba(0, 240, 255, 0.15);
+    color: var(--text-primary);
+  }
+
+  .pixel-btn.active {
+    background: var(--accent-cyan);
+    color: var(--bg-dark);
+    font-weight: 700;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+  }
+
+  @keyframes blinkDot {
+    50% { opacity: 0; }
+  }
+
+  @media (max-width: 768px) {
+    .pixel-odyssey-section {
+      height: 520px;
+    }
+    .pixel-hud {
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const bgElements = document.querySelectorAll('.pixel-bg');
+    if (!bgElements.length) return;
+
+    let currentStage = 0;
+
+    setInterval(() => {
+      currentStage = (currentStage + 1) % bgElements.length;
+      bgElements.forEach((bg, idx) => {
+        bg.classList.toggle('active', idx === currentStage);
+      });
+    }, 5000);
+  });
+</script>
