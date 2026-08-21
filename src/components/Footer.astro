@@ -76,13 +76,18 @@
           </div>
         </div>
 
-        <!-- Column 2: Navigation -->
-        <div class="links-col">
-          <h4 class="col-title">Nexus</h4>
-          <a href="/#services">Capabilities</a>
-          <a href="/#builder">Initialize Project</a>
-          <a href="/projects">Projects Showcase</a>
-          <a href="/#contact">Contact Us</a>
+        <!-- Column 2: Navigation / NEXUS with Hover Reveal -->
+        <div class="links-col nexus-col" tabindex="0">
+          <div class="nexus-header">
+            <h4 class="col-title text-gradient">NEXUS</h4>
+            <span class="hover-hint-sub">hover over me</span>
+          </div>
+          <div class="nexus-links-container">
+            <a href="/#services" class="nexus-link-item">Capabilities</a>
+            <a href="/#builder" class="nexus-link-item">Initialize Project</a>
+            <a href="/projects" class="nexus-link-item">Projects Showcase</a>
+            <a href="/#contact" class="nexus-link-item">Contact Us</a>
+          </div>
         </div>
 
         <!-- Column 3: Encrypted Uplink -->
@@ -281,8 +286,78 @@
   }
 
   .contact-col:hover .hover-hint-sub,
-  .contact-col:focus-within .hover-hint-sub {
+  .contact-col:focus-within .hover-hint-sub,
+  .nexus-col:hover .hover-hint-sub,
+  .nexus-col:focus-within .hover-hint-sub {
     opacity: 0.3;
+  }
+
+  /* NEXUS Header & Rollout Container */
+  .nexus-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    width: fit-content;
+  }
+
+  .nexus-header .col-title {
+    margin-bottom: 0.25rem;
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+  }
+
+  .nexus-col:hover .nexus-header .col-title,
+  .nexus-col:focus-within .nexus-header .col-title {
+    transform: translateX(3px);
+    text-shadow: 0 0 14px rgba(0, 240, 255, 0.6);
+  }
+
+  /* Nexus links container: Hidden by default, smoothly revealed when hovering over NEXUS */
+  .nexus-links-container {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-8px);
+    transition: max-height 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.5s ease,
+                transform 0.5s ease,
+                margin-top 0.4s ease;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Reveal all Nexus options upon hovering over NEXUS */
+  .nexus-col:hover .nexus-links-container,
+  .nexus-col:focus-within .nexus-links-container {
+    max-height: 250px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 0.5rem;
+  }
+
+  .nexus-link-item {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    text-decoration: none;
+    transition: color 0.25s ease, transform 0.25s ease, text-shadow 0.25s ease;
+    transform: translateX(-6px);
+    opacity: 0.85;
+  }
+
+  .nexus-col:hover .nexus-link-item,
+  .nexus-col:focus-within .nexus-link-item {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  .nexus-link-item:hover {
+    color: var(--accent-cyan) !important;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+    transform: translateX(5px) !important;
   }
 
   .links-col a {
