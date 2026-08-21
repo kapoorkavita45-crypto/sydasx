@@ -1,0 +1,114 @@
+---
+const features = [
+  {
+    icon: "01",
+    title: "Zero JavaScript by Default",
+    description: "Astro strips away unused JS, shipping purely static HTML for blazing fast load times and exceptional SEO scores."
+  },
+  {
+    icon: "02",
+    title: "Island Architecture",
+    description: "Hydrate interactive UI components only when visible on screen, keeping the critical rendering path completely lightweight."
+  },
+  {
+    icon: "03",
+    title: "Bring Your Own Framework",
+    description: "Mix and match React, Vue, Svelte, Preact, and Solid components in the exact same application effortlessly."
+  },
+  {
+    icon: "04",
+    title: "Content Collections",
+    description: "Type-safe Markdown and MDX content fetching with built-in Zod schema validation for robust content publishing."
+  },
+  {
+    icon: "05",
+    title: "SEO Best Practices Built-in",
+    description: "Automatic sitemap generation, RSS feeds, open graph meta tags, and structured data ready out of the box."
+  },
+  {
+    icon: "06",
+    title: "Serverless & Edge Deployment",
+    description: "Deploy to Vercel, Netlify, Cloudflare Workers, or AWS Amplify with a single configuration flag."
+  }
+];
+---
+
+<section id="features" class="features">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">
+        Engineered for <span class="text-gradient">Maximum Speed</span>
+      </h2>
+      <p class="section-subtitle">
+        Discover why developers worldwide choose Astro for building modern content-focused websites.
+      </p>
+    </div>
+
+    <div class="features-grid">
+      {features.map((feature) => (
+        <div class="feature-card glass-card">
+          <div class="feature-icon">{feature.icon}</div>
+          <h3 class="feature-title">{feature.title}</h3>
+          <p class="feature-description">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .features {
+    padding: 6rem 0;
+    position: relative;
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 4rem;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .feature-card {
+    padding: 2.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .feature-icon {
+    font-size: 2.25rem;
+    margin-bottom: 1.25rem;
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid var(--border-color);
+  }
+
+  .feature-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+  }
+
+  .feature-description {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+</style>
