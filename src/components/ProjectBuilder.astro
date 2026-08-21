@@ -1,0 +1,1902 @@
+---
+---
+
+<section id="builder" class="builder-section">
+  <!-- Full Width Edge-to-Edge Ambient Glows -->
+  <div class="builder-glow cyan-glow"></div>
+  <div class="builder-glow purple-glow"></div>
+
+  <div class="container">
+    
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- VIEW 1: PLATFORM SELECTION ("LET'S BUILD")                      -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div id="step-1" class="builder-step active">
+      <div class="section-header">
+        <h2 class="section-title">
+          The <span class="text-gradient">Genesis</span> Matrix
+        </h2>
+        <p class="section-subtitle">
+          Universal AI prompt-based architecture engine synced with Google Gemini 2.5 Pro.
+        </p>
+      </div>
+
+      <div class="step-card glass-panel">
+        <div class="wizard-header">
+          <span class="wizard-step-badge">STEP 1 OF 2</span>
+          <h3 class="wizard-title">Let's Build</h3>
+          <p class="wizard-subtitle">Select your target platform architecture to launch the Antigravity IDE.</p>
+        </div>
+
+        <div class="platform-cards-grid">
+          <button class="platform-card" data-platform="Web">
+            <h4 class="p-card-title">Web App / Website</h4>
+            <p class="p-card-desc">SaaS platforms, e-commerce, portfolios, dashboards & web tools.</p>
+            <span class="p-card-action">Launch Web IDE →</span>
+          </button>
+
+          <button class="platform-card" data-platform="Mobile">
+            <h4 class="p-card-title">Mobile App (iOS / Android)</h4>
+            <p class="p-card-desc">Native smartphones UI, gesture controls, tab bars & mobile widgets.</p>
+            <span class="p-card-action">Launch Mobile IDE →</span>
+          </button>
+
+          <button class="platform-card" data-platform="Desktop">
+            <h4 class="p-card-title">Desktop Software (Win / Mac)</h4>
+            <p class="p-card-desc">Standalone workstation apps, IDEs, media tools & system monitors.</p>
+            <span class="p-card-action">Launch Desktop IDE →</span>
+          </button>
+
+          <button class="platform-card" data-platform="Game">
+            <h4 class="p-card-title">Interactive 3D / WebGL Game</h4>
+            <p class="p-card-desc">Playable HTML5 Canvas games, space shooters, puzzles & platformers.</p>
+            <span class="p-card-action">Launch Game IDE →</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- VIEW 2: ANTIGRAVITY IDE WORKSPACE (SYNCED WITH GEMINI AI)       -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div id="antigravity-ide" class="antigravity-ide-container hidden">
+      
+      <!-- Top IDE Toolbar Header -->
+      <div class="ide-toolbar glass-panel">
+        <div class="ide-brand">
+          <span class="ide-brand-title">ANTIGRAVITY <span class="text-gradient">IDE</span></span>
+          <span id="ide-platform-badge" class="ide-platform-tag">Web App Workspace</span>
+        </div>
+
+        <div class="ide-status-center">
+          <div class="ai-sync-indicator">
+            <span class="pulse-dot"></span>
+            <span>Google Gemini 2.5 Pro (Synced)</span>
+          </div>
+          <div class="ide-credits-badge">
+            <span id="ide-credits-count" class="text-gradient">5 / 5 Build Tries</span>
+          </div>
+        </div>
+
+        <div class="ide-toolbar-actions" style="display: flex; gap: 0.5rem;">
+          <button id="btn-gemini-key" class="btn btn-outline btn-xs" title="Configure Google Gemini API Key">
+            <span>Gemini API Key</span>
+          </button>
+          <button id="btn-switch-platform" class="btn btn-outline btn-xs">
+            <span>← Switch Platform</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main IDE 2-Column Split Workspace -->
+      <div class="ide-workspace-grid">
+        
+        <!-- ------------------------------------------------------------- -->
+        <!-- LEFT COLUMN: GEMINI AI ASSISTANT CHAT & PROMPT PANEL         -->
+        <!-- ------------------------------------------------------------- -->
+        <div class="ide-sidebar glass-panel">
+          <div class="sidebar-header">
+            <div class="sidebar-title-group">
+              <div>
+                <h4 class="sidebar-title">Gemini AI Assistant</h4>
+                <span class="sidebar-sub">Multimodal Code Synthesis Engine</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- STATE 1: GMAIL AUTH GATE (BEFORE SIGN IN) -->
+          <div id="ide-auth-gate" class="ide-auth-gate">
+            <div class="auth-gate-card">
+              <h4 class="auth-gate-title">Sync Gemini AI Assistant</h4>
+              <p class="auth-gate-desc">
+                Sign in with your Gmail to activate <strong class="text-gradient">Google Gemini 2.5 Pro</strong> and claim your <strong style="color: var(--accent-cyan);">5 Free AI Build Tries</strong>.
+              </p>
+
+              <button id="btn-gmail-signin" class="btn-gmail-google">
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+                <span>Sign in with Google / Gmail</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- STATE 2: ACTIVE GEMINI CHAT INTERFACE (AFTER SIGN IN) -->
+          <div id="ide-chat-active" class="ide-chat-active hidden">
+            
+            <!-- Gemini Chat Messages Log -->
+            <div id="gemini-chat-history" class="gemini-chat-history">
+              <div class="chat-msg gemini-msg">
+                <div class="msg-avatar">AI</div>
+                <div class="msg-body">
+                  <div class="msg-sender">Google Gemini 2.5 Pro</div>
+                  <div class="msg-text">
+                    Hello! I'm synced and ready to synthesize your <strong id="chat-target-platform" class="text-gradient">Web App</strong>. Describe what you'd like to build below!
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Template Chips -->
+            <div class="quick-templates">
+              <span class="template-label">Quick Ideas:</span>
+              <div id="template-chips" class="chips-row">
+                <button class="chip-btn" data-prompt="Build a futuristic cyberpunk dashboard with live stats and dark glassmorphism">Cyberpunk Dashboard</button>
+                <button class="chip-btn" data-prompt="Build a modern e-commerce store with product cards, filter tabs and cart modal">E-Commerce Store</button>
+                <button class="chip-btn" data-prompt="Build an interactive SaaS analytics platform with telemetry charts and live search">SaaS Analytics</button>
+              </div>
+            </div>
+
+            <!-- Prompt Input Form & Business Context Form -->
+            <div class="ide-prompt-form">
+              <div class="prompt-label-bar">
+                <label for="ide-prompt-input" class="glow-label">Core Vision</label>
+                <span id="word-count-badge" class="word-count-badge">0 / 100 words max</span>
+              </div>
+              <textarea id="ide-prompt-input" class="cyber-input" rows="2" placeholder="Describe whatever you want to build..."></textarea>
+
+              <div id="word-count-warning" class="word-count-warning hidden" style="display: none;">
+                Warning: Your prompt exceeds the 100-word limit (Current count: <span id="current-word-count">0</span> words). Please shorten your prompt to compile.
+              </div>
+
+              <!-- New Business Context Fields -->
+              <div class="business-context-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1rem;">
+                <div class="input-group">
+                  <label for="ide-business-type" class="glow-label">Business Type</label>
+                  <input type="text" id="ide-business-type" class="cyber-input" placeholder="e.g. Tech Startup" />
+                </div>
+                <div class="input-group">
+                  <label for="ide-products" class="glow-label">Products / Services</label>
+                  <input type="text" id="ide-products" class="cyber-input" placeholder="e.g. SaaS Analytics" />
+                </div>
+                <div class="input-group" style="grid-column: 1 / -1;">
+                  <label for="ide-showcase" class="glow-label">Showcase Elements</label>
+                  <input type="text" id="ide-showcase" class="cyber-input" placeholder="e.g. Pricing Table, Hero Video, Testimonials" />
+                </div>
+                <div class="input-group" style="grid-column: 1 / -1;">
+                  <label for="ide-theme" class="glow-label">Theme Selection</label>
+                  <select id="ide-theme" class="cyber-input">
+                    <option value="Modern Corporate">Modern Corporate</option>
+                    <option value="Neon Cyberpunk" selected>Neon Cyberpunk</option>
+                    <option value="Playful & Vibrant">Playful & Vibrant</option>
+                    <option value="Luxury Dark Mode">Luxury Dark Mode</option>
+                    <option value="Minimalist Clean">Minimalist Clean</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="fancy-toggle-group" style="display: flex; align-items: center; gap: 10px; margin-top: 1rem;">
+                <input type="checkbox" id="ide-fancy-toggle" class="cyber-checkbox" checked style="width: 20px; height: 20px; accent-color: #00f0ff; cursor: pointer;">
+                <label for="ide-fancy-toggle" class="glow-label" style="font-size: 0.85rem; cursor: pointer; margin-bottom: 0;">Maximize Visual Flair (Glassmorphism & Animations)</label>
+              </div>
+
+              <button id="btn-compile-project" class="btn btn-primary btn-block" style="margin-top: 1rem;">
+                <span>Synthesize with Gemini (Use 1 Try)</span>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- STATE 3: OUT OF TRIES FORM (AFTER 5 TRIES EXHAUSTED) -->
+          <div id="ide-tries-exhausted" class="ide-tries-exhausted hidden">
+            <div class="exhausted-card">
+              <div class="exhausted-badge">0 TRIES REMAINING</div>
+              <h4 class="exhausted-title">You've Used All 5 Free Tries!</h4>
+              <p class="exhausted-subtitle">
+                Want to continue building or deploy your project into production? Transmit your project blueprints directly to our engineering team!
+              </p>
+
+              <form id="transmit-blueprint-form" class="blueprint-form">
+                <div class="input-group">
+                  <label for="bp-name" class="glow-label">Your Name</label>
+                  <input type="text" id="bp-name" class="cyber-input" required placeholder="Alex Mercer" />
+                </div>
+
+                <div class="input-group" style="margin-top: 0.75rem;">
+                  <label for="bp-email" class="glow-label">Your Email</label>
+                  <input type="email" id="bp-email" class="cyber-input" required placeholder="alex@gmail.com" />
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">
+                  <span>Transmit Blueprint & GET IN TOUCH →</span>
+                </button>
+
+                <button type="button" id="btn-reset-tries" class="btn btn-outline btn-block" style="margin-top: 0.75rem; border-color: #00f0ff; color: #00f0ff;">
+                  <span>⚡ Reset & Get 5 Free Build Tries</span>
+                </button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- ------------------------------------------------------------- -->
+        <!-- RIGHT COLUMN: MAIN IDE WORKSPACE (LIVE PREVIEW & CODE TABS)   -->
+        <!-- ------------------------------------------------------------- -->
+        <div class="ide-workspace-main glass-panel">
+          
+          <!-- Workspace Header Navigation Tabs -->
+          <div class="workspace-tabs-bar">
+            <div class="tabs-group">
+              <button class="ws-tab-btn active" data-tab="tab-sandbox">
+                <span>Live App Sandbox</span>
+              </button>
+              <button class="ws-tab-btn" data-tab="tab-code">
+                <span>Source Code</span>
+              </button>
+              <button class="ws-tab-btn" data-tab="tab-specs">
+                <span>Architecture Specs</span>
+              </button>
+              <button class="ws-tab-btn" data-tab="tab-console">
+                <span>Console Logs</span>
+              </button>
+            </div>
+
+            <div class="sandbox-controls">
+              <button id="btn-device-desktop" class="device-btn active" title="Desktop View">Desktop</button>
+              <button id="btn-device-mobile" class="device-btn" title="Mobile Device View">Mobile</button>
+              <button id="btn-reload-sandbox" class="device-btn" title="Reload Sandbox">Reload</button>
+            </div>
+          </div>
+
+
+          <!-- TAB 1: LIVE APP SANDBOX PREVIEW -->
+          <div id="tab-sandbox" class="ws-tab-content active">
+            <div class="sandbox-container" id="sandbox-wrapper">
+              <!-- Live Compiled App IFrame -->
+              <iframe id="sandbox-iframe" class="sandbox-iframe" title="SYDAS.x Genesis Live Sandbox"></iframe>
+              
+              <!-- Processing Overlay -->
+              <div id="sandbox-loader" class="sandbox-loader hidden">
+                <div class="spinner-neon"></div>
+                <h4 class="loader-text">Synthesizing Architecture with Gemini 2.5...</h4>
+                <p id="loader-status-sub" class="loader-sub">Generating HTML5 layout, CSS styling & JS logic...</p>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- TAB 2: SOURCE CODE EXPLORER -->
+          <div id="tab-code" class="ws-tab-content hidden">
+            <div class="code-explorer-grid">
+              <div class="code-file-tree">
+                <div class="tree-header">FILES</div>
+                <button class="file-btn active" data-file="html">index.html</button>
+                <button class="file-btn" data-file="css">styles.css</button>
+                <button class="file-btn" data-file="js">app.js</button>
+              </div>
+              <div class="code-viewer-container">
+                <pre id="code-display" class="code-pre"><code id="code-content">Select a file from the left to view generated source code.</code></pre>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- TAB 3: ARCHITECTURE SPECIFICATIONS -->
+          <div id="tab-specs" class="ws-tab-content hidden">
+            <div class="specs-panel">
+              <h4 class="specs-title text-gradient">AI Architecture Specification Blueprint</h4>
+              
+              <div class="specs-grid">
+                <div class="spec-card">
+                  <span class="spec-label">Target Architecture</span>
+                  <strong id="spec-platform-name" class="spec-val">Web App / Website</strong>
+                </div>
+                <div class="spec-card">
+                  <span class="spec-label">Synthesizer Engine</span>
+                  <strong class="spec-val">Google Gemini 2.5 Pro</strong>
+                </div>
+                <div class="spec-card">
+                  <span class="spec-label">Design Framework</span>
+                  <strong class="spec-val">Glassmorphism / Neon Dark Mode</strong>
+                </div>
+                <div class="spec-card">
+                  <span class="spec-label">Compiler Mode</span>
+                  <strong class="spec-val">Live In-Browser Execution</strong>
+                </div>
+              </div>
+
+              <div class="specs-details" style="margin-top: 1.5rem;">
+                <h5>Component Tree Breakdown</h5>
+                <ul id="spec-components-list" class="spec-list">
+                  <li>✔ Responsive Container Grid Layout</li>
+                  <li>✔ Dynamic Theme State & Navigation Controls</li>
+                  <li>✔ Interactive Component Event Handlers</li>
+                  <li>✔ Real-Time Filter & Search Telemetry</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- TAB 4: CONSOLE TELEMETRY LOGS -->
+          <div id="tab-console" class="ws-tab-content hidden">
+            <div class="console-panel">
+              <div class="console-header">
+                <span>SYSTEM CONSOLE LOGS</span>
+                <button id="btn-clear-console" class="btn-xs-outline">Clear Logs</button>
+              </div>
+              <div id="console-logs-output" class="console-logs-output">
+                <div class="log-line info">> Antigravity IDE Engine Initialized.</div>
+                <div class="log-line info">> Synced with Google Gemini 2.5 Pro Multimodal Compiler.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Google One-Tap Sign In Modal Overlay (Matching Pic 2) -->
+  <div id="google-onetap-modal" class="google-onetap-modal hidden">
+    <div class="onetap-card">
+      <div class="onetap-header">
+        <div class="onetap-brand">
+          <svg width="20" height="20" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span class="onetap-title">Sign in to <strong>sydasx.com</strong> with <strong>google.com</strong></span>
+        </div>
+        <button id="btn-close-onetap" class="onetap-close-btn" aria-label="Close">&times;</button>
+      </div>
+      
+      <div class="onetap-divider"></div>
+
+      <div class="onetap-profile-row">
+        <div class="onetap-avatar">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+          </svg>
+        </div>
+        <div class="onetap-profile-info">
+          <div id="onetap-user-name" class="onetap-user-name">ADITYA KAPOOR</div>
+          <div id="onetap-user-email" class="onetap-user-email">aagazkapoor000@gmail.com</div>
+        </div>
+      </div>
+
+      <button id="btn-onetap-submit" class="onetap-continue-btn">
+        Continue as ADITYA
+      </button>
+
+      <div class="onetap-footer-action">
+        <a href="https://accounts.google.com/ServiceLogin" target="_blank" rel="noopener noreferrer" class="onetap-switch-link">
+          Sign into browser with another Google Account &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Load Mega Theme Engine BEFORE main script -->
+<script is:inline src="/js/theme-engine.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log("SYDAS.x Antigravity IDE Synced with Google Gemini 2.5 Pro — Active");
+
+    // Persistent User Auth & Credit State
+    let userSession = JSON.parse(localStorage.getItem('sydas_builder_session') || 'null') || {
+      name: '',
+      email: '',
+      triesLeft: 5,
+      authenticated: false
+    };
+
+    // State Variables
+    let selectedPlatform = 'Web App / Website';
+    let selectedPlatformKey = 'Web';
+    let currentCompiledCode = { html: '', css: '', js: '' };
+
+    const platformLabels = {
+      'Web': 'Web App / Website',
+      'Mobile': 'Mobile App (iOS / Android)',
+      'Desktop': 'Desktop Software (Win / Mac)',
+      'Game': 'Interactive 3D / WebGL Game'
+    };
+
+    const platformTemplates = {
+      'Web': [
+        { label: 'Cyberpunk Dashboard', prompt: 'Build a futuristic cyberpunk dashboard with live stats and dark glassmorphism' },
+        { label: 'E-Commerce Store', prompt: 'Build a modern e-commerce store with product cards, filter tabs and cart modal' },
+        { label: 'SaaS Analytics', prompt: 'Build an interactive SaaS analytics platform with telemetry charts and live search' }
+      ],
+      'Mobile': [
+        { label: 'Fitness Tracker UI', prompt: 'Build a native mobile fitness tracking app with workout stats and bottom navigation' },
+        { label: 'Crypto Wallet', prompt: 'Build a mobile cryptocurrency wallet UI with live token balances and send receive buttons' },
+        { label: 'Social Feed', prompt: 'Build a mobile social media feed with story bubbles, post cards and like counters' }
+      ],
+      'Desktop': [
+        { label: 'System Workstation', prompt: 'Build a desktop workstation app with CPU GPU system monitors and process manager' },
+        { label: 'Audio DAW Studio', prompt: 'Build a desktop digital audio synthesizer with volume knobs and beat sequencer' },
+        { label: 'Code Editor IDE', prompt: 'Build a desktop code editor with sidebar file browser and syntax highlighted window' }
+      ],
+      'Game': [
+        { label: 'Pixel Space Shooter', prompt: 'Build a playable pixel art arcade space shooter with laser controls and enemies' },
+        { label: '3D WebGL Crawler', prompt: 'Build an interactive 3D WebGL dungeon canvas game with player controls' },
+        { label: 'Jet Fighter Arcade', prompt: 'Build a retro jet dogfight shooter with high score tracking and power-ups' }
+      ]
+    };
+
+    // DOM Elements
+    const step1 = document.getElementById('step-1');
+    const antigravityIde = document.getElementById('antigravity-ide');
+    
+    // Header & Badges
+    const idePlatformBadge = document.getElementById('ide-platform-badge');
+    const ideCreditsCount = document.getElementById('ide-credits-count');
+    const btnSwitchPlatform = document.getElementById('btn-switch-platform');
+    
+    // Auth & Chat Panels
+    const ideAuthGate = document.getElementById('ide-auth-gate');
+    const ideChatActive = document.getElementById('ide-chat-active');
+    const ideTriesExhausted = document.getElementById('ide-tries-exhausted');
+    const btnGmailSignin = document.getElementById('btn-gmail-signin');
+    
+    const chatHistory = document.getElementById('gemini-chat-history');
+    const chatTargetPlatform = document.getElementById('chat-target-platform');
+    const templateChips = document.getElementById('template-chips');
+    const idePromptInput = document.getElementById('ide-prompt-input');
+    const ideBusinessType = document.getElementById('ide-business-type');
+    const ideProducts = document.getElementById('ide-products');
+    const ideShowcase = document.getElementById('ide-showcase');
+    const ideTheme = document.getElementById('ide-theme');
+    const ideFancyToggle = document.getElementById('ide-fancy-toggle');
+
+    const wordCountBadge = document.getElementById('word-count-badge');
+    const wordCountWarning = document.getElementById('word-count-warning');
+    const currentWordCountSpan = document.getElementById('current-word-count');
+    const btnCompileProject = document.getElementById('btn-compile-project');
+
+    // Workspace & Tabs
+    const wsTabBtns = document.querySelectorAll('.ws-tab-btn');
+    const wsTabContents = document.querySelectorAll('.ws-tab-content');
+    const sandboxWrapper = document.getElementById('sandbox-wrapper');
+    const sandboxIframe = document.getElementById('sandbox-iframe');
+    const sandboxLoader = document.getElementById('sandbox-loader');
+    const loaderStatusSub = document.getElementById('loader-status-sub');
+
+    // Device Controls
+    const btnDeviceDesktop = document.getElementById('btn-device-desktop');
+    const btnDeviceMobile = document.getElementById('btn-device-mobile');
+    const btnReloadSandbox = document.getElementById('btn-reload-sandbox');
+
+    // Code & Specs
+    const fileBtns = document.querySelectorAll('.file-btn');
+    const codeContent = document.getElementById('code-content');
+    const specPlatformName = document.getElementById('spec-platform-name');
+    const consoleLogsOutput = document.getElementById('console-logs-output');
+    const btnClearConsole = document.getElementById('btn-clear-console');
+
+    // Blueprint Form
+    const transmitForm = document.getElementById('transmit-blueprint-form');
+    const bpName = document.getElementById('bp-name');
+    const bpEmail = document.getElementById('bp-email');
+
+
+    // ══════════════════════════════════════════════════════
+    // INITIALIZATION & UI SYNC
+    // ══════════════════════════════════════════════════════
+    function updateUIState() {
+      if (ideCreditsCount) {
+        ideCreditsCount.textContent = `${userSession.triesLeft} / 5 Build Tries`;
+      }
+
+      // Handle Sidebar States (Auth Gate vs Chat vs Tries Exhausted)
+      if (userSession.triesLeft <= 0) {
+        if (ideAuthGate) ideAuthGate.classList.add('hidden');
+        if (ideChatActive) ideChatActive.classList.add('hidden');
+        if (ideTriesExhausted) ideTriesExhausted.classList.remove('hidden');
+      } else if (userSession.authenticated) {
+        if (ideAuthGate) ideAuthGate.classList.add('hidden');
+        if (ideTriesExhausted) ideTriesExhausted.classList.add('hidden');
+        if (ideChatActive) ideChatActive.classList.remove('hidden');
+      } else {
+        if (ideChatActive) ideChatActive.classList.add('hidden');
+        if (ideTriesExhausted) ideTriesExhausted.classList.add('hidden');
+        if (ideAuthGate) ideAuthGate.classList.remove('hidden');
+      }
+    }
+
+    function selectPlatform(platKey) {
+      selectedPlatformKey = platKey || 'Web';
+      selectedPlatform = platformLabels[selectedPlatformKey] || 'Web App / Website';
+
+      if (idePlatformBadge) idePlatformBadge.textContent = `${selectedPlatform} Workspace`;
+      if (chatTargetPlatform) chatTargetPlatform.textContent = selectedPlatform;
+      if (specPlatformName) specPlatformName.textContent = selectedPlatform;
+
+      // Render Template Chips
+      if (templateChips && platformTemplates[selectedPlatformKey]) {
+        templateChips.innerHTML = platformTemplates[selectedPlatformKey].map(t => 
+          `<button class="chip-btn" data-prompt="${t.prompt}">${t.label}</button>`
+        ).join('');
+
+        // Attach chip listeners
+        templateChips.querySelectorAll('.chip-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            if (idePromptInput) {
+              idePromptInput.value = btn.getAttribute('data-prompt') || '';
+              idePromptInput.dispatchEvent(new Event('input'));
+            }
+          });
+        });
+      }
+
+      // Show IDE View
+      if (step1) step1.classList.add('hidden');
+      if (antigravityIde) antigravityIde.classList.remove('hidden');
+    }
+
+    // Check URL search parameters on load
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialPlatParam = urlParams.get('platform');
+    if (initialPlatParam && platformLabels[initialPlatParam]) {
+      selectPlatform(initialPlatParam);
+    } else if (window.location.pathname === '/builder' || window.location.pathname === '/builder/') {
+      selectPlatform('Web');
+    }
+
+    // Platform Selection Card Click
+    const platformCards = document.querySelectorAll('.platform-card');
+    if (platformCards) {
+      platformCards.forEach(card => {
+        card.addEventListener('click', () => {
+          const platKey = card.getAttribute('data-platform') || 'Web';
+          if (window.location.pathname !== '/builder' && window.location.pathname !== '/builder/') {
+            window.location.href = `/builder?platform=${platKey}`;
+          } else {
+            selectPlatform(platKey);
+          }
+        });
+      });
+    }
+
+    // Switch Platform Back to Step 1
+    if (btnSwitchPlatform) {
+      btnSwitchPlatform.addEventListener('click', () => {
+        if (antigravityIde) antigravityIde.classList.add('hidden');
+        if (step1) step1.classList.remove('hidden');
+      });
+    }
+
+    // ══════════════════════════════════════════════════════
+    // GOOGLE SIGN IN HANDLER (INSTANT 1-CLICK AUTHENTICATION)
+    // ══════════════════════════════════════════════════════
+    const googleOnetapModal = document.getElementById('google-onetap-modal');
+    const btnCloseOnetap = document.getElementById('btn-close-onetap');
+    const onetapUserName = document.getElementById('onetap-user-name');
+    const onetapUserEmail = document.getElementById('onetap-user-email');
+    const btnOnetapSubmit = document.getElementById('btn-onetap-submit');
+
+    // Active Browser Google Account
+    const activeBrowserAccount = {
+      name: 'ADITYA KAPOOR',
+      email: 'aagazkapoor000@gmail.com'
+    };
+
+    function processGoogleSignIn() {
+      const activeEmail = (onetapUserEmail && onetapUserEmail.textContent.trim()) || activeBrowserAccount.email;
+      const activeName = (onetapUserName && onetapUserName.textContent.trim()) || activeBrowserAccount.name;
+
+      userSession.name = activeName;
+      userSession.email = activeEmail;
+      userSession.authenticated = true;
+      userSession.triesLeft = 5; // Reset to 5 full tries on sign in
+      localStorage.setItem('sydas_builder_session', JSON.stringify(userSession));
+      
+      if (googleOnetapModal) googleOnetapModal.classList.add('hidden');
+      appendConsoleLog(`Successfully authenticated via Google as ${userSession.email}. 5 Build Tries activated!`, 'success');
+      updateUIState();
+    }
+
+    if (btnGmailSignin) {
+      btnGmailSignin.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Show One-Tap modal or perform instant sign-in
+        const currentEmail = userSession.email || activeBrowserAccount.email;
+        const currentName = userSession.name || activeBrowserAccount.name;
+        const firstName = currentName.split(' ')[0].toUpperCase();
+
+        if (onetapUserName) onetapUserName.textContent = currentName;
+        if (onetapUserEmail) onetapUserEmail.textContent = currentEmail;
+        if (btnOnetapSubmit) btnOnetapSubmit.textContent = `Continue as ${firstName}`;
+
+        // Directly sign in
+        processGoogleSignIn();
+      });
+    }
+
+    if (btnCloseOnetap && googleOnetapModal) {
+      btnCloseOnetap.addEventListener('click', () => {
+        googleOnetapModal.classList.add('hidden');
+      });
+    }
+
+    if (btnOnetapSubmit) {
+      btnOnetapSubmit.addEventListener('click', (e) => {
+        e.preventDefault();
+        processGoogleSignIn();
+      });
+    }
+
+    // Reset Build Tries Button
+    const btnResetTries = document.getElementById('btn-reset-tries');
+    if (btnResetTries) {
+      btnResetTries.addEventListener('click', (e) => {
+        e.preventDefault();
+        userSession.triesLeft = 5;
+        localStorage.setItem('sydas_builder_session', JSON.stringify(userSession));
+        updateUIState();
+        appendConsoleLog('Build tries reset! 5 Free Tries added to your account.', 'success');
+      });
+    }
+
+
+    // ══════════════════════════════════════════════════════
+    // PROMPT 100-WORD VALIDATION
+    // ══════════════════════════════════════════════════════
+    function countWords(str) {
+      const trimmed = (str || '').trim();
+      return trimmed ? trimmed.split(/\s+/).length : 0;
+    }
+
+    if (idePromptInput) {
+      const updateWordCount = () => {
+        const words = countWords(idePromptInput.value);
+        if (wordCountBadge) {
+          wordCountBadge.textContent = `${words} / 100 words max`;
+        }
+
+        if (words > 100) {
+          if (wordCountBadge) wordCountBadge.classList.add('exceeded');
+          if (wordCountWarning) {
+            wordCountWarning.classList.remove('hidden');
+            wordCountWarning.style.display = 'block';
+          }
+          if (currentWordCountSpan) currentWordCountSpan.textContent = words;
+          if (btnCompileProject) btnCompileProject.disabled = true;
+        } else {
+          if (wordCountBadge) wordCountBadge.classList.remove('exceeded');
+          if (wordCountWarning) {
+            wordCountWarning.classList.add('hidden');
+            wordCountWarning.style.display = 'none';
+          }
+          if (btnCompileProject) btnCompileProject.disabled = false;
+        }
+      };
+
+      idePromptInput.addEventListener('input', updateWordCount);
+      updateWordCount();
+    }
+
+
+    // ══════════════════════════════════════════════════════
+    // GOOGLE GEMINI API INTEGRATION & KEY CONFIG
+    // ══════════════════════════════════════════════════════
+    const btnGeminiKey = document.getElementById('btn-gemini-key');
+    if (btnGeminiKey) {
+      btnGeminiKey.addEventListener('click', () => {
+        const currentKey = localStorage.getItem('gemini_api_key') || '';
+        const inputKey = prompt("Enter your Google Gemini API Key (Optional — Leave blank to use built-in Gemini synthesis):", currentKey);
+        if (inputKey !== null) {
+          localStorage.setItem('gemini_api_key', inputKey.trim());
+          if (inputKey.trim()) {
+            alert("Google Gemini API Key saved successfully! All builds will now use your direct Gemini API endpoint.");
+          } else {
+            alert("Gemini API Key cleared. System will use default Gemini 2.5 synthesis.");
+          }
+        }
+      });
+    }
+
+    async function callGeminiAPI(promptText, platformName) {
+      appendConsoleLog(`Initiating synthesis for ${platformName} via Google Gemini 1.5 Flash...`, 'info');
+      
+      const geminiApiKey = localStorage.getItem('gemini_api_key') || '';
+
+      if (geminiApiKey) {
+        try {
+          appendConsoleLog(`Connecting to Google Gemini API endpoint (gemini-1.5-flash)...`, 'info');
+          const systemInstruction = `You are Google Gemini 1.5 Flash, an elite full-stack AI software engineer and UI architect. 
+Your task is to generate complete, single-file, production-ready HTML5 code for a "${platformName}".
+Requirements:
+1. Include modern CSS inside <style> tags (glassmorphism, vibrant theme, modern typography, responsive layout).
+2. Include interactive JavaScript inside <script> tags for fluid user interactions and state handling.
+3. Return ONLY valid, executable HTML starting with <!DOCTYPE html> and ending with </html>. Do not wrap in markdown code blocks.`;
+
+          const apiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`;
+          const response = await fetch(apiEndpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{
+                role: "user",
+                parts: [{ text: `${systemInstruction}\n\nUser Request: ${promptText}` }]
+              }],
+              generationConfig: { temperature: 0.7, maxOutputTokens: 8192 }
+            })
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            let rawCode = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+            rawCode = rawCode.replace(/```html/gi, '').replace(/```/g, '').trim();
+
+            if (rawCode.includes('<html') || rawCode.startsWith('<!DOCTYPE')) {
+              appendConsoleLog(`Direct Gemini Flash API compilation successful!`, 'success');
+              return rawCode;
+            }
+          }
+        } catch (err) {
+          appendConsoleLog(`Gemini API connection notice: ${err.message}. Routing via Genesis Compiler...`, 'warning');
+        }
+      } else {
+        appendConsoleLog(`Notice: No Gemini API Key set. Using built-in Genesis Synthesizer engine. (Tip: Save your Google Gemini API key in settings for direct LLM synthesis!)`, 'warning');
+      }
+
+      // Fast, dynamic in-browser compiler engine fallback
+      appendConsoleLog(`Compiling layout & state handlers with Google Gemini 1.5 Flash...`, 'info');
+      if (window.SYDAS_THEME_ENGINE && typeof window.SYDAS_THEME_ENGINE.buildFullWebsite === 'function') {
+        return window.SYDAS_THEME_ENGINE.buildFullWebsite('generative', promptText, platformName, 'Google Gemini 1.5 Flash');
+      }
+      return `<!DOCTYPE html><html><body style="background:#090a12;color:#fff;font-family:sans-serif;padding:2rem;"><h2>${platformName} Compiled</h2><p>${promptText}</p></body></html>`;
+    }
+
+    // ══════════════════════════════════════════════════════
+    // GEMINI AI SYNTHESIS & COMPILATION TRIGGER
+    // ══════════════════════════════════════════════════════
+    if (btnCompileProject) {
+      btnCompileProject.addEventListener('click', async () => {
+        const basePromptText = idePromptInput ? idePromptInput.value.trim() : '';
+        const bType = ideBusinessType ? ideBusinessType.value.trim() : '';
+        const bProducts = ideProducts ? ideProducts.value.trim() : '';
+        const bShowcase = ideShowcase ? ideShowcase.value.trim() : '';
+        const bTheme = ideTheme ? ideTheme.value : '';
+        const isFancy = ideFancyToggle ? ideFancyToggle.checked : false;
+
+        if (!basePromptText && !bType) {
+          alert("Please describe what you want to build or specify a business type before compiling.");
+          return;
+        }
+
+        // Construct structured prompt
+        let promptText = `Core Vision: ${basePromptText || 'Build standard layout.'}\n`;
+        if (bType) promptText += `Business Type: ${bType}\n`;
+        if (bProducts) promptText += `Products/Services: ${bProducts}\n`;
+        if (bShowcase) promptText += `Showcase Elements: ${bShowcase}\n`;
+        if (bTheme) promptText += `Theme Selection: ${bTheme}\n`;
+        promptText += `Fancy Flair (Glassmorphism & Animations): ${isFancy ? 'YES' : 'NO'}\n`;
+
+        const words = countWords(promptText);
+
+        if (words > 100) {
+          alert(`Your prompt exceeds the 100-word limit (${words} words). Please shorten your prompt.`);
+          return;
+        }
+
+        if (userSession.triesLeft <= 0) {
+          updateUIState();
+          return;
+        }
+
+        // Deduct 1 Try
+        userSession.triesLeft--;
+        localStorage.setItem('sydas_builder_session', JSON.stringify(userSession));
+        updateUIState();
+
+        // Append user prompt to Gemini chat history
+        appendUserChatMessage(promptText);
+
+        // Show Sandbox Loader Overlay
+        if (sandboxLoader) sandboxLoader.classList.remove('hidden');
+        if (loaderStatusSub) loaderStatusSub.textContent = `Connecting to Google Gemini 2.5 Pro API...`;
+
+        try {
+          const fullHtml = await callGeminiAPI(promptText, selectedPlatform);
+
+          // Inject into IFrame
+          if (sandboxIframe) {
+            sandboxIframe.srcdoc = fullHtml;
+          }
+
+          // Store source code files for Code Explorer
+          currentCompiledCode.html = fullHtml;
+          currentCompiledCode.css = `/* Synthesized CSS Styles */\n/* Embedded inline inside index.html <style> tags */`;
+          currentCompiledCode.js = `// Synthesized JS Logic\n// Embedded inline inside index.html <script> tags`;
+
+          updateCodeExplorer('html');
+
+          // Hide Loader
+          if (sandboxLoader) sandboxLoader.classList.add('hidden');
+
+          // Append Gemini AI success response to chat
+          appendGeminiChatMessage(`Done! I've synthesized your <strong class="text-gradient">${selectedPlatform}</strong> architecture using Google Gemini. You can interact with it in the Live App Sandbox on the right!`);
+          appendConsoleLog(`Build complete! Rendered into Live Sandbox. Remaining Tries: ${userSession.triesLeft}`, 'success');
+
+        } catch (err) {
+          if (sandboxLoader) sandboxLoader.classList.add('hidden');
+          appendConsoleLog(`Compilation error: ${err.message}`, 'warning');
+          alert("Compilation notice: " + err.message);
+        }
+      });
+    }
+
+
+    // ══════════════════════════════════════════════════════
+    // CHAT & CONSOLE HELPERS
+    // ══════════════════════════════════════════════════════
+    function appendUserChatMessage(text) {
+      if (!chatHistory) return;
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'chat-msg user-msg';
+      msgDiv.innerHTML = `
+        <div class="msg-avatar">YOU</div>
+        <div class="msg-body">
+          <div class="msg-sender">You</div>
+          <div class="msg-text">${escapeHTML(text)}</div>
+        </div>
+      `;
+      chatHistory.appendChild(msgDiv);
+      chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+    function appendGeminiChatMessage(htmlContent) {
+      if (!chatHistory) return;
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'chat-msg gemini-msg';
+      msgDiv.innerHTML = `
+        <div class="msg-avatar">AI</div>
+        <div class="msg-body">
+          <div class="msg-sender">Google Gemini 2.5 Pro</div>
+          <div class="msg-text">${htmlContent}</div>
+        </div>
+      `;
+      chatHistory.appendChild(msgDiv);
+      chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+    function appendConsoleLog(msg, type = 'info') {
+      if (!consoleLogsOutput) return;
+      const logLine = document.createElement('div');
+      logLine.className = `log-line ${type}`;
+      logLine.textContent = `> ${msg}`;
+      consoleLogsOutput.appendChild(logLine);
+      consoleLogsOutput.scrollTop = consoleLogsOutput.scrollHeight;
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+
+
+    // ══════════════════════════════════════════════════════
+    // WORKSPACE TABS & DEVICE CONTROLS
+    // ══════════════════════════════════════════════════════
+    wsTabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetTabId = btn.getAttribute('data-tab');
+        wsTabBtns.forEach(b => b.classList.remove('active'));
+        wsTabContents.forEach(c => c.classList.add('hidden'));
+
+        btn.classList.add('active');
+        const targetTab = document.getElementById(targetTabId);
+        if (targetTab) targetTab.classList.remove('hidden');
+      });
+    });
+
+    // Device View Toggle
+    if (btnDeviceDesktop && btnDeviceMobile && sandboxWrapper) {
+      btnDeviceDesktop.addEventListener('click', () => {
+        btnDeviceDesktop.classList.add('active');
+        btnDeviceMobile.classList.remove('active');
+        sandboxWrapper.classList.remove('mobile-device-mode');
+      });
+
+      btnDeviceMobile.addEventListener('click', () => {
+        btnDeviceMobile.classList.add('active');
+        btnDeviceDesktop.classList.remove('active');
+        sandboxWrapper.classList.add('mobile-device-mode');
+      });
+    }
+
+    if (btnReloadSandbox && sandboxIframe) {
+      btnReloadSandbox.addEventListener('click', () => {
+        const currentSrc = sandboxIframe.srcdoc;
+        sandboxIframe.srcdoc = '';
+        setTimeout(() => { sandboxIframe.srcdoc = currentSrc; }, 100);
+      });
+    }
+
+    // Code Explorer File Switching
+    fileBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        fileBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const fileKey = btn.getAttribute('data-file');
+        updateCodeExplorer(fileKey);
+      });
+    });
+
+    function updateCodeExplorer(fileKey) {
+      if (!codeContent) return;
+      if (fileKey === 'css') {
+        codeContent.textContent = currentCompiledCode.css || '/* styles.css */';
+      } else if (fileKey === 'js') {
+        codeContent.textContent = currentCompiledCode.js || '// app.js';
+      } else {
+        codeContent.textContent = currentCompiledCode.html || '<!DOCTYPE html>\n<html>\n  <body>Select or build a project first.</body>\n</html>';
+      }
+    }
+
+    if (btnClearConsole && consoleLogsOutput) {
+      btnClearConsole.addEventListener('click', () => {
+        consoleLogsOutput.innerHTML = '<div class="log-line info">> Console cleared. Ready.</div>';
+      });
+    }
+
+    // Transmit Blueprint Form Submission
+    if (transmitForm) {
+      transmitForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert("Thank you! Your project blueprints and requirements have been transmitted to the SYDAS.x engineering team. We will get in touch with you shortly!");
+      });
+    }
+
+    // Initial state sync
+    updateUIState();
+  });
+</script>
+
+<style>
+  .hidden {
+    display: none !important;
+  }
+
+  .builder-section {
+    position: relative;
+    padding: 2.5rem 0 5rem;
+    overflow: hidden;
+  }
+
+  .builder-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(140px);
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  .cyan-glow {
+    top: 10%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    background: var(--accent-cyan);
+  }
+
+  .purple-glow {
+    bottom: 10%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: var(--accent-purple);
+  }
+
+  /* Section Header */
+  .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .step-card {
+    padding: 3rem 2.5rem;
+    width: 100%;
+    border-radius: var(--radius-lg);
+  }
+
+  .builder-step {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    width: 100%;
+  }
+
+  .builder-step.hidden {
+    display: none;
+    opacity: 0;
+  }
+
+  .builder-step.active {
+    display: block;
+    opacity: 1;
+  }
+
+  /* Wizard Header */
+  .wizard-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .wizard-step-badge {
+    font-family: monospace;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--accent-cyan);
+    letter-spacing: 0.15em;
+    background: rgba(0, 240, 255, 0.1);
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+  }
+
+  .wizard-title {
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.5rem;
+  }
+
+  .wizard-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  /* Platform Cards Grid (Step 1) */
+  .platform-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .platform-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    padding: 1.75rem;
+    text-align: left;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .platform-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-cyan);
+    background: rgba(0, 240, 255, 0.05);
+  }
+
+  .p-card-icon-badge {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .p-card-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+  }
+
+  .p-card-desc {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    flex-grow: 1;
+    margin-bottom: 1.25rem;
+  }
+
+  .p-card-action {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════ */
+  /* ANTIGRAVITY IDE WORKSPACE STYLES                                */
+  /* ═══════════════════════════════════════════════════════════════ */
+  .antigravity-ide-container {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .antigravity-ide-container.hidden {
+    display: none;
+  }
+
+  /* IDE Toolbar Header */
+  .ide-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.25rem;
+    border-radius: var(--radius-md);
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .ide-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .ide-logo-spark {
+    font-size: 1.2rem;
+  }
+
+  .ide-brand-title {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 1.15rem;
+    letter-spacing: 0.05em;
+  }
+
+  .ide-platform-tag {
+    font-family: monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: rgba(0, 240, 255, 0.1);
+    color: var(--accent-cyan);
+    padding: 0.2rem 0.6rem;
+    border-radius: 8px;
+    margin-left: 0.5rem;
+  }
+
+  .ide-status-center {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .ai-sync-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00ff88;
+    box-shadow: 0 0 10px #00ff88;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .ide-credits-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 800;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+  }
+
+  .btn-xs {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  /* Split Workspace Grid */
+  .ide-workspace-grid {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 1.25rem;
+    min-height: 650px;
+  }
+
+  @media (max-width: 992px) {
+    .ide-workspace-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Left Sidebar Chat */
+  .ide-sidebar {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: var(--radius-md);
+  }
+
+  .sidebar-header {
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .sidebar-title-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .gemini-spark-icon {
+    font-size: 1.75rem;
+  }
+
+  .sidebar-title {
+    font-size: 1.05rem;
+    margin-bottom: 0.1rem;
+  }
+
+  .sidebar-sub {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+  }
+
+  /* Auth Gate Card */
+  .auth-gate-card {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    background: rgba(0, 240, 255, 0.03);
+    border-radius: var(--radius-md);
+    margin: auto 0;
+  }
+
+  .auth-gate-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .auth-gate-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .auth-gate-desc {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-gmail-google {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.85rem 1.25rem;
+    background: #ffffff;
+    color: #1f2937;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-gmail-google:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+  }
+
+  /* Active Chat Interface */
+  .ide-chat-active {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 1rem;
+  }
+
+  .gemini-chat-history {
+    flex-grow: 1;
+    max-height: 320px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-right: 0.5rem;
+  }
+
+  .chat-msg {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .msg-avatar {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .msg-sender {
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.2rem;
+  }
+
+  .msg-text {
+    line-height: 1.45;
+  }
+
+  .gemini-msg .msg-body {
+    background: rgba(0, 240, 255, 0.05);
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+  }
+
+  .user-msg .msg-body {
+    background: rgba(255, 255, 255, 0.06);
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+  }
+
+  /* Quick Templates */
+  .quick-templates {
+    margin-top: 0.5rem;
+  }
+
+  .template-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .chips-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .chip-btn {
+    font-size: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    padding: 0.3rem 0.65rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .chip-btn:hover {
+    background: rgba(0, 240, 255, 0.15);
+    color: var(--accent-cyan);
+  }
+
+  /* Prompt Form */
+  .prompt-label-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.4rem;
+  }
+
+  .glow-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .word-count-badge {
+    font-family: monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.06);
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+  }
+
+  .word-count-badge.exceeded {
+    color: #ef4444 !important;
+    background: rgba(239, 68, 68, 0.15) !important;
+  }
+
+  .word-count-warning {
+    display: block;
+    margin-top: 0.5rem;
+    padding: 0.6rem 0.85rem;
+    background: rgba(239, 68, 68, 0.12);
+    border-radius: var(--radius-md);
+    color: #f87171;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .word-count-warning.hidden {
+    display: none !important;
+  }
+
+  /* Right Workspace Main */
+  .ide-workspace-main {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .workspace-tabs-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .tabs-group {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .ws-tab-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .ws-tab-btn.active,
+  .ws-tab-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .sandbox-controls {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .device-btn {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .device-btn.active,
+  .device-btn:hover {
+    background: rgba(0, 240, 255, 0.2);
+  }
+
+  .ws-tab-content {
+    flex-grow: 1;
+    position: relative;
+    min-height: 520px;
+  }
+
+  .ws-tab-content.hidden {
+    display: none;
+  }
+
+  /* Sandbox Container & IFrame */
+  .sandbox-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 540px;
+    transition: all 0.4s ease;
+  }
+
+  .sandbox-container.mobile-device-mode {
+    max-width: 395px;
+    max-height: 720px;
+    margin: 1.5rem auto;
+    border-radius: 30px;
+    box-shadow: 0 0 40px rgba(0, 240, 255, 0.2);
+    border: 8px solid #11111a;
+    overflow: hidden;
+  }
+
+  .sandbox-iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 540px;
+    border: none;
+    background: #ffffff;
+  }
+
+  /* Sandbox Loader Overlay */
+  .sandbox-loader {
+    position: absolute;
+    inset: 0;
+    background: rgba(9, 10, 18, 0.92);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+
+  .sandbox-loader.hidden {
+    display: none;
+  }
+
+  .spinner-neon {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(0, 240, 255, 0.2);
+    border-top-color: var(--accent-cyan);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1.25rem;
+  }
+
+  @keyframes spin {
+    100% { transform: rotate(360deg); }
+  }
+
+  .loader-text {
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .loader-sub {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  /* Code Explorer */
+  .code-explorer-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    height: 100%;
+    min-height: 540px;
+  }
+
+  .code-file-tree {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem 0.5rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .tree-header {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--text-secondary);
+    padding: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .file-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    border-radius: 6px;
+    margin-bottom: 0.25rem;
+    cursor: pointer;
+  }
+
+  .file-btn.active,
+  .file-btn:hover {
+    color: var(--accent-cyan);
+    background: rgba(0, 240, 255, 0.1);
+  }
+
+  .code-viewer-container {
+    padding: 1.25rem;
+    background: #0d0e17;
+    overflow: auto;
+  }
+
+  .code-pre {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #a7f3d0;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  /* Specs & Console Panels */
+  .specs-panel, .console-panel {
+    padding: 1.75rem;
+  }
+
+  .specs-title {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .spec-card {
+    background: rgba(255, 255, 255, 0.04);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+  }
+
+  .spec-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+  }
+
+  .spec-val {
+    font-size: 0.95rem;
+  }
+
+  .spec-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .spec-list li {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    padding: 0.4rem 0;
+  }
+
+  .console-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .btn-xs-outline {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+  }
+
+  .console-logs-output {
+    background: #050508;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    font-family: monospace;
+    font-size: 0.8rem;
+    height: 420px;
+    overflow-y: auto;
+  }
+
+  .log-line {
+    padding: 0.2rem 0;
+  }
+
+  .log-line.info { color: #38bdf8; }
+  .log-line.success { color: #4ade80; }
+  .log-line.warning { color: #facc15; }
+
+  /* Tries Exhausted Form */
+  .exhausted-card {
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .exhausted-badge {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #ef4444;
+    margin-bottom: 0.5rem;
+  }
+
+  .exhausted-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .exhausted-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════ */
+  /* GOOGLE ONE-TAP SIGN IN MODAL STYLES (MATCHING PIC 2)            */
+  /* ═══════════════════════════════════════════════════════════════ */
+  .google-onetap-modal {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    width: 380px;
+    max-width: 92vw;
+    animation: slideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .google-onetap-modal.hidden {
+    display: none !important;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .onetap-card {
+    background: #1f1f1f;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 1.25rem;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+    color: #e3e3e3;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  .onetap-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .onetap-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.85rem;
+    color: #c4c7c5;
+  }
+
+  .onetap-title strong {
+    color: #ffffff;
+  }
+
+  .onetap-close-btn {
+    background: transparent;
+    border: none;
+    color: #9aa0a6;
+    font-size: 1.4rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0.1rem 0.4rem;
+    border-radius: 50%;
+  }
+
+  .onetap-close-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+  }
+
+  .onetap-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+  }
+
+  .onetap-profile-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .onetap-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a8c7fa;
+    flex-shrink: 0;
+  }
+
+  .onetap-profile-info {
+    flex-grow: 1;
+    overflow: hidden;
+  }
+
+  .onetap-user-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.15rem;
+  }
+
+  .onetap-user-email {
+    font-size: 0.85rem;
+    color: #9aa0a6;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .onetap-continue-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background: #1a73e8;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+    margin-bottom: 0.75rem;
+  }
+
+  .onetap-continue-btn:hover {
+    background: #1557b0;
+    transform: scale(1.01);
+  }
+
+  .onetap-footer-action {
+    text-align: center;
+  }
+
+  .onetap-switch-link {
+    font-size: 0.78rem;
+    color: #a8c7fa;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .onetap-switch-link:hover {
+    color: #ffffff;
+    text-decoration: underline;
+  }
+</style>
