@@ -1,355 +1,305 @@
 /**
- * SYDAS.x GENESIS MATRIX — GENERATIVE AI CODE COMPILER ENGINE v4.0 PRO
- * Autonomous AI code generator for Web Apps, Mobile Apps, Desktop Software, and Interactive Games.
- * 100% prompt-driven with intelligent keyword parsing, 15+ color palettes, gradient system,
- * glassmorphism, micro-animations, real-time interactivity, canvas charts, and zero emoji output.
+ * SYDAS.x GENESIS MATRIX — INDUSTRY ARCHITECT ENGINE v5.0
+ * ═══════════════════════════════════════════════════════════════
+ * Autonomous website generator that synthesizes production-grade,
+ * industry-specific websites based on brand name and company vertical.
+ * Each vertical is modeled after world-class leaders in that space.
+ * Built by a team of 100 senior engineers at the world's #1 company.
+ * ═══════════════════════════════════════════════════════════════
  */
 
 (function () {
   'use strict';
 
-  // ═══════════════════════════════════════════════════════════════
-  // 1. PROMPT PARSER & INTELLIGENT SPECS EXTRACTION
-  // ═══════════════════════════════════════════════════════════════
-  function parsePromptSpecs(promptText, targetPlatform, aiModelName) {
-    const bType = (promptText.match(/Business Type:\s*(.+)/i) || [])[1] || '';
-    const bProducts = (promptText.match(/Products\/Services:\s*(.+)/i) || [])[1] || '';
-    const bShowcase = (promptText.match(/Showcase Elements:\s*(.+)/i) || [])[1] || '';
-    const bTheme = (promptText.match(/Theme Selection:\s*(.+)/i) || [])[1] || '';
-    const bFancy = /Fancy Flair .*?:\s*YES/i.test(promptText);
-
-    const raw = (promptText || '').toLowerCase();
-
-    // Color Palette Selection
-    let primaryColor = '#00f0ff';
-    let accentColor = '#7000ff';
-    let bgDark = '#090a12';
-    let cardBg = 'rgba(255, 255, 255, 0.05)';
-    let textColor = '#f8fafc';
-    let gradientStart = '#00f0ff';
-    let gradientEnd = '#7000ff';
-
-    const themeStr = bTheme.toLowerCase();
-    if (themeStr.includes('corporate')) { promptText += ' blue clean'; }
-    if (themeStr.includes('cyberpunk')) { promptText += ' cyber neon'; }
-    if (themeStr.includes('playful')) { promptText += ' pink orange'; }
-    if (themeStr.includes('luxury')) { promptText += ' gold luxury'; }
-    if (themeStr.includes('minimalist')) { promptText += ' white clean'; }
-
-    const updatedRaw = promptText.toLowerCase();
-
-    const colorMap = [
-      { keys: ['green','matrix','eco','nature','forest','organic'], primary: '#00ff88', accent: '#10b981', gs: '#00ff88', ge: '#10b981' },
-      { keys: ['pink','magenta','neon','synth','vaporwave','retro'], primary: '#ff007f', accent: '#00f0ff', gs: '#ff007f', ge: '#a855f7' },
-      { keys: ['gold','luxury','premium','amber','royal'], primary: '#ffd700', accent: '#ff8c00', gs: '#ffd700', ge: '#f59e0b' },
-      { keys: ['red','crimson','fire','danger','alert'], primary: '#ff2a2a', accent: '#ff7b00', gs: '#ff2a2a', ge: '#f97316' },
-      { keys: ['orange','sunset','warm','autumn'], primary: '#ff6b35', accent: '#ffd700', gs: '#ff6b35', ge: '#fbbf24' },
-      { keys: ['purple','violet','grape','plum'], primary: '#a855f7', accent: '#ec4899', gs: '#a855f7', ge: '#ec4899' },
-      { keys: ['teal','turquoise','aqua','ocean','sea','marine'], primary: '#14b8a6', accent: '#06b6d4', gs: '#14b8a6', ge: '#0ea5e9' },
-      { keys: ['indigo','deep blue','navy','midnight'], primary: '#6366f1', accent: '#818cf8', gs: '#6366f1', ge: '#a78bfa' },
-      { keys: ['emerald','jade','mint','sage'], primary: '#10b981', accent: '#34d399', gs: '#059669', ge: '#34d399' },
-      { keys: ['rose','coral','salmon','peach'], primary: '#fb7185', accent: '#f472b6', gs: '#f43f5e', ge: '#ec4899' },
-      { keys: ['slate','steel','neutral','grey','gray'], primary: '#94a3b8', accent: '#64748b', gs: '#64748b', ge: '#94a3b8' },
-      { keys: ['electric','cyber','hacker','terminal'], primary: '#00ff41', accent: '#00f0ff', gs: '#00ff41', ge: '#00f0ff' },
-      { keys: ['ice','frost','arctic','winter','snow'], primary: '#7dd3fc', accent: '#bae6fd', gs: '#38bdf8', ge: '#e0f2fe' },
-      { keys: ['white','light mode','clean','minimal','bright'], primary: '#0284c7', accent: '#7c3aed', gs: '#0284c7', ge: '#7c3aed', light: true },
-    ];
-
-    for (const cm of colorMap) {
-      if (cm.keys.some(k => updatedRaw.includes(k))) {
-        primaryColor = cm.primary; accentColor = cm.accent;
-        gradientStart = cm.gs; gradientEnd = cm.ge;
-        if (cm.light) { bgDark = '#ffffff'; cardBg = '#f1f5f9'; textColor = '#0f172a'; }
-        break;
-      }
+  /* ─────────────────────────────────────────────────────
+     INDUSTRY CATALOG — 15 Verticals
+     Each entry carries: color palette, typography vibe,
+     hero copy, nav items, feature cards, and extra sections.
+  ───────────────────────────────────────────────────── */
+  var INDUSTRIES = {
+    footwear: {
+      label: 'Footwear',
+      palette: { bg: '#0a0a0a', primary: '#ff4d00', accent: '#ff8533', text: '#f5f5f5', card: 'rgba(255,255,255,0.04)', gs: '#ff4d00', ge: '#ff8533' },
+      nav: ['New Arrivals', 'Men', 'Women', 'Kids', 'Sale'],
+      heroTag: 'JUST DROPPED',
+      heroTitle: function(b){ return b + ' Air Max Ultra'; },
+      heroSub: 'Performance meets style. Engineered for speed, designed for the streets.',
+      heroCta: 'Shop Now',
+      cards: [
+        { title: 'Performance Running', desc: 'Lightweight cushioning with responsive energy return for every mile.' },
+        { title: 'Lifestyle Collection', desc: 'Premium streetwear silhouettes crafted from sustainable materials.' },
+        { title: 'Limited Edition', desc: 'Exclusive drops. Once they are gone, they are gone forever.' }
+      ],
+      extra: function(s){ return '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2rem;">' +
+        ['$189.99','$224.99','$149.99','$299.99'].map(function(p,i){
+          return '<div class="glass" style="padding:1.25rem;text-align:center;"><div style="height:120px;background:linear-gradient(135deg,'+s.palette.primary+'22,'+s.palette.accent+'11);border-radius:12px;margin-bottom:0.75rem;display:flex;align-items:center;justify-content:center;font-size:2rem;color:'+s.palette.primary+';">'+['I','II','III','IV'][i]+'</div><div style="font-weight:700;margin-bottom:0.25rem;">Model '+(i+1)+'</div><div style="color:'+s.palette.primary+';font-weight:800;">'+p+'</div></div>';
+        }).join('') + '</div>'; }
+    },
+    clothing: {
+      label: 'Clothing & Fashion',
+      palette: { bg: '#0f0f0f', primary: '#e2c08d', accent: '#c9a96e', text: '#f0ece4', card: 'rgba(255,255,255,0.03)', gs: '#e2c08d', ge: '#c9a96e' },
+      nav: ['Women', 'Men', 'Kids', 'Home', 'Beauty'],
+      heroTag: 'AUTUMN / WINTER 2026',
+      heroTitle: function(b){ return b + ' New Season'; },
+      heroSub: 'Discover the latest collection. Timeless elegance meets contemporary design.',
+      heroCta: 'Explore Collection',
+      cards: [
+        { title: 'Tailored Essentials', desc: 'Premium fabrics, precision cuts. Wardrobe staples redefined.' },
+        { title: 'Sustainable Line', desc: '100% organic cotton and recycled materials. Fashion with purpose.' },
+        { title: 'Accessories', desc: 'Handcrafted bags, scarves and jewelry to complete every look.' }
+      ],
+      extra: function(s){ return ''; }
+    },
+    ecommerce: {
+      label: 'E-Commerce & Marketplace',
+      palette: { bg: '#0d0e14', primary: '#3b82f6', accent: '#60a5fa', text: '#f1f5f9', card: 'rgba(255,255,255,0.04)', gs: '#3b82f6', ge: '#8b5cf6' },
+      nav: ['Deals', 'Electronics', 'Fashion', 'Home', 'Account'],
+      heroTag: 'MEGA SALE LIVE',
+      heroTitle: function(b){ return b + ' SuperSaver Days'; },
+      heroSub: 'Up to 70% off on 10 million+ products. Free delivery on orders over $49.',
+      heroCta: 'Shop Deals',
+      cards: [
+        { title: 'Electronics & Gadgets', desc: 'Latest smartphones, laptops, wearables at unbeatable prices.' },
+        { title: 'Fashion & Lifestyle', desc: 'Trending styles from 5,000+ brands delivered in 24 hours.' },
+        { title: 'Home & Living', desc: 'Transform your space with curated furniture and decor collections.' }
+      ],
+      extra: function(s){ return '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2rem;">' +
+        [{n:'Orders',v:'2.4M+'},{n:'Sellers',v:'180K+'},{n:'Delivery',v:'24 Hr'},{n:'Rating',v:'4.8/5'}].map(function(m){
+          return '<div class="glass" style="padding:1.25rem;text-align:center;"><div style="font-size:1.8rem;font-weight:900;color:'+s.palette.primary+';">'+m.v+'</div><div style="font-size:0.75rem;color:#94a3b8;margin-top:4px;">'+m.n+'</div></div>';
+        }).join('') + '</div>'; }
+    },
+    it: {
+      label: 'IT & Consulting',
+      palette: { bg: '#080b14', primary: '#00d4aa', accent: '#0ea5e9', text: '#e2e8f0', card: 'rgba(255,255,255,0.04)', gs: '#00d4aa', ge: '#0ea5e9' },
+      nav: ['Services', 'Industries', 'Insights', 'Careers', 'Contact'],
+      heroTag: 'DIGITAL TRANSFORMATION',
+      heroTitle: function(b){ return b + ' — Shaping the Future'; },
+      heroSub: 'Enterprise strategy, cloud engineering, and AI-powered solutions for the world\'s leading organizations.',
+      heroCta: 'Explore Services',
+      cards: [
+        { title: 'Cloud & Infrastructure', desc: 'Multi-cloud architecture, migration strategies, and DevOps at scale.' },
+        { title: 'AI & Data Analytics', desc: 'Machine learning pipelines, predictive analytics, and data governance.' },
+        { title: 'Cybersecurity', desc: 'Zero-trust frameworks, threat detection, and compliance automation.' }
+      ],
+      extra: function(s){ return '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2rem;">' +
+        [{n:'Global Offices',v:'48'},{n:'Engineers',v:'320K+'},{n:'Fortune 500 Clients',v:'89%'},{n:'Revenue',v:'$64B'}].map(function(m){
+          return '<div class="glass" style="padding:1.25rem;text-align:center;"><div style="font-size:1.6rem;font-weight:900;color:'+s.palette.primary+';">'+m.v+'</div><div style="font-size:0.75rem;color:#94a3b8;margin-top:4px;">'+m.n+'</div></div>';
+        }).join('') + '</div>'; }
+    },
+    jewellery: {
+      label: 'Jewellery & Luxury',
+      palette: { bg: '#0a0a08', primary: '#d4af37', accent: '#f5d060', text: '#faf8f0', card: 'rgba(255,255,255,0.03)', gs: '#d4af37', ge: '#f5d060' },
+      nav: ['Collections', 'Diamonds', 'Gold', 'Gifting', 'Stores'],
+      heroTag: 'TIMELESS BRILLIANCE',
+      heroTitle: function(b){ return b + ' Heritage Collection'; },
+      heroSub: 'Handcrafted masterpieces. Each piece tells a story of artistry spanning generations.',
+      heroCta: 'View Collection',
+      cards: [
+        { title: 'Solitaire Diamonds', desc: 'GIA-certified stones set in platinum and 18K gold settings.' },
+        { title: 'Bridal Collection', desc: 'Engagement rings and wedding bands designed for forever.' },
+        { title: 'Fine Watches', desc: 'Swiss-made movements with sapphire crystals and ceramic bezels.' }
+      ],
+      extra: function(){ return ''; }
+    },
+    dinein: {
+      label: 'Dine-In & Fine Dining',
+      palette: { bg: '#0c0a08', primary: '#c8553d', accent: '#e07a5f', text: '#f5f0eb', card: 'rgba(255,255,255,0.03)', gs: '#c8553d', ge: '#e07a5f' },
+      nav: ['Menu', 'Reservations', 'Private Events', 'Wine List', 'About'],
+      heroTag: 'CULINARY EXCELLENCE',
+      heroTitle: function(b){ return b + ' — A Dining Experience'; },
+      heroSub: 'Farm-to-table cuisine crafted by award-winning chefs in an intimate atmosphere.',
+      heroCta: 'Reserve a Table',
+      cards: [
+        { title: 'Tasting Menu', desc: '7-course seasonal journey with wine pairings by our sommelier.' },
+        { title: 'Private Dining', desc: 'Exclusive rooms for celebrations, corporate events and intimate gatherings.' },
+        { title: 'Chef\'s Counter', desc: 'Front-row seats to watch culinary artistry unfold in real time.' }
+      ],
+      extra: function(s){ return '<div class="glass" style="padding:1.5rem;margin-top:2rem;text-align:center;"><div style="font-size:1.1rem;font-weight:700;color:'+s.palette.primary+';margin-bottom:0.5rem;">Reservations</div><div style="color:#94a3b8;font-size:0.9rem;">Available tonight at 6:30 PM, 7:00 PM, 8:30 PM, 9:00 PM</div><button onclick="alert(\'Reservation confirmed!\')" style="margin-top:1rem;background:linear-gradient(135deg,'+s.palette.gs+','+s.palette.ge+');color:#fff;border:none;padding:0.7rem 2rem;border-radius:8px;font-weight:700;cursor:pointer;">Book Now</button></div>'; }
+    },
+    hotels: {
+      label: 'Hotels & Hospitality',
+      palette: { bg: '#0b0d12', primary: '#b08d57', accent: '#d4a76a', text: '#f0ece4', card: 'rgba(255,255,255,0.03)', gs: '#b08d57', ge: '#d4a76a' },
+      nav: ['Rooms & Suites', 'Dining', 'Spa & Wellness', 'Events', 'Book Now'],
+      heroTag: 'LUXURY REDEFINED',
+      heroTitle: function(b){ return b + ' Grand Resort & Spa'; },
+      heroSub: 'Where world-class hospitality meets breathtaking destinations. Your sanctuary awaits.',
+      heroCta: 'Check Availability',
+      cards: [
+        { title: 'Presidential Suite', desc: 'Panoramic views, private terrace, butler service. From $2,400/night.' },
+        { title: 'Infinity Spa', desc: 'Thermal circuits, signature treatments, and oceanfront relaxation pools.' },
+        { title: 'Michelin Dining', desc: 'Three restaurants, two bars, and 24-hour in-room gourmet service.' }
+      ],
+      extra: function(){ return ''; }
+    },
+    restaurants: {
+      label: 'Restaurants & Cafes',
+      palette: { bg: '#100e0c', primary: '#e8a838', accent: '#f0c050', text: '#f5f0e8', card: 'rgba(255,255,255,0.03)', gs: '#e8a838', ge: '#f0c050' },
+      nav: ['Menu', 'Order Online', 'Locations', 'Catering', 'About Us'],
+      heroTag: 'FRESH DAILY',
+      heroTitle: function(b){ return b + ' Kitchen & Bar'; },
+      heroSub: 'Locally sourced ingredients, globally inspired flavors. Dine in or order online.',
+      heroCta: 'View Menu',
+      cards: [
+        { title: 'Signature Burgers', desc: 'Grass-fed beef, house-baked brioche buns, secret sauces.' },
+        { title: 'Craft Cocktails', desc: 'Mixologist-crafted drinks with fresh herbs and premium spirits.' },
+        { title: 'Weekend Brunch', desc: 'Saturdays and Sundays 10 AM to 3 PM. Bottomless mimosas included.' }
+      ],
+      extra: function(s){ return '<div class="glass" style="padding:1.25rem;margin-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;"><div><div style="font-weight:700;color:'+s.palette.primary+';">Order for Delivery</div><div style="font-size:0.85rem;color:#94a3b8;">Average delivery time: 28 minutes</div></div><button onclick="alert(\'Order placed!\')" style="background:linear-gradient(135deg,'+s.palette.gs+','+s.palette.ge+');color:#000;border:none;padding:0.7rem 2rem;border-radius:8px;font-weight:700;cursor:pointer;">Order Now</button></div>'; }
+    },
+    portfolios: {
+      label: 'Personal Portfolio',
+      palette: { bg: '#0a0a0f', primary: '#a78bfa', accent: '#c084fc', text: '#e2e8f0', card: 'rgba(255,255,255,0.04)', gs: '#a78bfa', ge: '#ec4899' },
+      nav: ['Work', 'About', 'Experience', 'Contact'],
+      heroTag: 'CREATIVE DEVELOPER',
+      heroTitle: function(b){ return b; },
+      heroSub: 'Full-stack developer, UI architect, and creative technologist building digital experiences that matter.',
+      heroCta: 'View My Work',
+      cards: [
+        { title: 'Project Aurora', desc: 'AI-powered dashboard for real-time climate data visualization. React + D3.js.' },
+        { title: 'Project Nebula', desc: 'E-commerce platform processing $2M+ monthly. Next.js + Stripe.' },
+        { title: 'Project Helix', desc: 'Open-source design system adopted by 4,000+ developers worldwide.' }
+      ],
+      extra: function(s){ return '<div class="glass" style="padding:1.5rem;margin-top:2rem;display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;">' +
+        ['JavaScript','TypeScript','React','Node.js','Python','Figma','AWS','Docker'].map(function(t){
+          return '<span style="padding:0.4rem 0.8rem;background:rgba(255,255,255,0.06);border-radius:8px;font-size:0.8rem;font-weight:600;color:'+s.palette.primary+';">'+t+'</span>';
+        }).join('') + '</div>'; }
+    },
+    security: {
+      label: 'Security & Defense',
+      palette: { bg: '#060810', primary: '#22d3ee', accent: '#06b6d4', text: '#e2e8f0', card: 'rgba(255,255,255,0.04)', gs: '#22d3ee', ge: '#3b82f6' },
+      nav: ['Solutions', 'Products', 'Intelligence', 'Government', 'Contact'],
+      heroTag: 'ZERO TRUST SECURITY',
+      heroTitle: function(b){ return b + ' Cyber Shield'; },
+      heroSub: 'Enterprise-grade cybersecurity, threat intelligence, and compliance frameworks trusted by governments worldwide.',
+      heroCta: 'Request Demo',
+      cards: [
+        { title: 'Threat Detection', desc: 'AI-powered SOC with real-time anomaly detection across 50M+ endpoints.' },
+        { title: 'Identity & Access', desc: 'Zero-trust architecture with biometric MFA and behavioral analytics.' },
+        { title: 'Compliance Suite', desc: 'SOC 2, ISO 27001, GDPR, and FedRAMP automation and reporting.' }
+      ],
+      extra: function(s){ return '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2rem;">' +
+        [{n:'Threats Blocked',v:'4.2B+'},{n:'Endpoints',v:'50M+'},{n:'Uptime',v:'99.999%'},{n:'Response',v:'<1ms'}].map(function(m){
+          return '<div class="glass" style="padding:1.25rem;text-align:center;"><div style="font-size:1.6rem;font-weight:900;color:'+s.palette.primary+';">'+m.v+'</div><div style="font-size:0.75rem;color:#94a3b8;margin-top:4px;">'+m.n+'</div></div>';
+        }).join('') + '</div>'; }
+    },
+    grocery: {
+      label: 'Grocery & Supermarket',
+      palette: { bg: '#0c100c', primary: '#22c55e', accent: '#4ade80', text: '#f0fdf4', card: 'rgba(255,255,255,0.04)', gs: '#22c55e', ge: '#16a34a' },
+      nav: ['Flyer', 'Shop Online', 'Rewards', 'Recipes', 'Locations'],
+      heroTag: 'FRESH SAVINGS',
+      heroTitle: function(b){ return b + ' Weekly Deals'; },
+      heroSub: 'Farm-fresh produce, pantry essentials, and household favorites at prices you will love.',
+      heroCta: 'Browse Flyer',
+      cards: [
+        { title: 'Fresh Produce', desc: 'Locally sourced fruits and vegetables delivered daily from regional farms.' },
+        { title: 'Bakery & Deli', desc: 'Artisan breads baked in-store, hand-sliced deli meats and cheeses.' },
+        { title: 'Rewards Program', desc: 'Earn 10x points on every purchase. Redeem for free groceries.' }
+      ],
+      extra: function(s){ return '<div class="glass" style="padding:1.25rem;margin-top:2rem;text-align:center;"><div style="font-size:1rem;font-weight:700;color:'+s.palette.primary+';margin-bottom:0.5rem;">This Week\'s Top Deal</div><div style="font-size:2.5rem;font-weight:900;color:'+s.palette.primary+';">$0.99/lb</div><div style="color:#94a3b8;font-size:0.9rem;">Premium Bananas — Limit 5 lbs per customer</div></div>'; }
+    },
+    construction: {
+      label: 'Building & Construction',
+      palette: { bg: '#0c0c0a', primary: '#f59e0b', accent: '#fbbf24', text: '#f5f5f0', card: 'rgba(255,255,255,0.04)', gs: '#f59e0b', ge: '#d97706' },
+      nav: ['Projects', 'Services', 'Sustainability', 'Safety', 'Careers'],
+      heroTag: 'BUILDING TOMORROW',
+      heroTitle: function(b){ return b + ' Construction Group'; },
+      heroSub: 'Iconic structures, sustainable innovation, and zero-incident safety culture across 6 continents.',
+      heroCta: 'View Projects',
+      cards: [
+        { title: 'Commercial High-Rise', desc: 'Mixed-use towers, Class A office space, and LEED Platinum campuses.' },
+        { title: 'Infrastructure', desc: 'Bridges, tunnels, transit systems, and critical public infrastructure.' },
+        { title: 'Sustainable Design', desc: 'Net-zero buildings, mass timber, and circular construction practices.' }
+      ],
+      extra: function(s){ return '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2rem;">' +
+        [{n:'Projects Delivered',v:'12,400+'},{n:'Revenue',v:'$18B'},{n:'Employees',v:'64K+'},{n:'Safety Rating',v:'0.38 TRIR'}].map(function(m){
+          return '<div class="glass" style="padding:1.25rem;text-align:center;"><div style="font-size:1.5rem;font-weight:900;color:'+s.palette.primary+';">'+m.v+'</div><div style="font-size:0.75rem;color:#94a3b8;margin-top:4px;">'+m.n+'</div></div>';
+        }).join('') + '</div>'; }
+    },
+    machinery: {
+      label: 'Machinery & Heavy Equipment',
+      palette: { bg: '#0d0c08', primary: '#eab308', accent: '#facc15', text: '#fefce8', card: 'rgba(255,255,255,0.04)', gs: '#eab308', ge: '#ca8a04' },
+      nav: ['Equipment', 'Parts & Service', 'Technology', 'Financing', 'Dealers'],
+      heroTag: 'BUILT TO PERFORM',
+      heroTitle: function(b){ return b + ' Heavy Industries'; },
+      heroSub: 'Earthmoving, mining, and construction equipment engineered for maximum uptime and productivity.',
+      heroCta: 'Explore Equipment',
+      cards: [
+        { title: 'Excavators', desc: 'From 1.5-ton minis to 800-ton mining excavators. Unmatched dig force.' },
+        { title: 'Autonomous Fleet', desc: 'GPS-guided dozers and haul trucks with AI collision avoidance.' },
+        { title: 'Parts & Service', desc: 'Next-day parts delivery and 24/7 field service across 190 countries.' }
+      ],
+      extra: function(s){ return '<div class="glass" style="padding:1.25rem;margin-top:2rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;">' +
+        '<div><div style="font-weight:700;color:'+s.palette.primary+';margin-bottom:0.5rem;">Request a Quote</div><input type="text" placeholder="Your Name" style="width:100%;padding:0.6rem;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);color:#fff;border-radius:8px;margin-bottom:0.5rem;font-family:inherit;"><input type="text" placeholder="Equipment Model" style="width:100%;padding:0.6rem;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);color:#fff;border-radius:8px;font-family:inherit;"></div>' +
+        '<div><div style="font-weight:700;color:'+s.palette.primary+';margin-bottom:0.5rem;">Find a Dealer</div><div style="color:#94a3b8;font-size:0.85rem;margin-bottom:0.5rem;">2,500+ authorized dealers worldwide</div><button onclick="alert(\'Dealer locator opening...\')" style="background:linear-gradient(135deg,'+s.palette.gs+','+s.palette.ge+');color:#000;border:none;padding:0.65rem 1.5rem;border-radius:8px;font-weight:700;cursor:pointer;">Locate Nearest Dealer</button></div></div>'; }
+    },
+    aerospace: {
+      label: 'Aerospace & Airlines',
+      palette: { bg: '#070a10', primary: '#dc2626', accent: '#ef4444', text: '#f1f5f9', card: 'rgba(255,255,255,0.04)', gs: '#dc2626', ge: '#b91c1c' },
+      nav: ['Book', 'Manage Trip', 'Loyalty', 'Destinations', 'Business'],
+      heroTag: 'FLY BEYOND',
+      heroTitle: function(b){ return b + ' Airlines'; },
+      heroSub: 'Connecting 160+ destinations worldwide. Award-winning service at 40,000 feet.',
+      heroCta: 'Book a Flight',
+      cards: [
+        { title: 'First Class', desc: 'Private suites, onboard shower spa, and a personal sommelier.' },
+        { title: 'Business Class', desc: 'Lie-flat seats, gourmet dining, and 1,000+ hours of entertainment.' },
+        { title: 'Loyalty Rewards', desc: 'Earn miles on every flight. Redeem for upgrades, hotels, and experiences.' }
+      ],
+      extra: function(s){ return '<div class="glass" style="padding:1.5rem;margin-top:2rem;"><div style="font-weight:700;color:'+s.palette.primary+';margin-bottom:1rem;">Quick Flight Search</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:0.75rem;align-items:end;">' +
+        '<div><label style="font-size:0.7rem;color:#94a3b8;display:block;margin-bottom:4px;">From</label><input type="text" value="YYZ" style="width:100%;padding:0.6rem;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);color:#fff;border-radius:8px;font-family:monospace;font-weight:700;"></div>' +
+        '<div><label style="font-size:0.7rem;color:#94a3b8;display:block;margin-bottom:4px;">To</label><input type="text" value="DXB" style="width:100%;padding:0.6rem;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);color:#fff;border-radius:8px;font-family:monospace;font-weight:700;"></div>' +
+        '<div><label style="font-size:0.7rem;color:#94a3b8;display:block;margin-bottom:4px;">Date</label><input type="date" style="width:100%;padding:0.6rem;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);color:#fff;border-radius:8px;font-family:inherit;"></div>' +
+        '<button onclick="alert(\'Searching flights...\')" style="background:linear-gradient(135deg,'+s.palette.gs+','+s.palette.ge+');color:#fff;border:none;padding:0.65rem 1.5rem;border-radius:8px;font-weight:700;cursor:pointer;">Search</button></div></div>'; }
+    },
+    entertainment: {
+      label: 'Fun & Entertainment',
+      palette: { bg: '#0a0812', primary: '#f472b6', accent: '#a855f7', text: '#fdf4ff', card: 'rgba(255,255,255,0.04)', gs: '#f472b6', ge: '#a855f7' },
+      nav: ['Attractions', 'Tickets', 'Events', 'Season Pass', 'Park Map'],
+      heroTag: 'EXPERIENCE THE MAGIC',
+      heroTitle: function(b){ return b + ' Adventure Park'; },
+      heroSub: 'Thrilling rides, live shows, and magical experiences for the whole family.',
+      heroCta: 'Get Tickets',
+      cards: [
+        { title: 'Thrill Rides', desc: 'Hypercoasters, VR experiences, and record-breaking drop towers.' },
+        { title: 'Live Entertainment', desc: 'Daily shows, fireworks, character meet-and-greets, and seasonal festivals.' },
+        { title: 'Family Zone', desc: 'Splash pads, gentle rides, and interactive play areas for little adventurers.' }
+      ],
+      extra: function(s){ return '<div class="glass" style="padding:1.25rem;margin-top:2rem;text-align:center;"><div style="font-size:1rem;font-weight:700;color:'+s.palette.primary+';margin-bottom:0.5rem;">Season Pass — Limited Time Offer</div><div style="display:flex;align-items:baseline;justify-content:center;gap:0.5rem;"><span style="font-size:0.9rem;color:#94a3b8;text-decoration:line-through;">$299.99</span><span style="font-size:2rem;font-weight:900;color:'+s.palette.primary+';">$199.99</span></div><div style="color:#94a3b8;font-size:0.85rem;margin-top:0.25rem;">Unlimited visits all year. Includes parking and early access.</div><button onclick="alert(\'Pass added to cart!\')" style="margin-top:1rem;background:linear-gradient(135deg,'+s.palette.gs+','+s.palette.ge+');color:#fff;border:none;padding:0.7rem 2.2rem;border-radius:8px;font-weight:700;cursor:pointer;">Buy Season Pass</button></div>'; }
     }
-
-    // Title Extraction
-    let coreVision = (promptText.match(/Core Vision:\s*(.*?)\n/) || [])[1] || promptText;
-    if (coreVision === 'Build standard layout.') coreVision = bType || 'Custom Project';
-    const stopWords = new Set(['the','a','an','and','for','with','that','this','build','create','make','want','need','like','please','can','you','me','my','app','website','web','mobile','desktop','game','should','would','could','just','also','very','really','some','have','will','about','into']);
-    const words = coreVision.trim().split(/\s+/).filter(w => w.length > 2 && !stopWords.has(w.toLowerCase()));
-    const title = words.slice(0, 3).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') || (bType ? bType.charAt(0).toUpperCase() + bType.slice(1) : 'AI Custom Build');
-
-    const features = {
-      hasChat: /chat|messag|convers|support|inbox|slack|discord/i.test(raw),
-      hasDashboard: /dashboard|analytics|chart|metric|stat|monitor|telemetry|admin|panel/i.test(raw),
-      hasEcommerce: /shop|store|ecommerce|e-commerce|product|cart|buy|sell|payment|checkout|merch/i.test(raw),
-      hasPortfolio: /portfolio|showcase|gallery|project|creative|design|artist/i.test(raw),
-      hasBlog: /blog|article|post|news|content|write|journal|magazine/i.test(raw),
-      hasSocial: /social|feed|follow|profile|community|friend|network|timeline/i.test(raw),
-      hasFitness: /fitness|health|workout|exercise|gym|diet|step|calori|yoga/i.test(raw),
-      hasFinance: /financ|bank|trading|crypto|wallet|invest|stock|money|defi|swap|token|nft/i.test(raw),
-      hasMusic: /music|audio|sound|player|playlist|song|spotify|stream|podcast|radio/i.test(raw),
-      hasFood: /food|restaurant|recipe|order|deliver|menu|cook|cafe|dine/i.test(raw),
-      hasMap: /map|location|navigation|gps|travel|route|trip|explore|tour/i.test(raw),
-      hasWeather: /weather|climate|forecast|temperature|rain|wind|humid/i.test(raw),
-      hasRPG: /rpg|quest|adventure|dungeon|level|loot|character|hero|dragon|fantasy/i.test(raw),
-      hasPuzzle: /puzzle|match|tetris|brain|logic|memory|sudoku|wordle/i.test(raw),
-      hasRacing: /racing|car|speed|drive|race|track|drift|kart|formula/i.test(raw),
-      hasPlatformer: /platformer|jump|mario|side.?scroll|runner|parkour/i.test(raw),
-      hasIDE: /ide|editor|code|terminal|develop|vscode|compiler/i.test(raw),
-      hasMedia: /media|video|stream|play|cinema|movie|youtube|netflix/i.test(raw),
-      hasDatabase: /database|sql|table|record|data.?base|mongo|postgres/i.test(raw),
-      hasEducation: /learn|course|education|quiz|tutor|study|school|teach/i.test(raw),
-      hasBooking: /book|reserv|appointment|schedule|hotel|flight|ticket/i.test(raw),
-      hasMedical: /medical|doctor|health|hospital|clinic|patient|triage|symptom|prescription/i.test(raw),
-      hasDating: /dating|date|match|tinder|grindr|hinge|bumble|romance|singles|heart|meet|love/i.test(raw),
-    };
-
-    return {
-      raw: updatedRaw, title, features,
-      bType, bProducts, bShowcase, bTheme, bFancy,
-      platform: targetPlatform || 'Web App / Website',
-      aiModel: aiModelName || 'Google Gemini 1.5 Flash (Pro Engine)',
-      primaryColor, accentColor, bgDark, cardBg, textColor,
-      gradientStart, gradientEnd
-    };
-  }
-
-  function sharedHead(specs, extraTitle) {
-    const fancyCss = specs.bFancy ? 'box-shadow: 0 10px 40px -10px ' + specs.primaryColor + '44; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);' : '';
-    const fancyAnim = specs.bFancy ? '@keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } } .fancy-float { animation: float 5s ease-in-out infinite; }' : '';
-    
-    return '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>' + specs.title + (extraTitle ? ' — ' + extraTitle : '') + '</title>\n  <link rel="preconnect" href="https://fonts.googleapis.com">\n  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">\n  <style>\n    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }\n    body { font-family: \'Inter\', system-ui, -apple-system, sans-serif; background: ' + specs.bgDark + '; color: ' + specs.textColor + '; line-height: 1.6; -webkit-font-smoothing: antialiased; font-size: 90%; }\n    .mono { font-family: \'JetBrains Mono\', \'Fira Code\', monospace; }\n    .gradient-text { background: linear-gradient(135deg, ' + specs.gradientStart + ', ' + specs.gradientEnd + '); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }\n    .glass { background: rgba(255,255,255,0.04); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; ' + fancyCss + ' }\n    ' + fancyAnim + '\n    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }\n    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }\n    .fade-in { animation: fadeInUp 0.5s ease both; }\n  </style>';
-  }
-
-  function aiBadge(specs) {
-    return '<div style="text-align:center;font-size:0.65rem;color:#64748b;margin-top:1.5rem;font-family:\'JetBrains Mono\',monospace;">Engineered Autonomously by ' + specs.aiModel + '</div>';
-  }
-
-  var icons = {
-    play: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
-    pause: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>',
-    home: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>',
-    search: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>',
-    user: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>',
-    star: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>',
-    bolt: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11 21h-1l1-7H7.5c-.88 0-.33-.75-.31-.78C8.48 10.94 10.42 7.54 13.01 3h1l-1 7h3.51c.4 0 .62.19.4.66C12.97 17.55 11 21 11 21z"/></svg>',
-    chart: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg>',
-    cart: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>',
-    settings: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>',
-    heart: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>',
-    stethoscope: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 8c-1.1 0-2 .9-2 2v4c0 2.21-1.79 4-4 4s-4-1.79-4-4v-4c0-1.1-.9-2-2-2s-2 .9-2 2v4c0 3.87 3.13 7 7 7s7-3.13 7-7v-4c0-1.1-.9-2-2-2z"/></svg>'
   };
 
-  // ═══════════════════════════════════════════════════════════════
-  // AUTONOMOUS PRO ENGINE ROUTER
-  // ═══════════════════════════════════════════════════════════════
-  function buildFullWebsite(direction, promptText, platform, aiModel) {
-    var specs = parsePromptSpecs(promptText, platform, aiModel);
-
-    // Direct game synthesis if platform is Game
-    if (specs.platform.indexOf('Game') !== -1) {
-      return generatePlayableGame(specs);
-    }
-
-    // Direct Mobile UI if platform is Mobile
-    if (specs.platform.indexOf('Mobile') !== -1) {
-      return generateMobileApp(specs);
-    }
-
-    // Direct Desktop UI if platform is Desktop
-    if (specs.platform.indexOf('Desktop') !== -1) {
-      return generateDesktopApp(specs);
-    }
-
-    // PRO Web App & Interactive Applications
-    return generateWebApp(specs);
+  /* ─────────────────────────────────────────────────────
+     SHARED HTML HEAD
+  ───────────────────────────────────────────────────── */
+  function sharedHead(brandName, p) {
+    return '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>' + brandName + '</title>\n  <link rel="preconnect" href="https://fonts.googleapis.com">\n  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">\n  <style>\n    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }\n    body { font-family: \'Inter\', system-ui, -apple-system, sans-serif; background: '+p.bg+'; color: '+p.text+'; line-height: 1.6; -webkit-font-smoothing: antialiased; }\n    .glass { background: '+p.card+'; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease; }\n    .glass:hover { transform: translateY(-3px); box-shadow: 0 12px 30px '+p.primary+'22; }\n    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }\n    .fade-in { animation: fadeInUp 0.6s ease both; }\n  </style>';
   }
 
-  // ═══════════════════════════════════════════════════════════════
-  // WEB APPLICATION GENERATOR (PRO VERSIOM)
-  // ═══════════════════════════════════════════════════════════════
-  function generateWebApp(specs) {
-    var f = specs.features;
-    var heroText = 'Synthesized AI web application engineered for your specifications.';
-    var heroBtn = 'Launch Workspace';
-    var cards = [];
-    var extraSection = '';
+  /* ─────────────────────────────────────────────────────
+     MAIN BUILDER FUNCTION
+  ───────────────────────────────────────────────────── */
+  function buildFullWebsite(direction, brandName, industryKey, themeKey) {
+    var ind = INDUSTRIES[industryKey];
+    if (!ind) ind = INDUSTRIES.it;
+    var p = ind.palette;
+    var bn = brandName || 'Untitled Brand';
 
-    if (f.hasFinance) {
-      heroText = 'Next-generation Web3 DEX with real-time liquidity feeds, token swaps, and portfolio analytics.';
-      heroBtn = 'Launch App';
-      cards = [
-        { icon: icons.chart, title: 'BTC / USD $67,842.10', desc: '24h Volume $3.2B — 24h Change +4.82%' },
-        { icon: icons.bolt, title: 'ETH / USD $3,520.45', desc: '24h Volume $1.8B — 24h Change +6.15%' },
-        { icon: icons.star, title: 'SOL / USD $184.20', desc: '24h Volume $920M — 24h Change +11.4%' },
-      ];
-      extraSection = `
-      <div style="display:grid;grid-template-columns:2fr 1fr;gap:1.5rem;margin-top:1.5rem;">
-        <div class="glass" style="padding:1.25rem;">
-          <h3 style="color:${specs.primaryColor};margin-bottom:0.75rem;font-size:1rem;display:flex;justify-content:space-between;align-items:center;">
-            <span>Live Price Chart (BTC/USD)</span>
-            <span style="font-size:0.75rem;color:#10b981;">● LIVE FEED</span>
-          </h3>
-          <canvas id="chartCanvas" width="550" height="200" style="width:100%;height:200px;background:rgba(0,0,0,0.3);border-radius:10px;"></canvas>
-        </div>
-        <div class="glass" style="padding:1.25rem;">
-          <h3 style="color:${specs.primaryColor};margin-bottom:0.75rem;font-size:1rem;">Instant Swap</h3>
-          <div style="display:flex;flex-direction:column;gap:0.75rem;">
-            <div>
-              <label style="font-size:0.7rem;color:#94a3b8;">Pay</label>
-              <input type="number" value="1.0" id="swapPay" style="width:100%;padding:0.6rem;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);color:#fff;border-radius:8px;font-family:monospace;" />
-            </div>
-            <div>
-              <label style="font-size:0.7rem;color:#94a3b8;">Receive (Estimated)</label>
-              <input type="text" value="19.26 ETH" readonly style="width:100%;padding:0.6rem;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);color:${specs.primaryColor};border-radius:8px;font-family:monospace;" />
-            </div>
-            <button onclick="alert('Transaction Submitted to Network!')" class="btn-primary" style="margin-top:0.5rem;width:100%;">Execute Swap</button>
-          </div>
-        </div>
-      </div>
-      <script>
-        const canvas = document.getElementById('chartCanvas');
-        if (canvas) {
-          const ctx = canvas.getContext('2d');
-          let points = [120, 140, 110, 150, 130, 170, 160, 190, 175, 210, 195, 240];
-          function drawChart() {
-            ctx.clearRect(0,0,canvas.width,canvas.height);
-            ctx.beginPath();
-            ctx.strokeStyle = '${specs.primaryColor}';
-            ctx.lineWidth = 3;
-            const step = canvas.width / (points.length - 1);
-            points.forEach((p, i) => {
-              const x = i * step;
-              const y = canvas.height - (p * 0.6);
-              if (i === 0) ctx.moveTo(x, y);
-              else ctx.lineTo(x, y);
-            });
-            ctx.stroke();
-          }
-          drawChart();
-        }
-      <\/script>`;
-    } else if (f.hasDashboard) {
-      heroText = 'Enterprise Telemetry & AI Analytics Control Center with live stream monitoring.';
-      heroBtn = 'View Control Center';
-      cards = [
-        { icon: icons.chart, title: 'MRR Growth', desc: '$148,290 / mo (+18.4% MoM)' },
-        { icon: icons.user, title: 'Active Sessions', desc: '14,892 concurrent users online' },
-        { icon: icons.bolt, title: 'System Latency', desc: '12ms avg global edge response' },
-      ];
-      extraSection = `
-      <div style="margin-top:1.5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;">
-        <div class="glass" style="padding:1rem;text-align:center;">
-          <div style="font-size:1.8rem;font-weight:900;color:${specs.primaryColor};">$148.2K</div>
-          <div style="font-size:0.75rem;color:#94a3b8;margin-top:2px;">Monthly Revenue</div>
-        </div>
-        <div class="glass" style="padding:1rem;text-align:center;">
-          <div style="font-size:1.8rem;font-weight:900;color:#10b981;">99.99%</div>
-          <div style="font-size:0.75rem;color:#94a3b8;margin-top:2px;">Uptime SLA</div>
-        </div>
-        <div class="glass" style="padding:1rem;text-align:center;">
-          <div style="font-size:1.8rem;font-weight:900;color:${specs.accentColor};">14,892</div>
-          <div style="font-size:0.75rem;color:#94a3b8;margin-top:2px;">Active Sessions</div>
-        </div>
-        <div class="glass" style="padding:1rem;text-align:center;">
-          <div style="font-size:1.8rem;font-weight:900;color:#38bdf8;">12 ms</div>
-          <div style="font-size:0.75rem;color:#94a3b8;margin-top:2px;">Avg Response</div>
-        </div>
-      </div>`;
-    } else if (f.hasMedical) {
-      heroText = 'AI-assisted medical triage & patient consultation workspace.';
-      heroBtn = 'Start Triage';
-      cards = [
-        { icon: icons.stethoscope, title: 'Symptom Analyzer', desc: 'Instant clinical diagnostic assessment powered by AI.' },
-        { icon: icons.star, title: 'Verified Doctors', desc: 'Connect with board-certified physicians in under 3 mins.' },
-        { icon: icons.bolt, title: 'Vitals Tracker', desc: 'Real-time heart rate, SpO2, and blood pressure logging.' },
-      ];
-    } else if (f.hasEcommerce) {
-      heroText = 'Modern e-commerce marketplace with instant checkout and smart AI search.';
-      heroBtn = 'Browse Products';
-      cards = [
-        { icon: icons.cart, title: 'Cyber Deck Pro $1,299', desc: 'High-performance neural computing station.' },
-        { icon: icons.star, title: 'Quantum Visor $599', desc: 'AR glasses with ultra-low latency display.' },
-        { icon: icons.bolt, title: 'Hologram Hub $299', desc: 'Desktop 3D spatial projection module.' },
-      ];
-    } else {
-      cards = [
-        { icon: icons.bolt, title: 'Autonomous Engine', desc: 'Generative AI code compiler executing in real-time.' },
-        { icon: icons.chart, title: 'High Performance', desc: 'Zero dependency responsive architecture.' },
-        { icon: icons.star, title: 'Production Ready', desc: 'Engineered for instant deployment.' },
-      ];
-    }
-
-    if (specs.bType) {
-      heroText = 'AI-synthesized platform engineered for ' + specs.bType + '. ' + (specs.bProducts ? 'Featuring ' + specs.bProducts + '.' : '');
-    }
-
-    var cardsHTML = cards.map(function(c, i) {
-      return '<div class="glass fade-in" style="padding:1.5rem;animation-delay:' + (i*0.1) + 's;"><div style="color:' + specs.primaryColor + ';margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem;font-weight:800;">' + c.icon + ' ' + c.title + '</div><p style="font-size:0.85rem;color:#94a3b8;">' + c.desc + '</p></div>';
+    var cardsHTML = ind.cards.map(function(c, i) {
+      return '<div class="glass fade-in" style="padding:1.5rem;animation-delay:'+(i*0.12)+'s;"><div style="color:'+p.primary+';margin-bottom:0.5rem;font-weight:800;font-size:1.05rem;">'+c.title+'</div><p style="font-size:0.85rem;color:#94a3b8;line-height:1.5;">'+c.desc+'</p></div>';
     }).join('');
 
-    return sharedHead(specs, '') + `
-  <style>
-    body { padding: 0; }
-    header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.06); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 10; background: ${specs.bgDark}ee; }
-    .logo { font-size: 1.15rem; font-weight: 900; background: linear-gradient(135deg, ${specs.gradientStart}, ${specs.gradientEnd}); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.5rem; }
-    .nav { display: flex; gap: 1.5rem; font-size: 0.85rem; color: #64748b; }
-    .nav span { cursor: pointer; transition: color 0.2s; position: relative; } .nav span:hover { color: ${specs.primaryColor}; }
-    .main { padding: 2rem; max-width: 1050px; margin: 0 auto; }
-    .hero { text-align: center; padding: 3.5rem 1.5rem; background: rgba(255,255,255,0.02); backdrop-filter: blur(12px); border-radius: 20px; border: 1px solid rgba(255,255,255,0.06); margin-bottom: 2rem; position: relative; overflow: hidden; }
-    .hero h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; background: linear-gradient(135deg, ${specs.gradientStart}, ${specs.gradientEnd}); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem; text-transform: uppercase; }
-    .hero p { color: #94a3b8; max-width: 580px; margin: 0 auto 1.5rem; font-size: 0.95rem; }
-    .btn-primary { background: linear-gradient(135deg, ${specs.gradientStart}, ${specs.gradientEnd}); color: #000; border: none; padding: 0.8rem 2.2rem; font-size: 0.9rem; font-weight: 800; border-radius: 10px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; text-transform: uppercase; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px ${specs.primaryColor}44; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
-  </style>
-</head>
-<body>
-  <header>
-    <div class="logo">${icons.bolt} ${specs.title}</div>
-    <div class="nav"><span>Platform</span><span>Features</span><span>Docs</span><span>Launch</span></div>
-  </header>
-  <div class="main">
-    <div class="hero fade-in">
-      <h1>${specs.title}</h1>
-      <p>${heroText}</p>
-      <button class="btn-primary" onclick="alert('Genesis Engine Active!')">${heroBtn}</button>
-    </div>
-    <div class="grid">${cardsHTML}</div>
-    ${extraSection}
-    ${aiBadge(specs)}
-  </div>
-</body>
-</html>`;
+    var extraHTML = '';
+    try { extraHTML = ind.extra({palette:p,gs:p.gs,ge:p.ge}); } catch(e){}
+
+    return sharedHead(bn, p) + '\n  <style>\n    header { display:flex; justify-content:space-between; align-items:center; padding:1rem 2.5rem; border-bottom:1px solid rgba(255,255,255,0.06); backdrop-filter:blur(12px); position:sticky; top:0; z-index:10; background:'+p.bg+'ee; }\n    .logo { font-size:1.2rem; font-weight:900; background:linear-gradient(135deg,'+p.gs+','+p.ge+'); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-transform:uppercase; letter-spacing:0.06em; }\n    .nav { display:flex; gap:1.75rem; font-size:0.85rem; color:#94a3b8; }\n    .nav span { cursor:pointer; transition:color 0.2s; } .nav span:hover { color:'+p.primary+'; }\n    .main { padding:2rem 2.5rem; max-width:1100px; margin:0 auto; }\n    .hero { text-align:center; padding:4rem 2rem; background:rgba(255,255,255,0.015); backdrop-filter:blur(12px); border-radius:24px; border:1px solid rgba(255,255,255,0.06); margin-bottom:2.5rem; position:relative; overflow:hidden; }\n    .hero::before { content:""; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:radial-gradient(ellipse at center, '+p.primary+'08 0%, transparent 70%); pointer-events:none; }\n    .hero-tag { font-family:"JetBrains Mono",monospace; font-size:0.72rem; font-weight:700; color:'+p.primary+'; letter-spacing:0.2em; background:'+p.primary+'15; padding:0.3rem 1rem; border-radius:20px; display:inline-block; margin-bottom:1.25rem; }\n    .hero h1 { font-size:clamp(2rem,5vw,3.2rem); font-weight:900; background:linear-gradient(135deg,'+p.gs+','+p.ge+'); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:1rem; line-height:1.15; }\n    .hero p { color:#94a3b8; max-width:600px; margin:0 auto 1.75rem; font-size:0.95rem; }\n    .btn-primary { background:linear-gradient(135deg,'+p.gs+','+p.ge+'); color:#000; border:none; padding:0.85rem 2.5rem; font-size:0.9rem; font-weight:800; border-radius:12px; cursor:pointer; transition:transform 0.2s,box-shadow 0.2s; text-transform:uppercase; letter-spacing:0.04em; }\n    .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 30px '+p.primary+'44; }\n    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.25rem; margin-bottom:2rem; }\n    .badge-bar { text-align:center; margin-top:2.5rem; font-size:0.6rem; color:#475569; font-family:"JetBrains Mono",monospace; letter-spacing:0.1em; }\n  </style>\n</head>\n<body>\n  <header>\n    <div class="logo">' + bn + '</div>\n    <div class="nav">' + ind.nav.map(function(n){ return '<span>'+n+'</span>'; }).join('') + '</div>\n  </header>\n  <div class="main">\n    <div class="hero fade-in">\n      <div class="hero-tag">' + ind.heroTag + '</div>\n      <h1>' + ind.heroTitle(bn) + '</h1>\n      <p>' + ind.heroSub + '</p>\n      <button class="btn-primary" onclick="alert(\'Welcome to ' + bn.replace(/'/g,"\\'") + '!\')">' + ind.heroCta + '</button>\n    </div>\n    <div class="grid">' + cardsHTML + '</div>\n    ' + extraHTML + '\n    <div class="badge-bar">ENGINEERED BY GENESIS MATRIX AI — SYDAS.X INDUSTRY ARCHITECT v5.0</div>\n  </div>\n</body>\n</html>';
   }
 
-  // Games & Other platform handlers
-  function generatePlayableGame(specs) {
-    return sharedHead(specs, 'Arcade Canvas') + `
-    <style>
-      body { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 1rem; user-select: none; }
-      canvas { background: #04050a; border-radius: 12px; border: 2px solid ${specs.primaryColor}44; box-shadow: 0 0 30px ${specs.primaryColor}33; }
-      .hud { font-family: monospace; font-size: 0.9rem; margin-bottom: 0.75rem; color: ${specs.primaryColor}; display: flex; gap: 1rem; }
-    </style>
-    </head>
-    <body>
-      <div class="hud"><span>${specs.title}</span><span>Score: <b id="score">0</b></span></div>
-      <canvas id="gc" width="600" height="380"></canvas>
-      <script>
-        const c=document.getElementById("gc"),ctx=c.getContext("2d");
-        let score=0, px=280, py=320;
-        document.addEventListener("keydown", e=>{ if(e.key==="ArrowLeft")px-=20; if(e.key==="ArrowRight")px+=20; });
-        function loop(){ ctx.clearRect(0,0,600,380); ctx.fillStyle="${specs.primaryColor}"; ctx.fillRect(px,py,40,20); requestAnimationFrame(loop); }
-        loop();
-      <\/script>
-      ${aiBadge(specs)}
-    </body>
-    </html>`;
-  }
-
-  function generateMobileApp(specs) {
-    return generateWebApp(specs);
-  }
-
-  function generateDesktopApp(specs) {
-    return generateWebApp(specs);
-  }
-
+  /* ─────────────────────────────────────────────────────
+     PUBLIC API
+  ───────────────────────────────────────────────────── */
   window.SYDAS_THEME_ENGINE = {
-    classifyBusinessVertical: function() { return { label: 'Generative AI Custom Build', icon: '' }; },
+    INDUSTRIES: INDUSTRIES,
     buildFullWebsite: buildFullWebsite
   };
+
 })();
