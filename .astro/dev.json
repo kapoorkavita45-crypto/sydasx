@@ -1,0 +1,18 @@
+{
+	"pid": 7588,
+	"port": 4321,
+	"url": "http://localhost:4321",
+	"urls": {
+		"local": [
+			"http://localhost:4321/"
+		],
+		"network": [
+			"http://192.168.68.105:4321/"
+		],
+		"networkInterfaceNames": [
+			"Wi-Fi"
+		]
+	},
+	"background": true,
+	"startedAt": "2026-08-11T00:17:40.669Z"
+}
