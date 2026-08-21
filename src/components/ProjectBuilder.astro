@@ -9,7 +9,7 @@
   <div class="container">
     
     <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!-- VIEW 1: PLATFORM SELECTION ("LET'S BUILD")                      -->
+    <!-- STEP 1: BRAND NAME INPUT                                       -->
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <div id="step-1" class="builder-step active">
       <div class="section-header">
@@ -17,40 +17,191 @@
           The <span class="text-gradient">Genesis</span> Matrix
         </h2>
         <p class="section-subtitle">
-          Universal AI prompt-based architecture engine synced with Google Gemini 2.5 Pro.
+          Industry-grade AI website architect powered by Google Gemini 2.5 Pro.<br/>
+          Built by a team of 100 senior engineers at the world's #1 company.
         </p>
       </div>
 
       <div class="step-card glass-panel">
         <div class="wizard-header">
-          <span class="wizard-step-badge">STEP 1 OF 2</span>
-          <h3 class="wizard-title">Let's Build</h3>
-          <p class="wizard-subtitle">Select your target platform architecture to launch the Antigravity IDE.</p>
+          <span class="wizard-step-badge">STEP 1 OF 3</span>
+          <h3 class="wizard-title">What's Your Brand?</h3>
+          <p class="wizard-subtitle">Enter the name of your company or brand. This will be the identity of your website.</p>
         </div>
 
-        <div class="platform-cards-grid">
-          <button class="platform-card" data-platform="Web">
-            <h4 class="p-card-title">Web App / Website</h4>
-            <p class="p-card-desc">SaaS platforms, e-commerce, portfolios, dashboards & web tools.</p>
-            <span class="p-card-action">Launch Web IDE →</span>
+        <div class="brand-input-container">
+          <label for="brand-name-input" class="glow-label">Brand Name</label>
+          <input type="text" id="brand-name-input" class="cyber-input brand-mega-input" placeholder="e.g. Nike, Zara, Deloitte, Emirates..." maxlength="60" autofocus />
+          <div class="brand-input-hint">This will appear as your logo, page title, and throughout your website.</div>
+        </div>
+
+        <button id="btn-to-step2" class="btn btn-primary btn-block" style="margin-top: 1.5rem;" disabled>
+          <span>Continue to Industry Selection →</span>
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- STEP 2: INDUSTRY / COMPANY TYPE SELECTION                      -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div id="step-2" class="builder-step hidden">
+      <div class="section-header">
+        <h2 class="section-title">
+          Select Your <span class="text-gradient">Industry</span>
+        </h2>
+        <p class="section-subtitle">
+          Choose the type of company you are building for. Each template is modeled after world-class leaders in that space.
+        </p>
+      </div>
+
+      <div class="step-card glass-panel">
+        <div class="wizard-header">
+          <span class="wizard-step-badge">STEP 2 OF 3</span>
+          <h3 class="wizard-title">Company Type</h3>
+          <p class="wizard-subtitle">Select the industry that best matches your business.</p>
+        </div>
+
+        <div class="industry-grid" id="industry-grid">
+          <!-- Footwear -->
+          <button class="industry-card" data-industry="footwear">
+            <div class="ind-icon" style="color:#ff4d00;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 1.515a3 3 0 0 0-3 0L3.91 5.25a3 3 0 0 0-1.5 2.598v7.304a3 3 0 0 0 1.5 2.598l6.59 3.735a3 3 0 0 0 3 0l6.59-3.735a3 3 0 0 0 1.5-2.598V7.848a3 3 0 0 0-1.5-2.598L13.5 1.515z"/></svg>
+            </div>
+            <h4 class="ind-title">Footwear</h4>
+            <p class="ind-examples">Like Nike, Adidas, New Balance</p>
           </button>
 
-          <button class="platform-card" data-platform="Mobile">
-            <h4 class="p-card-title">Mobile App (iOS / Android)</h4>
-            <p class="p-card-desc">Native smartphones UI, gesture controls, tab bars & mobile widgets.</p>
-            <span class="p-card-action">Launch Mobile IDE →</span>
+          <!-- Clothing -->
+          <button class="industry-card" data-industry="clothing">
+            <div class="ind-icon" style="color:#e2c08d;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M16 21H8a1 1 0 0 1-1-1V8L2 3h20l-5 5v12a1 1 0 0 1-1 1z"/></svg>
+            </div>
+            <h4 class="ind-title">Clothing</h4>
+            <p class="ind-examples">Like Zara, H&M, Gucci</p>
           </button>
 
-          <button class="platform-card" data-platform="Desktop">
-            <h4 class="p-card-title">Desktop Software (Win / Mac)</h4>
-            <p class="p-card-desc">Standalone workstation apps, IDEs, media tools & system monitors.</p>
-            <span class="p-card-action">Launch Desktop IDE →</span>
+          <!-- E-Commerce -->
+          <button class="industry-card" data-industry="ecommerce">
+            <div class="ind-icon" style="color:#3b82f6;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0 0 20.01 5H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </div>
+            <h4 class="ind-title">E-Commerce</h4>
+            <p class="ind-examples">Like Flipkart, Amazon, Shopify</p>
           </button>
 
-          <button class="platform-card" data-platform="Game">
-            <h4 class="p-card-title">Interactive 3D / WebGL Game</h4>
-            <p class="p-card-desc">Playable HTML5 Canvas games, space shooters, puzzles & platformers.</p>
-            <span class="p-card-action">Launch Game IDE →</span>
+          <!-- IT & Consulting -->
+          <button class="industry-card" data-industry="it">
+            <div class="ind-icon" style="color:#00d4aa;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
+            </div>
+            <h4 class="ind-title">IT & Consulting</h4>
+            <p class="ind-examples">Like Deloitte, Cognizant, Accenture</p>
+          </button>
+
+          <!-- Jewellery -->
+          <button class="industry-card" data-industry="jewellery">
+            <div class="ind-icon" style="color:#d4af37;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L6 8.5l6 13.5 6-13.5L12 2zm0 3.5L14.5 8h-5L12 5.5z"/></svg>
+            </div>
+            <h4 class="ind-title">Jewellery</h4>
+            <p class="ind-examples">Like Swarovski, Tanishq, Tiffany</p>
+          </button>
+
+          <!-- Dine-In -->
+          <button class="industry-card" data-industry="dinein">
+            <div class="ind-icon" style="color:#c8553d;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13.0l1.47-1.47z"/></svg>
+            </div>
+            <h4 class="ind-title">Dine-In</h4>
+            <p class="ind-examples">Like Black + Blue, Nobu</p>
+          </button>
+
+          <!-- Hotels -->
+          <button class="industry-card" data-industry="hotels">
+            <div class="ind-icon" style="color:#b08d57;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/></svg>
+            </div>
+            <h4 class="ind-title">Hotels</h4>
+            <p class="ind-examples">Like Marriott, Four Seasons, Ritz</p>
+          </button>
+
+          <!-- Restaurants -->
+          <button class="industry-card" data-industry="restaurants">
+            <div class="ind-icon" style="color:#e8a838;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+            </div>
+            <h4 class="ind-title">Restaurants</h4>
+            <p class="ind-examples">Like McDonald's, Chipotle, Subway</p>
+          </button>
+
+          <!-- Portfolios -->
+          <button class="industry-card" data-industry="portfolios">
+            <div class="ind-icon" style="color:#a78bfa;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+            <h4 class="ind-title">Portfolios</h4>
+            <p class="ind-examples">Personal & Creative Portfolios</p>
+          </button>
+
+          <!-- Security -->
+          <button class="industry-card" data-industry="security">
+            <div class="ind-icon" style="color:#22d3ee;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+            </div>
+            <h4 class="ind-title">Security</h4>
+            <p class="ind-examples">Like Paragon, CrowdStrike, Palo Alto</p>
+          </button>
+
+          <!-- Grocery -->
+          <button class="industry-card" data-industry="grocery">
+            <div class="ind-icon" style="color:#22c55e;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0 0 20.01 4H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 5.9 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </div>
+            <h4 class="ind-title">Grocery Store</h4>
+            <p class="ind-examples">Like No Frills, Whole Foods, Costco</p>
+          </button>
+
+          <!-- Construction -->
+          <button class="industry-card" data-industry="construction">
+            <div class="ind-icon" style="color:#f59e0b;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M13 3v2h-2V3h2zm-6 2V3H5v2h2zm12 0V3h-2v2h2zM3 21h18v-2H3v2zM3 9v10h2V9H3zm16 10V9h2v10h-2zM7 19V9h10v10H7z"/></svg>
+            </div>
+            <h4 class="ind-title">Construction</h4>
+            <p class="ind-examples">Like Turner, Bechtel, Skanska</p>
+          </button>
+
+          <!-- Machinery -->
+          <button class="industry-card" data-industry="machinery">
+            <div class="ind-icon" style="color:#eab308;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+            </div>
+            <h4 class="ind-title">Machinery</h4>
+            <p class="ind-examples">Like CAT, John Deere, Komatsu</p>
+          </button>
+
+          <!-- Aerospace -->
+          <button class="industry-card" data-industry="aerospace">
+            <div class="ind-icon" style="color:#dc2626;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+            </div>
+            <h4 class="ind-title">Aerospace</h4>
+            <p class="ind-examples">Like Emirates, Air Canada, Boeing</p>
+          </button>
+
+          <!-- Fun & Entertainment -->
+          <button class="industry-card" data-industry="entertainment">
+            <div class="ind-icon" style="color:#f472b6;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </div>
+            <h4 class="ind-title">Entertainment</h4>
+            <p class="ind-examples">Like Wonderland, Disney, Six Flags</p>
+          </button>
+        </div>
+
+        <div class="step2-nav-bar">
+          <button id="btn-back-step1" class="btn btn-outline">
+            <span>← Back</span>
           </button>
         </div>
       </div>
@@ -58,7 +209,7 @@
 
 
     <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!-- VIEW 2: ANTIGRAVITY IDE WORKSPACE (SYNCED WITH GEMINI AI)       -->
+    <!-- STEP 3: ANTIGRAVITY IDE WORKSPACE (LIVE PREVIEW & CODE)        -->
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <div id="antigravity-ide" class="antigravity-ide-container hidden">
       
@@ -84,7 +235,7 @@
             <span>Gemini API Key</span>
           </button>
           <button id="btn-switch-platform" class="btn btn-outline btn-xs">
-            <span>← Switch Platform</span>
+            <span>← Start Over</span>
           </button>
         </div>
       </div>
@@ -93,14 +244,14 @@
       <div class="ide-workspace-grid">
         
         <!-- ------------------------------------------------------------- -->
-        <!-- LEFT COLUMN: GEMINI AI ASSISTANT CHAT & PROMPT PANEL         -->
+        <!-- LEFT COLUMN: BUILD SUMMARY & CONTROLS                         -->
         <!-- ------------------------------------------------------------- -->
         <div class="ide-sidebar glass-panel">
           <div class="sidebar-header">
             <div class="sidebar-title-group">
               <div>
                 <h4 class="sidebar-title">Gemini AI Assistant</h4>
-                <span class="sidebar-sub">Multimodal Code Synthesis Engine</span>
+                <span class="sidebar-sub">Industry Architect Engine v5.0</span>
               </div>
             </div>
           </div>
@@ -125,7 +276,7 @@
             </div>
           </div>
 
-          <!-- STATE 2: ACTIVE GEMINI CHAT INTERFACE (AFTER SIGN IN) -->
+          <!-- STATE 2: ACTIVE BUILD PANEL (AFTER SIGN IN) -->
           <div id="ide-chat-active" class="ide-chat-active hidden">
             
             <!-- Gemini Chat Messages Log -->
@@ -135,70 +286,27 @@
                 <div class="msg-body">
                   <div class="msg-sender">Google Gemini 2.5 Pro</div>
                   <div class="msg-text">
-                    Hello! I'm synced and ready to synthesize your <strong id="chat-target-platform" class="text-gradient">Web App</strong>. Describe what you'd like to build below!
+                    I'm ready to synthesize your website. Click <strong class="text-gradient">Build Website</strong> below to generate your production-grade website!
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Quick Template Chips -->
-            <div class="quick-templates">
-              <span class="template-label">Quick Ideas:</span>
-              <div id="template-chips" class="chips-row">
-                <button class="chip-btn" data-prompt="Build a futuristic cyberpunk dashboard with live stats and dark glassmorphism">Cyberpunk Dashboard</button>
-                <button class="chip-btn" data-prompt="Build a modern e-commerce store with product cards, filter tabs and cart modal">E-Commerce Store</button>
-                <button class="chip-btn" data-prompt="Build an interactive SaaS analytics platform with telemetry charts and live search">SaaS Analytics</button>
+            <!-- Build Summary Card -->
+            <div class="build-summary-card">
+              <div class="build-summary-row">
+                <span class="build-label">Brand Name</span>
+                <span id="summary-brand" class="build-value text-gradient">—</span>
+              </div>
+              <div class="build-summary-row">
+                <span class="build-label">Industry</span>
+                <span id="summary-industry" class="build-value">—</span>
               </div>
             </div>
 
-            <!-- Prompt Input Form & Business Context Form -->
-            <div class="ide-prompt-form">
-              <div class="prompt-label-bar">
-                <label for="ide-prompt-input" class="glow-label">Core Vision</label>
-                <span id="word-count-badge" class="word-count-badge">0 / 100 words max</span>
-              </div>
-              <textarea id="ide-prompt-input" class="cyber-input" rows="2" placeholder="Describe whatever you want to build..."></textarea>
-
-              <div id="word-count-warning" class="word-count-warning hidden" style="display: none;">
-                Warning: Your prompt exceeds the 100-word limit (Current count: <span id="current-word-count">0</span> words). Please shorten your prompt to compile.
-              </div>
-
-              <!-- New Business Context Fields -->
-              <div class="business-context-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1rem;">
-                <div class="input-group">
-                  <label for="ide-business-type" class="glow-label">Business Type</label>
-                  <input type="text" id="ide-business-type" class="cyber-input" placeholder="e.g. Tech Startup" />
-                </div>
-                <div class="input-group">
-                  <label for="ide-products" class="glow-label">Products / Services</label>
-                  <input type="text" id="ide-products" class="cyber-input" placeholder="e.g. SaaS Analytics" />
-                </div>
-                <div class="input-group" style="grid-column: 1 / -1;">
-                  <label for="ide-showcase" class="glow-label">Showcase Elements</label>
-                  <input type="text" id="ide-showcase" class="cyber-input" placeholder="e.g. Pricing Table, Hero Video, Testimonials" />
-                </div>
-                <div class="input-group" style="grid-column: 1 / -1;">
-                  <label for="ide-theme" class="glow-label">Theme Selection</label>
-                  <select id="ide-theme" class="cyber-input">
-                    <option value="Modern Corporate">Modern Corporate</option>
-                    <option value="Neon Cyberpunk" selected>Neon Cyberpunk</option>
-                    <option value="Playful & Vibrant">Playful & Vibrant</option>
-                    <option value="Luxury Dark Mode">Luxury Dark Mode</option>
-                    <option value="Minimalist Clean">Minimalist Clean</option>
-                  </select>
-                </div>
-              </div>
-              
-              <div class="fancy-toggle-group" style="display: flex; align-items: center; gap: 10px; margin-top: 1rem;">
-                <input type="checkbox" id="ide-fancy-toggle" class="cyber-checkbox" checked style="width: 20px; height: 20px; accent-color: #00f0ff; cursor: pointer;">
-                <label for="ide-fancy-toggle" class="glow-label" style="font-size: 0.85rem; cursor: pointer; margin-bottom: 0;">Maximize Visual Flair (Glassmorphism & Animations)</label>
-              </div>
-
-              <button id="btn-compile-project" class="btn btn-primary btn-block" style="margin-top: 1rem;">
-                <span>Synthesize with Gemini (Use 1 Try)</span>
-              </button>
-            </div>
-
+            <button id="btn-compile-project" class="btn btn-primary btn-block" style="margin-top: 1rem;">
+              <span>Build Website (Use 1 Try)</span>
+            </button>
           </div>
 
           <!-- STATE 3: OUT OF TRIES FORM (AFTER 5 TRIES EXHAUSTED) -->
@@ -226,7 +334,7 @@
                 </button>
 
                 <button type="button" id="btn-reset-tries" class="btn btn-outline btn-block" style="margin-top: 0.75rem; border-color: #00f0ff; color: #00f0ff;">
-                  <span>⚡ Reset & Get 5 Free Build Tries</span>
+                  <span>Reset & Get 5 Free Build Tries</span>
                 </button>
               </form>
             </div>
@@ -275,7 +383,7 @@
               <div id="sandbox-loader" class="sandbox-loader hidden">
                 <div class="spinner-neon"></div>
                 <h4 class="loader-text">Synthesizing Architecture with Gemini 2.5...</h4>
-                <p id="loader-status-sub" class="loader-sub">Generating HTML5 layout, CSS styling & JS logic...</p>
+                <p id="loader-status-sub" class="loader-sub">Generating industry-specific layout, design system & interactivity...</p>
               </div>
             </div>
           </div>
@@ -305,7 +413,7 @@
               <div class="specs-grid">
                 <div class="spec-card">
                   <span class="spec-label">Target Architecture</span>
-                  <strong id="spec-platform-name" class="spec-val">Web App / Website</strong>
+                  <strong id="spec-platform-name" class="spec-val">Industry Web Platform</strong>
                 </div>
                 <div class="spec-card">
                   <span class="spec-label">Synthesizer Engine</span>
@@ -324,10 +432,10 @@
               <div class="specs-details" style="margin-top: 1.5rem;">
                 <h5>Component Tree Breakdown</h5>
                 <ul id="spec-components-list" class="spec-list">
-                  <li>✔ Responsive Container Grid Layout</li>
-                  <li>✔ Dynamic Theme State & Navigation Controls</li>
-                  <li>✔ Interactive Component Event Handlers</li>
-                  <li>✔ Real-Time Filter & Search Telemetry</li>
+                  <li>Responsive Container Grid Layout</li>
+                  <li>Industry-Specific Navigation & Hero Section</li>
+                  <li>Interactive Component Event Handlers</li>
+                  <li>Real-Time Filter & Search Telemetry</li>
                 </ul>
               </div>
             </div>
@@ -343,7 +451,7 @@
               </div>
               <div id="console-logs-output" class="console-logs-output">
                 <div class="log-line info">> Antigravity IDE Engine Initialized.</div>
-                <div class="log-line info">> Synced with Google Gemini 2.5 Pro Multimodal Compiler.</div>
+                <div class="log-line info">> Genesis Matrix Industry Architect v5.0 Loaded.</div>
               </div>
             </div>
           </div>
@@ -356,7 +464,7 @@
 
   </div>
 
-  <!-- Google One-Tap Sign In Modal Overlay (Matching Pic 2) -->
+  <!-- Google One-Tap Sign In Modal Overlay -->
   <div id="google-onetap-modal" class="google-onetap-modal hidden">
     <div class="onetap-card">
       <div class="onetap-header">
@@ -400,12 +508,12 @@
 </section>
 
 
-<!-- Load Mega Theme Engine BEFORE main script -->
+<!-- Load Industry Architect Engine BEFORE main script -->
 <script is:inline src="/js/theme-engine.js"></script>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    console.log("SYDAS.x Antigravity IDE Synced with Google Gemini 2.5 Pro — Active");
+    console.log("SYDAS.x Genesis Matrix Industry Architect v5.0 — Active");
 
     // Persistent User Auth & Credit State
     let userSession = JSON.parse(localStorage.getItem('sydas_builder_session') || 'null') || {
@@ -416,45 +524,23 @@
     };
 
     // State Variables
-    let selectedPlatform = 'Web App / Website';
-    let selectedPlatformKey = 'Web';
+    let selectedBrandName = '';
+    let selectedIndustryKey = '';
+    let selectedIndustryLabel = '';
     let currentCompiledCode = { html: '', css: '', js: '' };
 
-    const platformLabels = {
-      'Web': 'Web App / Website',
-      'Mobile': 'Mobile App (iOS / Android)',
-      'Desktop': 'Desktop Software (Win / Mac)',
-      'Game': 'Interactive 3D / WebGL Game'
-    };
-
-    const platformTemplates = {
-      'Web': [
-        { label: 'Cyberpunk Dashboard', prompt: 'Build a futuristic cyberpunk dashboard with live stats and dark glassmorphism' },
-        { label: 'E-Commerce Store', prompt: 'Build a modern e-commerce store with product cards, filter tabs and cart modal' },
-        { label: 'SaaS Analytics', prompt: 'Build an interactive SaaS analytics platform with telemetry charts and live search' }
-      ],
-      'Mobile': [
-        { label: 'Fitness Tracker UI', prompt: 'Build a native mobile fitness tracking app with workout stats and bottom navigation' },
-        { label: 'Crypto Wallet', prompt: 'Build a mobile cryptocurrency wallet UI with live token balances and send receive buttons' },
-        { label: 'Social Feed', prompt: 'Build a mobile social media feed with story bubbles, post cards and like counters' }
-      ],
-      'Desktop': [
-        { label: 'System Workstation', prompt: 'Build a desktop workstation app with CPU GPU system monitors and process manager' },
-        { label: 'Audio DAW Studio', prompt: 'Build a desktop digital audio synthesizer with volume knobs and beat sequencer' },
-        { label: 'Code Editor IDE', prompt: 'Build a desktop code editor with sidebar file browser and syntax highlighted window' }
-      ],
-      'Game': [
-        { label: 'Pixel Space Shooter', prompt: 'Build a playable pixel art arcade space shooter with laser controls and enemies' },
-        { label: '3D WebGL Crawler', prompt: 'Build an interactive 3D WebGL dungeon canvas game with player controls' },
-        { label: 'Jet Fighter Arcade', prompt: 'Build a retro jet dogfight shooter with high score tracking and power-ups' }
-      ]
-    };
-
-    // DOM Elements
+    // DOM Elements — Step 1
     const step1 = document.getElementById('step-1');
+    const step2 = document.getElementById('step-2');
     const antigravityIde = document.getElementById('antigravity-ide');
-    
-    // Header & Badges
+    const brandNameInput = document.getElementById('brand-name-input');
+    const btnToStep2 = document.getElementById('btn-to-step2');
+    const btnBackStep1 = document.getElementById('btn-back-step1');
+
+    // DOM Elements — Step 2 (Industry Grid)
+    const industryGrid = document.getElementById('industry-grid');
+
+    // DOM Elements — IDE
     const idePlatformBadge = document.getElementById('ide-platform-badge');
     const ideCreditsCount = document.getElementById('ide-credits-count');
     const btnSwitchPlatform = document.getElementById('btn-switch-platform');
@@ -466,18 +552,8 @@
     const btnGmailSignin = document.getElementById('btn-gmail-signin');
     
     const chatHistory = document.getElementById('gemini-chat-history');
-    const chatTargetPlatform = document.getElementById('chat-target-platform');
-    const templateChips = document.getElementById('template-chips');
-    const idePromptInput = document.getElementById('ide-prompt-input');
-    const ideBusinessType = document.getElementById('ide-business-type');
-    const ideProducts = document.getElementById('ide-products');
-    const ideShowcase = document.getElementById('ide-showcase');
-    const ideTheme = document.getElementById('ide-theme');
-    const ideFancyToggle = document.getElementById('ide-fancy-toggle');
-
-    const wordCountBadge = document.getElementById('word-count-badge');
-    const wordCountWarning = document.getElementById('word-count-warning');
-    const currentWordCountSpan = document.getElementById('current-word-count');
+    const summaryBrand = document.getElementById('summary-brand');
+    const summaryIndustry = document.getElementById('summary-industry');
     const btnCompileProject = document.getElementById('btn-compile-project');
 
     // Workspace & Tabs
@@ -502,8 +578,116 @@
 
     // Blueprint Form
     const transmitForm = document.getElementById('transmit-blueprint-form');
-    const bpName = document.getElementById('bp-name');
-    const bpEmail = document.getElementById('bp-email');
+
+
+    // ══════════════════════════════════════════════════════
+    // STEP 1 → STEP 2 NAVIGATION (BRAND NAME)
+    // ══════════════════════════════════════════════════════
+    if (brandNameInput && btnToStep2) {
+      brandNameInput.addEventListener('input', () => {
+        const val = brandNameInput.value.trim();
+        btnToStep2.disabled = val.length < 2;
+      });
+
+      btnToStep2.addEventListener('click', () => {
+        selectedBrandName = brandNameInput.value.trim();
+        if (selectedBrandName.length < 2) return;
+        
+        step1.classList.add('hidden');
+        step1.classList.remove('active');
+        step2.classList.remove('hidden');
+        step2.classList.add('active');
+      });
+
+      // Enter key shortcut
+      brandNameInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && brandNameInput.value.trim().length >= 2) {
+          btnToStep2.click();
+        }
+      });
+    }
+
+    // STEP 2 → STEP 1 BACK
+    if (btnBackStep1) {
+      btnBackStep1.addEventListener('click', () => {
+        step2.classList.add('hidden');
+        step2.classList.remove('active');
+        step1.classList.remove('hidden');
+        step1.classList.add('active');
+        if (brandNameInput) brandNameInput.focus();
+      });
+    }
+
+
+    // ══════════════════════════════════════════════════════
+    // STEP 2 → STEP 3 (INDUSTRY SELECTION → IDE)
+    // ══════════════════════════════════════════════════════
+    if (industryGrid) {
+      const industryCards = industryGrid.querySelectorAll('.industry-card');
+      industryCards.forEach(card => {
+        card.addEventListener('click', () => {
+          selectedIndustryKey = card.getAttribute('data-industry') || 'it';
+          
+          // Get label from the engine
+          if (window.SYDAS_THEME_ENGINE && window.SYDAS_THEME_ENGINE.INDUSTRIES && window.SYDAS_THEME_ENGINE.INDUSTRIES[selectedIndustryKey]) {
+            selectedIndustryLabel = window.SYDAS_THEME_ENGINE.INDUSTRIES[selectedIndustryKey].label;
+          } else {
+            selectedIndustryLabel = card.querySelector('.ind-title')?.textContent || 'Custom';
+          }
+
+          // Transition to IDE
+          step2.classList.add('hidden');
+          step2.classList.remove('active');
+          antigravityIde.classList.remove('hidden');
+
+          // Update IDE header
+          if (idePlatformBadge) idePlatformBadge.textContent = `${selectedIndustryLabel} — ${selectedBrandName}`;
+          if (specPlatformName) specPlatformName.textContent = selectedIndustryLabel;
+          if (summaryBrand) summaryBrand.textContent = selectedBrandName;
+          if (summaryIndustry) summaryIndustry.textContent = selectedIndustryLabel;
+
+          appendConsoleLog(`Industry selected: ${selectedIndustryLabel} (${selectedIndustryKey})`, 'info');
+          appendConsoleLog(`Brand: ${selectedBrandName}`, 'info');
+
+          updateUIState();
+        });
+      });
+    }
+
+    // Check URL search parameters on load (for direct links)
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialIndustry = urlParams.get('industry');
+    const initialBrand = urlParams.get('brand');
+    if (initialIndustry && initialBrand) {
+      selectedBrandName = decodeURIComponent(initialBrand);
+      selectedIndustryKey = initialIndustry;
+      if (window.SYDAS_THEME_ENGINE?.INDUSTRIES?.[selectedIndustryKey]) {
+        selectedIndustryLabel = window.SYDAS_THEME_ENGINE.INDUSTRIES[selectedIndustryKey].label;
+      }
+      step1.classList.add('hidden');
+      step1.classList.remove('active');
+      antigravityIde.classList.remove('hidden');
+      if (idePlatformBadge) idePlatformBadge.textContent = `${selectedIndustryLabel} — ${selectedBrandName}`;
+      if (summaryBrand) summaryBrand.textContent = selectedBrandName;
+      if (summaryIndustry) summaryIndustry.textContent = selectedIndustryLabel;
+      updateUIState();
+    }
+
+
+    // ══════════════════════════════════════════════════════
+    // SWITCH PLATFORM (START OVER)
+    // ══════════════════════════════════════════════════════
+    if (btnSwitchPlatform) {
+      btnSwitchPlatform.addEventListener('click', () => {
+        antigravityIde.classList.add('hidden');
+        step1.classList.remove('hidden');
+        step1.classList.add('active');
+        if (brandNameInput) {
+          brandNameInput.value = selectedBrandName;
+          brandNameInput.focus();
+        }
+      });
+    }
 
 
     // ══════════════════════════════════════════════════════
@@ -514,7 +698,6 @@
         ideCreditsCount.textContent = `${userSession.triesLeft} / 5 Build Tries`;
       }
 
-      // Handle Sidebar States (Auth Gate vs Chat vs Tries Exhausted)
       if (userSession.triesLeft <= 0) {
         if (ideAuthGate) ideAuthGate.classList.add('hidden');
         if (ideChatActive) ideChatActive.classList.add('hidden');
@@ -530,70 +713,9 @@
       }
     }
 
-    function selectPlatform(platKey) {
-      selectedPlatformKey = platKey || 'Web';
-      selectedPlatform = platformLabels[selectedPlatformKey] || 'Web App / Website';
-
-      if (idePlatformBadge) idePlatformBadge.textContent = `${selectedPlatform} Workspace`;
-      if (chatTargetPlatform) chatTargetPlatform.textContent = selectedPlatform;
-      if (specPlatformName) specPlatformName.textContent = selectedPlatform;
-
-      // Render Template Chips
-      if (templateChips && platformTemplates[selectedPlatformKey]) {
-        templateChips.innerHTML = platformTemplates[selectedPlatformKey].map(t => 
-          `<button class="chip-btn" data-prompt="${t.prompt}">${t.label}</button>`
-        ).join('');
-
-        // Attach chip listeners
-        templateChips.querySelectorAll('.chip-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            if (idePromptInput) {
-              idePromptInput.value = btn.getAttribute('data-prompt') || '';
-              idePromptInput.dispatchEvent(new Event('input'));
-            }
-          });
-        });
-      }
-
-      // Show IDE View
-      if (step1) step1.classList.add('hidden');
-      if (antigravityIde) antigravityIde.classList.remove('hidden');
-    }
-
-    // Check URL search parameters on load
-    const urlParams = new URLSearchParams(window.location.search);
-    const initialPlatParam = urlParams.get('platform');
-    if (initialPlatParam && platformLabels[initialPlatParam]) {
-      selectPlatform(initialPlatParam);
-    } else if (window.location.pathname === '/builder' || window.location.pathname === '/builder/') {
-      selectPlatform('Web');
-    }
-
-    // Platform Selection Card Click
-    const platformCards = document.querySelectorAll('.platform-card');
-    if (platformCards) {
-      platformCards.forEach(card => {
-        card.addEventListener('click', () => {
-          const platKey = card.getAttribute('data-platform') || 'Web';
-          if (window.location.pathname !== '/builder' && window.location.pathname !== '/builder/') {
-            window.location.href = `/builder?platform=${platKey}`;
-          } else {
-            selectPlatform(platKey);
-          }
-        });
-      });
-    }
-
-    // Switch Platform Back to Step 1
-    if (btnSwitchPlatform) {
-      btnSwitchPlatform.addEventListener('click', () => {
-        if (antigravityIde) antigravityIde.classList.add('hidden');
-        if (step1) step1.classList.remove('hidden');
-      });
-    }
 
     // ══════════════════════════════════════════════════════
-    // GOOGLE SIGN IN HANDLER (INSTANT 1-CLICK AUTHENTICATION)
+    // GOOGLE SIGN IN HANDLER
     // ══════════════════════════════════════════════════════
     const googleOnetapModal = document.getElementById('google-onetap-modal');
     const btnCloseOnetap = document.getElementById('btn-close-onetap');
@@ -601,7 +723,6 @@
     const onetapUserEmail = document.getElementById('onetap-user-email');
     const btnOnetapSubmit = document.getElementById('btn-onetap-submit');
 
-    // Active Browser Google Account
     const activeBrowserAccount = {
       name: 'ADITYA KAPOOR',
       email: 'aagazkapoor000@gmail.com'
@@ -614,28 +735,17 @@
       userSession.name = activeName;
       userSession.email = activeEmail;
       userSession.authenticated = true;
-      userSession.triesLeft = 5; // Reset to 5 full tries on sign in
+      userSession.triesLeft = 5;
       localStorage.setItem('sydas_builder_session', JSON.stringify(userSession));
       
       if (googleOnetapModal) googleOnetapModal.classList.add('hidden');
-      appendConsoleLog(`Successfully authenticated via Google as ${userSession.email}. 5 Build Tries activated!`, 'success');
+      appendConsoleLog(`Authenticated via Google as ${userSession.email}. 5 Build Tries activated!`, 'success');
       updateUIState();
     }
 
     if (btnGmailSignin) {
       btnGmailSignin.addEventListener('click', (e) => {
         e.preventDefault();
-        
-        // Show One-Tap modal or perform instant sign-in
-        const currentEmail = userSession.email || activeBrowserAccount.email;
-        const currentName = userSession.name || activeBrowserAccount.name;
-        const firstName = currentName.split(' ')[0].toUpperCase();
-
-        if (onetapUserName) onetapUserName.textContent = currentName;
-        if (onetapUserEmail) onetapUserEmail.textContent = currentEmail;
-        if (btnOnetapSubmit) btnOnetapSubmit.textContent = `Continue as ${firstName}`;
-
-        // Directly sign in
         processGoogleSignIn();
       });
     }
@@ -667,86 +777,48 @@
 
 
     // ══════════════════════════════════════════════════════
-    // PROMPT 100-WORD VALIDATION
-    // ══════════════════════════════════════════════════════
-    function countWords(str) {
-      const trimmed = (str || '').trim();
-      return trimmed ? trimmed.split(/\s+/).length : 0;
-    }
-
-    if (idePromptInput) {
-      const updateWordCount = () => {
-        const words = countWords(idePromptInput.value);
-        if (wordCountBadge) {
-          wordCountBadge.textContent = `${words} / 100 words max`;
-        }
-
-        if (words > 100) {
-          if (wordCountBadge) wordCountBadge.classList.add('exceeded');
-          if (wordCountWarning) {
-            wordCountWarning.classList.remove('hidden');
-            wordCountWarning.style.display = 'block';
-          }
-          if (currentWordCountSpan) currentWordCountSpan.textContent = words;
-          if (btnCompileProject) btnCompileProject.disabled = true;
-        } else {
-          if (wordCountBadge) wordCountBadge.classList.remove('exceeded');
-          if (wordCountWarning) {
-            wordCountWarning.classList.add('hidden');
-            wordCountWarning.style.display = 'none';
-          }
-          if (btnCompileProject) btnCompileProject.disabled = false;
-        }
-      };
-
-      idePromptInput.addEventListener('input', updateWordCount);
-      updateWordCount();
-    }
-
-
-    // ══════════════════════════════════════════════════════
     // GOOGLE GEMINI API INTEGRATION & KEY CONFIG
     // ══════════════════════════════════════════════════════
     const btnGeminiKey = document.getElementById('btn-gemini-key');
     if (btnGeminiKey) {
       btnGeminiKey.addEventListener('click', () => {
         const currentKey = localStorage.getItem('gemini_api_key') || '';
-        const inputKey = prompt("Enter your Google Gemini API Key (Optional — Leave blank to use built-in Gemini synthesis):", currentKey);
+        const inputKey = prompt("Enter your Google Gemini API Key (Optional — Leave blank to use built-in Genesis synthesis):", currentKey);
         if (inputKey !== null) {
           localStorage.setItem('gemini_api_key', inputKey.trim());
           if (inputKey.trim()) {
-            alert("Google Gemini API Key saved successfully! All builds will now use your direct Gemini API endpoint.");
+            alert("Google Gemini API Key saved! All builds will now use your direct Gemini API endpoint.");
           } else {
-            alert("Gemini API Key cleared. System will use default Gemini 2.5 synthesis.");
+            alert("Gemini API Key cleared. System will use default Genesis Synthesizer engine.");
           }
         }
       });
     }
 
-    async function callGeminiAPI(promptText, platformName) {
-      appendConsoleLog(`Initiating synthesis for ${platformName} via Google Gemini 1.5 Flash...`, 'info');
+    async function callGeminiAPI(brandName, industryKey) {
+      appendConsoleLog(`Initiating synthesis for ${brandName} (${industryKey}) via Google Gemini...`, 'info');
       
       const geminiApiKey = localStorage.getItem('gemini_api_key') || '';
 
       if (geminiApiKey) {
         try {
           appendConsoleLog(`Connecting to Google Gemini API endpoint (gemini-1.5-flash)...`, 'info');
-          const systemInstruction = `You are Google Gemini 1.5 Flash, an elite full-stack AI software engineer and UI architect. 
-Your task is to generate complete, single-file, production-ready HTML5 code for a "${platformName}".
+          const indLabel = selectedIndustryLabel || industryKey;
+          const systemInstruction = `You are Google Gemini 1.5 Flash, an elite full-stack AI software engineer.
+Generate a complete, production-ready, single-file HTML5 website for a "${indLabel}" company called "${brandName}".
 Requirements:
 1. Include modern CSS inside <style> tags (glassmorphism, vibrant theme, modern typography, responsive layout).
-2. Include interactive JavaScript inside <script> tags for fluid user interactions and state handling.
-3. Return ONLY valid, executable HTML starting with <!DOCTYPE html> and ending with </html>. Do not wrap in markdown code blocks.`;
+2. Include interactive JavaScript inside <script> tags.
+3. The website must look like it was built by a team of 100 senior developers at a Fortune 500 company.
+4. Model the design after world-class leaders in the ${indLabel} industry.
+5. Return ONLY valid, executable HTML starting with <!DOCTYPE html>. Do not wrap in markdown code blocks.`;
 
           const apiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`;
           const response = await fetch(apiEndpoint, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              contents: [{
-                role: "user",
-                parts: [{ text: `${systemInstruction}\n\nUser Request: ${promptText}` }]
-              }],
+              contents: [{ role: "user", parts: [{ text: `${systemInstruction}\n\nBrand: ${brandName}\nIndustry: ${indLabel}` }] }],
               generationConfig: { temperature: 0.7, maxOutputTokens: 8192 }
             })
           });
@@ -757,54 +829,33 @@ Requirements:
             rawCode = rawCode.replace(/```html/gi, '').replace(/```/g, '').trim();
 
             if (rawCode.includes('<html') || rawCode.startsWith('<!DOCTYPE')) {
-              appendConsoleLog(`Direct Gemini Flash API compilation successful!`, 'success');
+              appendConsoleLog(`Direct Gemini API compilation successful!`, 'success');
               return rawCode;
             }
           }
         } catch (err) {
-          appendConsoleLog(`Gemini API connection notice: ${err.message}. Routing via Genesis Compiler...`, 'warning');
+          appendConsoleLog(`Gemini API notice: ${err.message}. Routing via Genesis Engine...`, 'warning');
         }
       } else {
-        appendConsoleLog(`Notice: No Gemini API Key set. Using built-in Genesis Synthesizer engine. (Tip: Save your Google Gemini API key in settings for direct LLM synthesis!)`, 'warning');
+        appendConsoleLog(`No Gemini API Key set. Using built-in Genesis Industry Architect engine.`, 'info');
       }
 
-      // Fast, dynamic in-browser compiler engine fallback
-      appendConsoleLog(`Compiling layout & state handlers with Google Gemini 1.5 Flash...`, 'info');
+      // Industry Architect engine fallback
+      appendConsoleLog(`Compiling with Genesis Industry Architect v5.0...`, 'info');
       if (window.SYDAS_THEME_ENGINE && typeof window.SYDAS_THEME_ENGINE.buildFullWebsite === 'function') {
-        return window.SYDAS_THEME_ENGINE.buildFullWebsite('generative', promptText, platformName, 'Google Gemini 1.5 Flash');
+        return window.SYDAS_THEME_ENGINE.buildFullWebsite('generative', brandName, industryKey, 'default');
       }
-      return `<!DOCTYPE html><html><body style="background:#090a12;color:#fff;font-family:sans-serif;padding:2rem;"><h2>${platformName} Compiled</h2><p>${promptText}</p></body></html>`;
+      return `<!DOCTYPE html><html><body style="background:#090a12;color:#fff;font-family:sans-serif;padding:2rem;"><h2>${brandName}</h2><p>${industryKey} website compiled.</p></body></html>`;
     }
+
 
     // ══════════════════════════════════════════════════════
     // GEMINI AI SYNTHESIS & COMPILATION TRIGGER
     // ══════════════════════════════════════════════════════
     if (btnCompileProject) {
       btnCompileProject.addEventListener('click', async () => {
-        const basePromptText = idePromptInput ? idePromptInput.value.trim() : '';
-        const bType = ideBusinessType ? ideBusinessType.value.trim() : '';
-        const bProducts = ideProducts ? ideProducts.value.trim() : '';
-        const bShowcase = ideShowcase ? ideShowcase.value.trim() : '';
-        const bTheme = ideTheme ? ideTheme.value : '';
-        const isFancy = ideFancyToggle ? ideFancyToggle.checked : false;
-
-        if (!basePromptText && !bType) {
-          alert("Please describe what you want to build or specify a business type before compiling.");
-          return;
-        }
-
-        // Construct structured prompt
-        let promptText = `Core Vision: ${basePromptText || 'Build standard layout.'}\n`;
-        if (bType) promptText += `Business Type: ${bType}\n`;
-        if (bProducts) promptText += `Products/Services: ${bProducts}\n`;
-        if (bShowcase) promptText += `Showcase Elements: ${bShowcase}\n`;
-        if (bTheme) promptText += `Theme Selection: ${bTheme}\n`;
-        promptText += `Fancy Flair (Glassmorphism & Animations): ${isFancy ? 'YES' : 'NO'}\n`;
-
-        const words = countWords(promptText);
-
-        if (words > 100) {
-          alert(`Your prompt exceeds the 100-word limit (${words} words). Please shorten your prompt.`);
+        if (!selectedBrandName || !selectedIndustryKey) {
+          alert("Please complete brand name and industry selection first.");
           return;
         }
 
@@ -818,22 +869,22 @@ Requirements:
         localStorage.setItem('sydas_builder_session', JSON.stringify(userSession));
         updateUIState();
 
-        // Append user prompt to Gemini chat history
-        appendUserChatMessage(promptText);
+        // Append user message to chat
+        appendUserChatMessage(`Build ${selectedIndustryLabel} website for "${selectedBrandName}"`);
 
         // Show Sandbox Loader Overlay
         if (sandboxLoader) sandboxLoader.classList.remove('hidden');
-        if (loaderStatusSub) loaderStatusSub.textContent = `Connecting to Google Gemini 2.5 Pro API...`;
+        if (loaderStatusSub) loaderStatusSub.textContent = `Synthesizing ${selectedIndustryLabel} architecture for ${selectedBrandName}...`;
 
         try {
-          const fullHtml = await callGeminiAPI(promptText, selectedPlatform);
+          const fullHtml = await callGeminiAPI(selectedBrandName, selectedIndustryKey);
 
           // Inject into IFrame
           if (sandboxIframe) {
             sandboxIframe.srcdoc = fullHtml;
           }
 
-          // Store source code files for Code Explorer
+          // Store source code
           currentCompiledCode.html = fullHtml;
           currentCompiledCode.css = `/* Synthesized CSS Styles */\n/* Embedded inline inside index.html <style> tags */`;
           currentCompiledCode.js = `// Synthesized JS Logic\n// Embedded inline inside index.html <script> tags`;
@@ -843,9 +894,9 @@ Requirements:
           // Hide Loader
           if (sandboxLoader) sandboxLoader.classList.add('hidden');
 
-          // Append Gemini AI success response to chat
-          appendGeminiChatMessage(`Done! I've synthesized your <strong class="text-gradient">${selectedPlatform}</strong> architecture using Google Gemini. You can interact with it in the Live App Sandbox on the right!`);
-          appendConsoleLog(`Build complete! Rendered into Live Sandbox. Remaining Tries: ${userSession.triesLeft}`, 'success');
+          // Append success response to chat
+          appendGeminiChatMessage(`Done! I've synthesized your <strong class="text-gradient">${selectedIndustryLabel}</strong> website for <strong>${selectedBrandName}</strong>. You can interact with it in the Live App Sandbox!`);
+          appendConsoleLog(`Build complete! ${selectedBrandName} (${selectedIndustryLabel}) rendered. Remaining Tries: ${userSession.triesLeft}`, 'success');
 
         } catch (err) {
           if (sandboxLoader) sandboxLoader.classList.add('hidden');
@@ -920,7 +971,6 @@ Requirements:
       });
     });
 
-    // Device View Toggle
     if (btnDeviceDesktop && btnDeviceMobile && sandboxWrapper) {
       btnDeviceDesktop.addEventListener('click', () => {
         btnDeviceDesktop.classList.add('active');
@@ -943,7 +993,6 @@ Requirements:
       });
     }
 
-    // Code Explorer File Switching
     fileBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         fileBtns.forEach(b => b.classList.remove('active'));
@@ -970,7 +1019,6 @@ Requirements:
       });
     }
 
-    // Transmit Blueprint Form Submission
     if (transmitForm) {
       transmitForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -1088,55 +1136,100 @@ Requirements:
     font-size: 0.95rem;
   }
 
-  /* Platform Cards Grid (Step 1) */
-  .platform-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
+  /* ═══════════════════════════════════════════════════════════════ */
+  /* STEP 1: BRAND NAME INPUT                                       */
+  /* ═══════════════════════════════════════════════════════════════ */
+  .brand-input-container {
+    max-width: 550px;
+    margin: 0 auto;
   }
 
-  .platform-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+  .brand-mega-input {
+    font-size: 1.35rem !important;
+    padding: 1rem 1.25rem !important;
+    text-align: center;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em;
+    border: 2px solid rgba(0, 240, 255, 0.2) !important;
+  }
+
+  .brand-mega-input:focus {
+    border-color: var(--accent-cyan) !important;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+  }
+
+  .brand-input-hint {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.75rem;
+    opacity: 0.7;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════ */
+  /* STEP 2: INDUSTRY SELECTION GRID                                */
+  /* ═══════════════════════════════════════════════════════════════ */
+  .industry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .industry-card {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: var(--radius-md);
-    padding: 1.75rem;
-    text-align: left;
+    padding: 1.5rem 1rem;
+    text-align: center;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     cursor: pointer;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
   }
 
-  .platform-card:hover {
+  .industry-card:hover {
     transform: translateY(-4px);
     border-color: var(--accent-cyan);
-    background: rgba(0, 240, 255, 0.05);
+    background: rgba(0, 240, 255, 0.04);
+    box-shadow: 0 8px 25px rgba(0, 240, 255, 0.1);
   }
 
-  .p-card-icon-badge {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+  .industry-card:active {
+    transform: translateY(-1px);
   }
 
-  .p-card-title {
-    font-size: 1.15rem;
-    margin-bottom: 0.5rem;
+  .ind-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    margin-bottom: 0.25rem;
+  }
+
+  .ind-title {
+    font-size: 0.95rem;
+    font-weight: 700;
     color: var(--text-primary);
   }
 
-  .p-card-desc {
+  .ind-examples {
+    font-size: 0.72rem;
     color: var(--text-secondary);
-    font-size: 0.85rem;
-    line-height: 1.5;
-    flex-grow: 1;
-    margin-bottom: 1.25rem;
+    opacity: 0.7;
+    line-height: 1.35;
   }
 
-  .p-card-action {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--accent-cyan);
+  .step2-nav-bar {
+    display: flex;
+    justify-content: flex-start;
   }
+
 
   /* ═══════════════════════════════════════════════════════════════ */
   /* ANTIGRAVITY IDE WORKSPACE STYLES                                */
@@ -1150,7 +1243,6 @@ Requirements:
     display: none;
   }
 
-  /* IDE Toolbar Header */
   .ide-toolbar {
     display: flex;
     align-items: center;
@@ -1166,10 +1258,6 @@ Requirements:
     display: flex;
     align-items: center;
     gap: 0.65rem;
-  }
-
-  .ide-logo-spark {
-    font-size: 1.2rem;
   }
 
   .ide-brand-title {
@@ -1270,10 +1358,6 @@ Requirements:
     gap: 0.75rem;
   }
 
-  .gemini-spark-icon {
-    font-size: 1.75rem;
-  }
-
   .sidebar-title {
     font-size: 1.05rem;
     margin-bottom: 0.1rem;
@@ -1291,11 +1375,6 @@ Requirements:
     background: rgba(0, 240, 255, 0.03);
     border-radius: var(--radius-md);
     margin: auto 0;
-  }
-
-  .auth-gate-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
   }
 
   .auth-gate-title {
@@ -1383,81 +1462,37 @@ Requirements:
     border-radius: var(--radius-md);
   }
 
-  /* Quick Templates */
-  .quick-templates {
-    margin-top: 0.5rem;
-  }
-
-  .template-label {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    font-weight: 700;
-    display: block;
-    margin-bottom: 0.4rem;
-  }
-
-  .chips-row {
+  /* Build Summary Card */
+  .build-summary-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-md);
+    padding: 1rem;
     display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
-  .chip-btn {
-    font-size: 0.75rem;
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--text-secondary);
-    padding: 0.3rem 0.65rem;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .chip-btn:hover {
-    background: rgba(0, 240, 255, 0.15);
-    color: var(--accent-cyan);
-  }
-
-  /* Prompt Form */
-  .prompt-label-bar {
+  .build-summary-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.4rem;
+  }
+
+  .build-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  .build-value {
+    font-size: 0.9rem;
+    font-weight: 800;
   }
 
   .glow-label {
     font-size: 0.85rem;
     font-weight: 700;
-  }
-
-  .word-count-badge {
-    font-family: monospace;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-    background: rgba(255, 255, 255, 0.06);
-    padding: 0.2rem 0.5rem;
-    border-radius: 6px;
-  }
-
-  .word-count-badge.exceeded {
-    color: #ef4444 !important;
-    background: rgba(239, 68, 68, 0.15) !important;
-  }
-
-  .word-count-warning {
-    display: block;
-    margin-top: 0.5rem;
-    padding: 0.6rem 0.85rem;
-    background: rgba(239, 68, 68, 0.12);
-    border-radius: var(--radius-md);
-    color: #f87171;
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-
-  .word-count-warning.hidden {
-    display: none !important;
   }
 
   /* Right Workspace Main */
@@ -1554,7 +1589,6 @@ Requirements:
     background: #ffffff;
   }
 
-  /* Sandbox Loader Overlay */
   .sandbox-loader {
     position: absolute;
     inset: 0;
@@ -1753,7 +1787,7 @@ Requirements:
   }
 
   /* ═══════════════════════════════════════════════════════════════ */
-  /* GOOGLE ONE-TAP SIGN IN MODAL STYLES (MATCHING PIC 2)            */
+  /* GOOGLE ONE-TAP SIGN IN MODAL STYLES                             */
   /* ═══════════════════════════════════════════════════════════════ */
   .google-onetap-modal {
     position: fixed;
