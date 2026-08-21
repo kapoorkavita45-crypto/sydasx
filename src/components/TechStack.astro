@@ -1,0 +1,82 @@
+---
+const frameworks = [
+  { name: "React", icon: "•", color: "#61dafb" },
+  { name: "Vue.js", icon: "•", color: "#42b883" },
+  { name: "Svelte", icon: "•", color: "#ff3e00" },
+  { name: "Tailwind CSS", icon: "•", color: "#38bdf8" },
+  { name: "TypeScript", icon: "•", color: "#3178c6" },
+  { name: "MDX", icon: "•", color: "#fcb32c" }
+];
+---
+
+<section id="tech" class="tech-stack">
+  <div class="container">
+    <div class="tech-card glass-card">
+      <div class="tech-content">
+        <h2 class="tech-title">Seamless Ecosystem Integration</h2>
+        <p class="tech-desc">Use your favorite UI libraries and styling tools without complex setup steps.</p>
+      </div>
+
+      <div class="frameworks-list">
+        {frameworks.map((fw) => (
+          <div class="framework-pill">
+            <span class="fw-icon">{fw.icon}</span>
+            <span class="fw-name">{fw.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tech-stack {
+    padding: 3rem 0 6rem;
+  }
+
+  .tech-card {
+    padding: 3.5rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(18, 21, 36, 0.8) 0%, rgba(26, 30, 54, 0.6) 100%);
+  }
+
+  .tech-title {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .tech-desc {
+    color: var(--text-secondary);
+    max-width: 540px;
+    margin-bottom: 2.5rem;
+  }
+
+  .frameworks-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .framework-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.4rem;
+    border-radius: var(--radius-full);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+
+  .framework-pill:hover {
+    border-color: var(--accent-purple);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+  }
+</style>
