@@ -25,14 +25,14 @@
       <div class="step-card glass-panel">
         <div class="wizard-header">
           <span class="wizard-step-badge">STEP 1 OF 3</span>
-          <h3 class="wizard-title">What's Your Brand?</h3>
-          <p class="wizard-subtitle">Enter the name of your company or brand. This will be the identity of your website.</p>
+          <h3 class="wizard-title">What's Your Brand Name?</h3>
+          <p class="wizard-subtitle">Enter the name of your brand or company to initialize your digital architecture.</p>
         </div>
 
         <div class="brand-input-container">
           <label for="brand-name-input" class="glow-label">Brand Name</label>
           <input type="text" id="brand-name-input" class="cyber-input brand-mega-input" placeholder="e.g. Nike, Zara, Deloitte, Emirates..." maxlength="60" autofocus />
-          <div class="brand-input-hint">This will appear as your logo, page title, and throughout your website.</div>
+          <div class="brand-input-hint">This will appear as your brand title, header logo, catalog items, and order receipts.</div>
         </div>
 
         <button id="btn-to-step2" class="btn btn-primary btn-block" style="margin-top: 1.5rem;" disabled>
@@ -51,7 +51,7 @@
           Select Your <span class="text-gradient">Industry</span>
         </h2>
         <p class="section-subtitle">
-          Choose the type of company you are building for. Each template is modeled after world-class leaders in that space.
+          Choose your company vertical. Each template includes high-resolution catalogs, Pay on Delivery checkout, and automated receipts.
         </p>
       </div>
 
@@ -209,7 +209,152 @@
 
 
     <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!-- STEP 3: ANTIGRAVITY IDE WORKSPACE (LIVE PREVIEW & CODE)        -->
+    <!-- STEP 3: STYLING & CUSTOMIZATION STUDIO                         -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div id="step-3" class="builder-step hidden">
+      <div class="section-header">
+        <h2 class="section-title">
+          Customize <span class="text-gradient">Aesthetic & Theme</span>
+        </h2>
+        <p class="section-subtitle">
+          Choose your website's background color, tab/accent styling, and typography font.
+        </p>
+      </div>
+
+      <div class="step-card glass-panel">
+        <div class="wizard-header">
+          <span class="wizard-step-badge">STEP 3 OF 3</span>
+          <h3 class="wizard-title">Design Studio</h3>
+          <p class="wizard-subtitle">Tailor the visual identity for <strong id="studio-brand-label" class="text-gradient">Your Brand</strong>.</p>
+        </div>
+
+        <!-- 1. Background Color Options -->
+        <div class="style-section-block">
+          <label class="glow-label">1. Background Color Palette</label>
+          <div class="color-swatches-grid" id="bg-swatches-grid">
+            <button type="button" class="swatch-btn active" data-color="#08090d" style="background: #08090d;" title="Void Onyx">
+              <span class="swatch-name">Void Onyx</span>
+            </button>
+            <button type="button" class="swatch-btn" data-color="#060e1e" style="background: #060e1e;" title="Cyber Navy">
+              <span class="swatch-name">Cyber Navy</span>
+            </button>
+            <button type="button" class="swatch-btn" data-color="#0d0818" style="background: #0d0818;" title="Obsidian Purple">
+              <span class="swatch-name">Obsidian</span>
+            </button>
+            <button type="button" class="swatch-btn" data-color="#06130e" style="background: #06130e;" title="Emerald Noir">
+              <span class="swatch-name">Emerald Noir</span>
+            </button>
+            <button type="button" class="swatch-btn" data-color="#16080a" style="background: #16080a;" title="Crimson Stealth">
+              <span class="swatch-name">Crimson</span>
+            </button>
+            <button type="button" class="swatch-btn" data-color="#121316" style="background: #121316;" title="Carbon Titanium">
+              <span class="swatch-name">Carbon</span>
+            </button>
+            <button type="button" class="swatch-btn" data-color="#140b07" style="background: #140b07;" title="Sunset Amber">
+              <span class="swatch-name">Sunset</span>
+            </button>
+            <button type="button" class="swatch-btn" data-color="#0a0a0a" style="background: #0a0a0a;" title="Pure Charcoal">
+              <span class="swatch-name">Charcoal</span>
+            </button>
+            <button type="button" class="swatch-btn light-swatch" data-color="#f8fafc" style="background: #f8fafc; color: #0f172a;" title="Soft Pearl">
+              <span class="swatch-name">Soft Pearl</span>
+            </button>
+            <button type="button" class="swatch-btn light-swatch" data-color="#faf7f2" style="background: #faf7f2; color: #0f172a;" title="Champagne Luxury">
+              <span class="swatch-name">Champagne</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Tab & Accent Colors Options -->
+        <div class="style-section-block" style="margin-top: 1.5rem;">
+          <label class="glow-label">2. Tab & Accent Colors</label>
+          <div class="color-swatches-grid" id="accent-swatches-grid">
+            <button type="button" class="swatch-btn active" data-accent="#00f0ff" style="background: #00f0ff; color: #000;" title="Electric Cyan">
+              <span class="swatch-name">Electric Cyan</span>
+            </button>
+            <button type="button" class="swatch-btn" data-accent="#a855f7" style="background: #a855f7; color: #fff;" title="Neon Purple">
+              <span class="swatch-name">Neon Purple</span>
+            </button>
+            <button type="button" class="swatch-btn" data-accent="#10b981" style="background: #10b981; color: #fff;" title="Hyper Emerald">
+              <span class="swatch-name">Emerald</span>
+            </button>
+            <button type="button" class="swatch-btn" data-accent="#eab308" style="background: #eab308; color: #000;" title="Solar Gold">
+              <span class="swatch-name">Solar Gold</span>
+            </button>
+            <button type="button" class="swatch-btn" data-accent="#ff5722" style="background: #ff5722; color: #fff;" title="Flame Orange">
+              <span class="swatch-name">Flame Orange</span>
+            </button>
+            <button type="button" class="swatch-btn" data-accent="#ef4444" style="background: #ef4444; color: #fff;" title="Laser Crimson">
+              <span class="swatch-name">Laser Crimson</span>
+            </button>
+            <button type="button" class="swatch-btn" data-accent="#3b82f6" style="background: #3b82f6; color: #fff;" title="Hyper Blue">
+              <span class="swatch-name">Hyper Blue</span>
+            </button>
+            <button type="button" class="swatch-btn" data-accent="#ec4899" style="background: #ec4899; color: #fff;" title="Neon Pink">
+              <span class="swatch-name">Neon Pink</span>
+            </button>
+            <button type="button" class="swatch-btn" data-accent="#84cc16" style="background: #84cc16; color: #000;" title="Acid Lime">
+              <span class="swatch-name">Acid Lime</span>
+            </button>
+            <button type="button" class="swatch-btn" data-accent="#e2c08d" style="background: #e2c08d; color: #000;" title="Rose Gold">
+              <span class="swatch-name">Rose Gold</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. Font Typography Selection -->
+        <div class="style-section-block" style="margin-top: 1.5rem;">
+          <label class="glow-label">3. Typography & Font Style</label>
+          <div class="font-selection-grid" id="font-selection-grid">
+            <button type="button" class="font-card-btn active" data-font="inter" style="font-family: 'Inter', sans-serif;">
+              <span class="font-title">Inter Modern</span>
+              <span class="font-sample">Clean, balanced & highly readable</span>
+            </button>
+            <button type="button" class="font-card-btn" data-font="outfit" style="font-family: 'Outfit', sans-serif;">
+              <span class="font-title">Outfit Sleek</span>
+              <span class="font-sample">Futuristic, geometric & bold</span>
+            </button>
+            <button type="button" class="font-card-btn" data-font="space" style="font-family: 'Space Grotesk', sans-serif;">
+              <span class="font-title">Space Grotesk</span>
+              <span class="font-sample">Cyberpunk, high-tech & mechanical</span>
+            </button>
+            <button type="button" class="font-card-btn" data-font="playfair" style="font-family: 'Playfair Display', serif;">
+              <span class="font-title">Playfair Luxury</span>
+              <span class="font-sample">High couture, editorial & elegant serif</span>
+            </button>
+            <button type="button" class="font-card-btn" data-font="mono" style="font-family: 'JetBrains Mono', monospace;">
+              <span class="font-title">JetBrains Mono</span>
+              <span class="font-sample">Developer code, matrix & monospace</span>
+            </button>
+            <button type="button" class="font-card-btn" data-font="jakarta" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+              <span class="font-title">Plus Jakarta</span>
+              <span class="font-sample">Neo-grotesque modern digital aesthetic</span>
+            </button>
+            <button type="button" class="font-card-btn" data-font="syne" style="font-family: 'Syne', sans-serif;">
+              <span class="font-title">Syne Avant-Garde</span>
+              <span class="font-sample">High impact, daring & artistic display</span>
+            </button>
+            <button type="button" class="font-card-btn" data-font="montserrat" style="font-family: 'Montserrat', sans-serif;">
+              <span class="font-title">Montserrat</span>
+              <span class="font-sample">Universal, premium & corporate</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="step3-nav-bar" style="margin-top: 2rem; display: flex; justify-content: space-between; gap: 1rem;">
+          <button id="btn-back-step2" class="btn btn-outline">
+            <span>← Back to Industries</span>
+          </button>
+          <button id="btn-launch-ide" class="btn btn-primary">
+            <span>Launch Antigravity IDE & Synthesize →</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- STEP 4: ANTIGRAVITY IDE WORKSPACE (LIVE PREVIEW & CODE)        -->
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <div id="antigravity-ide" class="antigravity-ide-container hidden">
       
@@ -217,7 +362,7 @@
       <div class="ide-toolbar glass-panel">
         <div class="ide-brand">
           <span class="ide-brand-title">ANTIGRAVITY <span class="text-gradient">IDE</span></span>
-          <span id="ide-platform-badge" class="ide-platform-tag">Web App Workspace</span>
+          <span id="ide-platform-badge" class="ide-platform-tag">Multi-Scroll Web Architecture</span>
         </div>
 
         <div class="ide-status-center">
@@ -251,7 +396,7 @@
             <div class="sidebar-title-group">
               <div>
                 <h4 class="sidebar-title">Gemini AI Assistant</h4>
-                <span class="sidebar-sub">Industry Architect Engine v5.0</span>
+                <span class="sidebar-sub">Multi-Scroll COD Architect v6.0</span>
               </div>
             </div>
           </div>
@@ -286,26 +431,44 @@
                 <div class="msg-body">
                   <div class="msg-sender">Google Gemini 2.5 Pro</div>
                   <div class="msg-text">
-                    I'm ready to synthesize your website. Click <strong class="text-gradient">Build Website</strong> below to generate your production-grade website!
+                    Your architecture parameters are loaded: <strong id="chat-brand-name" class="text-gradient">Brand</strong> (<span id="chat-ind-label">Industry</span>). Includes multi-product catalog, 100% Cash on Delivery checkout, and receipt printer.
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Build Summary Card -->
+            <!-- Build Summary & Live Customizer Card -->
             <div class="build-summary-card">
               <div class="build-summary-row">
-                <span class="build-label">Brand Name</span>
+                <span class="build-label">Brand:</span>
                 <span id="summary-brand" class="build-value text-gradient">—</span>
               </div>
               <div class="build-summary-row">
-                <span class="build-label">Industry</span>
+                <span class="build-label">Industry:</span>
                 <span id="summary-industry" class="build-value">—</span>
+              </div>
+              <div class="build-summary-row">
+                <span class="build-label">Background:</span>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span id="summary-bg-dot" style="display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: #08090d; border: 1px solid #fff;"></span>
+                  <span id="summary-bg-val" style="font-size: 0.8rem; font-family: monospace;">#08090d</span>
+                </div>
+              </div>
+              <div class="build-summary-row">
+                <span class="build-label">Tab / Accent:</span>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span id="summary-accent-dot" style="display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: #00f0ff;"></span>
+                  <span id="summary-accent-val" style="font-size: 0.8rem; font-family: monospace;">#00f0ff</span>
+                </div>
+              </div>
+              <div class="build-summary-row">
+                <span class="build-label">Font:</span>
+                <span id="summary-font-val" class="build-value" style="font-size: 0.8rem;">Inter Modern</span>
               </div>
             </div>
 
-            <button id="btn-compile-project" class="btn btn-primary btn-block" style="margin-top: 1rem;">
-              <span>Build Website (Use 1 Try)</span>
+            <button id="btn-compile-project" class="btn btn-primary btn-block" style="margin-top: 0.75rem;">
+              <span>⚡ Synthesize & Build Website (Use 1 Try)</span>
             </button>
           </div>
 
@@ -352,7 +515,7 @@
           <div class="workspace-tabs-bar">
             <div class="tabs-group">
               <button class="ws-tab-btn active" data-tab="tab-sandbox">
-                <span>Live App Sandbox</span>
+                <span>Live App Sandbox (Multi-Scroll)</span>
               </button>
               <button class="ws-tab-btn" data-tab="tab-code">
                 <span>Source Code</span>
@@ -383,7 +546,7 @@
               <div id="sandbox-loader" class="sandbox-loader hidden">
                 <div class="spinner-neon"></div>
                 <h4 class="loader-text">Synthesizing Architecture with Gemini 2.5...</h4>
-                <p id="loader-status-sub" class="loader-sub">Generating industry-specific layout, design system & interactivity...</p>
+                <p id="loader-status-sub" class="loader-sub">Generating multi-scroll layout, catalog, Cash on Delivery terminal & receipt engine...</p>
               </div>
             </div>
           </div>
@@ -413,29 +576,35 @@
               <div class="specs-grid">
                 <div class="spec-card">
                   <span class="spec-label">Target Architecture</span>
-                  <strong id="spec-platform-name" class="spec-val">Industry Web Platform</strong>
+                  <strong id="spec-platform-name" class="spec-val">Industry Multi-Scroll Platform</strong>
                 </div>
                 <div class="spec-card">
                   <span class="spec-label">Synthesizer Engine</span>
                   <strong class="spec-val">Google Gemini 2.5 Pro</strong>
                 </div>
                 <div class="spec-card">
-                  <span class="spec-label">Design Framework</span>
-                  <strong class="spec-val">Glassmorphism / Neon Dark Mode</strong>
+                  <span class="spec-label">Payment Security</span>
+                  <strong class="spec-val" style="color: #10b981;">100% Cash on Delivery (COD)</strong>
                 </div>
                 <div class="spec-card">
-                  <span class="spec-label">Compiler Mode</span>
-                  <strong class="spec-val">Live In-Browser Execution</strong>
+                  <span class="spec-label">Receipt Engine</span>
+                  <strong class="spec-val">Printable Digital Invoice</strong>
                 </div>
               </div>
 
               <div class="specs-details" style="margin-top: 1.5rem;">
-                <h5>Component Tree Breakdown</h5>
+                <h5>Multi-Scroll Features Included</h5>
                 <ul id="spec-components-list" class="spec-list">
-                  <li>Responsive Container Grid Layout</li>
-                  <li>Industry-Specific Navigation & Hero Section</li>
-                  <li>Interactive Component Event Handlers</li>
-                  <li>Real-Time Filter & Search Telemetry</li>
+                  <li>✔ Top Notification & Guarantee Banner</li>
+                  <li>✔ Sticky Glassmorphic Header with COD CTA</li>
+                  <li>✔ High-Impact Hero with Value Pillars & Metrics</li>
+                  <li>✔ Multi-Product Interactive Grid with Specs & Ratings</li>
+                  <li>✔ Direct-to-Checkout Navigation Hook</li>
+                  <li>✔ 100% Pay on Delivery Checkout Terminal (Zero Cards Required)</li>
+                  <li>✔ Customer Address & Contact Dispatch Form</li>
+                  <li>✔ Automated Digital Receipt Generator & Print Terminal</li>
+                  <li>✔ COD Policy FAQs with Accordion Panels</li>
+                  <li>✔ Full Global Footer with Verification Badges</li>
                 </ul>
               </div>
             </div>
@@ -451,7 +620,8 @@
               </div>
               <div id="console-logs-output" class="console-logs-output">
                 <div class="log-line info">> Antigravity IDE Engine Initialized.</div>
-                <div class="log-line info">> Genesis Matrix Industry Architect v5.0 Loaded.</div>
+                <div class="log-line info">> Genesis Matrix Industry Architect v6.0 Loaded.</div>
+                <div class="log-line success">> Multi-Scroll COD & Digital Receipt Pipeline Ready.</div>
               </div>
             </div>
           </div>
@@ -507,13 +677,12 @@
   </div>
 </section>
 
-
-<!-- Load Industry Architect Engine BEFORE main script -->
+<!-- Load Mega Theme Engine BEFORE main script -->
 <script is:inline src="/js/theme-engine.js"></script>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    console.log("SYDAS.x Genesis Matrix Industry Architect v5.0 — Active");
+    console.log("SYDAS.x Genesis Matrix Industry Architect v6.0 — Multi-Scroll Active");
 
     // Persistent User Auth & Credit State
     let userSession = JSON.parse(localStorage.getItem('sydas_builder_session') || 'null') || {
@@ -525,22 +694,38 @@
 
     // State Variables
     let selectedBrandName = '';
-    let selectedIndustryKey = '';
-    let selectedIndustryLabel = '';
+    let selectedIndustryKey = 'ecommerce';
+    let selectedIndustryLabel = 'E-Commerce';
+    let selectedBgColor = '#08090d';
+    let selectedAccentColor = '#00f0ff';
+    let selectedFontKey = 'inter';
+    let selectedFontName = 'Inter Modern';
+
     let currentCompiledCode = { html: '', css: '', js: '' };
 
-    // DOM Elements — Step 1
+    // DOM Elements — Steps
     const step1 = document.getElementById('step-1');
     const step2 = document.getElementById('step-2');
+    const step3 = document.getElementById('step-3');
     const antigravityIde = document.getElementById('antigravity-ide');
+
+    // Step 1 Elements
     const brandNameInput = document.getElementById('brand-name-input');
     const btnToStep2 = document.getElementById('btn-to-step2');
+
+    // Step 2 Elements
+    const industryGrid = document.getElementById('industry-grid');
     const btnBackStep1 = document.getElementById('btn-back-step1');
 
-    // DOM Elements — Step 2 (Industry Grid)
-    const industryGrid = document.getElementById('industry-grid');
+    // Step 3 Elements
+    const studioBrandLabel = document.getElementById('studio-brand-label');
+    const bgSwatches = document.querySelectorAll('#bg-swatches-grid .swatch-btn');
+    const accentSwatches = document.querySelectorAll('#accent-swatches-grid .swatch-btn');
+    const fontCardBtns = document.querySelectorAll('#font-selection-grid .font-card-btn');
+    const btnBackStep2 = document.getElementById('btn-back-step2');
+    const btnLaunchIde = document.getElementById('btn-launch-ide');
 
-    // DOM Elements — IDE
+    // IDE Elements
     const idePlatformBadge = document.getElementById('ide-platform-badge');
     const ideCreditsCount = document.getElementById('ide-credits-count');
     const btnSwitchPlatform = document.getElementById('btn-switch-platform');
@@ -552,8 +737,15 @@
     const btnGmailSignin = document.getElementById('btn-gmail-signin');
     
     const chatHistory = document.getElementById('gemini-chat-history');
+    const chatBrandName = document.getElementById('chat-brand-name');
+    const chatIndLabel = document.getElementById('chat-ind-label');
     const summaryBrand = document.getElementById('summary-brand');
     const summaryIndustry = document.getElementById('summary-industry');
+    const summaryBgDot = document.getElementById('summary-bg-dot');
+    const summaryBgVal = document.getElementById('summary-bg-val');
+    const summaryAccentDot = document.getElementById('summary-accent-dot');
+    const summaryAccentVal = document.getElementById('summary-accent-val');
+    const summaryFontVal = document.getElementById('summary-font-val');
     const btnCompileProject = document.getElementById('btn-compile-project');
 
     // Workspace & Tabs
@@ -599,7 +791,6 @@
         step2.classList.add('active');
       });
 
-      // Enter key shortcut
       brandNameInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && brandNameInput.value.trim().length >= 2) {
           btnToStep2.click();
@@ -607,7 +798,6 @@
       });
     }
 
-    // STEP 2 → STEP 1 BACK
     if (btnBackStep1) {
       btnBackStep1.addEventListener('click', () => {
         step2.classList.add('hidden');
@@ -620,57 +810,112 @@
 
 
     // ══════════════════════════════════════════════════════
-    // STEP 2 → STEP 3 (INDUSTRY SELECTION → IDE)
+    // STEP 2 → STEP 3 (INDUSTRY SELECTION → CUSTOMIZATION STUDIO)
     // ══════════════════════════════════════════════════════
     if (industryGrid) {
       const industryCards = industryGrid.querySelectorAll('.industry-card');
       industryCards.forEach(card => {
         card.addEventListener('click', () => {
-          selectedIndustryKey = card.getAttribute('data-industry') || 'it';
+          selectedIndustryKey = card.getAttribute('data-industry') || 'ecommerce';
           
-          // Get label from the engine
-          if (window.SYDAS_THEME_ENGINE && window.SYDAS_THEME_ENGINE.INDUSTRIES && window.SYDAS_THEME_ENGINE.INDUSTRIES[selectedIndustryKey]) {
+          if (window.SYDAS_THEME_ENGINE?.INDUSTRIES?.[selectedIndustryKey]) {
             selectedIndustryLabel = window.SYDAS_THEME_ENGINE.INDUSTRIES[selectedIndustryKey].label;
+            const defPalette = window.SYDAS_THEME_ENGINE.INDUSTRIES[selectedIndustryKey].defaultPalette;
+            if (defPalette) {
+              selectedBgColor = defPalette.bg;
+              selectedAccentColor = defPalette.primary;
+            }
           } else {
             selectedIndustryLabel = card.querySelector('.ind-title')?.textContent || 'Custom';
           }
 
-          // Transition to IDE
+          if (studioBrandLabel) studioBrandLabel.textContent = `${selectedBrandName} (${selectedIndustryLabel})`;
+
           step2.classList.add('hidden');
           step2.classList.remove('active');
-          antigravityIde.classList.remove('hidden');
+          step3.classList.remove('hidden');
+          step3.classList.add('active');
 
-          // Update IDE header
-          if (idePlatformBadge) idePlatformBadge.textContent = `${selectedIndustryLabel} — ${selectedBrandName}`;
-          if (specPlatformName) specPlatformName.textContent = selectedIndustryLabel;
-          if (summaryBrand) summaryBrand.textContent = selectedBrandName;
-          if (summaryIndustry) summaryIndustry.textContent = selectedIndustryLabel;
-
-          appendConsoleLog(`Industry selected: ${selectedIndustryLabel} (${selectedIndustryKey})`, 'info');
-          appendConsoleLog(`Brand: ${selectedBrandName}`, 'info');
-
-          updateUIState();
+          appendConsoleLog(`Selected Industry: ${selectedIndustryLabel}`, 'info');
         });
       });
     }
 
-    // Check URL search parameters on load (for direct links)
-    const urlParams = new URLSearchParams(window.location.search);
-    const initialIndustry = urlParams.get('industry');
-    const initialBrand = urlParams.get('brand');
-    if (initialIndustry && initialBrand) {
-      selectedBrandName = decodeURIComponent(initialBrand);
-      selectedIndustryKey = initialIndustry;
-      if (window.SYDAS_THEME_ENGINE?.INDUSTRIES?.[selectedIndustryKey]) {
-        selectedIndustryLabel = window.SYDAS_THEME_ENGINE.INDUSTRIES[selectedIndustryKey].label;
-      }
-      step1.classList.add('hidden');
-      step1.classList.remove('active');
-      antigravityIde.classList.remove('hidden');
-      if (idePlatformBadge) idePlatformBadge.textContent = `${selectedIndustryLabel} — ${selectedBrandName}`;
-      if (summaryBrand) summaryBrand.textContent = selectedBrandName;
-      if (summaryIndustry) summaryIndustry.textContent = selectedIndustryLabel;
-      updateUIState();
+    if (btnBackStep2) {
+      btnBackStep2.addEventListener('click', () => {
+        step3.classList.add('hidden');
+        step3.classList.remove('active');
+        step2.classList.remove('hidden');
+        step2.classList.add('active');
+      });
+    }
+
+
+    // ══════════════════════════════════════════════════════
+    // STEP 3: CUSTOMIZATION STUDIO CONTROLS
+    // ══════════════════════════════════════════════════════
+    // Background Swatches
+    bgSwatches.forEach(swatch => {
+      swatch.addEventListener('click', () => {
+        bgSwatches.forEach(s => s.classList.remove('active'));
+        swatch.classList.add('active');
+        selectedBgColor = swatch.getAttribute('data-color') || '#08090d';
+        updateSummaryCard();
+      });
+    });
+
+    // Accent Swatches
+    accentSwatches.forEach(swatch => {
+      swatch.addEventListener('click', () => {
+        accentSwatches.forEach(s => s.classList.remove('active'));
+        swatch.classList.add('active');
+        selectedAccentColor = swatch.getAttribute('data-accent') || '#00f0ff';
+        updateSummaryCard();
+      });
+    });
+
+    // Font Cards
+    fontCardBtns.forEach(card => {
+      card.addEventListener('click', () => {
+        fontCardBtns.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        selectedFontKey = card.getAttribute('data-font') || 'inter';
+        selectedFontName = card.querySelector('.font-title')?.textContent || 'Inter Modern';
+        updateSummaryCard();
+      });
+    });
+
+    function updateSummaryCard() {
+      if (summaryBgDot) summaryBgDot.style.background = selectedBgColor;
+      if (summaryBgVal) summaryBgVal.textContent = selectedBgColor;
+      if (summaryAccentDot) summaryAccentDot.style.background = selectedAccentColor;
+      if (summaryAccentVal) summaryAccentVal.textContent = selectedAccentColor;
+      if (summaryFontVal) summaryFontVal.textContent = selectedFontName;
+    }
+
+    // Step 3 → IDE Launch
+    if (btnLaunchIde) {
+      btnLaunchIde.addEventListener('click', () => {
+        step3.classList.add('hidden');
+        step3.classList.remove('active');
+        antigravityIde.classList.remove('hidden');
+
+        // Update IDE header & summaries
+        if (idePlatformBadge) idePlatformBadge.textContent = `${selectedIndustryLabel} — ${selectedBrandName}`;
+        if (specPlatformName) specPlatformName.textContent = selectedIndustryLabel;
+        if (chatBrandName) chatBrandName.textContent = selectedBrandName;
+        if (chatIndLabel) chatIndLabel.textContent = selectedIndustryLabel;
+        if (summaryBrand) summaryBrand.textContent = selectedBrandName;
+        if (summaryIndustry) summaryIndustry.textContent = selectedIndustryLabel;
+
+        updateSummaryCard();
+        updateUIState();
+
+        // Automatically trigger first synthesis if authenticated
+        if (userSession.authenticated && userSession.triesLeft > 0) {
+          triggerCompilation();
+        }
+      });
     }
 
 
@@ -739,8 +984,13 @@
       localStorage.setItem('sydas_builder_session', JSON.stringify(userSession));
       
       if (googleOnetapModal) googleOnetapModal.classList.add('hidden');
-      appendConsoleLog(`Authenticated via Google as ${userSession.email}. 5 Build Tries activated!`, 'success');
+      appendConsoleLog(`Authenticated via Google as ${userSession.email}. 5 Build Tries active!`, 'success');
       updateUIState();
+
+      // Trigger initial synthesis upon sign in
+      if (selectedBrandName) {
+        triggerCompilation();
+      }
     }
 
     if (btnGmailSignin) {
@@ -777,17 +1027,17 @@
 
 
     // ══════════════════════════════════════════════════════
-    // GOOGLE GEMINI API INTEGRATION & KEY CONFIG
+    // GOOGLE GEMINI API & THEME ENGINE SYNTHESIS
     // ══════════════════════════════════════════════════════
     const btnGeminiKey = document.getElementById('btn-gemini-key');
     if (btnGeminiKey) {
       btnGeminiKey.addEventListener('click', () => {
         const currentKey = localStorage.getItem('gemini_api_key') || '';
-        const inputKey = prompt("Enter your Google Gemini API Key (Optional — Leave blank to use built-in Genesis synthesis):", currentKey);
+        const inputKey = prompt("Enter your Google Gemini API Key (Optional — Leave blank to use built-in Genesis multi-scroll synthesizer):", currentKey);
         if (inputKey !== null) {
           localStorage.setItem('gemini_api_key', inputKey.trim());
           if (inputKey.trim()) {
-            alert("Google Gemini API Key saved! All builds will now use your direct Gemini API endpoint.");
+            alert("Google Gemini API Key saved! Builds will use your direct Gemini endpoint.");
           } else {
             alert("Gemini API Key cleared. System will use default Genesis Synthesizer engine.");
           }
@@ -795,8 +1045,8 @@
       });
     }
 
-    async function callGeminiAPI(brandName, industryKey) {
-      appendConsoleLog(`Initiating synthesis for ${brandName} (${industryKey}) via Google Gemini...`, 'info');
+    async function callGeminiAPI(brandName, industryKey, options) {
+      appendConsoleLog(`Initiating multi-scroll synthesis for "${brandName}" (${industryKey})...`, 'info');
       
       const geminiApiKey = localStorage.getItem('gemini_api_key') || '';
 
@@ -804,14 +1054,18 @@
         try {
           appendConsoleLog(`Connecting to Google Gemini API endpoint (gemini-1.5-flash)...`, 'info');
           const indLabel = selectedIndustryLabel || industryKey;
-          const systemInstruction = `You are Google Gemini 1.5 Flash, an elite full-stack AI software engineer.
+          const systemInstruction = `You are Google Gemini 1.5 Flash, an elite senior full-stack web engineer.
 Generate a complete, production-ready, single-file HTML5 website for a "${indLabel}" company called "${brandName}".
-Requirements:
-1. Include modern CSS inside <style> tags (glassmorphism, vibrant theme, modern typography, responsive layout).
-2. Include interactive JavaScript inside <script> tags.
-3. The website must look like it was built by a team of 100 senior developers at a Fortune 500 company.
-4. Model the design after world-class leaders in the ${indLabel} industry.
-5. Return ONLY valid, executable HTML starting with <!DOCTYPE html>. Do not wrap in markdown code blocks.`;
+CRITICAL REQUIREMENTS:
+1. Multi-scroll website (at least 2 to 3 full viewport scrolls long) with top bar, sticky navbar, hero section, trust metrics, product catalog, checkout section, FAQ accordions, and footer.
+2. Background color: ${options.bgColor || '#08090d'}.
+3. Accent/Tab color: ${options.primaryColor || '#00f0ff'}.
+4. Font family: ${options.fontKey || 'inter'}.
+5. Must include multiple products with details, and when clicking "Buy Now", it must smooth-scroll to the checkout section.
+6. Checkout MUST ONLY provide Pay on Delivery (Cash on Delivery / COD). DO NOT ask for credit cards or any cards.
+7. Ask for customer Name, Phone, Email, Street Address, City, Zip.
+8. Upon checkout submission, dynamically display an official printable/downloadable Digital Receipt.
+9. Return ONLY raw HTML starting with <!DOCTYPE html>.`;
 
           const apiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`;
           const response = await fetch(apiEndpoint, {
@@ -836,95 +1090,84 @@ Requirements:
         } catch (err) {
           appendConsoleLog(`Gemini API notice: ${err.message}. Routing via Genesis Engine...`, 'warning');
         }
-      } else {
-        appendConsoleLog(`No Gemini API Key set. Using built-in Genesis Industry Architect engine.`, 'info');
       }
 
-      // Industry Architect engine fallback
-      appendConsoleLog(`Compiling with Genesis Industry Architect v5.0...`, 'info');
+      // Genesis Multi-Scroll Industry Architect Engine v6.0
+      appendConsoleLog(`Compiling with Genesis Multi-Scroll Engine v6.0...`, 'info');
       if (window.SYDAS_THEME_ENGINE && typeof window.SYDAS_THEME_ENGINE.buildFullWebsite === 'function') {
-        return window.SYDAS_THEME_ENGINE.buildFullWebsite('generative', brandName, industryKey, 'default');
+        return window.SYDAS_THEME_ENGINE.buildFullWebsite('generative', brandName, industryKey, options);
       }
       return `<!DOCTYPE html><html><body style="background:#090a12;color:#fff;font-family:sans-serif;padding:2rem;"><h2>${brandName}</h2><p>${industryKey} website compiled.</p></body></html>`;
     }
 
+    async function triggerCompilation() {
+      if (!selectedBrandName) {
+        selectedBrandName = 'Genesis Store';
+      }
 
-    // ══════════════════════════════════════════════════════
-    // GEMINI AI SYNTHESIS & COMPILATION TRIGGER
-    // ══════════════════════════════════════════════════════
-    if (btnCompileProject) {
-      btnCompileProject.addEventListener('click', async () => {
-        if (!selectedBrandName || !selectedIndustryKey) {
-          alert("Please complete brand name and industry selection first.");
-          return;
-        }
-
-        if (userSession.triesLeft <= 0) {
-          updateUIState();
-          return;
-        }
-
-        // Deduct 1 Try
-        userSession.triesLeft--;
-        localStorage.setItem('sydas_builder_session', JSON.stringify(userSession));
+      if (userSession.triesLeft <= 0) {
         updateUIState();
+        return;
+      }
 
-        // Append user message to chat
-        appendUserChatMessage(`Build ${selectedIndustryLabel} website for "${selectedBrandName}"`);
+      // Deduct 1 Try
+      userSession.triesLeft--;
+      localStorage.setItem('sydas_builder_session', JSON.stringify(userSession));
+      updateUIState();
 
-        // Show Sandbox Loader Overlay
-        if (sandboxLoader) sandboxLoader.classList.remove('hidden');
-        if (loaderStatusSub) loaderStatusSub.textContent = `Synthesizing ${selectedIndustryLabel} architecture for ${selectedBrandName}...`;
+      // Show Sandbox Loader Overlay
+      if (sandboxLoader) sandboxLoader.classList.remove('hidden');
+      if (loaderStatusSub) loaderStatusSub.textContent = `Synthesizing multi-scroll COD architecture for ${selectedBrandName}...`;
 
-        try {
-          const fullHtml = await callGeminiAPI(selectedBrandName, selectedIndustryKey);
+      try {
+        const options = {
+          bgColor: selectedBgColor,
+          primaryColor: selectedAccentColor,
+          accentColor: selectedAccentColor,
+          fontKey: selectedFontKey
+        };
 
-          // Inject into IFrame
-          if (sandboxIframe) {
-            sandboxIframe.srcdoc = fullHtml;
-          }
+        const fullHtml = await callGeminiAPI(selectedBrandName, selectedIndustryKey, options);
 
-          // Store source code
-          currentCompiledCode.html = fullHtml;
-          currentCompiledCode.css = `/* Synthesized CSS Styles */\n/* Embedded inline inside index.html <style> tags */`;
-          currentCompiledCode.js = `// Synthesized JS Logic\n// Embedded inline inside index.html <script> tags`;
-
-          updateCodeExplorer('html');
-
-          // Hide Loader
-          if (sandboxLoader) sandboxLoader.classList.add('hidden');
-
-          // Append success response to chat
-          appendGeminiChatMessage(`Done! I've synthesized your <strong class="text-gradient">${selectedIndustryLabel}</strong> website for <strong>${selectedBrandName}</strong>. You can interact with it in the Live App Sandbox!`);
-          appendConsoleLog(`Build complete! ${selectedBrandName} (${selectedIndustryLabel}) rendered. Remaining Tries: ${userSession.triesLeft}`, 'success');
-
-        } catch (err) {
-          if (sandboxLoader) sandboxLoader.classList.add('hidden');
-          appendConsoleLog(`Compilation error: ${err.message}`, 'warning');
-          alert("Compilation notice: " + err.message);
+        // Inject into IFrame
+        if (sandboxIframe) {
+          sandboxIframe.srcdoc = fullHtml;
         }
-      });
+
+        // Store source code
+        currentCompiledCode.html = fullHtml;
+        currentCompiledCode.css = `/* Synthesized Custom Theme & Typography Styles */\n/* Embedded inline inside index.html <style> tags */`;
+        currentCompiledCode.js = `// Synthesized Pay-on-Delivery & Digital Receipt Logic\n// Embedded inline inside index.html <script> tags`;
+
+        updateCodeExplorer('html');
+
+        // Hide Loader
+        if (sandboxLoader) sandboxLoader.classList.add('hidden');
+
+        // Append success response to chat
+        appendGeminiChatMessage(`Synthesized your multi-scroll <strong class="text-gradient">${selectedIndustryLabel}</strong> website for <strong>${selectedBrandName}</strong>!<br/>
+        &bull; <strong>Background:</strong> ${selectedBgColor}<br/>
+        &bull; <strong>Accent / Tab:</strong> ${selectedAccentColor}<br/>
+        &bull; <strong>Typography:</strong> ${selectedFontName}<br/>
+        &bull; <strong>Checkout:</strong> 100% Pay on Delivery with Instant Digital Receipt.`);
+
+        appendConsoleLog(`Multi-scroll compilation complete! Tries remaining: ${userSession.triesLeft}`, 'success');
+
+      } catch (err) {
+        if (sandboxLoader) sandboxLoader.classList.add('hidden');
+        appendConsoleLog(`Compilation error: ${err.message}`, 'warning');
+        alert("Compilation notice: " + err.message);
+      }
+    }
+
+    if (btnCompileProject) {
+      btnCompileProject.addEventListener('click', triggerCompilation);
     }
 
 
     // ══════════════════════════════════════════════════════
     // CHAT & CONSOLE HELPERS
     // ══════════════════════════════════════════════════════
-    function appendUserChatMessage(text) {
-      if (!chatHistory) return;
-      const msgDiv = document.createElement('div');
-      msgDiv.className = 'chat-msg user-msg';
-      msgDiv.innerHTML = `
-        <div class="msg-avatar">YOU</div>
-        <div class="msg-body">
-          <div class="msg-sender">You</div>
-          <div class="msg-text">${escapeHTML(text)}</div>
-        </div>
-      `;
-      chatHistory.appendChild(msgDiv);
-      chatHistory.scrollTop = chatHistory.scrollHeight;
-    }
-
     function appendGeminiChatMessage(htmlContent) {
       if (!chatHistory) return;
       const msgDiv = document.createElement('div');
@@ -947,12 +1190,6 @@ Requirements:
       logLine.textContent = `> ${msg}`;
       consoleLogsOutput.appendChild(logLine);
       consoleLogsOutput.scrollTop = consoleLogsOutput.scrollHeight;
-    }
-
-    function escapeHTML(str) {
-      return str.replace(/[&<>'"]/g, 
-        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-      );
     }
 
 
@@ -1022,7 +1259,7 @@ Requirements:
     if (transmitForm) {
       transmitForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        alert("Thank you! Your project blueprints and requirements have been transmitted to the SYDAS.x engineering team. We will get in touch with you shortly!");
+        alert("Thank you! Your project blueprints and customization requirements have been transmitted to the SYDAS.x engineering team. We will get in touch with you shortly!");
       });
     }
 
@@ -1136,9 +1373,7 @@ Requirements:
     font-size: 0.95rem;
   }
 
-  /* ═══════════════════════════════════════════════════════════════ */
-  /* STEP 1: BRAND NAME INPUT                                       */
-  /* ═══════════════════════════════════════════════════════════════ */
+  /* STEP 1: BRAND NAME */
   .brand-input-container {
     max-width: 550px;
     margin: 0 auto;
@@ -1166,9 +1401,7 @@ Requirements:
     opacity: 0.7;
   }
 
-  /* ═══════════════════════════════════════════════════════════════ */
-  /* STEP 2: INDUSTRY SELECTION GRID                                */
-  /* ═══════════════════════════════════════════════════════════════ */
+  /* STEP 2: INDUSTRY GRID */
   .industry-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
@@ -1197,10 +1430,6 @@ Requirements:
     box-shadow: 0 8px 25px rgba(0, 240, 255, 0.1);
   }
 
-  .industry-card:active {
-    transform: translateY(-1px);
-  }
-
   .ind-icon {
     width: 48px;
     height: 48px;
@@ -1225,9 +1454,90 @@ Requirements:
     line-height: 1.35;
   }
 
-  .step2-nav-bar {
-    display: flex;
-    justify-content: flex-start;
+  /* STEP 3: STYLING STUDIO */
+  .style-section-block {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+  }
+
+  .color-swatches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+
+  .swatch-btn {
+    padding: 0.85rem 0.5rem;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    color: #ffffff;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+  }
+
+  .swatch-btn.light-swatch {
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  .swatch-btn:hover {
+    transform: translateY(-2px);
+    border-color: #ffffff;
+  }
+
+  .swatch-btn.active {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 16px rgba(0, 240, 255, 0.5);
+    transform: scale(1.03);
+  }
+
+  .font-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+
+  .font-card-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #ffffff;
+  }
+
+  .font-card-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--accent-cyan);
+  }
+
+  .font-card-btn.active {
+    background: rgba(0, 240, 255, 0.06);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 16px rgba(0, 240, 255, 0.15);
+  }
+
+  .font-title {
+    display: block;
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 0.2rem;
+  }
+
+  .font-sample {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    line-height: 1.3;
   }
 
 
@@ -1420,11 +1730,11 @@ Requirements:
 
   .gemini-chat-history {
     flex-grow: 1;
-    max-height: 320px;
+    max-height: 240px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
     padding-right: 0.5rem;
   }
 
@@ -1456,21 +1766,15 @@ Requirements:
     border-radius: var(--radius-md);
   }
 
-  .user-msg .msg-body {
-    background: rgba(255, 255, 255, 0.06);
-    padding: 0.75rem 1rem;
-    border-radius: var(--radius-md);
-  }
-
   /* Build Summary Card */
   .build-summary-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: var(--radius-md);
-    padding: 1rem;
+    padding: 0.85rem 1rem;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
   }
 
   .build-summary-row {
@@ -1480,19 +1784,21 @@ Requirements:
   }
 
   .build-label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-secondary);
     font-weight: 600;
   }
 
   .build-value {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 800;
   }
 
   .glow-label {
     font-size: 0.85rem;
     font-weight: 700;
+    display: block;
+    margin-bottom: 0.35rem;
   }
 
   /* Right Workspace Main */
@@ -1555,7 +1861,7 @@ Requirements:
   .ws-tab-content {
     flex-grow: 1;
     position: relative;
-    min-height: 520px;
+    min-height: 580px;
   }
 
   .ws-tab-content.hidden {
@@ -1567,7 +1873,7 @@ Requirements:
     position: relative;
     width: 100%;
     height: 100%;
-    min-height: 540px;
+    min-height: 600px;
     transition: all 0.4s ease;
   }
 
@@ -1584,9 +1890,9 @@ Requirements:
   .sandbox-iframe {
     width: 100%;
     height: 100%;
-    min-height: 540px;
+    min-height: 600px;
     border: none;
-    background: #ffffff;
+    background: #08090d;
   }
 
   .sandbox-loader {
@@ -1786,9 +2092,7 @@ Requirements:
     margin-bottom: 1.25rem;
   }
 
-  /* ═══════════════════════════════════════════════════════════════ */
-  /* GOOGLE ONE-TAP SIGN IN MODAL STYLES                             */
-  /* ═══════════════════════════════════════════════════════════════ */
+  /* Google One-Tap Modal */
   .google-onetap-modal {
     position: fixed;
     top: 20px;
