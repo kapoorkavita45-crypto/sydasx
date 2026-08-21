@@ -1,0 +1,235 @@
+---
+---
+
+<header class="header">
+  <div class="container header-container">
+    <a href="/" class="logo" aria-label="SYDAS.X">
+      <span class="logo-x text-gradient">X</span>
+      <span class="logo-rollout">SYDAS<span class="text-gradient">.X</span></span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="/#services" class="nav-link">Services</a>
+      <a href="/builder" class="nav-link">AI Builder</a>
+      <a href="/projects" class="nav-link">Projects Showcase</a>
+      <a href="/#footer" class="nav-link">Contact Us</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="/builder" class="btn btn-outline btn-sm">Start Project</a>
+      
+      <!-- Theme Circle Toggle Button -->
+      <button id="theme-circle-btn" class="theme-circle-btn" aria-label="Toggle Theme Mode" title="Toggle Light / Dark Mode">
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(8, 9, 16, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  [data-theme="light"] .header {
+    background: rgba(255, 255, 255, 0.9);
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+  }
+
+  /* Logo Styling & Interactive Rollout Animation */
+  .logo {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    position: relative;
+    overflow: hidden;
+    padding: 0.2rem 0;
+    text-decoration: none;
+  }
+
+  .logo-x {
+    display: inline-block;
+    font-size: 1.8rem;
+    font-weight: 900;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .logo-rollout {
+    display: inline-block;
+    max-width: 0;
+    opacity: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: max-width 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, transform 0.3s ease;
+    transform: translateX(-10px);
+    margin-left: 0.25rem;
+    color: var(--text-primary);
+    font-weight: 900;
+  }
+
+  .logo:hover .logo-x {
+    transform: rotate(90deg) scale(1.15);
+  }
+
+  .logo:hover .logo-rollout {
+    max-width: 180px;
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Navigation Links */
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .nav-link {
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+    position: relative;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--accent-cyan);
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-gradient);
+    transition: width 0.3s ease;
+    border-radius: var(--radius-full);
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    width: 100%;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  /* Theme Circle Button Styles */
+  .theme-circle-btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-left: 0.75rem;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    padding: 0;
+    display: inline-block;
+  }
+
+  /* Dark Mode -> White Circle with soft glow */
+  html[data-theme="dark"] .theme-circle-btn {
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.4);
+  }
+
+  html[data-theme="dark"] .theme-circle-btn:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 1), 0 0 25px rgba(0, 240, 255, 0.8);
+  }
+
+  /* Light Mode -> Black Circle with crisp outline glow */
+  html[data-theme="light"] .theme-circle-btn {
+    background-color: #000000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  }
+
+  html[data-theme="light"] .theme-circle-btn:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+  }
+
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Theme Circle Toggle Button Listener
+    const themeBtn = document.getElementById('theme-circle-btn');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('sydas-theme', newTheme);
+      });
+    }
+
+    // Scroll hash handler on refresh / direct URL navigation
+    const handleHashScroll = () => {
+      if (window.location.hash) {
+        const targetId = window.location.hash.substring(1);
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          setTimeout(() => {
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+          }, 150);
+        }
+      }
+    };
+
+    handleHashScroll();
+    window.addEventListener('hashchange', handleHashScroll);
+
+    // Active link highlighting via IntersectionObserver
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section[id], footer[id]');
+
+    if (sections.length > 0) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+              const href = link.getAttribute('href') || '';
+              if (href.endsWith('#' + id)) {
+                link.classList.add('active');
+              } else {
+                link.classList.remove('active');
+              }
+            });
+          }
+        });
+      }, { threshold: 0.2 });
+
+      sections.forEach(sec => observer.observe(sec));
+    }
+  });
+</script>
