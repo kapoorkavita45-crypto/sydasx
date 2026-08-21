@@ -1,22 +1,9 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
-  server: {
-    host: true,
-    allowedHosts: true
-  },
-  preview: {
-    host: true,
-    allowedHosts: true
-  },
-  vite: {
-    server: {
-      allowedHosts: true
-    },
-    preview: {
-      allowedHosts: true
-    }
-  }
+  adapter: vercel(),
+  output: 'static'
 });
