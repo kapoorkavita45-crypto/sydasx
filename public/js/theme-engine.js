@@ -488,6 +488,8 @@
     var opts = options || {};
     var ind = INDUSTRIES[industryKey] || INDUSTRIES.ecommerce;
     var bn = brandName || 'Genesis Platform';
+    var slug = bn.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (!slug) slug = 'brand';
 
     // Palette with custom user overrides
     var p = {
@@ -504,8 +506,18 @@
     var fontKey = opts.fontKey || 'inter';
     var fontObj = FONT_PRESETS[fontKey] || FONT_PRESETS.inter;
 
+    // Fake Credentials Definition
+    var fakeCredentials = {
+      hq: 'Tower One, Suite 4200, 100 Innovation Boulevard, New York, NY 10001, USA',
+      phone: '+1 (800) 555-0199',
+      intlPhone: '+1 (415) 890-3200',
+      email: 'contact@' + slug + '.com',
+      supportEmail: 'support@' + slug + '.com',
+      hours: 'Mon – Fri: 8:00 AM – 8:00 PM EST | 24/7 Logistics & Support Dispatch'
+    };
+
     // ───────────────────────────────────────────────────
-    // IF E-COMMERCE: GENERATE PRODUCTS + COD + RECEIPT
+    // IF E-COMMERCE: GENERATE PRODUCTS + ABOUT + REVIEWS + FAQS + COD + CONTACT
     // ───────────────────────────────────────────────────
     if (ind.isEcommerce) {
       var products = ind.products || [];
@@ -695,40 +707,68 @@
     .prod-price { font-size: 1.35rem; font-weight: 900; }
     .btn-buy-cod { border: none; padding: 0.7rem 1.2rem; border-radius: 10px; font-size: 0.85rem; font-weight: 800; cursor: pointer; }
 
+    /* About Section */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; margin-bottom: 5rem; }
+    .pillar-card { padding: 1.5rem; margin-bottom: 1rem; border-left: 3px solid ${p.primary}; }
+    .pillar-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.35rem; color: #ffffff; }
+    .pillar-desc { font-size: 0.88rem; color: #94a3b8; }
+
+    /* Reviews Section */
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 5rem; }
+    .review-card { padding: 1.75rem; display: flex; flex-direction: column; justify-content: space-between; }
+    .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+    .review-author { font-weight: 800; font-size: 1rem; color: #ffffff; }
+    .review-badge { font-size: 0.72rem; color: #10b981; background: rgba(16, 185, 129, 0.1); padding: 0.2rem 0.5rem; border-radius: 8px; font-weight: 700; }
+    .review-text { font-size: 0.9rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 1rem; font-style: italic; }
+
     /* Checkout & Digital Receipt */
     .checkout-section { padding: 3rem 0 5rem; }
     .checkout-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 2rem; align-items: start; }
-    @media (max-width: 868px) { .checkout-grid { grid-template-columns: 1fr; } }
-    .checkout-card { padding: 2rem; }
-    .cod-guarantee-badge { display: flex; align-items: center; gap: 0.75rem; background: ${p.primary}15; border: 1px solid ${p.primary}44; padding: 0.85rem 1rem; border-radius: 12px; margin-bottom: 1.5rem; }
-    .cod-icon-circle { width: 32px; height: 32px; border-radius: 50%; background: ${p.primary}; color: #000; display: flex; align-items: center; justify-content: center; font-weight: 900; flex-shrink: 0; }
-    .form-group { margin-bottom: 1rem; }
+    .summary-card { padding: 2rem; }
+    .summary-item-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .cod-seal { display: flex; align-items: center; gap: 0.75rem; padding: 1rem; border-radius: 12px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); margin-top: 1.5rem; color: #10b981; font-weight: 700; font-size: 0.85rem; }
+
+    .form-card { padding: 2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 1.25rem; }
     .form-group label { display: block; font-size: 0.8rem; font-weight: 700; color: #cbd5e1; margin-bottom: 0.35rem; }
     .form-input { width: 100%; padding: 0.8rem 1rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #ffffff; font-family: inherit; font-size: 0.9rem; outline: none; }
     .form-input:focus { border-color: ${p.primary}; box-shadow: 0 0 15px ${p.primary}33; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .order-summary-box { background: rgba(0,0,0,0.25); border-radius: 14px; padding: 1.25rem; margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.06); }
-    .summary-line { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; font-size: 0.88rem; color: #94a3b8; }
-    .summary-line.total { font-size: 1.15rem; font-weight: 900; color: #ffffff; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.8rem; margin-top: 0.8rem; }
-    .btn-submit-order { width: 100%; padding: 1rem; background: linear-gradient(135deg, ${p.gs}, ${p.ge}); color: #000; font-weight: 900; font-size: 1.05rem; border: none; border-radius: 14px; cursor: pointer; }
+    .btn-submit-order { width: 100%; padding: 1rem; background: linear-gradient(135deg, ${p.gs}, ${p.ge}); color: #000; font-weight: 900; font-size: 1rem; border: none; border-radius: 12px; cursor: pointer; box-shadow: 0 8px 25px ${p.primary}44; }
 
     /* Receipt */
-    .receipt-container { background: #0f1118; border: 2px solid ${p.primary}; border-radius: 20px; padding: 2.25rem; color: #f1f5f9; box-shadow: 0 20px 60px rgba(0,0,0,0.8); }
+    .receipt-container { background: #0c0f17; border: 2px solid ${p.primary}; border-radius: 20px; padding: 2.5rem; box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
     .receipt-header { text-align: center; border-bottom: 1px dashed rgba(255,255,255,0.15); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
-    .receipt-check-icon { width: 54px; height: 54px; background: ${p.primary}; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.75rem; font-weight: 900; margin: 0 auto 1rem; }
-    .receipt-id { font-family: monospace; font-size: 0.85rem; color: ${p.primary}; background: ${p.primary}18; padding: 0.25rem 0.75rem; border-radius: 8px; display: inline-block; margin-top: 0.5rem; }
-    .receipt-table { width: 100%; margin: 1.25rem 0; border-collapse: collapse; font-size: 0.9rem; }
-    .receipt-table th, .receipt-table td { padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .receipt-table th { color: #94a3b8; text-align: left; font-size: 0.78rem; text-transform: uppercase; }
-    .receipt-table td.amount { text-align: right; font-weight: 700; }
-    .receipt-actions { display: flex; gap: 1rem; margin-top: 1.75rem; }
-    .btn-receipt { flex: 1; padding: 0.8rem; border-radius: 10px; font-weight: 700; font-size: 0.9rem; cursor: pointer; text-align: center; border: none; }
+    .receipt-check-icon { width: 56px; height: 56px; border-radius: 50%; background: #10b981; color: #000; font-size: 1.8rem; font-weight: 900; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+    .receipt-id { font-family: monospace; font-size: 1.1rem; color: ${p.primary}; font-weight: 800; letter-spacing: 0.1em; background: rgba(255,255,255,0.05); padding: 0.35rem 0.8rem; border-radius: 8px; display: inline-block; margin-top: 0.5rem; }
+    .receipt-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.9rem; }
+    .receipt-table th { text-align: left; color: #94a3b8; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-weight: 600; }
+    .receipt-table td { padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .receipt-table td.amount { text-align: right; font-weight: 700; color: #ffffff; }
+    .receipt-actions { display: flex; gap: 1rem; margin-top: 1.5rem; }
+    .btn-receipt { flex: 1; padding: 0.85rem; border-radius: 10px; font-weight: 800; font-size: 0.9rem; cursor: pointer; border: none; }
     .btn-receipt-print { background: ${p.primary}; color: #000; }
-    .btn-receipt-new { background: rgba(255,255,255,0.08); color: #fff; }
+    .btn-receipt-new { background: rgba(255,255,255,0.08); color: #ffffff; border: 1px solid rgba(255,255,255,0.15); }
 
-    footer { border-top: 1px solid rgba(255,255,255,0.08); padding: 3.5rem 0 2rem; background: ${p.bg}; text-align: center; color: #64748b; font-size: 0.85rem; }
-    .footer-brand { font-size: 1.3rem; font-weight: 900; color: #ffffff; margin-bottom: 0.5rem; }
-    .footer-cod-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 1rem; border-radius: 20px; background: ${p.primary}15; color: ${p.primary}; font-weight: 700; font-size: 0.8rem; margin-bottom: 1.5rem; }
+    /* Contact Section */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 5rem; }
+    .contact-info-card { padding: 2rem; }
+    .contact-badge-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+    .contact-icon-box { width: 44px; height: 44px; border-radius: 12px; background: ${p.primary}18; border: 1px solid ${p.primary}33; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; color: ${p.primary}; }
+
+    footer { border-top: 1px solid rgba(255,255,255,0.08); padding: 4rem 0 2rem; background: ${p.bg}; color: #64748b; font-size: 0.85rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 3rem; margin-bottom: 3rem; text-align: left; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #ffffff; margin-bottom: 0.75rem; text-transform: uppercase; }
+    .footer-col-title { color: #ffffff; font-size: 0.95rem; font-weight: 800; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .footer-links-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-links-list a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
+    .footer-links-list a:hover { color: ${p.primary}; }
+    .footer-cod-badge { display: inline-block; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: #10b981; padding: 0.35rem 0.8rem; border-radius: 20px; font-weight: 700; font-size: 0.75rem; margin-top: 1rem; }
+
+    @media (max-width: 900px) {
+      .checkout-grid, .about-grid, .contact-grid, .footer-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -736,17 +776,19 @@
   <div class="glow-blob blob-2"></div>
 
   <div class="top-bar">
-    ⚡ <strong>ZERO RISK SHOPPING:</strong> 100% Pay on Delivery (Cash / POS on Arrival) &bull; Free Nationwide Delivery &bull; 7-Day Easy Replacement
+    ⚡ <strong>SPECIAL PROMOTION:</strong> Free Doorstep Express Delivery on All Orders — <strong>100% Pay on Delivery Guarantee</strong>
   </div>
 
   <header>
     <div class="brand-logo">${bn}</div>
     <nav class="nav-links">
-      <a href="#products">Products</a>
-      <a href="#checkout-section">Pay on Delivery</a>
-      <a href="#faqs">How COD Works</a>
+      <a href="#products">Catalog</a>
+      <a href="#about">About Brand</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#faqs">FAQs</a>
+      <a href="#contact">Contact & Locations</a>
     </nav>
-    <a href="#checkout-section" class="header-cta">Quick Order (COD)</a>
+    <a href="#checkout-section" class="header-cta">Checkout (COD)</a>
   </header>
 
   <main class="container">
@@ -757,26 +799,26 @@
       <p>${ind.heroSub}</p>
 
       <div class="hero-actions">
-        <a href="#products" class="btn-hero-primary">Browse Catalog →</a>
-        <a href="#checkout-section" class="btn-hero-secondary">Instant Pay on Delivery</a>
+        <a href="#products" class="btn-hero-primary">${ind.heroCta} →</a>
+        <a href="#checkout-section" class="btn-hero-secondary">Quick Pay on Delivery</a>
       </div>
 
       <div class="metrics-bar">
         <div class="metric-card glass">
           <div class="metric-val">100%</div>
-          <div class="metric-label">Pay on Delivery (Zero Advance)</div>
+          <div class="metric-label">Cash on Delivery Security</div>
         </div>
         <div class="metric-card glass">
           <div class="metric-val">24-48h</div>
-          <div class="metric-label">Express Doorstep Dispatch</div>
-        </div>
-        <div class="metric-card glass">
-          <div class="metric-val">4.9 / 5</div>
-          <div class="metric-label">Customer Satisfaction Rating</div>
+          <div class="metric-label">Doorstep Express Dispatch</div>
         </div>
         <div class="metric-card glass">
           <div class="metric-val">50,000+</div>
-          <div class="metric-label">Verified Deliveries Handled</div>
+          <div class="metric-label">Verified Happy Customers</div>
+        </div>
+        <div class="metric-card glass">
+          <div class="metric-val">30-Day</div>
+          <div class="metric-label">Hassle-Free Replacement</div>
         </div>
       </div>
     </section>
@@ -784,9 +826,8 @@
     <!-- Scroll 2: Products Grid -->
     <section id="products" style="padding: 2rem 0;">
       <div class="section-title-wrap">
-        <span class="sec-badge">FEATURED CATALOG</span>
-        <h2 class="sec-title">Select Your Item & Pay on Arrival</h2>
-        <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 0.5rem;">Click "Order Now" on any product to automatically populate the Pay on Delivery checkout below.</p>
+        <span class="sec-badge">VERIFIED INVENTORY</span>
+        <h2 class="sec-title">Featured SuperDeals & Products</h2>
       </div>
 
       <div class="products-grid">
@@ -794,52 +835,132 @@
       </div>
     </section>
 
-    <!-- Scroll 3: Checkout & Digital Receipt (E-COMMERCE ONLY) -->
+    <!-- Scroll 3: About Brand Section -->
+    <section id="about" style="padding: 3rem 0 5rem;">
+      <div class="section-title-wrap">
+        <span class="sec-badge">OUR HERITAGE & MISSION</span>
+        <h2 class="sec-title">About ${bn}</h2>
+      </div>
+      
+      <div class="about-grid">
+        <div class="glass" style="padding: 2.5rem;">
+          <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: #ffffff;">Pioneering Safe & Transparent E-Commerce</h3>
+          <p style="color: #94a3b8; font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.25rem;">
+            Founded with the belief that shopping online should be completely risk-free, <strong>${bn}</strong> has established itself as the leading direct-to-consumer marketplace. We combine rigorous quality checks with our signature 100% Cash-on-Delivery fulfillment model.
+          </p>
+          <p style="color: #94a3b8; font-size: 0.95rem; line-height: 1.7;">
+            Every single item dispatched from our state-of-the-art regional fulfillment hubs undergoes a multi-point inspection to ensure pristine condition upon doorstep delivery.
+          </p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div class="glass pillar-card">
+            <div class="pillar-title">1. Verified Quality Guarantee</div>
+            <div class="pillar-desc">Only Grade-A authentic products tested by certified quality engineers before shipping.</div>
+          </div>
+          <div class="glass pillar-card">
+            <div class="pillar-title">2. Zero-Risk Pay on Delivery</div>
+            <div class="pillar-desc">Inspect your parcel at your doorstep before handing over payment. No bank logins required.</div>
+          </div>
+          <div class="glass pillar-card">
+            <div class="pillar-title">3. Express Regional Logistics</div>
+            <div class="pillar-desc">Distributed warehouse network ensuring fast, reliable delivery within 24 to 48 hours.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scroll 4: Customer Reviews -->
+    <section id="testimonials" style="padding: 2rem 0 5rem;">
+      <div class="section-title-wrap">
+        <span class="sec-badge">VERIFIED BUYERS</span>
+        <h2 class="sec-title">What Our Customers Say</h2>
+      </div>
+
+      <div class="reviews-grid">
+        <div class="glass review-card">
+          <div>
+            <div class="review-header">
+              <span class="review-author">David Miller</span>
+              <span class="review-badge">✓ Verified Buyer</span>
+            </div>
+            <div style="color: #fbbf24; margin-bottom: 0.75rem;">★★★★★</div>
+            <p class="review-text">"Ordered the ANC Earbuds on Tuesday and received them Thursday morning. The COD process was totally seamless, and the quality exceeded my expectations!"</p>
+          </div>
+          <div style="font-size: 0.75rem; color: #64748b;">Delivered to New York, NY</div>
+        </div>
+
+        <div class="glass review-card">
+          <div>
+            <div class="review-header">
+              <span class="review-author">Sophia Chen</span>
+              <span class="review-badge">✓ Verified Buyer</span>
+            </div>
+            <div style="color: #fbbf24; margin-bottom: 0.75rem;">★★★★★</div>
+            <p class="review-text">"The drone arrived in perfect packaging with the digital receipt generated instantly on screen. Excellent customer support team when I had a question."</p>
+          </div>
+          <div style="font-size: 0.75rem; color: #64748b;">Delivered to Toronto, ON</div>
+        </div>
+
+        <div class="glass review-card">
+          <div>
+            <div class="review-header">
+              <span class="review-author">Marcus Vance</span>
+              <span class="review-badge">✓ Verified Buyer</span>
+            </div>
+            <div style="color: #fbbf24; margin-bottom: 0.75rem;">★★★★★</div>
+            <p class="review-text">"I love not having to enter my credit card online. The driver let me verify the package before paying. ${bn} is definitely my go-to store from now on."</p>
+          </div>
+          <div style="font-size: 0.75rem; color: #64748b;">Delivered to Chicago, IL</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scroll 5: Cash on Delivery Checkout -->
     <section id="checkout-section" class="checkout-section">
       <div class="section-title-wrap">
-        <span class="sec-badge">100% SECURE CHECKOUT</span>
-        <h2 class="sec-title">Pay on Delivery Order Terminal</h2>
-        <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 0.5rem;">No credit cards or bank details requested. Pay only when your package arrives in your hands.</p>
+        <span class="sec-badge">100% CASH ON DELIVERY CHECKOUT</span>
+        <h2 class="sec-title">Order Terminal & Digital Receipt</h2>
       </div>
 
       <div id="checkout-active-view" class="checkout-grid">
-        <div class="checkout-card glass">
-          <h3 style="font-size: 1.3rem; margin-bottom: 1rem; font-weight: 800;">Order Summary</h3>
+        <!-- Summary Box -->
+        <div class="glass summary-card">
+          <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 1rem; color: #ffffff;">Order Summary</h3>
           
-          <div class="order-summary-box">
-            <div class="summary-line">
-              <span>Selected Product:</span>
-              <strong id="summary-prod-name" style="color: #ffffff;">${products[0] ? products[0].name : 'Quantum Ultra ANC Earbuds Pro'}</strong>
-            </div>
-            <div class="summary-line">
-              <span>Item Price:</span>
-              <strong id="summary-prod-price" style="color: ${p.primary};">$${products[0] ? products[0].price.toFixed(2) : '149.99'}</strong>
-            </div>
-            <div class="summary-line">
-              <span>Delivery Fee:</span>
-              <span style="color: #10b981; font-weight: 700;">FREE (Express Dispatch)</span>
-            </div>
-            <div class="summary-line">
-              <span>Payment Mode:</span>
-              <span style="color: #cbd5e1; font-weight: 700;">Cash / POS on Delivery</span>
-            </div>
-            <div class="summary-line total">
-              <span>Total Payable on Delivery:</span>
-              <span id="summary-total-price" style="color: ${p.primary};">$${products[0] ? products[0].price.toFixed(2) : '149.99'}</span>
-            </div>
+          <div class="summary-item-row">
+            <span style="color: #94a3b8;">Selected Product:</span>
+            <strong id="summary-prod-name" style="color: #ffffff;">${products[0] ? products[0].name : "Quantum Ultra ANC Earbuds Pro"}</strong>
           </div>
 
-          <div class="cod-guarantee-badge">
-            <div class="cod-icon-circle">✓</div>
+          <div class="summary-item-row">
+            <span style="color: #94a3b8;">Unit Price (COD):</span>
+            <strong id="summary-prod-price" style="color: ${p.primary}; font-size: 1.15rem;">$${products[0] ? products[0].price.toFixed(2) : "149.99"}</strong>
+          </div>
+
+          <div class="summary-item-row">
+            <span style="color: #94a3b8;">Doorstep Courier Shipping:</span>
+            <strong style="color: #10b981;">$0.00 (FREE)</strong>
+          </div>
+
+          <div class="summary-item-row" style="border-bottom: 2px solid ${p.primary}; margin-top: 0.5rem;">
+            <span style="color: #ffffff; font-weight: 800; font-size: 1.1rem;">Total Amount Due on Delivery:</span>
+            <strong id="summary-total-price" style="color: ${p.primary}; font-size: 1.35rem; font-weight: 900;">$${products[0] ? products[0].price.toFixed(2) : "149.99"}</strong>
+          </div>
+
+          <div class="cod-seal">
+            <span style="font-size: 1.4rem;">🛡️</span>
             <div>
-              <div style="font-weight: 800; color: #ffffff;">100% Cash on Delivery Guarantee</div>
-              <div style="font-size: 0.75rem; color: #94a3b8;">Inspect your package before giving cash to the courier. No upfront payment required.</div>
+              <div style="font-weight: 800; color: #ffffff;">100% Pay on Delivery Guarantee</div>
+              <div style="font-size: 0.75rem; color: #a7f3d0;">No card or bank details required. Pay when package arrives at your door.</div>
             </div>
           </div>
         </div>
 
-        <div class="checkout-card glass">
-          <h3 style="font-size: 1.3rem; margin-bottom: 1.25rem; font-weight: 800;">Delivery & Contact Details</h3>
+        <!-- Order Form -->
+        <div class="glass form-card">
+          <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; color: #ffffff;">Delivery Address & Contact</h3>
+          <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 1.5rem;">Enter your shipping details. Your order will be dispatched immediately.</p>
 
           <form id="cod-order-form" onsubmit="handlePlaceOrder(event)">
             <div class="form-row">
@@ -881,6 +1002,7 @@
         </div>
       </div>
 
+      <!-- Printable Digital Receipt View -->
       <div id="checkout-receipt-view" style="display: none; max-width: 680px; margin: 0 auto;">
         <div class="receipt-container">
           <div class="receipt-header">
@@ -916,20 +1038,108 @@
       </div>
     </section>
 
-    <!-- FAQs -->
-    <section id="faqs" style="padding: 3rem 0 5rem;">
+    <!-- Scroll 6: FAQs -->
+    <section id="faqs" style="padding: 2rem 0 5rem;">
       <div class="section-title-wrap">
         <span class="sec-badge">HELP & POLICIES</span>
-        <h2 class="sec-title">Pay on Delivery Questions</h2>
+        <h2 class="sec-title">Frequently Asked Questions</h2>
       </div>
       <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem;">
         <div class="glass" style="padding: 1.25rem 1.5rem;">
-          <div style="font-weight: 700;">How does Pay on Delivery (COD) work?</div>
-          <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 0.5rem;">Inspect your package condition upon doorstep arrival, then pay the exact amount using Cash or local mobile POS/UPI.</p>
+          <div style="font-weight: 700; color: #ffffff;">How does Cash on Delivery (COD) work?</div>
+          <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 0.5rem;">Inspect your package upon doorstep arrival, then pay the courier driver using Cash or mobile POS/UPI. No payment is taken upfront.</p>
         </div>
         <div class="glass" style="padding: 1.25rem 1.5rem;">
-          <div style="font-weight: 700;">Do I need to enter any credit card or bank details?</div>
-          <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 0.5rem;">Never! We do not ask for any card numbers or bank logins. Your order is confirmed strictly with your delivery address.</p>
+          <div style="font-weight: 700; color: #ffffff;">Do I need to enter any credit card or bank details?</div>
+          <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 0.5rem;">Never! We do not ask for any card numbers or bank logins. Your order is confirmed strictly with your delivery address and phone number.</p>
+        </div>
+        <div class="glass" style="padding: 1.25rem 1.5rem;">
+          <div style="font-weight: 700; color: #ffffff;">What is your returns and replacement policy?</div>
+          <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 0.5rem;">We offer a 30-day money-back guarantee. If you encounter any defects or issues, our courier will collect the item and provide an immediate exchange or refund.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scroll 7: Contact Us Section (Fake Credentials) -->
+    <section id="contact" style="padding: 2rem 0 5rem;">
+      <div class="section-title-wrap">
+        <span class="sec-badge">GET IN TOUCH</span>
+        <h2 class="sec-title">Contact & Regional Hubs</h2>
+      </div>
+
+      <div class="contact-grid">
+        <div class="glass contact-info-card">
+          <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 1.25rem; color: #ffffff;">Corporate Headquarters</h3>
+          
+          <div class="contact-badge-item">
+            <div class="contact-icon-box">📍</div>
+            <div>
+              <div style="font-weight: 700; color: #ffffff;">Global Headquarters</div>
+              <div style="color: #94a3b8; font-size: 0.88rem;">${fakeCredentials.hq}</div>
+            </div>
+          </div>
+
+          <div class="contact-badge-item">
+            <div class="contact-icon-box">📞</div>
+            <div>
+              <div style="font-weight: 700; color: #ffffff;">Customer Care & Hotline</div>
+              <div style="color: #94a3b8; font-size: 0.88rem;">${fakeCredentials.phone} (Toll-Free)</div>
+              <div style="color: #94a3b8; font-size: 0.88rem;">${fakeCredentials.intlPhone} (International)</div>
+            </div>
+          </div>
+
+          <div class="contact-badge-item">
+            <div class="contact-icon-box">✉️</div>
+            <div>
+              <div style="font-weight: 700; color: #ffffff;">Official Support Inquiries</div>
+              <div style="color: #94a3b8; font-size: 0.88rem;">${fakeCredentials.email}</div>
+              <div style="color: #94a3b8; font-size: 0.88rem;">${fakeCredentials.supportEmail}</div>
+            </div>
+          </div>
+
+          <div class="contact-badge-item">
+            <div class="contact-icon-box">🕒</div>
+            <div>
+              <div style="font-weight: 700; color: #ffffff;">Operating Hours</div>
+              <div style="color: #94a3b8; font-size: 0.88rem;">${fakeCredentials.hours}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass" style="padding: 2rem;">
+          <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; color: #ffffff;">Send Us a Message</h3>
+          <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 1.5rem;">Have a question about an order, wholesale, or distribution? Our representatives are standing by.</p>
+
+          <form id="contact-form-general" onsubmit="handleContactSubmit(event)">
+            <div class="form-group">
+              <label for="cnt-name">Your Name *</label>
+              <input type="text" id="cnt-name" class="form-input" placeholder="e.g. Jordan Smith" required />
+            </div>
+
+            <div class="form-group">
+              <label for="cnt-email">Email Address *</label>
+              <input type="email" id="cnt-email" class="form-input" placeholder="jordan@example.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="cnt-subject">Inquiry Subject *</label>
+              <input type="text" id="cnt-subject" class="form-input" placeholder="Order status / Wholesale inquiry / General question" required />
+            </div>
+
+            <div class="form-group">
+              <label for="cnt-msg">Message *</label>
+              <textarea id="cnt-msg" class="form-input" rows="3" placeholder="Write your message here..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-order" style="margin-top: 0.5rem;">
+              Send Message →
+            </button>
+          </form>
+
+          <div id="contact-success-box" style="display: none; text-align: center; padding: 1.5rem; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); border-radius: 12px; margin-top: 1rem;">
+            <div style="color: #10b981; font-weight: 800; font-size: 1.1rem; margin-bottom: 0.25rem;">✓ Message Sent Successfully</div>
+            <div style="color: #94a3b8; font-size: 0.85rem;">Thank you! Our support desk has received your ticket and will respond via email.</div>
+          </div>
         </div>
       </div>
     </section>
@@ -937,9 +1147,44 @@
 
   <footer>
     <div class="container">
-      <div class="footer-brand">${bn}</div>
-      <div class="footer-cod-badge">✓ 100% Cash on Delivery Authorized Merchant</div>
-      <p>&copy; 2026 ${bn}. All rights reserved. Powered by SYDAS.x Genesis Matrix.</p>
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">${bn}</div>
+          <p style="color: #94a3b8; font-size: 0.88rem; line-height: 1.6; max-width: 380px;">
+            The world-class marketplace engineered for uncompromising quality, lightning-fast logistics, and zero-risk Cash-on-Delivery fulfillment.
+          </p>
+          <div class="footer-cod-badge">✓ 100% Cash on Delivery Authorized Merchant</div>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Navigation</div>
+          <ul class="footer-links-list">
+            <li><a href="#products">Products Catalog</a></li>
+            <li><a href="#about">About ${bn}</a></li>
+            <li><a href="#testimonials">Customer Reviews</a></li>
+            <li><a href="#checkout-section">Checkout (COD)</a></li>
+            <li><a href="#faqs">Frequently Asked Questions</a></li>
+            <li><a href="#contact">Contact & Support</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Corporate Office</div>
+          <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.6; margin-bottom: 0.5rem;">
+            📍 ${fakeCredentials.hq}
+          </p>
+          <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.6; margin-bottom: 0.5rem;">
+            📞 ${fakeCredentials.phone}
+          </p>
+          <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.6;">
+            ✉️ ${fakeCredentials.email}
+          </p>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1.5rem; text-align: center;">
+        <p>&copy; 2026 ${bn}. All rights reserved. Powered by SYDAS.x Genesis Matrix.</p>
+      </div>
     </div>
   </footer>
 
@@ -994,27 +1239,37 @@
       document.getElementById('checkout-active-view').style.display = 'grid';
       document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
     }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      var form = document.getElementById('contact-form-general');
+      var success = document.getElementById('contact-success-box');
+      if (form && success) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+      }
+    }
   </script>
 </body>
 </html>`;
     }
 
     // ───────────────────────────────────────────────────
-    // FOR ALL OTHER 14 INDUSTRIES: SHOWCASE + INQUIRY / BOOKING
+    // FOR ALL OTHER 14 INDUSTRIES: SHOWCASE + ABOUT + CASE STUDIES + FAQS + CONTACT + INQUIRY
     // (STRICTLY NO PAYMENT, NO COD, NO RECEIPTS)
     // ───────────────────────────────────────────────────
     var items = ind.items || [];
     var itemsHTML = items.map(function(it, i) {
       return `
-        <div class="glass" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; border-radius: 18px; transition: transform 0.3s ease;">
+        <div class="glass" style="padding: 2.25rem; display: flex; flex-direction: column; justify-content: space-between; border-radius: 18px; transition: transform 0.3s ease;">
           <div>
             <span style="font-size: 0.75rem; font-weight: 800; color: ${p.primary}; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 0.5rem;">${it.category}</span>
             <h3 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.75rem; color: #ffffff;">${it.title}</h3>
             <p style="color: #94a3b8; font-size: 0.92rem; line-height: 1.6;">${it.desc}</p>
           </div>
-          <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08);">
+          <div style="margin-top: 1.75rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08);">
             <a href="#inquiry-section" style="color: ${p.primary}; font-weight: 800; font-size: 0.88rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;">
-              <span>Inquire for Specs & Availability →</span>
+              <span>Inquire for Specifications & Availability →</span>
             </a>
           </div>
         </div>
@@ -1056,6 +1311,7 @@
     .glass {
       background: ${p.card};
       backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid ${p.cardBorder};
       border-radius: 18px;
     }
@@ -1146,16 +1402,44 @@
 
     .showcase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.75rem; margin-bottom: 5rem; }
 
+    /* About Section */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; margin-bottom: 5rem; }
+    .pillar-card { padding: 1.5rem; margin-bottom: 1rem; border-left: 3px solid ${p.primary}; }
+    .pillar-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.35rem; color: #ffffff; }
+    .pillar-desc { font-size: 0.88rem; color: #94a3b8; }
+
+    /* Case Studies */
+    .case-studies-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 5rem; }
+    .case-card { padding: 2rem; }
+    .case-metric { font-size: 2.2rem; font-weight: 900; color: ${p.primary}; margin-bottom: 0.5rem; }
+    .case-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem; color: #ffffff; }
+    .case-desc { font-size: 0.88rem; color: #94a3b8; line-height: 1.6; }
+
     /* Inquiry Section */
-    .inquiry-wrap { max-width: 750px; margin: 0 auto 5rem; padding: 2.5rem; }
+    .inquiry-wrap { max-width: 750px; margin: 0 auto 4rem; padding: 2.5rem; }
     .form-group { margin-bottom: 1.25rem; }
     .form-group label { display: block; font-size: 0.82rem; font-weight: 700; color: #cbd5e1; margin-bottom: 0.4rem; }
     .form-input { width: 100%; padding: 0.85rem 1rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #ffffff; font-family: inherit; font-size: 0.9rem; outline: none; }
     .form-input:focus { border-color: ${p.primary}; box-shadow: 0 0 15px ${p.primary}33; }
     .btn-submit-inquiry { width: 100%; padding: 1rem; background: linear-gradient(135deg, ${p.gs}, ${p.ge}); color: #000; font-weight: 900; font-size: 1rem; border: none; border-radius: 12px; cursor: pointer; }
 
-    footer { border-top: 1px solid rgba(255,255,255,0.08); padding: 3.5rem 0 2rem; background: ${p.bg}; text-align: center; color: #64748b; font-size: 0.85rem; }
-    .footer-brand { font-size: 1.3rem; font-weight: 900; color: #ffffff; margin-bottom: 0.5rem; }
+    /* Contact Grid */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 5rem; }
+    .contact-info-card { padding: 2rem; }
+    .contact-badge-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+    .contact-icon-box { width: 44px; height: 44px; border-radius: 12px; background: ${p.primary}18; border: 1px solid ${p.primary}33; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; color: ${p.primary}; }
+
+    footer { border-top: 1px solid rgba(255,255,255,0.08); padding: 4rem 0 2rem; background: ${p.bg}; text-align: left; color: #64748b; font-size: 0.85rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 3rem; margin-bottom: 3rem; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #ffffff; margin-bottom: 0.75rem; text-transform: uppercase; }
+    .footer-col-title { color: #ffffff; font-size: 0.95rem; font-weight: 800; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .footer-links-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-links-list a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
+    .footer-links-list a:hover { color: ${p.primary}; }
+
+    @media (max-width: 900px) {
+      .about-grid, .contact-grid, .footer-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -1166,10 +1450,12 @@
     <div class="brand-logo">${bn}</div>
     <nav class="nav-links">
       <a href="#showcase">Offerings</a>
-      <a href="#inquiry-section">Inquire / Consult</a>
-      <a href="#about">About</a>
+      <a href="#about">About ${bn}</a>
+      <a href="#case-studies">Track Record</a>
+      <a href="#faqs">FAQs</a>
+      <a href="#contact">Contact Us</a>
     </nav>
-    <a href="#inquiry-section" class="header-cta">Contact Team</a>
+    <a href="#inquiry-section" class="header-cta">Consultation Request</a>
   </header>
 
   <main class="container">
@@ -1216,7 +1502,70 @@
       </div>
     </section>
 
-    <!-- Scroll 3: Executive Consultation & Inquiry Form (NO RECEIPT / NO PAYMENT) -->
+    <!-- Scroll 3: About Us Section -->
+    <section id="about" style="padding: 3rem 0 5rem;">
+      <div style="text-align: center; margin-bottom: 2.5rem;">
+        <span style="color: ${p.primary}; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase;">ENTERPRISE HERITAGE</span>
+        <h2 style="font-size: 2.3rem; font-weight: 900;">About ${bn}</h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="glass" style="padding: 2.5rem;">
+          <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: #ffffff;">Setting the Global Standard in ${ind.label}</h3>
+          <p style="color: #94a3b8; font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.25rem;">
+            At <strong>${bn}</strong>, we build transformational digital solutions tailored specifically to the ${ind.label} vertical. Our senior advisory counsel and master engineers partner directly with global leaders to engineer superior performance.
+          </p>
+          <p style="color: #94a3b8; font-size: 0.95rem; line-height: 1.7;">
+            With a zero-compromise approach to quality, regulatory compliance, and security, we empower our clients to achieve measurable ROI and market leadership.
+          </p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div class="glass pillar-card">
+            <div class="pillar-title">1. Precision Architecture & Engineering</div>
+            <div class="pillar-desc">Custom-tailored frameworks built for high availability, fault tolerance, and institutional reliability.</div>
+          </div>
+          <div class="glass pillar-card">
+            <div class="pillar-title">2. Global Regulatory Compliance</div>
+            <div class="pillar-desc">Strict adherence to industry benchmarks, data sovereignty, and audited enterprise standards.</div>
+          </div>
+          <div class="glass pillar-card">
+            <div class="pillar-title">3. Dedicated Senior Leadership</div>
+            <div class="pillar-desc">Direct executive sponsorship with guaranteed response SLAs for all enterprise advisory engagements.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scroll 4: Track Record & Case Studies -->
+    <section id="case-studies" style="padding: 2rem 0 5rem;">
+      <div style="text-align: center; margin-bottom: 2.5rem;">
+        <span style="color: ${p.primary}; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase;">PROVEN RESULTS</span>
+        <h2 style="font-size: 2.3rem; font-weight: 900;">Track Record & Impact</h2>
+      </div>
+
+      <div class="case-studies-grid">
+        <div class="glass case-card">
+          <div class="case-metric">340%</div>
+          <div class="case-title">Operational Efficiency ROI</div>
+          <p class="case-desc">Accelerated execution turnaround across complex workflows while reducing manual errors to zero.</p>
+        </div>
+
+        <div class="glass case-card">
+          <div class="case-metric">99.99%</div>
+          <div class="case-title">Service Availability SLA</div>
+          <p class="case-desc">Enterprise uptime maintained continuously throughout mission-critical high-throughput operations.</p>
+        </div>
+
+        <div class="glass case-card">
+          <div class="case-metric">14+ Countries</div>
+          <div class="case-title">Global Client Footprint</div>
+          <p class="case-desc">Multi-region deployment capabilities with synchronized compliance across global jurisdictions.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scroll 5: Executive Consultation & Inquiry Form -->
     <section id="inquiry-section" style="padding: 2rem 0;">
       <div class="inquiry-wrap glass">
         <div style="text-align: center; margin-bottom: 1.75rem;">
@@ -1258,12 +1607,154 @@
         </div>
       </div>
     </section>
+
+    <!-- Scroll 6: FAQs -->
+    <section id="faqs" style="padding: 2rem 0 5rem;">
+      <div style="text-align: center; margin-bottom: 2.5rem;">
+        <span style="color: ${p.primary}; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase;">FREQUENT QUESTIONS</span>
+        <h2 style="font-size: 2.3rem; font-weight: 900;">Consultation & Operations FAQ</h2>
+      </div>
+
+      <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem;">
+        <div class="glass" style="padding: 1.25rem 1.5rem;">
+          <div style="font-weight: 700; color: #ffffff;">How quickly can your team initiate our project?</div>
+          <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 0.5rem;">Following our initial consultation and specification review, kickoff typically takes place within 48 to 72 business hours.</p>
+        </div>
+        <div class="glass" style="padding: 1.25rem 1.5rem;">
+          <div style="font-weight: 700; color: #ffffff;">Do you provide custom enterprise agreements and SLAs?</div>
+          <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 0.5rem;">Yes. We draft tailored Master Service Agreements (MSAs), custom NDAs, and comprehensive Service Level Agreements guarantees.</p>
+        </div>
+        <div class="glass" style="padding: 1.25rem 1.5rem;">
+          <div style="font-weight: 700; color: #ffffff;">How is project confidentiality handled?</div>
+          <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 0.5rem;">All client information is secured under strict bilateral NDAs and encrypted within dedicated zero-trust environments.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scroll 7: Contact Us (Fake Credentials) -->
+    <section id="contact" style="padding: 2rem 0 5rem;">
+      <div style="text-align: center; margin-bottom: 2.5rem;">
+        <span style="color: ${p.primary}; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase;">EXECUTIVE ADVISORY</span>
+        <h2 style="font-size: 2.3rem; font-weight: 900;">Contact ${bn}</h2>
+      </div>
+
+      <div class="contact-grid">
+        <div class="glass contact-info-card">
+          <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 1.25rem; color: #ffffff;">Corporate Headquarters</h3>
+          
+          <div class="contact-badge-item">
+            <div class="contact-icon-box">🏢</div>
+            <div>
+              <div style="font-weight: 700; color: #ffffff;">Global Headquarters</div>
+              <div style="color: #94a3b8; font-size: 0.88rem;">${fakeCredentials.hq}</div>
+            </div>
+          </div>
+
+          <div class="contact-badge-item">
+            <div class="contact-icon-box">📞</div>
+            <div>
+              <div style="font-weight: 700; color: #ffffff;">Direct Executive Line</div>
+              <div style="color: #94a3b8; font-size: 0.88rem;">${fakeCredentials.phone}</div>
+              <div style="color: #94a3b8; font-size: 0.88rem;">${fakeCredentials.intlPhone} (Global Desk)</div>
+            </div>
+          </div>
+
+          <div class="contact-badge-item">
+            <div class="contact-icon-box">✉️</div>
+            <div>
+              <div style="font-weight: 700; color: #ffffff;">Corporate Communications</div>
+              <div style="color: #94a3b8; font-size: 0.88rem;">${fakeCredentials.email}</div>
+              <div style="color: #94a3b8; font-size: 0.88rem;">${fakeCredentials.supportEmail}</div>
+            </div>
+          </div>
+
+          <div class="contact-badge-item">
+            <div class="contact-icon-box">🕒</div>
+            <div>
+              <div style="font-weight: 700; color: #ffffff;">Working Hours</div>
+              <div style="color: #94a3b8; font-size: 0.88rem;">${fakeCredentials.hours}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass" style="padding: 2rem;">
+          <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; color: #ffffff;">Direct Inquiry & Consultation</h3>
+          <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 1.5rem;">Connect with our executive practice leads for direct engagement or partnership discussions.</p>
+
+          <form id="contact-form-corp" onsubmit="handleDirectContact(event)">
+            <div class="form-group">
+              <label for="corp-name">Your Full Name *</label>
+              <input type="text" id="corp-name" class="form-input" placeholder="e.g. Eleanor Vance" required />
+            </div>
+
+            <div class="form-group">
+              <label for="corp-email">Work Email *</label>
+              <input type="email" id="corp-email" class="form-input" placeholder="eleanor@enterprise.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="corp-subj">Subject *</label>
+              <input type="text" id="corp-subj" class="form-input" placeholder="Partnership / Advisory / Consultation" required />
+            </div>
+
+            <div class="form-group">
+              <label for="corp-msg">Message *</label>
+              <textarea id="corp-msg" class="form-input" rows="3" placeholder="Provide details about your project or consultation request..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-inquiry" style="margin-top: 0.5rem;">
+              Send Direct Message →
+            </button>
+          </form>
+
+          <div id="corp-success-box" style="display: none; text-align: center; padding: 1.5rem; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); border-radius: 12px; margin-top: 1rem;">
+            <div style="color: #10b981; font-weight: 800; font-size: 1.1rem; margin-bottom: 0.25rem;">✓ Direct Message Delivered</div>
+            <div style="color: #94a3b8; font-size: 0.85rem;">Thank you! Our advisory team will reach out within 2 hours.</div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
     <div class="container">
-      <div class="footer-brand">${bn}</div>
-      <p>&copy; 2026 ${bn}. All rights reserved. Powered by SYDAS.x Genesis Matrix.</p>
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">${bn}</div>
+          <p style="color: #94a3b8; font-size: 0.88rem; line-height: 1.6; max-width: 380px;">
+            The premier ${ind.label} practice dedicated to digital excellence, scalable architecture, and executive client partnerships.
+          </p>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Navigation</div>
+          <ul class="footer-links-list">
+            <li><a href="#showcase">Solutions & Offerings</a></li>
+            <li><a href="#about">About ${bn}</a></li>
+            <li><a href="#case-studies">Track Record</a></li>
+            <li><a href="#inquiry-section">Consultation Request</a></li>
+            <li><a href="#faqs">Frequently Asked Questions</a></li>
+            <li><a href="#contact">Contact & HQ</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Global Headquarters</div>
+          <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.6; margin-bottom: 0.5rem;">
+            🏢 ${fakeCredentials.hq}
+          </p>
+          <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.6; margin-bottom: 0.5rem;">
+            📞 ${fakeCredentials.phone}
+          </p>
+          <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.6;">
+            ✉️ ${fakeCredentials.email}
+          </p>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1.5rem; text-align: center;">
+        <p>&copy; 2026 ${bn}. All rights reserved. Powered by SYDAS.x Genesis Matrix.</p>
+      </div>
     </div>
   </footer>
 
@@ -1272,6 +1763,16 @@
       e.preventDefault();
       var form = document.getElementById('industry-inquiry-form');
       var success = document.getElementById('inquiry-success-msg');
+      if (form && success) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+      }
+    }
+
+    function handleDirectContact(e) {
+      e.preventDefault();
+      var form = document.getElementById('contact-form-corp');
+      var success = document.getElementById('corp-success-box');
       if (form && success) {
         form.style.display = 'none';
         success.style.display = 'block';
