@@ -30,14 +30,14 @@
         </div>
 
         <div class="brand-input-container">
-          <label for="brand-name-input" class="glow-label">Brand Name</label>
-          <input type="text" id="brand-name-input" class="cyber-input brand-mega-input" placeholder="e.g. Nike, Zara, Deloitte, Emirates..." maxlength="60" />
+          <label for="brand-name-input" class="glow-label brand-label-centered">Brand Name</label>
+          <input type="text" id="brand-name-input" class="cyber-input brand-mega-input" placeholder="" maxlength="60" />
           <div class="brand-input-hint">This will appear as your brand title, header logo, catalog items, and order receipts.</div>
+          
+          <button id="btn-to-step2" class="btn btn-primary btn-block btn-step1-continue" style="margin-top: 1.5rem; width: 100%;" disabled>
+            <span>Continue to Industry Selection →</span>
+          </button>
         </div>
-
-        <button id="btn-to-step2" class="btn btn-primary btn-block" style="margin-top: 1.5rem;" disabled>
-          <span>Continue to Industry Selection →</span>
-        </button>
       </div>
     </div>
 
@@ -1597,24 +1597,43 @@ CRITICAL REQUIREMENTS:
     font-size: 0.95rem;
   }
 
-  /* STEP 1: BRAND NAME */
+  /* STEP 1: BRAND NAME (CENTERED) */
   .brand-input-container {
     max-width: 550px;
+    width: 100%;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .brand-label-centered {
+    text-align: center;
+    display: block;
+    width: 100%;
+    margin: 0 auto 0.75rem auto;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
   }
 
   .brand-mega-input {
+    width: 100%;
+    max-width: 550px;
     font-size: 1.35rem !important;
     padding: 1rem 1.25rem !important;
     text-align: center;
     font-weight: 700 !important;
     letter-spacing: 0.02em;
-    border: 2px solid rgba(0, 240, 255, 0.2) !important;
+    border: 2px solid rgba(0, 240, 255, 0.25) !important;
+    margin: 0 auto;
   }
 
   .brand-mega-input:focus {
     border-color: var(--accent-cyan) !important;
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+    box-shadow: 0 0 24px rgba(0, 240, 255, 0.25);
   }
 
   .brand-input-hint {
@@ -1622,7 +1641,14 @@ CRITICAL REQUIREMENTS:
     font-size: 0.8rem;
     color: var(--text-secondary);
     margin-top: 0.75rem;
-    opacity: 0.7;
+    opacity: 0.75;
+    width: 100%;
+  }
+
+  .btn-step1-continue {
+    width: 100%;
+    max-width: 550px;
+    margin: 1.5rem auto 0 auto;
   }
 
   /* STEP 2: INDUSTRY GRID */
