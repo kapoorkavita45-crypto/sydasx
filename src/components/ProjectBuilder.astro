@@ -1135,7 +1135,10 @@
         updateSummaryCard();
         updateUIState();
 
-        // Automatically trigger first synthesis if authenticated
+        // Always render the client's generated multi-scroll website immediately!
+        renderSandboxWebsite();
+
+        // Automatically trigger first synthesis if authenticated and tries left
         if (userSession.authenticated && userSession.triesLeft > 0) {
           triggerCompilation();
         }
@@ -1245,6 +1248,7 @@
         userSession.triesLeft = 5;
         localStorage.setItem('sydas_builder_session', JSON.stringify(userSession));
         updateUIState();
+        renderSandboxWebsite();
         appendConsoleLog('Build tries reset! 5 Free Tries added to your account.', 'success');
       });
     }
@@ -1322,6 +1326,35 @@ CRITICAL REQUIREMENTS:
         return window.SYDAS_THEME_ENGINE.buildFullWebsite('generative', brandName, industryKey, options);
       }
       return `<!DOCTYPE html><html><body style="background:#090a12;color:#fff;font-family:sans-serif;padding:2rem;"><h2>${brandName}</h2><p>${industryKey} website compiled.</p></body></html>`;
+    }
+
+    function renderSandboxWebsite() {
+      if (!selectedBrandName) {
+        selectedBrandName = 'Genesis Brand';
+      }
+      const options = {
+        bgColor: selectedBgColor,
+        primaryColor: selectedAccentColor,
+        accentColor: selectedAccentColor,
+        fontKey: selectedFontKey
+      };
+
+      let fullHtml = '';
+      if (window.SYDAS_THEME_ENGINE && typeof window.SYDAS_THEME_ENGINE.buildFullWebsite === 'function') {
+        fullHtml = window.SYDAS_THEME_ENGINE.buildFullWebsite('generative', selectedBrandName, selectedIndustryKey, options);
+      } else {
+        fullHtml = `<!DOCTYPE html><html><head><title>${selectedBrandName}</title></head><body style="background:#090a12;color:#fff;font-family:sans-serif;padding:2rem;"><h2>${selectedBrandName}</h2><p>${selectedIndustryLabel} website initialized.</p></body></html>`;
+      }
+
+      if (sandboxIframe) {
+        sandboxIframe.srcdoc = fullHtml;
+      }
+
+      currentCompiledCode.html = fullHtml;
+      currentCompiledCode.css = `/* Synthesized Custom Theme & Typography Styles */\n/* Embedded inline inside index.html <style> tags */`;
+      currentCompiledCode.js = `// Synthesized Logic & Interactive Handlers\n// Embedded inline inside index.html <script> tags`;
+
+      updateCodeExplorer('html');
     }
 
     async function triggerCompilation() {
@@ -1448,9 +1481,13 @@ CRITICAL REQUIREMENTS:
 
     if (btnReloadSandbox && sandboxIframe) {
       btnReloadSandbox.addEventListener('click', () => {
-        const currentSrc = sandboxIframe.srcdoc;
-        sandboxIframe.srcdoc = '';
-        setTimeout(() => { sandboxIframe.srcdoc = currentSrc; }, 100);
+        if (!sandboxIframe.srcdoc) {
+          renderSandboxWebsite();
+        } else {
+          const currentSrc = sandboxIframe.srcdoc;
+          sandboxIframe.srcdoc = '';
+          setTimeout(() => { sandboxIframe.srcdoc = currentSrc; }, 100);
+        }
       });
     }
 
