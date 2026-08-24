@@ -3509,15 +3509,14 @@
 
     // ═══════════════════════════════════════════════════════════════════════════
     // SYDAS.X PIXEL COMBAT // MINI MILITIA ARCADE SHOOTER (11-TASK PRO GRADE)
-    // Portrait mode, SYDAS.X intro, pixel menu, 5 famous characters (John Wick,
-    // Master Chief, Kratos, Terminator, Neo), 5 pixel weapons, 3 Mini Militia
-    // daylight maps, jetpack nitro, bot AI, stages & save/load system.
+    // 30x HUGE VAST MAP (6000px World), Smooth Follow Camera, 1v1 Bot Duel,
+    // Distance Radar HUD, 5 Famous Heroes, 5 Weapons & Save/Load System.
     // ═══════════════════════════════════════════════════════════════════════════
     let pixelGameState = null;
 
     function renderFPSGame(container, appName, cat) {
       container.innerHTML = `
-        <div id="pixel-game-root" style="position: relative; width: 100%; max-width: 340px; margin: 0 auto; user-select: none; -webkit-user-select: none; background: #05070d; border-radius: 14px; overflow: hidden; border: 2px solid #1e293b; box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(0, 240, 255, 0.15); font-family: 'JetBrains Mono', 'Outfit', sans-serif;">
+        <div id="pixel-game-root" style="position: relative; width: 100%; user-select: none; -webkit-user-select: none; background: #05070d; border-radius: 14px; overflow: hidden; border: 2px solid #1e293b; box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(0, 240, 255, 0.15); font-family: 'JetBrains Mono', 'Outfit', sans-serif;">
           
           <!-- SCREEN 1: INTRO SPLASH CINEMATIC (BLACK SCREEN WITH SYDAS.X TITLE) -->
           <div id="pg-intro-screen" style="position: absolute; inset: 0; background: #000000; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1.5rem; transition: opacity 0.8s ease;">
@@ -3526,28 +3525,26 @@
               SYDAS<span style="color: #ff007a;">.X</span>
             </div>
             <div style="font-size: 0.6rem; color: #00ff88; letter-spacing: 2px; margin-top: 0.6rem; font-weight: 800;">
-              [ PIXEL COMBAT FORGE v4.0 ]
+              [ 30X VAST BATTLEGROUND &bull; 1v1 DUEL PROTOCOL ]
             </div>
             <div style="margin-top: 2rem; display: flex; align-items: center; gap: 6px;">
               <div style="width: 6px; height: 6px; background: #00f0ff; border-radius: 50%; animation: pulse 0.8s infinite;"></div>
-              <span style="font-size: 0.55rem; color: #94a3b8;">LOADING SHADERS & MAPS...</span>
+              <span style="font-size: 0.55rem; color: #94a3b8;">INITIALIZING 6000m VAST MAP...</span>
             </div>
             <button onclick="window.pgSkipIntro()" style="margin-top: 1.5rem; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #64748b; font-size: 0.55rem; padding: 3px 10px; border-radius: 4px; cursor: pointer;">TAP TO SKIP</button>
           </div>
 
-          <!-- SCREEN 2: MAIN TITLE MENU (WITH ANIMATED HIGH-RES PIXEL SHOOTING GROUND BG) -->
-          <div id="pg-menu-screen" style="position: absolute; inset: 0; z-index: 50; display: none; flex-direction: column; justify-content: space-between; padding: 12px 16px; background: rgba(5,7,13,0.35); backdrop-filter: blur(2px);">
-            <!-- Menu Header -->
+          <!-- SCREEN 2: MAIN TITLE MENU -->
+          <div id="pg-menu-screen" style="position: absolute; inset: 0; z-index: 50; display: none; flex-direction: column; justify-content: space-between; padding: 12px 16px; background: rgba(5,7,13,0.4); backdrop-filter: blur(2px);">
             <div style="text-align: center; margin-top: 8px;">
-              <div style="font-size: 0.58rem; color: #ffc837; font-weight: 800; letter-spacing: 2px;">★ ARCADE PIXEL MILITIA ★</div>
-              <h2 style="font-size: 1.5rem; font-weight: 900; color: #fff; margin: 2px 0; text-shadow: 2px 2px 0 #000, 0 0 10px #00f0ff; letter-spacing: 1px;">
-                PIXEL <span style="color: #00f0ff;">STRIKE</span>
+              <div style="font-size: 0.58rem; color: #ffc837; font-weight: 800; letter-spacing: 2px;">★ ARCADE PIXEL MILITIA &bull; 30X MAP ★</div>
+              <h2 style="font-size: 1.6rem; font-weight: 900; color: #fff; margin: 2px 0; text-shadow: 2px 2px 0 #000, 0 0 10px #00f0ff; letter-spacing: 1px;">
+                PIXEL <span style="color: #00f0ff;">STRIKE 30X</span>
               </h2>
-              <span style="font-size: 0.55rem; color: #94a3b8;">PROT: SYDAS.X MINI MILITIA</span>
+              <span style="font-size: 0.55rem; color: #94a3b8;">1v1 LONG-RANGE DUEL ARENA</span>
             </div>
 
-            <!-- Menu Navigation Buttons (Pixel Arcade Style) -->
-            <div style="display: flex; flex-direction: column; gap: 6px; max-width: 220px; width: 100%; margin: 0 auto;">
+            <div style="display: flex; flex-direction: column; gap: 6px; max-width: 240px; width: 100%; margin: 0 auto;">
               <button onclick="window.pgOpenCharSelect()" class="pg-pixel-btn" style="background: linear-gradient(180deg, #00f0ff 0%, #0099b8 100%); color: #05070d; border: 2px solid #fff; box-shadow: 0 4px 0 #005f73; padding: 8px 12px; font-weight: 900; font-size: 0.78rem; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;">
                 ▶ NEW GAME
               </button>
@@ -3560,30 +3557,23 @@
               <button onclick="window.pgOpenSettings()" class="pg-pixel-btn" style="background: linear-gradient(180deg, #64748b 0%, #334155 100%); color: #fff; border: 2px solid #94a3b8; box-shadow: 0 4px 0 #1e293b; padding: 6px 12px; font-weight: 800; font-size: 0.68rem; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;">
                 ⚙ SETTINGS
               </button>
-              <button onclick="window.pgResetAll()" class="pg-pixel-btn" style="background: linear-gradient(180deg, #ef4444 0%, #991b1b 100%); color: #fff; border: 2px solid #fca5a5; box-shadow: 0 4px 0 #581010; padding: 6px 12px; font-weight: 800; font-size: 0.65rem; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;">
-                ✖ RESET / QUIT
-              </button>
             </div>
 
-            <!-- Footer Info -->
             <div style="display: flex; justify-content: space-between; font-size: 0.55rem; color: #cbd5e1; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);">
               <span>STAGE: <strong id="menu-stat-stage" style="color:#00ff88;">1-1</strong></span>
-              <span>SCORE: <strong id="menu-stat-score" style="color:#ffc837;">0</strong></span>
-              <span>CHAR: <strong id="menu-stat-char" style="color:#00f0ff;">JOHN WICK</strong></span>
+              <span>MAP SIZE: <strong style="color:#00f0ff;">6,000 METERS</strong></span>
+              <span>DUEL: <strong style="color:#ff4655;">1v1 BOT ARENA</strong></span>
             </div>
           </div>
 
-          <!-- SCREEN 3: CHARACTER SELECT (5 WORLD FAMOUS CHARACTERS IN HIGH-RES PIXEL ART) -->
+          <!-- SCREEN 3: CHARACTER SELECT -->
           <div id="pg-char-screen" style="position: absolute; inset: 0; z-index: 55; display: none; flex-direction: column; justify-content: space-between; padding: 10px 14px; background: rgba(11, 16, 27, 0.95); backdrop-filter: blur(4px);">
             <div style="text-align: center;">
-              <span style="font-size: 0.55rem; color: #00f0ff; font-weight: 800; letter-spacing: 1px;">SELECT YOUR WARRIOR</span>
+              <span style="font-size: 0.55rem; color: #00f0ff; font-weight: 800; letter-spacing: 1px;">SELECT YOUR DUELIST</span>
               <h3 style="font-size: 1.1rem; font-weight: 900; color: #fff; margin: 0;">FAMOUS HEROES (5)</h3>
             </div>
 
-            <!-- Character Carousel / Cards -->
-            <div id="pg-char-cards-container" style="display: flex; flex-direction: column; gap: 5px; overflow-y: auto; max-height: 250px; padding: 4px;">
-              <!-- Character cards generated dynamically -->
-            </div>
+            <div id="pg-char-cards-container" style="display: flex; flex-direction: column; gap: 5px; overflow-y: auto; max-height: 250px; padding: 4px;"></div>
 
             <div style="display: flex; gap: 6px;">
               <button onclick="window.pgBackToMenu()" style="flex: 1; padding: 6px; background: #1e293b; color: #94a3b8; font-weight: 800; font-size: 0.65rem; border: 1px solid #475569; border-radius: 4px; cursor: pointer;">← MENU</button>
@@ -3594,59 +3584,57 @@
           <!-- SCREEN 4: WEAPONS & MAP SELECTION -->
           <div id="pg-wep-screen" style="position: absolute; inset: 0; z-index: 60; display: none; flex-direction: column; justify-content: space-between; padding: 10px 14px; background: rgba(11, 16, 27, 0.95); backdrop-filter: blur(4px);">
             <div style="text-align: center;">
-              <span style="font-size: 0.55rem; color: #ffc837; font-weight: 800; letter-spacing: 1px;">ARMORY LOADOUT & DAYLIGHT MAP</span>
-              <h3 style="font-size: 1.1rem; font-weight: 900; color: #fff; margin: 0;">GEAR SELECTION</h3>
+              <span style="font-size: 0.55rem; color: #ffc837; font-weight: 800; letter-spacing: 1px;">30X VAST EXPEDITION ARMORY</span>
+              <h3 style="font-size: 1.1rem; font-weight: 900; color: #fff; margin: 0;">LOADOUT & 30X MAP</h3>
             </div>
 
-            <!-- Weapon Select Group -->
             <div style="display: flex; flex-direction: column; gap: 4px;">
               <span style="font-size: 0.55rem; color: #00f0ff; font-weight: 700;">CHOOSE PRIMARY FIREARM:</span>
               <div id="pg-wep-options-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px;"></div>
             </div>
 
-            <!-- Map Select Group (3 Mini Militia Daylight Maps) -->
             <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 4px;">
-              <span style="font-size: 0.55rem; color: #00ff88; font-weight: 700;">CHOOSE DAYLIGHT MAP:</span>
+              <span style="font-size: 0.55rem; color: #00ff88; font-weight: 700;">CHOOSE 30X DAYLIGHT BATTLEGROUND:</span>
               <div id="pg-map-options-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;"></div>
             </div>
 
             <div style="display: flex; gap: 6px;">
               <button onclick="window.pgOpenCharSelect()" style="flex: 1; padding: 6px; background: #1e293b; color: #94a3b8; font-weight: 800; font-size: 0.65rem; border: 1px solid #475569; border-radius: 4px; cursor: pointer;">← HERO</button>
-              <button onclick="window.pgStartGameSession()" style="flex: 2; padding: 8px; background: linear-gradient(135deg, #00ff88, #00b862); color: #05070d; font-weight: 900; font-size: 0.78rem; border: none; border-radius: 4px; cursor: pointer; box-shadow: 0 0 15px rgba(0,255,136,0.5);">DEPLOY BATTLE ⚔️</button>
+              <button onclick="window.pgStartGameSession()" style="flex: 2; padding: 8px; background: linear-gradient(135deg, #00ff88, #00b862); color: #05070d; font-weight: 900; font-size: 0.78rem; border: none; border-radius: 4px; cursor: pointer; box-shadow: 0 0 15px rgba(0,255,136,0.5);">DEPLOY 30X BATTLE ⚔️</button>
             </div>
           </div>
 
-          <!-- SCREEN 5: SETTINGS MODAL SCREEN -->
+          <!-- SCREEN 5: SETTINGS SCREEN -->
           <div id="pg-settings-screen" style="position: absolute; inset: 0; z-index: 65; display: none; flex-direction: column; justify-content: space-between; padding: 14px; background: rgba(11, 16, 27, 0.95); backdrop-filter: blur(4px);">
             <div style="text-align: center;">
               <h3 style="font-size: 1.1rem; font-weight: 900; color: #fff; margin: 0;">GAME SETTINGS</h3>
-              <span style="font-size: 0.55rem; color: #64748b;">SYSTEM // SYDAS.X ENGINE</span>
+              <span style="font-size: 0.55rem; color: #64748b;">30X VAST WORLD &bull; CAMERA TRACKING</span>
             </div>
             <div style="display: flex; flex-direction: column; gap: 8px;">
               <div style="display: flex; justify-content: space-between; align-items: center; background: #162032; padding: 6px 10px; border-radius: 4px; border: 1px solid #334155;">
-                <span style="font-size: 0.65rem; color: #fff; font-weight: 700;">Sound FX & Chimes</span>
+                <span style="font-size: 0.65rem; color: #fff; font-weight: 700;">Sound FX</span>
                 <button onclick="window.pgToggleSound(this)" style="background: #00ff88; color: #05070d; font-weight: 900; font-size: 0.6rem; padding: 2px 8px; border-radius: 3px; border: none; cursor: pointer;">ON</button>
               </div>
               <div style="display: flex; justify-content: space-between; align-items: center; background: #162032; padding: 6px 10px; border-radius: 4px; border: 1px solid #334155;">
-                <span style="font-size: 0.65rem; color: #fff; font-weight: 700;">Pixel Rendering Quality</span>
-                <span style="font-size: 0.65rem; color: #00f0ff; font-weight: 800;">HI-RES 60FPS</span>
+                <span style="font-size: 0.65rem; color: #fff; font-weight: 700;">World Map Scale</span>
+                <span style="font-size: 0.65rem; color: #00f0ff; font-weight: 800;">30X EXPANDED (6000m)</span>
               </div>
               <div style="display: flex; justify-content: space-between; align-items: center; background: #162032; padding: 6px 10px; border-radius: 4px; border: 1px solid #334155;">
-                <span style="font-size: 0.65rem; color: #fff; font-weight: 700;">Touch Flight Sensitivity</span>
-                <span style="font-size: 0.65rem; color: #ffc837; font-weight: 800;">STANDARD</span>
+                <span style="font-size: 0.65rem; color: #fff; font-weight: 700;">Combat Mode</span>
+                <span style="font-size: 0.65rem; color: #ff4655; font-weight: 800;">1v1 LONG-RANGE DUEL</span>
               </div>
             </div>
             <button onclick="window.pgBackToMenu()" style="width: 100%; padding: 8px; background: #00f0ff; color: #05070d; font-weight: 900; font-size: 0.72rem; border: none; border-radius: 4px; cursor: pointer;">SAVE & RETURN</button>
           </div>
 
-          <!-- SCREEN 6: STAGE CLEAR / GAME OVER OVERLAY -->
+          <!-- SCREEN 6: STAGE CLEAR OVERLAY -->
           <div id="pg-gameover-screen" style="position: absolute; inset: 0; z-index: 70; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 16px; background: rgba(5,7,13,0.92); text-align: center;">
             <div id="go-title" style="font-size: 1.5rem; font-weight: 900; color: #00ff88; text-shadow: 0 0 15px #00ff88; margin-bottom: 4px;">STAGE CLEAR!</div>
-            <div id="go-subtitle" style="font-size: 0.65rem; color: #cbd5e1; margin-bottom: 1rem;">TARGET BOT OBJECTIVE COMPLETED</div>
+            <div id="go-subtitle" style="font-size: 0.65rem; color: #cbd5e1; margin-bottom: 1rem;">ALL 1v1 OPPONENTS ELIMINATED ACROSS 6000m MAP</div>
             
             <div style="background: #101726; border: 1px solid #334155; border-radius: 6px; padding: 8px 16px; width: 85%; margin-bottom: 1.2rem; font-size: 0.65rem; display: flex; flex-direction: column; gap: 4px;">
               <div style="display: flex; justify-content: space-between;"><span>BOTS ELIMINATED:</span><strong id="go-stat-kills" style="color: #ff4655;">5</strong></div>
-              <div style="display: flex; justify-content: space-between;"><span>STAGE SCORE:</span><strong id="go-stat-score" style="color: #ffc837;">1,500</strong></div>
+              <div style="display: flex; justify-content: space-between;"><span>STAGE SCORE:</span><strong id="go-stat-score" style="color: #ffc837;">2,500</strong></div>
               <div style="display: flex; justify-content: space-between;"><span>NEXT STAGE:</span><strong id="go-stat-next" style="color: #00f0ff;">STAGE 2</strong></div>
             </div>
 
@@ -3657,64 +3645,75 @@
             </div>
           </div>
 
-          <!-- TOAST NOTIFICATION POPUP -->
+          <!-- TOAST BANNER -->
           <div id="pg-toast-banner" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: #00ff88; color: #05070d; font-size: 0.65rem; font-weight: 900; padding: 4px 12px; border-radius: 20px; box-shadow: 0 0 15px rgba(0,255,136,0.6); pointer-events: none; opacity: 0; z-index: 120; transition: opacity 0.3s ease;">
             GAME SAVED!
           </div>
 
-          <!-- IN-GAME HUD HEADER (PORTRAIT HUD: HP, JETPACK NITRO, TARGETS, STAGE) -->
-          <div id="pg-ingame-hud" style="position: absolute; top: 0; left: 0; right: 0; padding: 6px 10px; z-index: 20; display: flex; justify-content: space-between; align-items: flex-start; background: linear-gradient(180deg, rgba(5,7,13,0.85) 0%, transparent 100%); pointer-events: none;">
-            <!-- Left: Hero Portrait & Bars -->
-            <div style="display: flex; align-items: center; gap: 6px;">
-              <div id="hud-hero-avatar" style="width: 28px; height: 28px; background: #1e293b; border: 1.5px solid #00f0ff; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 900; color: #00f0ff;">JW</div>
-              <div style="display: flex; flex-direction: column; gap: 2px;">
-                <!-- HP Bar -->
-                <div style="display: flex; align-items: center; gap: 3px;">
-                  <span style="font-size: 0.52rem; color: #ff4655; font-weight: 900;">HP</span>
-                  <div style="width: 65px; height: 5px; background: rgba(0,0,0,0.6); border-radius: 2px; overflow: hidden; border: 1px solid rgba(255,70,85,0.4);">
-                    <div id="hud-hp-bar" style="width: 100%; height: 100%; background: #00ff88; transition: width 0.1s linear;"></div>
+          <!-- TOP IN-GAME HUD WITH 30X WORLD MINIMAP / RADAR -->
+          <div id="pg-ingame-hud" style="position: absolute; top: 0; left: 0; right: 0; padding: 6px 12px; z-index: 20; display: flex; flex-direction: column; gap: 4px; background: linear-gradient(180deg, rgba(5,7,13,0.92) 0%, rgba(5,7,13,0.6) 80%, transparent 100%); pointer-events: none;">
+            
+            <!-- Top Row Stats -->
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <!-- Left: Hero Portrait & HP/Jetpack -->
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <div id="hud-hero-avatar" style="width: 28px; height: 28px; background: #1e293b; border: 1.5px solid #00f0ff; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 900; color: #00f0ff;">JW</div>
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                  <div style="display: flex; align-items: center; gap: 3px;">
+                    <span style="font-size: 0.52rem; color: #ff4655; font-weight: 900;">HP</span>
+                    <div style="width: 75px; height: 5px; background: rgba(0,0,0,0.6); border-radius: 2px; overflow: hidden; border: 1px solid rgba(255,70,85,0.4);">
+                      <div id="hud-hp-bar" style="width: 100%; height: 100%; background: #00ff88; transition: width 0.1s linear;"></div>
+                    </div>
+                    <span id="hud-hp-val" style="font-size: 0.52rem; color: #fff; font-weight: 800;">100</span>
                   </div>
-                  <span id="hud-hp-val" style="font-size: 0.52rem; color: #fff; font-weight: 800;">100</span>
+                  <div style="display: flex; align-items: center; gap: 3px;">
+                    <span style="font-size: 0.52rem; color: #00f0ff; font-weight: 900;">JET</span>
+                    <div style="width: 75px; height: 4px; background: rgba(0,0,0,0.6); border-radius: 2px; overflow: hidden; border: 1px solid rgba(0,240,255,0.4);">
+                      <div id="hud-nitro-bar" style="width: 100%; height: 100%; background: #00f0ff; transition: width 0.05s linear;"></div>
+                    </div>
+                  </div>
                 </div>
-                <!-- Jetpack Nitro Boost Bar -->
-                <div style="display: flex; align-items: center; gap: 3px;">
-                  <span style="font-size: 0.52rem; color: #00f0ff; font-weight: 900;">JET</span>
-                  <div style="width: 65px; height: 4px; background: rgba(0,0,0,0.6); border-radius: 2px; overflow: hidden; border: 1px solid rgba(0,240,255,0.4);">
-                    <div id="hud-nitro-bar" style="width: 100%; height: 100%; background: #00f0ff; transition: width 0.05s linear;"></div>
-                  </div>
+              </div>
+
+              <!-- Center: 1v1 DUEL STATUS & BOT TRACKER -->
+              <div style="display: flex; flex-direction: column; align-items: center; background: rgba(11, 16, 27, 0.85); border: 1px solid rgba(255,255,255,0.15); padding: 2px 10px; border-radius: 4px;">
+                <span id="hud-stage-name" style="font-size: 0.58rem; color: #ffc837; font-weight: 900; letter-spacing: 0.5px;">STAGE 1 • 30X VAST ARENA</span>
+                <div style="display: flex; align-items: center; gap: 6px; font-size: 0.65rem; font-weight: 900;">
+                  <span style="color: #00f0ff;">DUEL 1v1:</span>
+                  <span id="hud-bot-distance" style="color: #ff4655; animation: pulse 1s infinite;">DISTANCE: 5,600m ▶</span>
+                  <span style="color: #64748b;">(TARGET: <span id="hud-target-kills" style="color:#00ff88;">0</span>/<span id="hud-target-max">5</span>)</span>
+                </div>
+              </div>
+
+              <!-- Right: Weapon Ammo -->
+              <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                <span id="hud-weapon-name" style="font-size: 0.58rem; color: #00f0ff; font-weight: 800;">M4A1 RIFLE</span>
+                <div style="display: flex; align-items: baseline; gap: 2px;">
+                  <span id="hud-ammo-cur" style="font-size: 0.95rem; font-weight: 900; color: #fff; line-height: 1;">30</span>
+                  <span style="font-size: 0.55rem; color: #64748b;">/ ∞</span>
                 </div>
               </div>
             </div>
 
-            <!-- Center: Stage & Target Counter (Mini Militia Bot Target) -->
-            <div style="display: flex; flex-direction: column; align-items: center; background: rgba(11, 16, 27, 0.8); border: 1px solid rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 4px;">
-              <span id="hud-stage-name" style="font-size: 0.6rem; color: #ffc837; font-weight: 900; letter-spacing: 0.5px;">STAGE 1 • OUTPOST</span>
-              <span id="hud-target-text" style="font-size: 0.65rem; color: #fff; font-weight: 900;">BOTS: <span id="hud-target-kills" style="color: #00ff88;">0</span> / <span id="hud-target-max">5</span></span>
+            <!-- 30X VAST WORLD RADAR OVERVIEW BAR (6000 METERS LONG) -->
+            <div style="position: relative; width: 100%; height: 8px; background: rgba(10,15,25,0.85); border: 1px solid rgba(0,240,255,0.3); border-radius: 4px; overflow: hidden; margin-top: 2px;">
+              <!-- Player Ping Dot -->
+              <div id="radar-player-dot" style="position: absolute; top: 1px; left: 2%; width: 6px; height: 6px; background: #00f0ff; border-radius: 50%; box-shadow: 0 0 6px #00f0ff; transform: translateX(-50%);"></div>
+              <!-- Single Enemy Bot Ping Dot -->
+              <div id="radar-bot-dot" style="position: absolute; top: 1px; left: 98%; width: 6px; height: 6px; background: #ff4655; border-radius: 50%; box-shadow: 0 0 6px #ff4655; transform: translateX(-50%); animation: pulse 0.6s infinite;"></div>
             </div>
 
-            <!-- Right: Weapon Ammo & Grenade -->
-            <div style="display: flex; flex-direction: column; align-items: flex-end;">
-              <span id="hud-weapon-name" style="font-size: 0.55rem; color: #00f0ff; font-weight: 800;">M4A1 RIFLE</span>
-              <div style="display: flex; align-items: baseline; gap: 2px;">
-                <span id="hud-ammo-cur" style="font-size: 0.95rem; font-weight: 900; color: #fff; line-height: 1;">30</span>
-                <span style="font-size: 0.55rem; color: #64748b;">/ ∞</span>
-              </div>
-            </div>
           </div>
 
-          <!-- MAIN PIXEL CANVAS (320x460 HIGH-RES PIXEL ART VIEWPORT) -->
+          <!-- MAIN EXPANSIVE CANVAS (WITH CAMERA FOLLOWING) -->
           <div id="pixel-canvas-wrapper" style="position: relative; width: 100%; height: 420px; background: #87CEEB; overflow: hidden; border-radius: 10px; border: 1.5px solid rgba(0,240,255,0.4); box-shadow: inset 0 0 30px rgba(0,0,0,0.4);">
             <canvas id="pixel-game-canvas" width="960" height="420" style="width: 100%; height: 100%; display: block; image-rendering: pixelated; cursor: crosshair; touch-action: none;"></canvas>
-            
-            <!-- Damage Numbers Layer -->
             <div id="pixel-damage-layer" style="position: absolute; inset: 0; pointer-events: none; z-index: 18;"></div>
-            
-            <!-- Frag Grenade Blast Flare -->
             <div id="pixel-blast-flare" style="position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(255,200,50,0.5), transparent 70%); pointer-events: none; opacity: 0; z-index: 15; transition: opacity 0.1s ease;"></div>
           </div>
 
-          <!-- IN-GAME TOUCH CONTROLS (PORTRAIT DUAL STICK & ACTION BUTTONS) -->
-          <div id="pg-touch-bar" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap: 4px; padding: 6px; background: #0c121e; border-top: 1px solid rgba(255,255,255,0.08); z-index: 25;">
+          <!-- TOUCH CONTROLS BAR -->
+          <div id="pg-touch-bar" style="display: grid; grid-template-columns: 1.2fr 1.2fr 1.5fr 1fr 1fr 1fr; gap: 4px; padding: 6px 10px; background: #0c121e; border-top: 1px solid rgba(255,255,255,0.08); z-index: 25;">
             <button id="btn-touch-left" onmousedown="window.pgTouchMove(-1, true)" onmouseup="window.pgTouchMove(0, false)" ontouchstart="window.pgTouchMove(-1, true)" ontouchend="window.pgTouchMove(0, false)" style="padding: 8px 4px; background: #162032; color: #cbd5e1; font-weight: 900; font-size: 0.75rem; border: 1px solid #334155; border-radius: 6px; cursor: pointer;">
               ◀ LEFT
             </button>
@@ -3722,7 +3721,7 @@
               RIGHT ▶
             </button>
             <button id="btn-touch-fly" onmousedown="window.pgTouchFly(true)" onmouseup="window.pgTouchFly(false)" ontouchstart="window.pgTouchFly(true)" ontouchend="window.pgTouchFly(false)" style="padding: 8px 4px; background: linear-gradient(180deg, #00f0ff, #0099b8); color: #05070d; font-weight: 900; font-size: 0.75rem; border: none; border-radius: 6px; cursor: pointer; box-shadow: 0 0 8px rgba(0,240,255,0.4);">
-              🚀 FLY
+              🚀 JETPACK FLY
             </button>
             <button onclick="window.pgThrowGrenade()" style="padding: 8px 4px; background: linear-gradient(180deg, #ffc837, #d49a17); color: #05070d; font-weight: 900; font-size: 0.72rem; border: none; border-radius: 6px; cursor: pointer;">
               💣 NADE
@@ -3730,12 +3729,15 @@
             <button onclick="window.pgReloadWeapon()" style="padding: 8px 4px; background: linear-gradient(180deg, #ff4655, #b91c1c); color: #fff; font-weight: 900; font-size: 0.72rem; border: none; border-radius: 6px; cursor: pointer;">
               🔄 RLD
             </button>
+            <button onclick="window.togglePhoneTilt()" style="padding: 8px 4px; background: #1e293b; color: #00f0ff; font-weight: 900; font-size: 0.72rem; border: 1px solid #00f0ff; border-radius: 6px; cursor: pointer;">
+              🔄 TILT
+            </button>
           </div>
 
-          <!-- KEYBOARD TIPS FOOTER -->
+          <!-- FOOTER TIP -->
           <div style="display: flex; justify-content: space-between; padding: 4px 8px; background: #060911; font-size: 0.52rem; color: #64748b;">
-            <span>A/D: Move &bull; W/Space: Jetpack &bull; Click: Fire &bull; G: Grenade</span>
-            <span style="color: #00ff88;">SYDAS.X PIXEL ENGINE</span>
+            <span>A/D: Move &bull; W/Space: Jetpack Fly &bull; Click/Tap: Fire &bull; G: Grenade</span>
+            <span style="color: #00ff88;">30X VAST MAP &bull; 1v1 BOT DUEL</span>
           </div>
 
         </div>
@@ -3744,207 +3746,89 @@
       initPixelArcadeEngine();
     }
 
-    
-    window.togglePhoneTilt = function() {
-      const casing = document.getElementById('phone-casing');
-      const grid = document.querySelector('.blueprint-dashboard-grid');
-      const btn = document.getElementById('btn-toggle-tilt');
-      if (!casing) return;
-      
-      const isLandscape = casing.classList.toggle('tilted-landscape');
-      if (grid) grid.classList.toggle('tilted-grid', isLandscape);
-      
-      if (btn) {
-        btn.innerHTML = isLandscape 
-          ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:4px;"><rect width="20" height="14" x="2" y="5" rx="2" ry="2"></rect><path d="M18 12h.01"></path><path d="M8 19l2-2-2-2"></path></svg><span>PORTRAIT MODE 📱</span>'
-          : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:4px;"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><path d="M12 18h.01"></path><path d="M19 8l2 2-2 2"></path></svg><span>TILT PHONE 🔄</span>';
-      }
-
-      // Re-center canvas dimensions
-      const canvas = document.getElementById('pixel-game-canvas');
-      if (canvas) {
-        canvas.width = isLandscape ? 960 : 360;
-        canvas.height = isLandscape ? 420 : 500;
-      }
-      window.playMatrixChime();
-    };
-
     function initPixelArcadeEngine() {
       const canvas = document.getElementById('pixel-game-canvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       const W = canvas.width;
       const H = canvas.height;
+      const WORLD_WIDTH = 6000; // 30X Map Scale (6000px length)
 
-      // 5 FAMOUS CHARACTERS SPECIFICATIONS
+      // 5 FAMOUS HEROES SPECIFICATIONS
       const FAMOUS_CHARACTERS = [
-        {
-          id: 'john_wick',
-          name: 'JOHN WICK',
-          tag: 'The Baba Yaga',
-          avatarText: 'JW',
-          perk: '+20% Reload Speed & Precision',
-          suitColor: '#111827',
-          shirtColor: '#ffffff',
-          tieColor: '#000000',
-          hairColor: '#1f2937',
-          skinColor: '#e0a899',
-          hpMultiplier: 1.0,
-          speed: 2.2,
-          bulletDmgBoost: 1.2
-        },
-        {
-          id: 'master_chief',
-          name: 'MASTER CHIEF',
-          tag: 'Spartan-117 (Halo)',
-          avatarText: 'MC',
-          perk: '+50 Shield Armor Energy',
-          suitColor: '#15803d',
-          shirtColor: '#14532d',
-          tieColor: '#eab308', // Visor
-          hairColor: '#14532d',
-          skinColor: '#eab308',
-          hpMultiplier: 1.3,
-          speed: 2.0,
-          bulletDmgBoost: 1.15
-        },
-        {
-          id: 'kratos',
-          name: 'KRATOS',
-          tag: 'Ghost of Sparta',
-          avatarText: 'KR',
-          perk: 'Spartan Rage (+30% Damage)',
-          suitColor: '#78350f',
-          shirtColor: '#f1f5f9', // Ash white skin
-          tieColor: '#ef4444', // Red war tattoo
-          hairColor: '#451a03',
-          skinColor: '#f8fafc',
-          hpMultiplier: 1.25,
-          speed: 2.1,
-          bulletDmgBoost: 1.35
-        },
-        {
-          id: 'terminator',
-          name: 'TERMINATOR',
-          tag: 'Cyberdyne T-800',
-          avatarText: 'T8',
-          perk: 'Titanium Endoskeleton (+40 HP)',
-          suitColor: '#0f172a',
-          shirtColor: '#475569',
-          tieColor: '#ef4444', // Red eye glow
-          hairColor: '#334155',
-          skinColor: '#94a3b8',
-          hpMultiplier: 1.4,
-          speed: 1.9,
-          bulletDmgBoost: 1.2
-        },
-        {
-          id: 'neo',
-          name: 'NEO (THE ONE)',
-          tag: 'The Matrix',
-          avatarText: 'NE',
-          perk: 'Bullet Time (+30% Jetpack Nitro)',
-          suitColor: '#030712',
-          shirtColor: '#030712',
-          tieColor: '#00f0ff',
-          hairColor: '#111827',
-          skinColor: '#e0a899',
-          hpMultiplier: 1.05,
-          speed: 2.4,
-          bulletDmgBoost: 1.25
-        }
+        { id: 'john_wick', name: 'JOHN WICK', tag: 'The Baba Yaga', avatarText: 'JW', perk: '+20% Reload & Crit Accuracy', suitColor: '#111827', shirtColor: '#ffffff', tieColor: '#000000', hairColor: '#1f2937', skinColor: '#e0a899', hpMultiplier: 1.0, speed: 2.6, bulletDmgBoost: 1.2 },
+        { id: 'master_chief', name: 'MASTER CHIEF', tag: 'Spartan-117 (Halo)', avatarText: 'MC', perk: '+50 Shield Energy Armor', suitColor: '#15803d', shirtColor: '#14532d', tieColor: '#eab308', hairColor: '#14532d', skinColor: '#eab308', hpMultiplier: 1.3, speed: 2.3, bulletDmgBoost: 1.15 },
+        { id: 'kratos', name: 'KRATOS', tag: 'Ghost of Sparta', avatarText: 'KR', perk: 'Spartan Rage (+30% Damage)', suitColor: '#78350f', shirtColor: '#f1f5f9', tieColor: '#ef4444', hairColor: '#451a03', skinColor: '#f8fafc', hpMultiplier: 1.25, speed: 2.4, bulletDmgBoost: 1.35 },
+        { id: 'terminator', name: 'TERMINATOR', tag: 'Cyberdyne T-800', avatarText: 'T8', perk: 'Titanium Endoskeleton (+40 HP)', suitColor: '#0f172a', shirtColor: '#475569', tieColor: '#ef4444', hairColor: '#334155', skinColor: '#94a3b8', hpMultiplier: 1.4, speed: 2.2, bulletDmgBoost: 1.2 },
+        { id: 'neo', name: 'NEO (THE ONE)', tag: 'The Matrix', avatarText: 'NE', perk: 'Bullet Time (+30% Jetpack Nitro)', suitColor: '#030712', shirtColor: '#030712', tieColor: '#00f0ff', hairColor: '#111827', skinColor: '#e0a899', hpMultiplier: 1.05, speed: 2.8, bulletDmgBoost: 1.25 }
       ];
 
       // 5 WEAPON ARSENAL SPECIFICATIONS
       const WEAPON_TYPES = [
-        { name: 'M4A1 RIFLE', ammo: 30, maxAmmo: 30, dmg: 22, rate: 100, spread: 0.08, speed: 8, color: '#ffc837', burst: 1 },
-        { name: 'BARRETT SNIPER', ammo: 5, maxAmmo: 5, dmg: 95, rate: 650, spread: 0.01, speed: 14, color: '#00f0ff', burst: 1 },
-        { name: 'SAWED SHOTGUN', ammo: 6, maxAmmo: 6, dmg: 16, rate: 450, spread: 0.25, speed: 7, color: '#ff4655', burst: 5 },
-        { name: 'RPG ROCKET', ammo: 3, maxAmmo: 3, dmg: 120, rate: 800, spread: 0.02, speed: 5, color: '#00ff88', isExplosive: true, burst: 1 },
-        { name: 'DUAL UZI', ammo: 40, maxAmmo: 40, dmg: 15, rate: 70, spread: 0.15, speed: 7.5, color: '#ff007a', burst: 1 }
+        { name: 'M4A1 RIFLE', ammo: 30, maxAmmo: 30, dmg: 24, rate: 100, spread: 0.06, speed: 10, color: '#ffc837', burst: 1 },
+        { name: 'BARRETT SNIPER', ammo: 5, maxAmmo: 5, dmg: 110, rate: 650, spread: 0.005, speed: 18, color: '#00f0ff', burst: 1 },
+        { name: 'SAWED SHOTGUN', ammo: 6, maxAmmo: 6, dmg: 18, rate: 450, spread: 0.22, speed: 8.5, color: '#ff4655', burst: 5 },
+        { name: 'RPG ROCKET', ammo: 3, maxAmmo: 3, dmg: 140, rate: 800, spread: 0.02, speed: 6.5, color: '#00ff88', isExplosive: true, burst: 1 },
+        { name: 'DUAL UZI', ammo: 40, maxAmmo: 40, dmg: 16, rate: 65, spread: 0.12, speed: 9, color: '#ff007a', burst: 1 }
       ];
 
-      // 3 MINI MILITIA DAYLIGHT MAPS
+      // GENERATE 30X VAST DAYLIGHT MAPS (6000 METERS LENGTH)
+      function generate30xPlatforms(groundY, style) {
+        const plats = [{ x: 0, y: groundY, w: WORLD_WIDTH, h: 60 }]; // Infinite continuous ground
+        
+        // Procedural multi-level platforms every 200px across the 6000m map
+        for (let x = 120; x < WORLD_WIDTH - 200; x += 180 + Math.floor(Math.random() * 80)) {
+          const w = 120 + Math.floor(Math.random() * 140);
+          const y = 100 + Math.floor(Math.random() * 180);
+          plats.push({ x, y, w, h: 14 });
+          
+          // Elevated sniper roost / sky bridge
+          if (Math.random() > 0.45) {
+            plats.push({ x: x + 40, y: Math.max(70, y - 90), w: 90 + Math.floor(Math.random() * 60), h: 12 });
+          }
+        }
+        return plats;
+      }
+
       const DAYLIGHT_MAPS = [
         {
-          id: 'outpost',
-          name: 'OUTPOST',
-          sub: 'Daylight Desert Canyon',
-          skyTop: '#38bdf8',
-          skyBottom: '#bae6fd',
-          sunColor: '#fef08a',
-          groundColor: '#d97706',
-          grassColor: '#b45309',
-          platforms: [
-            { x: 0, y: 370, w: 960, h: 50 }, // Base ground
-            { x: 40, y: 280, w: 220, h: 14 },
-            { x: 700, y: 280, w: 220, h: 14 },
-            { x: 360, y: 230, w: 240, h: 14 }, // Central High-ground
-            { x: 60, y: 150, w: 180, h: 14 },
-            { x: 720, y: 150, w: 180, h: 14 },
-            { x: 400, y: 100, w: 160, h: 14 }
-          ]
+          id: 'outpost', name: 'OUTPOST 30X', sub: 'Desert Canyon (6000m)',
+          skyTop: '#38bdf8', skyBottom: '#bae6fd', sunColor: '#fef08a', groundColor: '#d97706', grassColor: '#b45309',
+          platforms: generate30xPlatforms(370, 'desert')
         },
         {
-          id: 'catacon',
-          name: 'CATACON',
-          sub: 'Daylight Jungle Ruins',
-          skyTop: '#0284c7',
-          skyBottom: '#7dd3fc',
-          sunColor: '#fffbeb',
-          groundColor: '#15803d',
-          grassColor: '#4ade80',
-          platforms: [
-            { x: 0, y: 370, w: 960, h: 50 },
-            { x: 50, y: 290, w: 230, h: 14 },
-            { x: 680, y: 290, w: 230, h: 14 },
-            { x: 340, y: 220, w: 280, h: 14 },
-            { x: 40, y: 140, w: 200, h: 14 },
-            { x: 720, y: 140, w: 200, h: 14 },
-            { x: 380, y: 90, w: 200, h: 14 }
-          ]
+          id: 'catacon', name: 'CATACON 30X', sub: 'Jungle Ruins (6000m)',
+          skyTop: '#0284c7', skyBottom: '#7dd3fc', sunColor: '#fffbeb', groundColor: '#15803d', grassColor: '#4ade80',
+          platforms: generate30xPlatforms(370, 'jungle')
         },
         {
-          id: 'suspension',
-          name: 'SUSPENSION',
-          sub: 'Daylight Sky Bridges',
-          skyTop: '#0369a1',
-          skyBottom: '#e0f2fe',
-          sunColor: '#fde047',
-          groundColor: '#475569',
-          grassColor: '#94a3b8',
-          platforms: [
-            { x: 0, y: 370, w: 960, h: 50 },
-            { x: 40, y: 280, w: 250, h: 12 },
-            { x: 670, y: 280, w: 250, h: 12 },
-            { x: 320, y: 200, w: 320, h: 12 },
-            { x: 80, y: 120, w: 220, h: 12 },
-            { x: 660, y: 120, w: 220, h: 12 }
-          ]
+          id: 'suspension', name: 'SUSPENSION 30X', sub: 'Sky Bridges (6000m)',
+          skyTop: '#0369a1', skyBottom: '#e0f2fe', sunColor: '#fde047', groundColor: '#475569', grassColor: '#94a3b8',
+          platforms: generate30xPlatforms(370, 'sky')
         }
       ];
 
       // GLOBAL ENGINE STATE
       pixelGameState = {
-        screen: 'intro', // 'intro', 'menu', 'char', 'wep', 'game', 'settings', 'gameover'
+        screen: 'intro',
         soundEnabled: true,
+        worldWidth: WORLD_WIDTH,
+        cameraX: 0,
         
-        // Progression & Save Data
         stageIndex: 1,
         score: 0,
         highScore: 0,
         totalKills: 0,
         credits: 1000,
         
-        // Selections
         selectedCharIndex: 0,
         selectedWeaponIndex: 0,
         selectedMapIndex: 0,
         
-        // Player In-Game Entity
+        // Player In-Game Entity (Starts at FAR LEFT end: x = 120)
         player: {
-          x: 160,
-          y: 350,
+          x: 120,
+          y: 330,
           vx: 0,
           vy: 0,
           w: 16,
@@ -3955,36 +3839,29 @@
           maxNitro: 100,
           isFlying: false,
           isGrounded: true,
-          facing: 1, // 1: right, -1: left
+          facing: 1,
           grenades: 3,
           reloading: false,
-          reloadTimer: 0,
-          invulnerableTimer: 0
+          reloadTimer: 0
         },
         
-        // Touch Input
-        touchMoveDir: 0,
-        touchFlyHeld: false,
-        aimX: 160,
-        aimY: 100,
+        // EXACTLY 1 ACTIVE BOT AT A TIME (Starts at FAR RIGHT end: x = WORLD_WIDTH - 250)
+        bot: null,
         
-        // Entities & Objects
-        bots: [],
-        botSpawnTimer: 0,
+        aimX: 480,
+        aimY: 200,
+        
         bullets: [],
         grenadesList: [],
         particles: [],
         clouds: [
-          { x: 20, y: 40, speed: 0.25, size: 28 },
-          { x: 140, y: 70, speed: 0.18, size: 34 },
-          { x: 250, y: 30, speed: 0.3, size: 24 }
+          { x: 50, y: 35, speed: 0.15, size: 40 },
+          { x: 450, y: 65, speed: 0.22, size: 55 },
+          { x: 950, y: 40, speed: 0.18, size: 45 }
         ],
         
-        // Target Counters for Stage
         stageTargetKills: 5,
         stageCurrentKills: 0,
-        
-        // Timers & Controls
         lastFireTime: 0,
         frameCount: 0
       };
@@ -4020,23 +3897,23 @@
         `).join('');
       }
 
-      // Populate Map Options (Daylight Maps)
+      // Populate Map Options (30X Daylight Maps)
       const mapContainer = document.getElementById('pg-map-options-grid');
       if (mapContainer) {
         mapContainer.innerHTML = DAYLIGHT_MAPS.map((m, idx) => `
-          <div id="map-card-${idx}" onclick="window.pgSelectMap(${idx})" style="background: ${idx === 0 ? 'rgba(0, 255, 136, 0.15)' : '#162032'}; border: 1.5px solid ${idx === 0 ? '#00ff88' : '#334155'}; border-radius: 6px; padding: 5px; cursor: pointer; text-align: center;">
+          <div id="map-card-${idx}" onclick="window.pgSelectMap(${idx})" style="background: ${idx === 0 ? 'rgba(0, 255, 136, 0.15)' : '#162032'}; border: 1.5px solid ${idx === 0 ? '#00f0ff' : '#334155'}; border-radius: 6px; padding: 5px; cursor: pointer; text-align: center;">
             <div style="font-size: 0.62rem; font-weight: 900; color: #fff;">${m.name}</div>
             <div style="font-size: 0.48rem; color: #94a3b8;">${m.sub}</div>
           </div>
         `).join('');
       }
 
-      // Automatically transition from Black Screen Intro to Main Menu after 2.2s
+      // Skip intro after 2.2s
       setTimeout(() => {
         window.pgSkipIntro();
       }, 2200);
 
-      // Keyboard Controls (WASD / Arrows / Space / G / R)
+      // Keyboard Controls
       const handleKeyDown = (e) => {
         if (!document.getElementById('pixel-game-canvas')) {
           window.removeEventListener('keydown', handleKeyDown);
@@ -4058,16 +3935,14 @@
       window.addEventListener('keydown', handleKeyDown);
       window.addEventListener('keyup', handleKeyUp);
 
-      // Canvas Aim & Shoot Controls
+      // Mouse / Touch Aim & Shoot
       canvas.addEventListener('mousemove', (e) => {
         const rect = canvas.getBoundingClientRect();
         pixelGameState.aimX = (e.clientX - rect.left) * (W / rect.width);
         pixelGameState.aimY = (e.clientY - rect.top) * (H / rect.height);
       });
       canvas.addEventListener('mousedown', (e) => {
-        if (pixelGameState.screen === 'game') {
-          pgShootWeapon();
-        }
+        if (pixelGameState.screen === 'game') pgShootWeapon();
       });
       canvas.addEventListener('touchmove', (e) => {
         e.preventDefault();
@@ -4087,34 +3962,28 @@
         }
       }, { passive: false });
 
-      // MAIN ANIMATION LOOP (PIXEL ART RENDERER)
+      // MAIN ANIMATION LOOP
       function pixelGameLoop() {
         if (!document.getElementById('pixel-game-canvas')) return;
         pixelGameState.frameCount++;
         
-        // Update
         if (pixelGameState.screen === 'game' || pixelGameState.screen === 'menu') {
-          updatePixelGame(W, H);
+          updatePixelGame(W, H, WORLD_WIDTH);
         }
-        // Draw High-Res Pixel Art
-        drawPixelGame(ctx, W, H);
+        drawPixelGame(ctx, W, H, WORLD_WIDTH);
 
         requestAnimationFrame(pixelGameLoop);
       }
       pixelGameLoop();
     }
 
-    // ═══ SCREEN NAVIGATION & SELECTION HANDLERS ═══
+    // ═══ SCREEN NAVIGATION ═══
     window.pgSkipIntro = function() {
       const intro = document.getElementById('pg-intro-screen');
       const menu = document.getElementById('pg-menu-screen');
       if (intro) intro.style.display = 'none';
       if (menu) menu.style.display = 'flex';
-      if (pixelGameState) {
-        pixelGameState.screen = 'menu';
-        // Spawn ambient bots for background shooting range animation
-        spawnAmbientRangeBots();
-      }
+      if (pixelGameState) pixelGameState.screen = 'menu';
       window.playMatrixChime();
     };
 
@@ -4208,7 +4077,30 @@
       window.playMatrixChime();
     };
 
-    // ═══ SAVE & LOAD SYSTEM (LOCALSTORAGE PERSISTENCE) ═══
+    window.togglePhoneTilt = function() {
+      const casing = document.getElementById('phone-casing');
+      const grid = document.querySelector('.blueprint-dashboard-grid');
+      const btn = document.getElementById('btn-toggle-tilt');
+      if (!casing) return;
+      
+      const isLandscape = casing.classList.toggle('tilted-landscape');
+      if (grid) grid.classList.toggle('tilted-grid', isLandscape);
+      
+      if (btn) {
+        btn.innerHTML = isLandscape 
+          ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:4px;"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><path d="M12 18h.01"></path><path d="M8 19l2-2-2-2"></path></svg><span>PORTRAIT MODE 📱</span>'
+          : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:4px;"><rect width="20" height="14" x="2" y="5" rx="2" ry="2"></rect><path d="M18 12h.01"></path><path d="M19 8l2 2-2 2"></path></svg><span>TILT PHONE 🔄</span>';
+      }
+
+      const canvas = document.getElementById('pixel-game-canvas');
+      if (canvas) {
+        canvas.width = isLandscape ? 960 : 360;
+        canvas.height = isLandscape ? 420 : 500;
+      }
+      window.playMatrixChime();
+    };
+
+    // ═══ SAVE & LOAD SYSTEM ═══
     window.pgSaveCurrentGame = function() {
       if (!pixelGameState) return;
       const saveData = {
@@ -4226,7 +4118,7 @@
         localStorage.setItem('SYDASX_PIXEL_COMBAT_SAVE', JSON.stringify(saveData));
         showToast('PROGRESS SAVED (STAGE ' + pixelGameState.stageIndex + ') 💾');
       } catch (e) {
-        showToast('PROGRESS SAVED TO MEMORY 💾');
+        showToast('PROGRESS SAVED 💾');
       }
       window.playMatrixChime();
     };
@@ -4245,11 +4137,8 @@
           pixelGameState.selectedWeaponIndex = data.selectedWeaponIndex || 0;
           pixelGameState.selectedMapIndex = data.selectedMapIndex || 0;
 
-          // Update menu stats
           const stEl = document.getElementById('menu-stat-stage');
-          const scEl = document.getElementById('menu-stat-score');
           if (stEl) stEl.textContent = `${pixelGameState.stageIndex}-1`;
-          if (scEl) scEl.textContent = pixelGameState.score;
           
           showToast('SAVE LOADED: STAGE ' + pixelGameState.stageIndex + ' 📂');
           window.pgStartGameSession();
@@ -4260,22 +4149,6 @@
       window.pgOpenCharSelect();
     };
 
-    window.pgResetAll = function() {
-      try {
-        localStorage.removeItem('SYDASX_PIXEL_COMBAT_SAVE');
-      } catch (e) {}
-      if (pixelGameState) {
-        pixelGameState.stageIndex = 1;
-        pixelGameState.score = 0;
-        pixelGameState.totalKills = 0;
-        pixelGameState.selectedCharIndex = 0;
-        pixelGameState.selectedWeaponIndex = 0;
-        pixelGameState.selectedMapIndex = 0;
-      }
-      showToast('GAME RESET TO STAGE 1');
-      window.pgBackToMenu();
-    };
-
     function showToast(msg) {
       const toast = document.getElementById('pg-toast-banner');
       if (!toast) return;
@@ -4284,7 +4157,7 @@
       setTimeout(() => { if (toast) toast.style.opacity = '0'; }, 2000);
     }
 
-    // ═══ START GAME SESSION (DEPLOY INTO BATTLE) ═══
+    // ═══ START GAME SESSION (DEPLOY INTO 30X MAP 1v1 DUEL) ═══
     window.pgStartGameSession = function() {
       document.getElementById('pg-wep-screen').style.display = 'none';
       document.getElementById('pg-menu-screen').style.display = 'none';
@@ -4295,15 +4168,19 @@
       const map = getSelectedMap();
 
       pixelGameState.screen = 'game';
+      
+      // Auto-trigger smooth edge-to-edge tilt on start
       const casing = document.getElementById('phone-casing');
       const grid = document.querySelector('.blueprint-dashboard-grid');
       if (casing && !casing.classList.contains('tilted-landscape')) {
         casing.classList.add('tilted-landscape');
         if (grid) grid.classList.add('tilted-grid');
         const btn = document.getElementById('btn-toggle-tilt');
-        if (btn) btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:4px;"><rect width="20" height="14" x="2" y="5" rx="2" ry="2"></rect><path d="M18 12h.01"></path></svg><span>PORTRAIT 📱</span>';
+        if (btn) btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:4px;"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><path d="M18 12h.01"></path></svg><span>PORTRAIT 📱</span>';
       }
-      pixelGameState.player.x = 480;
+
+      // 1. PLAYER STARTS AT THE FAR LEFT END (x = 120)
+      pixelGameState.player.x = 120;
       pixelGameState.player.y = 330;
       pixelGameState.player.vx = 0;
       pixelGameState.player.vy = 0;
@@ -4316,9 +4193,11 @@
       pixelGameState.grenadesList = [];
       pixelGameState.particles = [];
       
-      // Stage Objectives (Task 10)
-      pixelGameState.stageTargetKills = 4 + pixelGameState.stageIndex * 2;
+      pixelGameState.stageTargetKills = 5;
       pixelGameState.stageCurrentKills = 0;
+
+      // 2. SINGLE ENEMY BOT SPAWNS AT THE FAR RIGHT OPPOSITE END (x = 5750)
+      spawnSingle1v1Bot(pixelGameState.worldWidth - 250);
 
       // Update HUD Elements
       const hAvatar = document.getElementById('hud-hero-avatar');
@@ -4335,14 +4214,31 @@
       if (hKills) hKills.textContent = '0';
       if (hMax) hMax.textContent = pixelGameState.stageTargetKills;
 
-      // Spawn initial combat bots
-      pixelGameState.bots = [];
-      for (let i = 0; i < Math.min(3, pixelGameState.stageTargetKills); i++) {
-        spawnCombatBot();
-      }
-
       window.playMatrixChime();
     };
+
+    function spawnSingle1v1Bot(spawnX) {
+      if (!pixelGameState) return;
+      const botNames = ['OMEGA TITAN', 'VIPER SHADOW', 'REAPER CYBORG', 'PHANTOM ELITE', 'RAVAGER X'];
+      const name = botNames[Math.min(pixelGameState.stageCurrentKills, botNames.length - 1)];
+
+      pixelGameState.bot = {
+        name,
+        x: spawnX,
+        y: 330,
+        vx: -1.4 - Math.random() * 0.5, // Moves towards player
+        vy: 0,
+        w: 18,
+        h: 26,
+        hp: 80 + pixelGameState.stageIndex * 25,
+        maxHp: 80 + pixelGameState.stageIndex * 25,
+        shootCooldown: 60 + Math.floor(Math.random() * 40),
+        shootTimer: 0,
+        isFlying: false,
+        flyTimer: 0,
+        facing: -1
+      };
+    }
 
     window.pgAdvanceStage = function() {
       if (!pixelGameState) return;
@@ -4354,22 +4250,22 @@
 
     function getSelectedChar() {
       const chars = [
-        { id: 'jw', name: 'JOHN WICK', avatarText: 'JW', suitColor: '#111827', shirtColor: '#ffffff', tieColor: '#000000', hpMultiplier: 1.0, speed: 2.2, dmgBoost: 1.2 },
-        { id: 'mc', name: 'MASTER CHIEF', avatarText: 'MC', suitColor: '#15803d', shirtColor: '#14532d', tieColor: '#eab308', hpMultiplier: 1.3, speed: 2.0, dmgBoost: 1.15 },
-        { id: 'kr', name: 'KRATOS', avatarText: 'KR', suitColor: '#78350f', shirtColor: '#f1f5f9', tieColor: '#ef4444', hpMultiplier: 1.25, speed: 2.1, dmgBoost: 1.35 },
-        { id: 't8', name: 'TERMINATOR', avatarText: 'T8', suitColor: '#0f172a', shirtColor: '#475569', tieColor: '#ef4444', hpMultiplier: 1.4, speed: 1.9, dmgBoost: 1.2 },
-        { id: 'ne', name: 'NEO', avatarText: 'NE', suitColor: '#030712', shirtColor: '#030712', tieColor: '#00f0ff', hpMultiplier: 1.05, speed: 2.4, dmgBoost: 1.25 }
+        { id: 'jw', name: 'JOHN WICK', avatarText: 'JW', suitColor: '#111827', shirtColor: '#ffffff', tieColor: '#000000', hpMultiplier: 1.0, speed: 2.6, dmgBoost: 1.2 },
+        { id: 'mc', name: 'MASTER CHIEF', avatarText: 'MC', suitColor: '#15803d', shirtColor: '#14532d', tieColor: '#eab308', hpMultiplier: 1.3, speed: 2.3, dmgBoost: 1.15 },
+        { id: 'kr', name: 'KRATOS', avatarText: 'KR', suitColor: '#78350f', shirtColor: '#f1f5f9', tieColor: '#ef4444', hpMultiplier: 1.25, speed: 2.4, dmgBoost: 1.35 },
+        { id: 't8', name: 'TERMINATOR', avatarText: 'T8', suitColor: '#0f172a', shirtColor: '#475569', tieColor: '#ef4444', hpMultiplier: 1.4, speed: 2.2, dmgBoost: 1.2 },
+        { id: 'ne', name: 'NEO', avatarText: 'NE', suitColor: '#030712', shirtColor: '#030712', tieColor: '#00f0ff', hpMultiplier: 1.05, speed: 2.8, dmgBoost: 1.25 }
       ];
       return chars[pixelGameState.selectedCharIndex || 0] || chars[0];
     }
 
     function getSelectedWeapon() {
       const weps = [
-        { name: 'M4A1 RIFLE', ammo: 30, maxAmmo: 30, dmg: 24, rate: 110, spread: 0.08, speed: 8, color: '#ffc837', burst: 1 },
-        { name: 'BARRETT SNIPER', ammo: 5, maxAmmo: 5, dmg: 95, rate: 650, spread: 0.01, speed: 14, color: '#00f0ff', burst: 1 },
-        { name: 'SAWED SHOTGUN', ammo: 6, maxAmmo: 6, dmg: 16, rate: 450, spread: 0.25, speed: 7, color: '#ff4655', burst: 5 },
-        { name: 'RPG ROCKET', ammo: 3, maxAmmo: 3, dmg: 120, rate: 800, spread: 0.02, speed: 5, color: '#00ff88', isExplosive: true, burst: 1 },
-        { name: 'DUAL UZI', ammo: 40, maxAmmo: 40, dmg: 15, rate: 70, spread: 0.15, speed: 7.5, color: '#ff007a', burst: 1 }
+        { name: 'M4A1 RIFLE', ammo: 30, maxAmmo: 30, dmg: 24, rate: 100, spread: 0.06, speed: 10, color: '#ffc837', burst: 1 },
+        { name: 'BARRETT SNIPER', ammo: 5, maxAmmo: 5, dmg: 110, rate: 650, spread: 0.005, speed: 18, color: '#00f0ff', burst: 1 },
+        { name: 'SAWED SHOTGUN', ammo: 6, maxAmmo: 6, dmg: 18, rate: 450, spread: 0.22, speed: 8.5, color: '#ff4655', burst: 5 },
+        { name: 'RPG ROCKET', ammo: 3, maxAmmo: 3, dmg: 140, rate: 800, spread: 0.02, speed: 6.5, color: '#00ff88', isExplosive: true, burst: 1 },
+        { name: 'DUAL UZI', ammo: 40, maxAmmo: 40, dmg: 16, rate: 65, spread: 0.12, speed: 9, color: '#ff007a', burst: 1 }
       ];
       return weps[pixelGameState.selectedWeaponIndex || 0] || weps[0];
     }
@@ -4377,25 +4273,22 @@
     function getSelectedMap() {
       const maps = [
         {
-          id: 'outpost', name: 'OUTPOST', sub: 'Desert Canyon',
-          skyTop: '#38bdf8', skyBottom: '#bae6fd', groundColor: '#d97706', grassColor: '#b45309',
-          platforms: [{ x: 0, y: 370, w: 960, h: 50 }, { x: 40, y: 280, w: 220, h: 14 }, { x: 700, y: 280, w: 220, h: 14 }, { x: 360, y: 230, w: 240, h: 14 }, { x: 60, y: 150, w: 180, h: 14 }, { x: 720, y: 150, w: 180, h: 14 }, { x: 400, y: 100, w: 160, h: 14 }]
+          id: 'outpost', name: 'OUTPOST 30X', sub: 'Desert Canyon (6000m)',
+          skyTop: '#38bdf8', skyBottom: '#bae6fd', sunColor: '#fef08a', groundColor: '#d97706', grassColor: '#b45309'
         },
         {
-          id: 'catacon', name: 'CATACON', sub: 'Jungle Ruins',
-          skyTop: '#0284c7', skyBottom: '#7dd3fc', groundColor: '#15803d', grassColor: '#4ade80',
-          platforms: [{ x: 0, y: 450, w: 320, h: 50 }, { x: 30, y: 370, w: 85, h: 14 }, { x: 205, y: 370, w: 85, h: 14 }, { x: 100, y: 285, w: 120, h: 14 }, { x: 15, y: 195, w: 90, h: 14 }, { x: 215, y: 195, w: 90, h: 14 }, { x: 115, y: 110, w: 90, h: 14 }]
+          id: 'catacon', name: 'CATACON 30X', sub: 'Jungle Ruins (6000m)',
+          skyTop: '#0284c7', skyBottom: '#7dd3fc', sunColor: '#fffbeb', groundColor: '#15803d', grassColor: '#4ade80'
         },
         {
-          id: 'suspension', name: 'SUSPENSION', sub: 'Sky Bridges',
-          skyTop: '#0369a1', skyBottom: '#e0f2fe', groundColor: '#475569', grassColor: '#94a3b8',
-          platforms: [{ x: 0, y: 450, w: 320, h: 50 }, { x: 20, y: 365, w: 100, h: 12 }, { x: 200, y: 365, w: 100, h: 12 }, { x: 90, y: 275, w: 140, h: 12 }, { x: 30, y: 185, w: 85, h: 12 }, { x: 205, y: 185, w: 85, h: 12 }, { x: 115, y: 95, w: 90, h: 12 }]
+          id: 'suspension', name: 'SUSPENSION 30X', sub: 'Sky Bridges (6000m)',
+          skyTop: '#0369a1', skyBottom: '#e0f2fe', sunColor: '#fde047', groundColor: '#475569', grassColor: '#94a3b8'
         }
       ];
       return maps[pixelGameState.selectedMapIndex || 0] || maps[0];
     }
 
-    // ═══ TOUCH CONTROLS DISPATCHERS ═══
+    // Touch Controls
     window.pgTouchMove = function(dir, isHeld) {
       if (!pixelGameState) return;
       const char = getSelectedChar();
@@ -4421,13 +4314,14 @@
       if (!pixelGameState || pixelGameState.player.grenades <= 0 || pixelGameState.screen !== 'game') return;
       pixelGameState.player.grenades--;
       const p = pixelGameState.player;
-      const angle = Math.atan2(pixelGameState.aimY - p.y, pixelGameState.aimX - p.x);
+      const worldAimX = pixelGameState.aimX + pixelGameState.cameraX;
+      const angle = Math.atan2(pixelGameState.aimY - p.y, worldAimX - p.x);
       
       pixelGameState.grenadesList.push({
         x: p.x + 8,
         y: p.y,
-        vx: Math.cos(angle) * 6,
-        vy: Math.sin(angle) * 6 - 2,
+        vx: Math.cos(angle) * 7.5,
+        vy: Math.sin(angle) * 7.5 - 2,
         timer: 70
       });
       window.playMatrixChime();
@@ -4443,9 +4337,9 @@
       pixelGameState.lastFireTime = now;
 
       const p = pixelGameState.player;
-      const baseAngle = Math.atan2(pixelGameState.aimY - (p.y + 10), pixelGameState.aimX - (p.x + 8));
+      const worldAimX = pixelGameState.aimX + pixelGameState.cameraX;
+      const baseAngle = Math.atan2(pixelGameState.aimY - (p.y + 10), worldAimX - (p.x + 8));
 
-      // Fire bullets based on weapon burst (e.g. shotgun fires 5 pellets)
       for (let b = 0; b < wep.burst; b++) {
         const spread = (Math.random() - 0.5) * wep.spread * 2;
         const angle = baseAngle + spread;
@@ -4458,19 +4352,18 @@
           color: wep.color,
           isExplosive: wep.isExplosive || false,
           isPlayer: true,
-          life: 60
+          life: 90
         });
       }
 
-      // Muzzle spark particles
       for (let i = 0; i < 3; i++) {
         pixelGameState.particles.push({
           x: p.x + 8,
           y: p.y + 10,
-          vx: Math.cos(baseAngle) * 3 + (Math.random() - 0.5) * 2,
-          vy: Math.sin(baseAngle) * 3 + (Math.random() - 0.5) * 2,
+          vx: Math.cos(baseAngle) * 4 + (Math.random() - 0.5) * 2,
+          vy: Math.sin(baseAngle) * 4 + (Math.random() - 0.5) * 2,
           color: '#ffc837',
-          size: 2,
+          size: 2.5,
           life: 8, maxLife: 8
         });
       }
@@ -4478,48 +4371,17 @@
       window.playMatrixChime();
     }
 
-    function spawnCombatBot() {
-      if (!pixelGameState) return;
-      const map = getSelectedMap();
-      const spawnPlat = map.platforms[1 + Math.floor(Math.random() * (map.platforms.length - 1))];
-      
-      pixelGameState.bots.push({
-        id: Math.random().toString(36).substring(2, 6),
-        x: spawnPlat.x + Math.random() * (spawnPlat.w - 16),
-        y: spawnPlat.y - 24,
-        vx: (Math.random() > 0.5 ? 1 : -1) * (0.8 + Math.random() * 0.6),
-        vy: 0,
-        w: 16,
-        h: 24,
-        hp: 45 + pixelGameState.stageIndex * 15,
-        maxHp: 45 + pixelGameState.stageIndex * 15,
-        shootCooldown: 70 + Math.floor(Math.random() * 60),
-        shootTimer: 0,
-        isFlying: Math.random() > 0.5,
-        flyTimer: 0,
-        facing: 1
-      });
-    }
-
-    function spawnAmbientRangeBots() {
-      if (!pixelGameState) return;
-      pixelGameState.bots = [
-        { x: 50, y: 280, vx: 0.6, vy: 0, w: 16, h: 24, hp: 100, maxHp: 100, isFlying: false, shootTimer: 0, shootCooldown: 999 },
-        { x: 220, y: 190, vx: -0.6, vy: 0, w: 16, h: 24, hp: 100, maxHp: 100, isFlying: true, shootTimer: 0, shootCooldown: 999 }
-      ];
-    }
-
-    // ═══ GAME PHYSICS & AI UPDATE LOOP ═══
-    function updatePixelGame(W, H) {
+    // ═══ 30X WORLD PHYSICS, CAMERA & AI UPDATE ═══
+    function updatePixelGame(W, H, WORLD_WIDTH) {
       if (!pixelGameState) return;
       const p = pixelGameState.player;
+      const bot = pixelGameState.bot;
       const map = getSelectedMap();
 
-      // 1. Player Jetpack Flight & Physics
+      // 1. Player Jetpack Flight & Movement
       if (p.isFlying && p.nitro > 0) {
-        p.vy = -3.2;
-        p.nitro = Math.max(0, p.nitro - 0.75);
-        // Jetpack particle flames
+        p.vy = -3.4;
+        p.nitro = Math.max(0, p.nitro - 0.7);
         if (pixelGameState.frameCount % 2 === 0) {
           pixelGameState.particles.push({
             x: p.x + (p.facing === 1 ? 2 : 14),
@@ -4532,46 +4394,33 @@
           });
         }
       } else {
-        // Gravity
         p.vy = Math.min(6, p.vy + 0.28);
-        if (p.isGrounded) {
-          p.nitro = Math.min(100, p.nitro + 0.45); // Recharge nitro on ground
-        }
+        if (p.isGrounded) p.nitro = Math.min(100, p.nitro + 0.5);
       }
 
-      // Update position
       p.x += p.vx;
       p.y += p.vy;
 
-      // Map bounds
-      if (p.x < 5) p.x = 5;
-      if (p.x > W - p.w - 5) p.x = W - p.w - 5;
+      // Clamp player within 6000m World Map
+      if (p.x < 10) p.x = 10;
+      if (p.x > WORLD_WIDTH - p.w - 10) p.x = WORLD_WIDTH - p.w - 10;
 
-      // Platform collisions
+      // Ground Collision (y: 370)
       p.isGrounded = false;
-      map.platforms.forEach(plat => {
-        if (p.x + p.w > plat.x && p.x < plat.x + plat.w) {
-          if (p.y + p.h >= plat.y && p.y + p.h <= plat.y + 12 && p.vy >= 0) {
-            p.y = plat.y - p.h;
-            p.vy = 0;
-            p.isGrounded = true;
-          }
-        }
-      });
-
-      // Player facing direction based on aim
-      p.facing = pixelGameState.aimX >= p.x + p.w / 2 ? 1 : -1;
-
-      // Reload timer
-      if (p.reloading) {
-        p.reloadTimer--;
-        if (p.reloadTimer <= 0) {
-          p.reloading = false;
-          const wep = getSelectedWeapon();
-          const ammoEl = document.getElementById('hud-ammo-cur');
-          if (ammoEl) ammoEl.textContent = wep.ammo;
-        }
+      if (p.y + p.h >= 370 && p.vy >= 0) {
+        p.y = 370 - p.h;
+        p.vy = 0;
+        p.isGrounded = true;
       }
+
+      // Smooth Camera Tracking (Centers on Player)
+      const targetCamX = p.x - W / 2;
+      pixelGameState.cameraX += (targetCamX - pixelGameState.cameraX) * 0.15;
+      if (pixelGameState.cameraX < 0) pixelGameState.cameraX = 0;
+      if (pixelGameState.cameraX > WORLD_WIDTH - W) pixelGameState.cameraX = WORLD_WIDTH - W;
+
+      const worldAimX = pixelGameState.aimX + pixelGameState.cameraX;
+      p.facing = worldAimX >= p.x + p.w / 2 ? 1 : -1;
 
       // Update HUD Bars
       const hpBar = document.getElementById('hud-hp-bar');
@@ -4581,113 +4430,65 @@
       if (hpVal) hpVal.textContent = Math.max(0, Math.floor(p.hp));
       if (nitroBar) nitroBar.style.width = `${p.nitro}%`;
 
-      // 2. Grenades Physics & Detonation
-      for (let i = pixelGameState.grenadesList.length - 1; i >= 0; i--) {
-        const g = pixelGameState.grenadesList[i];
-        g.x += g.vx;
-        g.y += g.vy;
-        g.vy += 0.25; // gravity
-        g.vx *= 0.98; // air drag
+      // Update Radar Overview (Player Dot & Bot Dot)
+      const pDot = document.getElementById('radar-player-dot');
+      const bDot = document.getElementById('radar-bot-dot');
+      const distText = document.getElementById('hud-bot-distance');
+
+      if (pDot) pDot.style.left = `${Math.min(98, Math.max(2, (p.x / WORLD_WIDTH) * 100))}%`;
+      
+      if (bot) {
+        if (bDot) {
+          bDot.style.display = 'block';
+          bDot.style.left = `${Math.min(98, Math.max(2, (bot.x / WORLD_WIDTH) * 100))}%`;
+        }
+        const dist = Math.abs(Math.floor(bot.x - p.x));
+        const dirArrow = bot.x > p.x ? '▶' : '◀';
+        if (distText) distText.textContent = `DISTANCE: ${dist}m ${dirArrow}`;
+      } else {
+        if (bDot) bDot.style.display = 'none';
+        if (distText) distText.textContent = 'DUEL OPPONENT ELIMINATED! 🏆';
+      }
+
+      // 2. SINGLE ENEMY BOT AI & NAVIGATION (ADVANCES TOWARDS PLAYER ACROSS 30X MAP)
+      if (bot) {
+        const distToPlayer = p.x - bot.x;
+        const absDist = Math.abs(distToPlayer);
+
+        // Move towards player
+        bot.vx = Math.sign(distToPlayer) * (absDist > 300 ? 2.2 : 1.2);
         
-        // Bounce on platforms
-        map.platforms.forEach(plat => {
-          if (g.x > plat.x && g.x < plat.x + plat.w && g.y >= plat.y && g.y <= plat.y + 10) {
-            g.y = plat.y - 2;
-            g.vy = -g.vy * 0.6;
-          }
-        });
-
-        g.timer--;
-        if (g.timer <= 0) {
-          // Detonate Frag Grenade
-          detonateFragGrenade(g.x, g.y);
-          pixelGameState.grenadesList.splice(i, 1);
-        }
-      }
-
-      // 3. Bullets Physics & Collisions
-      for (let i = pixelGameState.bullets.length - 1; i >= 0; i--) {
-        const b = pixelGameState.bullets[i];
-        b.x += b.vx;
-        b.y += b.vy;
-        b.life--;
-
-        // Player bullet hits enemy bot
-        if (b.isPlayer) {
-          for (let j = pixelGameState.bots.length - 1; j >= 0; j--) {
-            const bot = pixelGameState.bots[j];
-            if (b.x > bot.x && b.x < bot.x + bot.w && b.y > bot.y && b.y < bot.y + bot.h) {
-              bot.hp -= b.dmg;
-              spawnDamagePopup(b.x, b.y, `-${Math.floor(b.dmg)}`, '#ffc837');
-              spawnSparks(b.x, b.y, b.color, 6);
-              b.life = 0;
-
-              if (bot.hp <= 0) {
-                // Eliminate Bot
-                handleBotEliminated(bot, j);
-              }
-              break;
-            }
-          }
-        } else {
-          // Enemy bot bullet hits player
-          if (b.x > p.x && b.x < p.x + p.w && b.y > p.y && b.y < p.y + p.h) {
-            p.hp -= b.dmg;
-            spawnDamagePopup(b.x, b.y, `-${Math.floor(b.dmg)}`, '#ff4655');
-            spawnSparks(b.x, b.y, '#ff4655', 6);
-            b.life = 0;
-
-            if (p.hp <= 0) {
-              triggerGameOver(false);
-            }
-          }
-        }
-
-        if (b.life <= 0 || b.x < 0 || b.x > W || b.y < 0 || b.y > H) {
-          pixelGameState.bullets.splice(i, 1);
-        }
-      }
-
-      // 4. Combat Bots AI (Mini Militia Jetpack & Ground Patrols)
-      for (let i = pixelGameState.bots.length - 1; i >= 0; i--) {
-        const bot = pixelGameState.bots[i];
-
-        // Jetpack / Flying Toggle
+        // Jetpack Jump / Fly when approaching obstacles or in combat
         bot.flyTimer++;
-        if (bot.flyTimer > 80 + Math.random() * 60) {
+        if (bot.flyTimer > 90) {
           bot.flyTimer = 0;
-          bot.isFlying = !bot.isFlying;
+          bot.isFlying = Math.random() > 0.4;
         }
 
         if (bot.isFlying) {
-          bot.vy = Math.sin(pixelGameState.frameCount * 0.05) * 1.8;
-          if (pixelGameState.frameCount % 4 === 0) {
+          bot.vy = -2.8;
+          if (pixelGameState.frameCount % 3 === 0) {
             pixelGameState.particles.push({
-              x: bot.x + 8, y: bot.y + 20, vx: (Math.random() - 0.5), vy: 2, color: '#00f0ff', size: 2, life: 8, maxLife: 8
+              x: bot.x + 8, y: bot.y + 22, vx: (Math.random() - 0.5), vy: 2, color: '#ff4655', size: 2.5, life: 8, maxLife: 8
             });
           }
         } else {
-          bot.vy = Math.min(5, bot.vy + 0.25);
+          bot.vy = Math.min(5.5, bot.vy + 0.28);
         }
 
         bot.x += bot.vx;
         bot.y += bot.vy;
 
-        // Platform collisions
-        map.platforms.forEach(plat => {
-          if (bot.x + bot.w > plat.x && bot.x < plat.x + plat.w) {
-            if (bot.y + bot.h >= plat.y && bot.y + bot.h <= plat.y + 10 && bot.vy >= 0) {
-              bot.y = plat.y - bot.h;
-              bot.vy = 0;
-            }
-          }
-        });
+        // Ground Collision
+        if (bot.y + bot.h >= 370 && bot.vy >= 0) {
+          bot.y = 370 - bot.h;
+          bot.vy = 0;
+        }
 
-        // Patrol boundaries
-        if (bot.x < 20 || bot.x > W - 35) bot.vx *= -1;
+        bot.facing = Math.sign(distToPlayer);
 
-        // Shoot at player
-        if (pixelGameState.screen === 'game') {
+        // Bot shoots when in combat range (< 500px)
+        if (absDist < 520 && pixelGameState.screen === 'game') {
           bot.shootTimer++;
           if (bot.shootTimer >= bot.shootCooldown) {
             bot.shootTimer = 0;
@@ -4695,26 +4496,70 @@
             pixelGameState.bullets.push({
               x: bot.x + 8,
               y: bot.y + 10,
-              vx: Math.cos(bAngle) * 5.5,
-              vy: Math.sin(bAngle) * 5.5,
-              dmg: 12 + pixelGameState.stageIndex * 2,
+              vx: Math.cos(bAngle) * 7.5,
+              vy: Math.sin(bAngle) * 7.5,
+              dmg: 14 + pixelGameState.stageIndex * 3,
               color: '#ff4655',
               isPlayer: false,
-              life: 55
+              life: 80
             });
           }
         }
       }
 
-      // Respawn Bots if below stage quota
-      if (pixelGameState.screen === 'game') {
-        const remainingToSpawn = pixelGameState.stageTargetKills - (pixelGameState.stageCurrentKills + pixelGameState.bots.length);
-        if (remainingToSpawn > 0 && pixelGameState.bots.length < 3) {
-          pixelGameState.botSpawnTimer++;
-          if (pixelGameState.botSpawnTimer > 90) {
-            pixelGameState.botSpawnTimer = 0;
-            spawnCombatBot();
+      // 3. Bullets Physics & Collision
+      for (let i = pixelGameState.bullets.length - 1; i >= 0; i--) {
+        const b = pixelGameState.bullets[i];
+        b.x += b.vx;
+        b.y += b.vy;
+        b.life--;
+
+        // Player bullet hits the 1 bot
+        if (b.isPlayer && bot) {
+          if (b.x > bot.x && b.x < bot.x + bot.w && b.y > bot.y && b.y < bot.y + bot.h) {
+            bot.hp -= b.dmg;
+            spawnDamagePopup(b.x - pixelGameState.cameraX, b.y, `-${Math.floor(b.dmg)}`, '#ffc837');
+            spawnSparks(b.x, b.y, b.color, 8);
+            b.life = 0;
+
+            if (bot.hp <= 0) {
+              handleSingleBotEliminated();
+            }
           }
+        } else if (!b.isPlayer) {
+          // Bot bullet hits player
+          if (b.x > p.x && b.x < p.x + p.w && b.y > p.y && b.y < p.y + p.h) {
+            p.hp -= b.dmg;
+            spawnDamagePopup(b.x - pixelGameState.cameraX, b.y, `-${Math.floor(b.dmg)}`, '#ff4655');
+            spawnSparks(b.x, b.y, '#ff4655', 8);
+            b.life = 0;
+
+            if (p.hp <= 0) triggerGameOver(false);
+          }
+        }
+
+        if (b.life <= 0 || b.x < 0 || b.x > WORLD_WIDTH || b.y < 0 || b.y > 450) {
+          pixelGameState.bullets.splice(i, 1);
+        }
+      }
+
+      // 4. Grenades Physics
+      for (let i = pixelGameState.grenadesList.length - 1; i >= 0; i--) {
+        const g = pixelGameState.grenadesList[i];
+        g.x += g.vx;
+        g.y += g.vy;
+        g.vy += 0.28;
+        g.vx *= 0.98;
+
+        if (g.y >= 365) {
+          g.y = 365;
+          g.vy = -g.vy * 0.55;
+        }
+
+        g.timer--;
+        if (g.timer <= 0) {
+          detonateFragGrenade(g.x, g.y);
+          pixelGameState.grenadesList.splice(i, 1);
         }
       }
 
@@ -4726,33 +4571,43 @@
         pt.life--;
         if (pt.life <= 0) pixelGameState.particles.splice(i, 1);
       }
-
-      // 6. Daylight Clouds Parallax
-      pixelGameState.clouds.forEach(c => {
-        c.x += c.speed;
-        if (c.x > W + 40) c.x = -50;
-      });
     }
 
-    function handleBotEliminated(bot, index) {
-      pixelGameState.bots.splice(index, 1);
+    function handleSingleBotEliminated() {
+      const bot = pixelGameState.bot;
+      if (!bot) return;
+
       pixelGameState.totalKills++;
       pixelGameState.stageCurrentKills++;
-      pixelGameState.score += 250;
+      pixelGameState.score += 500;
 
-      // Update HUD Counter
       const killEl = document.getElementById('hud-target-kills');
       if (killEl) killEl.textContent = pixelGameState.stageCurrentKills;
 
-      // Big explosion spark burst
-      spawnSparks(bot.x + 8, bot.y + 12, '#ff4655', 20);
-      spawnSparks(bot.x + 8, bot.y + 12, '#ffc837', 15);
+      spawnSparks(bot.x + 8, bot.y + 12, '#ff4655', 30);
+      spawnSparks(bot.x + 8, bot.y + 12, '#ffc837', 25);
+      showToast(`${bot.name} ELIMINATED! (+500 PTS) 💀`);
+
+      pixelGameState.bot = null;
 
       // Check Stage Target Clear (Task 10)
       if (pixelGameState.stageCurrentKills >= pixelGameState.stageTargetKills) {
         setTimeout(() => {
           triggerGameOver(true);
-        }, 600);
+        }, 800);
+      } else {
+        // Spawn the next 1v1 Bot opponent at the far opposite side of the 30x map!
+        setTimeout(() => {
+          if (!pixelGameState || pixelGameState.screen !== 'game') return;
+          const p = pixelGameState.player;
+          // Spawn at opposite side relative to player
+          const spawnX = p.x < pixelGameState.worldWidth / 2 
+            ? pixelGameState.worldWidth - 250 
+            : 150;
+          spawnSingle1v1Bot(spawnX);
+          showToast('NEW DUEL OPPONENT SPAWNED AT FAR BASE! ⚔️');
+          window.playMatrixChime();
+        }, 1500);
       }
     }
 
@@ -4762,19 +4617,19 @@
         flare.style.opacity = '1';
         setTimeout(() => { if (flare) flare.style.opacity = '0'; }, 120);
       }
-      spawnSparks(x, y, '#ffc837', 30);
-      spawnSparks(x, y, '#ff4655', 25);
+      spawnSparks(x, y, '#ffc837', 35);
+      spawnSparks(x, y, '#ff4655', 30);
 
-      // Damage bots in blast radius
-      pixelGameState.bots.forEach((bot, j) => {
+      const bot = pixelGameState.bot;
+      if (bot) {
         const dist = Math.hypot(bot.x + 8 - x, bot.y + 12 - y);
-        if (dist < 65) {
-          const dmg = Math.floor(100 * (1 - dist / 65));
+        if (dist < 80) {
+          const dmg = Math.floor(120 * (1 - dist / 80));
           bot.hp -= dmg;
-          spawnDamagePopup(bot.x, bot.y, `-${dmg} BLAST`, '#ff007a');
-          if (bot.hp <= 0) handleBotEliminated(bot, j);
+          spawnDamagePopup(bot.x - pixelGameState.cameraX, bot.y, `-${dmg} BLAST`, '#ff007a');
+          if (bot.hp <= 0) handleSingleBotEliminated();
         }
-      });
+      }
     }
 
     function triggerGameOver(isWin) {
@@ -4791,17 +4646,17 @@
       pixelGameState.screen = 'gameover';
 
       if (isWin) {
-        goTitle.textContent = 'STAGE CLEAR! 🏆';
+        goTitle.textContent = '30X STAGE CLEAR! 🏆';
         goTitle.style.color = '#00ff88';
-        goSub.textContent = `STAGE ${pixelGameState.stageIndex} BOT OBJECTIVE FULFILLED`;
+        goSub.textContent = `ALL 1v1 DUEL OPPONENTS DEFEATED IN STAGE ${pixelGameState.stageIndex}`;
         if (btnNext) btnNext.style.display = 'block';
         if (nStat) nStat.textContent = `STAGE ${pixelGameState.stageIndex + 1}`;
       } else {
         goTitle.textContent = 'FALLEN IN ACTION 💀';
         goTitle.style.color = '#ff4655';
-        goSub.textContent = 'HERO ELIMINATED BY ENEMY SQUAD';
+        goSub.textContent = 'HERO ELIMINATED IN 1v1 DUEL';
         if (btnNext) btnNext.style.display = 'none';
-        if (nStat) nStat.textContent = 'RETRY STAGE';
+        if (nStat) nStat.textContent = 'RETRY DUEL';
       }
 
       if (kStat) kStat.textContent = pixelGameState.stageCurrentKills;
@@ -4819,109 +4674,118 @@
         top: ${y}px;
         color: ${color};
         font-family: 'JetBrains Mono', monospace;
-        font-size: 0.72rem;
+        font-size: 0.75rem;
         font-weight: 900;
         text-shadow: 1px 1px 0 #000, 0 0 6px ${color};
         pointer-events: none;
         transform: translate(-50%, -50%);
-        transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        transition: all 0.55s cubic-bezier(0.25, 1, 0.5, 1);
         opacity: 1;
       `;
       el.textContent = text;
       layer.appendChild(el);
       requestAnimationFrame(() => {
-        el.style.top = `${y - 20}px`;
+        el.style.top = `${y - 25}px`;
         el.style.opacity = '0';
       });
-      setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 550);
+      setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 580);
     }
 
     function spawnSparks(x, y, color, count) {
       for (let i = 0; i < count; i++) {
         pixelGameState.particles.push({
           x, y,
-          vx: (Math.random() - 0.5) * 6,
-          vy: (Math.random() - 0.5) * 6 - 1,
+          vx: (Math.random() - 0.5) * 7,
+          vy: (Math.random() - 0.5) * 7 - 1,
           color,
-          size: 2 + Math.random() * 2,
-          life: 12 + Math.random() * 8,
-          maxLife: 20
+          size: 2 + Math.random() * 2.5,
+          life: 14 + Math.random() * 8,
+          maxLife: 22
         });
       }
     }
 
-    // ═══ HIGH-RESOLUTION PIXEL ART RENDERER ═══
-    function drawPixelGame(ctx, W, H) {
+    // ═══ HIGH-RES PIXEL ART RENDERER WITH CAMERA TRANSLATE ═══
+    function drawPixelGame(ctx, W, H, WORLD_WIDTH) {
       if (!pixelGameState) return;
       const map = getSelectedMap();
+      const camX = pixelGameState.cameraX || 0;
 
-      // 1. DAYLIGHT SKYBOX & PARALLAX CLOUDS
+      // 1. SKYBOX & PARALLAX SUN & CLOUDS
       const skyGrad = ctx.createLinearGradient(0, 0, 0, H);
       skyGrad.addColorStop(0, map.skyTop);
       skyGrad.addColorStop(1, map.skyBottom);
       ctx.fillStyle = skyGrad;
       ctx.fillRect(0, 0, W, H);
 
-      // Bright Daylight Sun
+      // Parallax Daylight Sun
+      const sunScreenX = 750 - (camX * 0.05);
       ctx.fillStyle = '#fffbeb';
-      ctx.beginPath();
-      ctx.arc(260, 45, 18, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.beginPath(); ctx.arc(sunScreenX, 55, 20, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = 'rgba(254, 240, 138, 0.35)';
-      ctx.beginPath();
-      ctx.arc(260, 45, 26, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.beginPath(); ctx.arc(sunScreenX, 55, 30, 0, Math.PI * 2); ctx.fill();
 
-      // Pixel Clouds
-      ctx.fillStyle = '#ffffff';
-      pixelGameState.clouds.forEach(c => {
-        drawPixelCloud(ctx, c.x, c.y, c.size);
-      });
-
-      // 2. DAYLIGHT MINI MILITIA PLATFORMS (CRISP PIXEL ART)
-      map.platforms.forEach(plat => {
-        // Platform Top Grass / Trim
-        ctx.fillStyle = map.grassColor;
-        ctx.fillRect(plat.x, plat.y, plat.w, 4);
-
-        // Platform Rock / Earth Body
-        ctx.fillStyle = map.groundColor;
-        ctx.fillRect(plat.x, plat.y + 4, plat.w, plat.h - 4);
-
-        // Pixel Edge Details
-        ctx.fillStyle = 'rgba(0,0,0,0.25)';
-        for (let px = plat.x; px < plat.x + plat.w; px += 8) {
-          ctx.fillRect(px, plat.y + 6, 4, 3);
+      // Parallax Distant Mountains
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.25)';
+      for (let m = 0; m < WORLD_WIDTH; m += 400) {
+        const mx = m - (camX * 0.2);
+        if (mx > -400 && mx < W + 400) {
+          ctx.beginPath();
+          ctx.moveTo(mx, 370);
+          ctx.lineTo(mx + 200, 180);
+          ctx.lineTo(mx + 400, 370);
+          ctx.closePath();
+          ctx.fill();
         }
-      });
+      }
 
-      // 3. DRAW FRAG GRENADES
+      // 2. WORLD SPACE RENDERING (APPLY CAMERA OFFSET)
+      ctx.save();
+      ctx.translate(-camX, 0);
+
+      // Continuous 6000m Ground
+      ctx.fillStyle = map.grassColor;
+      ctx.fillRect(0, 370, WORLD_WIDTH, 6);
+      ctx.fillStyle = map.groundColor;
+      ctx.fillRect(0, 376, WORLD_WIDTH, 80);
+
+      // Render Procedural Platforms along the 30X World
+      const p = pixelGameState.player;
+      for (let x = 120; x < WORLD_WIDTH - 200; x += 220) {
+        if (x > camX - 300 && x < camX + W + 300) {
+          const y = 230 + Math.sin(x * 0.01) * 60;
+          ctx.fillStyle = map.grassColor;
+          ctx.fillRect(x, y, 140, 4);
+          ctx.fillStyle = map.groundColor;
+          ctx.fillRect(x, y + 4, 140, 10);
+        }
+      }
+
+      // Render Frag Grenades
       pixelGameState.grenadesList.forEach(g => {
-        ctx.fillStyle = '#15803d';
-        ctx.fillRect(g.x - 3, g.y - 3, 6, 6);
-        ctx.fillStyle = '#ef4444';
-        ctx.fillRect(g.x - 1, g.y - 4, 2, 2);
+        ctx.fillStyle = '#15803d'; ctx.fillRect(g.x - 3, g.y - 3, 6, 6);
+        ctx.fillStyle = '#ef4444'; ctx.fillRect(g.x - 1, g.y - 4, 2, 2);
       });
 
-      // 4. DRAW ENEMY COMBAT BOTS (PIXEL CYBORG SOLDIERS)
-      pixelGameState.bots.forEach(b => {
-        drawPixelBot(ctx, b.x, b.y, b.w, b.h, b.hp, b.maxHp);
-      });
+      // Render the 1 Single Enemy Bot Duelist
+      const bot = pixelGameState.bot;
+      if (bot) {
+        drawPixelBot(ctx, bot.x, bot.y, bot.w, bot.h, bot.hp, bot.maxHp, bot.name);
+      }
 
-      // 5. DRAW PLAYER (SELECTED FAMOUS HERO SPRITE IN HIGH-RES PIXEL ART)
+      // Render Hero Player (At starting base x = 120)
       if (pixelGameState.screen === 'game' || pixelGameState.screen === 'menu') {
-        const p = pixelGameState.player;
         const char = getSelectedChar();
         drawPixelHero(ctx, p.x, p.y, p.w, p.h, char, p.facing);
       }
 
-      // 6. DRAW BULLETS
+      // Render Bullets
       pixelGameState.bullets.forEach(b => {
         ctx.fillStyle = b.color;
         ctx.fillRect(b.x - 2, b.y - 2, 4, 4);
       });
 
-      // 7. DRAW PARTICLES
+      // Render Particles
       pixelGameState.particles.forEach(pt => {
         ctx.globalAlpha = pt.life / pt.maxLife;
         ctx.fillStyle = pt.color;
@@ -4929,116 +4793,100 @@
       });
       ctx.globalAlpha = 1;
 
-      // 8. TACTICAL AIM CROSSHAIR (IN-GAME)
+      ctx.restore(); // END WORLD SPACE
+
+      // 3. SCREEN SPACE AIM CROSSHAIR
       if (pixelGameState.screen === 'game') {
         const cx = pixelGameState.aimX;
         const cy = pixelGameState.aimY;
         ctx.strokeStyle = '#00f0ff';
         ctx.lineWidth = 1.5;
-        // Crosshair reticle
-        ctx.beginPath();
-        ctx.arc(cx, cy, 6, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(cx - 9, cy); ctx.lineTo(cx + 9, cy);
-        ctx.moveTo(cx, cy - 9); ctx.lineTo(cx, cy + 9);
-        ctx.stroke();
+        ctx.beginPath(); ctx.arc(cx, cy, 6, 0, Math.PI * 2); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx - 9, cy); ctx.lineTo(cx + 9, cy);
+        ctx.moveTo(cx, cy - 9); ctx.lineTo(cx, cy + 9); ctx.stroke();
       }
     }
 
-    // High-Res Pixel Cloud Helper
-    function drawPixelCloud(ctx, x, y, size) {
-      ctx.fillStyle = 'rgba(255,255,255,0.85)';
-      ctx.fillRect(x, y + 4, size, size * 0.45);
-      ctx.fillRect(x + size * 0.2, y, size * 0.6, size * 0.5);
-      ctx.fillRect(x + size * 0.4, y - 4, size * 0.35, size * 0.5);
-    }
-
-    // High-Res Pixel Bot Sprite (Mini Militia Flying Robot Soldier)
-    function drawPixelBot(ctx, x, y, w, h, hp, maxHp) {
+    // High-Res Bot Sprite
+    function drawPixelBot(ctx, x, y, w, h, hp, maxHp, name) {
       // HP Bar
-      const barW = 20;
+      const barW = 24;
       ctx.fillStyle = 'rgba(0,0,0,0.6)';
-      ctx.fillRect(x - 2, y - 8, barW, 3);
+      ctx.fillRect(x - 3, y - 10, barW, 4);
       ctx.fillStyle = hp > maxHp * 0.5 ? '#00ff88' : '#ff4655';
-      ctx.fillRect(x - 2, y - 8, barW * (hp / maxHp), 3);
+      ctx.fillRect(x - 3, y - 10, barW * (hp / maxHp), 4);
+
+      // Name
+      ctx.font = "900 8px 'JetBrains Mono', monospace";
+      ctx.fillStyle = '#ff4655';
+      ctx.textAlign = 'center';
+      ctx.fillText(name || 'BOT DUELIST', x + w / 2, y - 13);
 
       // Bot Head & Visor
       ctx.fillStyle = '#475569';
-      ctx.fillRect(x + 3, y, 10, 8);
-      ctx.fillStyle = '#ef4444'; // Glowing red sensor
-      ctx.fillRect(x + 5, y + 2, 6, 2);
+      ctx.fillRect(x + 3, y, 12, 8);
+      ctx.fillStyle = '#ef4444';
+      ctx.fillRect(x + 5, y + 2, 8, 2);
 
-      // Bot Torso Armor
+      // Torso
       ctx.fillStyle = '#334155';
-      ctx.fillRect(x + 2, y + 8, 12, 10);
-      ctx.fillStyle = '#00f0ff'; // Core
-      ctx.fillRect(x + 6, y + 11, 4, 4);
+      ctx.fillRect(x + 2, y + 8, 14, 11);
+      ctx.fillStyle = '#ff4655'; // Core
+      ctx.fillRect(x + 7, y + 11, 4, 4);
 
-      // Bot Jetpack & Legs
+      // Legs
       ctx.fillStyle = '#1e293b';
-      ctx.fillRect(x + 3, y + 18, 4, 6);
-      ctx.fillRect(x + 9, y + 18, 4, 6);
+      ctx.fillRect(x + 3, y + 19, 4, 7);
+      ctx.fillRect(x + 11, y + 19, 4, 7);
 
-      // Bot Weapon
+      // Weapon
       ctx.fillStyle = '#0f172a';
-      ctx.fillRect(x - 2, y + 10, 6, 3);
+      ctx.fillRect(x - 3, y + 11, 8, 3);
     }
 
-    // High-Res Pixel Hero Sprite (John Wick, Master Chief, Kratos, Terminator, Neo)
+    // High-Res Hero Sprite
     function drawPixelHero(ctx, x, y, w, h, char, facing) {
       ctx.save();
-      // Head
       ctx.fillStyle = char.skinColor;
       ctx.fillRect(x + 4, y + 2, 8, 7);
 
-      // Hair / Helmet
       ctx.fillStyle = char.hairColor;
       ctx.fillRect(x + 3, y, 10, 4);
       if (char.id === 'john_wick') {
-        // Long hair & beard
         ctx.fillRect(x + 2, y + 2, 2, 6);
         ctx.fillRect(x + 12, y + 2, 2, 6);
         ctx.fillStyle = '#111827';
-        ctx.fillRect(x + 5, y + 7, 6, 2); // Beard
+        ctx.fillRect(x + 5, y + 7, 6, 2);
       } else if (char.id === 'kratos') {
-        // Red war stripe
         ctx.fillStyle = '#ef4444';
         ctx.fillRect(x + 5, y + 1, 2, 8);
         ctx.fillStyle = '#451a03';
-        ctx.fillRect(x + 4, y + 7, 8, 3); // Spartan Beard
+        ctx.fillRect(x + 4, y + 7, 8, 3);
       } else if (char.id === 'master_chief') {
-        // Gold Visor
         ctx.fillStyle = '#eab308';
         ctx.fillRect(x + 5, y + 3, 6, 3);
       } else if (char.id === 'terminator') {
-        // Sunglasses + Red eye
         ctx.fillStyle = '#000000';
         ctx.fillRect(x + 4, y + 3, 8, 3);
         ctx.fillStyle = '#ef4444';
         ctx.fillRect(x + 9, y + 4, 2, 2);
       } else if (char.id === 'neo') {
-        // Matrix Shades
         ctx.fillStyle = '#000000';
         ctx.fillRect(x + 4, y + 3, 8, 2);
       }
 
-      // Torso / Suit
       ctx.fillStyle = char.suitColor;
       ctx.fillRect(x + 3, y + 9, 10, 10);
       
-      // Shirt & Tie / Armor Seams
       ctx.fillStyle = char.shirtColor;
       ctx.fillRect(x + 6, y + 9, 4, 5);
       ctx.fillStyle = char.tieColor;
       ctx.fillRect(x + 7, y + 10, 2, 6);
 
-      // Legs / Pants
       ctx.fillStyle = char.suitColor;
       ctx.fillRect(x + 3, y + 19, 4, 5);
       ctx.fillRect(x + 9, y + 19, 4, 5);
 
-      // Gun in hand
       ctx.fillStyle = '#0f172a';
       if (facing === 1) {
         ctx.fillRect(x + 11, y + 11, 8, 3);
