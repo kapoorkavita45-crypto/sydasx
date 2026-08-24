@@ -3439,1200 +3439,1509 @@
     };
 
     // ═══════════════════════════════════════════════════════════════════════════
-    // VALORANT // PROTOCOL ULTRA-TACTICAL SHOOTER ENGINE v3.0 (PRO GRADE)
-    // Complete tactical HUD, Valorant geometry, Operator scope, agent abilities,
-    // Radianite site, Spike defusal, multi-kill skull banners & sound telemetry.
+    // SYDAS.X PIXEL COMBAT // MINI MILITIA ARCADE SHOOTER (11-TASK PRO GRADE)
+    // Portrait mode, SYDAS.X intro, pixel menu, 5 famous characters (John Wick,
+    // Master Chief, Kratos, Terminator, Neo), 5 pixel weapons, 3 Mini Militia
+    // daylight maps, jetpack nitro, bot AI, stages & save/load system.
     // ═══════════════════════════════════════════════════════════════════════════
-    let fpsState = null;
+    let pixelGameState = null;
 
     function renderFPSGame(container, appName, cat) {
       container.innerHTML = `
-        <div class="valo-fps-wrapper" style="position: relative; width: 100%; user-select: none; -webkit-user-select: none; background: #0b101b; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255, 70, 85, 0.35); box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 15px rgba(255, 70, 85, 0.15); font-family: 'JetBrains Mono', 'Outfit', sans-serif;">
+        <div id="pixel-game-root" style="position: relative; width: 100%; max-width: 340px; margin: 0 auto; user-select: none; -webkit-user-select: none; background: #05070d; border-radius: 14px; overflow: hidden; border: 2px solid #1e293b; box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(0, 240, 255, 0.15); font-family: 'JetBrains Mono', 'Outfit', sans-serif;">
           
-          <!-- TOP VALORANT MATCH BAR (ROUNDS & AGENTS) -->
-          <div style="display: flex; align-items: center; justify-content: space-between; background: linear-gradient(180deg, #101826 0%, #090e17 100%); padding: 4px 8px; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.65rem; color: #fff;">
-            <!-- Attackers (Cyan) -->
-            <div style="display: flex; align-items: center; gap: 4px;">
-              <span style="background: rgba(0, 240, 255, 0.15); border: 1px solid #00f0ff; color: #00f0ff; font-weight: 900; padding: 1px 5px; border-radius: 2px; font-size: 0.6rem; transform: skewX(-8deg);">RADIANT</span>
-              <span id="valo-radiant-score" style="font-weight: 900; font-size: 0.85rem; color: #00f0ff; min-width: 14px; text-align: center;">5</span>
-              <div id="valo-team-agents" style="display: flex; gap: 2px; margin-left: 2px;">
-                <span title="Jett" style="width: 10px; height: 10px; border-radius: 1px; background: #00f0ff; display: inline-block;"></span>
-                <span title="Phoenix" style="width: 10px; height: 10px; border-radius: 1px; background: #00f0ff; display: inline-block;"></span>
-                <span title="Reyna" style="width: 10px; height: 10px; border-radius: 1px; background: #00f0ff; display: inline-block;"></span>
-              </div>
+          <!-- SCREEN 1: INTRO SPLASH CINEMATIC (BLACK SCREEN WITH SYDAS.X TITLE) -->
+          <div id="pg-intro-screen" style="position: absolute; inset: 0; background: #000000; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1.5rem; transition: opacity 0.8s ease;">
+            <span style="font-size: 0.65rem; color: #64748b; letter-spacing: 3px; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; animation: pulse 1.5s infinite;">IN CREATION WITH</span>
+            <div style="font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 900; background: linear-gradient(135deg, #00f0ff 0%, #7000ff 50%, #ff007a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 16px rgba(0, 240, 255, 0.6)); letter-spacing: 2px;">
+              SYDAS<span style="color: #ff007a;">.X</span>
+            </div>
+            <div style="font-size: 0.6rem; color: #00ff88; letter-spacing: 2px; margin-top: 0.6rem; font-weight: 800;">
+              [ PIXEL COMBAT FORGE v4.0 ]
+            </div>
+            <div style="margin-top: 2rem; display: flex; align-items: center; gap: 6px;">
+              <div style="width: 6px; height: 6px; background: #00f0ff; border-radius: 50%; animation: pulse 0.8s infinite;"></div>
+              <span style="font-size: 0.55rem; color: #94a3b8;">LOADING SHADERS & MAPS...</span>
+            </div>
+            <button onclick="window.pgSkipIntro()" style="margin-top: 1.5rem; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #64748b; font-size: 0.55rem; padding: 3px 10px; border-radius: 4px; cursor: pointer;">TAP TO SKIP</button>
+          </div>
+
+          <!-- SCREEN 2: MAIN TITLE MENU (WITH ANIMATED HIGH-RES PIXEL SHOOTING GROUND BG) -->
+          <div id="pg-menu-screen" style="position: absolute; inset: 0; z-index: 50; display: none; flex-direction: column; justify-content: space-between; padding: 12px 16px; background: rgba(5,7,13,0.35); backdrop-filter: blur(2px);">
+            <!-- Menu Header -->
+            <div style="text-align: center; margin-top: 8px;">
+              <div style="font-size: 0.58rem; color: #ffc837; font-weight: 800; letter-spacing: 2px;">★ ARCADE PIXEL MILITIA ★</div>
+              <h2 style="font-size: 1.5rem; font-weight: 900; color: #fff; margin: 2px 0; text-shadow: 2px 2px 0 #000, 0 0 10px #00f0ff; letter-spacing: 1px;">
+                PIXEL <span style="color: #00f0ff;">STRIKE</span>
+              </h2>
+              <span style="font-size: 0.55rem; color: #94a3b8;">PROT: SYDAS.X MINI MILITIA</span>
             </div>
 
-            <!-- Match Clock & Spike Indicator -->
-            <div style="display: flex; flex-direction: column; align-items: center; line-height: 1;">
-              <div id="valo-match-timer" style="font-weight: 900; font-size: 0.8rem; color: #fff; letter-spacing: 0.5px; background: #1a2333; padding: 2px 8px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.15);">0:45</div>
-              <span id="valo-spike-status" style="font-size: 0.52rem; color: #ff4655; font-weight: 800; margin-top: 1px;">SPIKE PLANTED</span>
+            <!-- Menu Navigation Buttons (Pixel Arcade Style) -->
+            <div style="display: flex; flex-direction: column; gap: 6px; max-width: 220px; width: 100%; margin: 0 auto;">
+              <button onclick="window.pgOpenCharSelect()" class="pg-pixel-btn" style="background: linear-gradient(180deg, #00f0ff 0%, #0099b8 100%); color: #05070d; border: 2px solid #fff; box-shadow: 0 4px 0 #005f73; padding: 8px 12px; font-weight: 900; font-size: 0.78rem; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;">
+                ▶ NEW GAME
+              </button>
+              <button onclick="window.pgLoadSavedGame()" class="pg-pixel-btn" style="background: linear-gradient(180deg, #00ff88 0%, #00a855 100%); color: #05070d; border: 2px solid #fff; box-shadow: 0 4px 0 #006633; padding: 7px 12px; font-weight: 900; font-size: 0.72rem; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;">
+                📂 LOAD GAME
+              </button>
+              <button onclick="window.pgSaveCurrentGame()" class="pg-pixel-btn" style="background: linear-gradient(180deg, #ffc837 0%, #d49a17 100%); color: #05070d; border: 2px solid #fff; box-shadow: 0 4px 0 #8c6307; padding: 7px 12px; font-weight: 900; font-size: 0.72rem; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;">
+                💾 SAVE GAME
+              </button>
+              <button onclick="window.pgOpenSettings()" class="pg-pixel-btn" style="background: linear-gradient(180deg, #64748b 0%, #334155 100%); color: #fff; border: 2px solid #94a3b8; box-shadow: 0 4px 0 #1e293b; padding: 6px 12px; font-weight: 800; font-size: 0.68rem; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;">
+                ⚙ SETTINGS
+              </button>
+              <button onclick="window.pgResetAll()" class="pg-pixel-btn" style="background: linear-gradient(180deg, #ef4444 0%, #991b1b 100%); color: #fff; border: 2px solid #fca5a5; box-shadow: 0 4px 0 #581010; padding: 6px 12px; font-weight: 800; font-size: 0.65rem; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;">
+                ✖ RESET / QUIT
+              </button>
             </div>
 
-            <!-- Defenders (Crimson) -->
-            <div style="display: flex; align-items: center; gap: 4px;">
-              <div id="valo-enemy-agents" style="display: flex; gap: 2px; margin-right: 2px;">
-                <span id="enemy-dot-0" style="width: 10px; height: 10px; border-radius: 1px; background: #ff4655; display: inline-block;"></span>
-                <span id="enemy-dot-1" style="width: 10px; height: 10px; border-radius: 1px; background: #ff4655; display: inline-block;"></span>
-                <span id="enemy-dot-2" style="width: 10px; height: 10px; border-radius: 1px; background: #ff4655; display: inline-block;"></span>
-              </div>
-              <span id="valo-omega-score" style="font-weight: 900; font-size: 0.85rem; color: #ff4655; min-width: 14px; text-align: center;">3</span>
-              <span style="background: rgba(255, 70, 85, 0.15); border: 1px solid #ff4655; color: #ff4655; font-weight: 900; padding: 1px 5px; border-radius: 2px; font-size: 0.6rem; transform: skewX(-8deg);">OMEGA</span>
+            <!-- Footer Info -->
+            <div style="display: flex; justify-content: space-between; font-size: 0.55rem; color: #cbd5e1; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);">
+              <span>STAGE: <strong id="menu-stat-stage" style="color:#00ff88;">1-1</strong></span>
+              <span>SCORE: <strong id="menu-stat-score" style="color:#ffc837;">0</strong></span>
+              <span>CHAR: <strong id="menu-stat-char" style="color:#00f0ff;">JOHN WICK</strong></span>
             </div>
           </div>
 
-          <!-- MAIN CANVAS VIEWPORT -->
-          <div style="position: relative; width: 100%; height: 350px; overflow: hidden; background: #060911;">
-            <canvas id="fps-game-canvas" width="320" height="350" style="width: 100%; height: 100%; display: block; cursor: crosshair; touch-action: none;"></canvas>
-            
-            <!-- Kill Feed (Top Right) -->
-            <div id="fps-kill-feed" style="position: absolute; top: 8px; right: 8px; display: flex; flex-direction: column; gap: 3px; pointer-events: none; z-index: 15;"></div>
-            
-            <!-- Floating Damage Text Container -->
-            <div id="fps-damage-numbers" style="position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 14;"></div>
-
-            <!-- Hitmarker Center Popup -->
-            <div id="fps-hit-marker" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; opacity: 0; z-index: 16; font-size: 1.1rem; font-weight: 900; color: #ff4655; text-shadow: 0 0 10px #ff4655; transition: opacity 0.15s;">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff4655" stroke-width="3"><line x1="4" y1="4" x2="9" y2="9"></line><line x1="20" y1="4" x2="15" y2="9"></line><line x1="4" y1="20" x2="9" y2="15"></line><line x1="20" y1="20" x2="15" y2="15"></line></svg>
+          <!-- SCREEN 3: CHARACTER SELECT (5 WORLD FAMOUS CHARACTERS IN HIGH-RES PIXEL ART) -->
+          <div id="pg-char-screen" style="position: absolute; inset: 0; z-index: 55; display: none; flex-direction: column; justify-content: space-between; padding: 10px 14px; background: rgba(11, 16, 27, 0.95); backdrop-filter: blur(4px);">
+            <div style="text-align: center;">
+              <span style="font-size: 0.55rem; color: #00f0ff; font-weight: 800; letter-spacing: 1px;">SELECT YOUR WARRIOR</span>
+              <h3 style="font-size: 1.1rem; font-weight: 900; color: #fff; margin: 0;">FAMOUS HEROES (5)</h3>
             </div>
 
-            <!-- Damage Flash Border Overlay -->
-            <div id="fps-damage-flash" style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 35%, rgba(255, 70, 85, 0.45) 100%); pointer-events: none; opacity: 0; z-index: 12; transition: opacity 0.15s;"></div>
-
-            <!-- Blind Flash Overlay (Curveball) -->
-            <div id="fps-blind-flash" style="position: absolute; inset: 0; background: #ffffff; pointer-events: none; opacity: 0; z-index: 20; transition: opacity 0.3s ease-out;"></div>
-
-            <!-- Operator Sniper Scope HUD Overlay -->
-            <div id="fps-scope-overlay" style="position: absolute; inset: 0; pointer-events: none; opacity: 0; z-index: 18; transition: opacity 0.12s ease; background: radial-gradient(circle at center, transparent 42%, rgba(0,0,0,0.95) 44%, #000 65%); display: flex; align-items: center; justify-content: center;">
-              <div style="position: absolute; width: 100%; height: 1px; background: rgba(255, 70, 85, 0.6); box-shadow: 0 0 6px #ff4655;"></div>
-              <div style="position: absolute; height: 100%; width: 1px; background: rgba(255, 70, 85, 0.6); box-shadow: 0 0 6px #ff4655;"></div>
-              <div style="position: absolute; width: 120px; height: 120px; border: 1px dashed rgba(0, 240, 255, 0.5); border-radius: 50%;"></div>
-              <div style="position: absolute; width: 6px; height: 6px; background: #ff4655; border-radius: 50%; box-shadow: 0 0 8px #ff4655;"></div>
-              <span style="position: absolute; bottom: 35px; color: #00f0ff; font-size: 0.6rem; font-weight: 800; letter-spacing: 2px;">OP // TACTICAL ZOOM 2.5X</span>
+            <!-- Character Carousel / Cards -->
+            <div id="pg-char-cards-container" style="display: flex; flex-direction: column; gap: 5px; overflow-y: auto; max-height: 250px; padding: 4px;">
+              <!-- Character cards generated dynamically -->
             </div>
 
-            <!-- VALORANT MULTI-KILL SKULL BANNER -->
-            <div id="fps-kill-banner" style="position: absolute; bottom: 65px; left: 50%; transform: translateX(-50%) scale(0.6); opacity: 0; pointer-events: none; z-index: 22; display: flex; flex-direction: column; align-items: center; transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <div style="width: 25px; height: 2px; background: linear-gradient(90deg, transparent, #ff4655);"></div>
-                <div style="background: #ff4655; color: #fff; width: 34px; height: 34px; border-radius: 4px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px #ff4655; transform: rotate(45deg);">
-                  <svg style="transform: rotate(-45deg);" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="12" cy="11" r="7"></circle><path d="M12 18v3"></path><path d="M9 18h6"></path><circle cx="9.5" cy="10.5" r="1.5" fill="#fff"></circle><circle cx="14.5" cy="10.5" r="1.5" fill="#fff"></circle></svg>
+            <div style="display: flex; gap: 6px;">
+              <button onclick="window.pgBackToMenu()" style="flex: 1; padding: 6px; background: #1e293b; color: #94a3b8; font-weight: 800; font-size: 0.65rem; border: 1px solid #475569; border-radius: 4px; cursor: pointer;">← MENU</button>
+              <button onclick="window.pgOpenWeaponSelect()" style="flex: 2; padding: 6px; background: #00f0ff; color: #05070d; font-weight: 900; font-size: 0.72rem; border: none; border-radius: 4px; cursor: pointer; box-shadow: 0 0 10px rgba(0,240,255,0.4);">CONFIRM WEAPONS →</button>
+            </div>
+          </div>
+
+          <!-- SCREEN 4: WEAPONS & MAP SELECTION -->
+          <div id="pg-wep-screen" style="position: absolute; inset: 0; z-index: 60; display: none; flex-direction: column; justify-content: space-between; padding: 10px 14px; background: rgba(11, 16, 27, 0.95); backdrop-filter: blur(4px);">
+            <div style="text-align: center;">
+              <span style="font-size: 0.55rem; color: #ffc837; font-weight: 800; letter-spacing: 1px;">ARMORY LOADOUT & DAYLIGHT MAP</span>
+              <h3 style="font-size: 1.1rem; font-weight: 900; color: #fff; margin: 0;">GEAR SELECTION</h3>
+            </div>
+
+            <!-- Weapon Select Group -->
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <span style="font-size: 0.55rem; color: #00f0ff; font-weight: 700;">CHOOSE PRIMARY FIREARM:</span>
+              <div id="pg-wep-options-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px;"></div>
+            </div>
+
+            <!-- Map Select Group (3 Mini Militia Daylight Maps) -->
+            <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 4px;">
+              <span style="font-size: 0.55rem; color: #00ff88; font-weight: 700;">CHOOSE DAYLIGHT MAP:</span>
+              <div id="pg-map-options-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;"></div>
+            </div>
+
+            <div style="display: flex; gap: 6px;">
+              <button onclick="window.pgOpenCharSelect()" style="flex: 1; padding: 6px; background: #1e293b; color: #94a3b8; font-weight: 800; font-size: 0.65rem; border: 1px solid #475569; border-radius: 4px; cursor: pointer;">← HERO</button>
+              <button onclick="window.pgStartGameSession()" style="flex: 2; padding: 8px; background: linear-gradient(135deg, #00ff88, #00b862); color: #05070d; font-weight: 900; font-size: 0.78rem; border: none; border-radius: 4px; cursor: pointer; box-shadow: 0 0 15px rgba(0,255,136,0.5);">DEPLOY BATTLE ⚔️</button>
+            </div>
+          </div>
+
+          <!-- SCREEN 5: SETTINGS MODAL SCREEN -->
+          <div id="pg-settings-screen" style="position: absolute; inset: 0; z-index: 65; display: none; flex-direction: column; justify-content: space-between; padding: 14px; background: rgba(11, 16, 27, 0.95); backdrop-filter: blur(4px);">
+            <div style="text-align: center;">
+              <h3 style="font-size: 1.1rem; font-weight: 900; color: #fff; margin: 0;">GAME SETTINGS</h3>
+              <span style="font-size: 0.55rem; color: #64748b;">SYSTEM // SYDAS.X ENGINE</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; background: #162032; padding: 6px 10px; border-radius: 4px; border: 1px solid #334155;">
+                <span style="font-size: 0.65rem; color: #fff; font-weight: 700;">Sound FX & Chimes</span>
+                <button onclick="window.pgToggleSound(this)" style="background: #00ff88; color: #05070d; font-weight: 900; font-size: 0.6rem; padding: 2px 8px; border-radius: 3px; border: none; cursor: pointer;">ON</button>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; background: #162032; padding: 6px 10px; border-radius: 4px; border: 1px solid #334155;">
+                <span style="font-size: 0.65rem; color: #fff; font-weight: 700;">Pixel Rendering Quality</span>
+                <span style="font-size: 0.65rem; color: #00f0ff; font-weight: 800;">HI-RES 60FPS</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; background: #162032; padding: 6px 10px; border-radius: 4px; border: 1px solid #334155;">
+                <span style="font-size: 0.65rem; color: #fff; font-weight: 700;">Touch Flight Sensitivity</span>
+                <span style="font-size: 0.65rem; color: #ffc837; font-weight: 800;">STANDARD</span>
+              </div>
+            </div>
+            <button onclick="window.pgBackToMenu()" style="width: 100%; padding: 8px; background: #00f0ff; color: #05070d; font-weight: 900; font-size: 0.72rem; border: none; border-radius: 4px; cursor: pointer;">SAVE & RETURN</button>
+          </div>
+
+          <!-- SCREEN 6: STAGE CLEAR / GAME OVER OVERLAY -->
+          <div id="pg-gameover-screen" style="position: absolute; inset: 0; z-index: 70; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 16px; background: rgba(5,7,13,0.92); text-align: center;">
+            <div id="go-title" style="font-size: 1.5rem; font-weight: 900; color: #00ff88; text-shadow: 0 0 15px #00ff88; margin-bottom: 4px;">STAGE CLEAR!</div>
+            <div id="go-subtitle" style="font-size: 0.65rem; color: #cbd5e1; margin-bottom: 1rem;">TARGET BOT OBJECTIVE COMPLETED</div>
+            
+            <div style="background: #101726; border: 1px solid #334155; border-radius: 6px; padding: 8px 16px; width: 85%; margin-bottom: 1.2rem; font-size: 0.65rem; display: flex; flex-direction: column; gap: 4px;">
+              <div style="display: flex; justify-content: space-between;"><span>BOTS ELIMINATED:</span><strong id="go-stat-kills" style="color: #ff4655;">5</strong></div>
+              <div style="display: flex; justify-content: space-between;"><span>STAGE SCORE:</span><strong id="go-stat-score" style="color: #ffc837;">1,500</strong></div>
+              <div style="display: flex; justify-content: space-between;"><span>NEXT STAGE:</span><strong id="go-stat-next" style="color: #00f0ff;">STAGE 2</strong></div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 6px; width: 85%;">
+              <button id="btn-next-stage" onclick="window.pgAdvanceStage()" style="padding: 8px; background: #00ff88; color: #05070d; font-weight: 900; font-size: 0.75rem; border: none; border-radius: 4px; cursor: pointer; box-shadow: 0 0 12px rgba(0,255,136,0.5);">NEXT STAGE ▶</button>
+              <button onclick="window.pgSaveCurrentGame()" style="padding: 6px; background: #ffc837; color: #05070d; font-weight: 900; font-size: 0.68rem; border: none; border-radius: 4px; cursor: pointer;">SAVE PROGRESS 💾</button>
+              <button onclick="window.pgBackToMenu()" style="padding: 6px; background: #1e293b; color: #94a3b8; font-weight: 800; font-size: 0.65rem; border: 1px solid #334155; border-radius: 4px; cursor: pointer;">RETURN TO MENU</button>
+            </div>
+          </div>
+
+          <!-- TOAST NOTIFICATION POPUP -->
+          <div id="pg-toast-banner" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: #00ff88; color: #05070d; font-size: 0.65rem; font-weight: 900; padding: 4px 12px; border-radius: 20px; box-shadow: 0 0 15px rgba(0,255,136,0.6); pointer-events: none; opacity: 0; z-index: 120; transition: opacity 0.3s ease;">
+            GAME SAVED!
+          </div>
+
+          <!-- IN-GAME HUD HEADER (PORTRAIT HUD: HP, JETPACK NITRO, TARGETS, STAGE) -->
+          <div id="pg-ingame-hud" style="position: absolute; top: 0; left: 0; right: 0; padding: 6px 10px; z-index: 20; display: flex; justify-content: space-between; align-items: flex-start; background: linear-gradient(180deg, rgba(5,7,13,0.85) 0%, transparent 100%); pointer-events: none;">
+            <!-- Left: Hero Portrait & Bars -->
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <div id="hud-hero-avatar" style="width: 28px; height: 28px; background: #1e293b; border: 1.5px solid #00f0ff; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 900; color: #00f0ff;">JW</div>
+              <div style="display: flex; flex-direction: column; gap: 2px;">
+                <!-- HP Bar -->
+                <div style="display: flex; align-items: center; gap: 3px;">
+                  <span style="font-size: 0.52rem; color: #ff4655; font-weight: 900;">HP</span>
+                  <div style="width: 65px; height: 5px; background: rgba(0,0,0,0.6); border-radius: 2px; overflow: hidden; border: 1px solid rgba(255,70,85,0.4);">
+                    <div id="hud-hp-bar" style="width: 100%; height: 100%; background: #00ff88; transition: width 0.1s linear;"></div>
+                  </div>
+                  <span id="hud-hp-val" style="font-size: 0.52rem; color: #fff; font-weight: 800;">100</span>
                 </div>
-                <div style="width: 25px; height: 2px; background: linear-gradient(270deg, transparent, #ff4655);"></div>
-              </div>
-              <div id="fps-kill-banner-text" style="color: #ffc837; font-weight: 900; font-size: 0.85rem; letter-spacing: 2px; margin-top: 6px; text-shadow: 0 0 12px rgba(255, 200, 55, 0.8); text-transform: uppercase;">HEADSHOT</div>
-              <div id="fps-kill-banner-sub" style="color: #fff; font-size: 0.58rem; font-weight: 700; letter-spacing: 1px;">ENEMY ELIMINATED</div>
-            </div>
-
-            <!-- SPIKE DEFUSE PROMPT / BUTTON OVERLAY (BOMB SITE) -->
-            <div id="valo-defuse-box" style="position: absolute; bottom: 85px; right: 12px; z-index: 17; display: flex; flex-direction: column; align-items: center; gap: 3px;">
-              <button id="btn-defuse-spike" onclick="window.fpsDefuseSpike()" style="background: linear-gradient(135deg, rgba(255, 70, 85, 0.9), rgba(180, 20, 40, 0.95)); border: 1px solid #ff4655; color: #fff; font-weight: 900; font-size: 0.65rem; padding: 4px 10px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 4px; box-shadow: 0 0 12px rgba(255, 70, 85, 0.5); transform: skewX(-6deg);">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="16" r="1"></circle><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                <span>DEFUSE [4S]</span>
-              </button>
-              <div id="defuse-progress-bar-bg" style="width: 100%; height: 3px; background: rgba(0,0,0,0.6); border-radius: 2px; overflow: hidden; display: none;">
-                <div id="defuse-progress-bar" style="width: 0%; height: 100%; background: #00ff88; transition: width 0.1s linear;"></div>
+                <!-- Jetpack Nitro Boost Bar -->
+                <div style="display: flex; align-items: center; gap: 3px;">
+                  <span style="font-size: 0.52rem; color: #00f0ff; font-weight: 900;">JET</span>
+                  <div style="width: 65px; height: 4px; background: rgba(0,0,0,0.6); border-radius: 2px; overflow: hidden; border: 1px solid rgba(0,240,255,0.4);">
+                    <div id="hud-nitro-bar" style="width: 100%; height: 100%; background: #00f0ff; transition: width 0.05s linear;"></div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- AGENT ABILITIES DOCK (VALORANT KEYS: C, Q, E, X) -->
-            <div style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; z-index: 15; background: rgba(10, 15, 25, 0.85); padding: 3px 6px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(4px);">
-              <!-- C: Smoke -->
-              <button id="btn-ability-c" onclick="window.fpsCastSmoke()" title="[C] Cloudburst Smoke" style="background: rgba(30, 41, 59, 0.8); border: 1px solid #00f0ff; color: #00f0ff; border-radius: 4px; padding: 2px 5px; font-size: 0.58rem; font-weight: 800; cursor: pointer; display: flex; flex-direction: column; align-items: center;">
-                <span>[C]</span>
-                <span style="font-size: 0.5rem; opacity: 0.85;">SMOKE</span>
-              </button>
-              <!-- Q: Flash -->
-              <button id="btn-ability-q" onclick="window.fpsCastFlash()" title="[Q] Curveball Flash" style="background: rgba(30, 41, 59, 0.8); border: 1px solid #ffc837; color: #ffc837; border-radius: 4px; padding: 2px 5px; font-size: 0.58rem; font-weight: 800; cursor: pointer; display: flex; flex-direction: column; align-items: center;">
-                <span>[Q]</span>
-                <span style="font-size: 0.5rem; opacity: 0.85;">FLASH</span>
-              </button>
-              <!-- E: Dash -->
-              <button id="btn-ability-e" onclick="window.fpsCastDash()" title="[E] Tailwind Dash" style="background: rgba(30, 41, 59, 0.8); border: 1px solid #00ff88; color: #00ff88; border-radius: 4px; padding: 2px 5px; font-size: 0.58rem; font-weight: 800; cursor: pointer; display: flex; flex-direction: column; align-items: center;">
-                <span>[E]</span>
-                <span style="font-size: 0.5rem; opacity: 0.85;">DASH</span>
-              </button>
-              <!-- X: Ultimate -->
-              <button id="btn-ability-x" onclick="window.fpsCastUlt()" title="[X] Blade Storm Ultimate" style="background: linear-gradient(135deg, rgba(255, 70, 85, 0.3), rgba(255, 200, 55, 0.3)); border: 1px solid #ff4655; color: #ff4655; border-radius: 4px; padding: 2px 6px; font-size: 0.58rem; font-weight: 900; cursor: pointer; display: flex; flex-direction: column; align-items: center; box-shadow: 0 0 8px rgba(255,70,85,0.4);">
-                <span id="ult-key-text">[X] READY</span>
-                <span style="font-size: 0.5rem; color: #ffc837;">BLADES</span>
-              </button>
+            <!-- Center: Stage & Target Counter (Mini Militia Bot Target) -->
+            <div style="display: flex; flex-direction: column; align-items: center; background: rgba(11, 16, 27, 0.8); border: 1px solid rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 4px;">
+              <span id="hud-stage-name" style="font-size: 0.52rem; color: #ffc837; font-weight: 900; letter-spacing: 0.5px;">STAGE 1 &bull; OUTPOST</span>
+              <span id="hud-target-text" style="font-size: 0.65rem; color: #fff; font-weight: 900;">BOTS: <span id="hud-target-kills" style="color: #00ff88;">0</span> / <span id="hud-target-max">5</span></span>
             </div>
 
-            <!-- Bottom Left Angular HP / Shield Block -->
-            <div style="position: absolute; bottom: 8px; left: 8px; z-index: 15; display: flex; flex-direction: column; gap: 2px;">
-              <!-- Shield -->
-              <div style="display: flex; align-items: center; gap: 4px; background: rgba(5, 10, 20, 0.8); padding: 1px 6px; border-left: 3px solid #00f0ff; border-radius: 0 3px 3px 0; font-size: 0.62rem; color: #00f0ff; font-weight: 800;">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                <span id="valo-shield-num">50</span>
-              </div>
-              <!-- HP -->
-              <div style="display: flex; align-items: center; gap: 4px; background: rgba(5, 10, 20, 0.85); padding: 2px 6px; border-left: 3px solid #00ff88; border-radius: 0 3px 3px 0; font-size: 0.82rem; color: #fff; font-weight: 900;">
-                <span style="font-size: 0.6rem; color: #00ff88;">HP</span>
-                <span id="valo-hp-num">100</span>
+            <!-- Right: Weapon Ammo & Grenade -->
+            <div style="display: flex; flex-direction: column; align-items: flex-end;">
+              <span id="hud-weapon-name" style="font-size: 0.55rem; color: #00f0ff; font-weight: 800;">M4A1 RIFLE</span>
+              <div style="display: flex; align-items: baseline; gap: 2px;">
+                <span id="hud-ammo-cur" style="font-size: 0.95rem; font-weight: 900; color: #fff; line-height: 1;">30</span>
+                <span style="font-size: 0.55rem; color: #64748b;">/ ∞</span>
               </div>
             </div>
-
-            <!-- Bottom Right Angular Ammo Block -->
-            <div style="position: absolute; bottom: 8px; right: 8px; z-index: 15; text-align: right; background: rgba(5, 10, 20, 0.85); padding: 2px 8px; border-right: 3px solid #ff4655; border-radius: 3px 0 0 3px;">
-              <div id="valo-weapon-name" style="font-size: 0.58rem; color: #ff4655; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;">VANDAL</div>
-              <div style="display: flex; align-items: baseline; justify-content: flex-end; gap: 3px;">
-                <span id="valo-ammo-cur" style="font-size: 1.1rem; font-weight: 900; color: #fff; line-height: 1;">25</span>
-                <span id="valo-ammo-max" style="font-size: 0.65rem; color: #64748b; font-weight: 700;">/ 75</span>
-              </div>
-            </div>
-
           </div>
 
-          <!-- TACTICAL CONTROL BAR (VALORANT ARMORY & COMMANDS) -->
-          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 6px; background: #0e1422; border-top: 1px solid rgba(255,255,255,0.08);">
-            <button id="fps-btn-weapon" onclick="window.fpsSwitchWeapon()" style="padding: 6px 2px; background: #162032; color: #00f0ff; font-weight: 800; font-size: 0.62rem; border: 1px solid rgba(0,240,255,0.4); border-radius: 4px; cursor: pointer; text-transform: uppercase;">
-              🔫 VANDAL
+          <!-- MAIN PIXEL CANVAS (320x460 HIGH-RES PIXEL ART VIEWPORT) -->
+          <div style="position: relative; width: 100%; height: 440px; background: #87CEEB; overflow: hidden;">
+            <canvas id="pixel-game-canvas" width="320" height="440" style="width: 100%; height: 100%; display: block; image-rendering: pixelated; cursor: crosshair; touch-action: none;"></canvas>
+            
+            <!-- Damage Numbers Layer -->
+            <div id="pixel-damage-layer" style="position: absolute; inset: 0; pointer-events: none; z-index: 18;"></div>
+            
+            <!-- Frag Grenade Blast Flare -->
+            <div id="pixel-blast-flare" style="position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(255,200,50,0.5), transparent 70%); pointer-events: none; opacity: 0; z-index: 15; transition: opacity 0.1s ease;"></div>
+          </div>
+
+          <!-- IN-GAME TOUCH CONTROLS (PORTRAIT DUAL STICK & ACTION BUTTONS) -->
+          <div id="pg-touch-bar" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap: 4px; padding: 6px; background: #0c121e; border-top: 1px solid rgba(255,255,255,0.08); z-index: 25;">
+            <button id="btn-touch-left" onmousedown="window.pgTouchMove(-1, true)" onmouseup="window.pgTouchMove(0, false)" ontouchstart="window.pgTouchMove(-1, true)" ontouchend="window.pgTouchMove(0, false)" style="padding: 8px 4px; background: #162032; color: #cbd5e1; font-weight: 900; font-size: 0.75rem; border: 1px solid #334155; border-radius: 6px; cursor: pointer;">
+              ◀ LEFT
             </button>
-            <button id="fps-btn-scope" onclick="window.fpsToggleScope()" style="padding: 6px 2px; background: #162032; color: #ffc837; font-weight: 800; font-size: 0.62rem; border: 1px solid rgba(255,200,55,0.4); border-radius: 4px; cursor: pointer; text-transform: uppercase;">
-              🎯 SCOPE
+            <button id="btn-touch-right" onmousedown="window.pgTouchMove(1, true)" onmouseup="window.pgTouchMove(0, false)" ontouchstart="window.pgTouchMove(1, true)" ontouchend="window.pgTouchMove(0, false)" style="padding: 8px 4px; background: #162032; color: #cbd5e1; font-weight: 900; font-size: 0.75rem; border: 1px solid #334155; border-radius: 6px; cursor: pointer;">
+              RIGHT ▶
             </button>
-            <button id="fps-btn-reload" onclick="window.fpsReload()" style="padding: 6px 2px; background: #162032; color: #00ff88; font-weight: 800; font-size: 0.62rem; border: 1px solid rgba(0,255,136,0.4); border-radius: 4px; cursor: pointer; text-transform: uppercase;">
-              🔄 RELOAD [R]
+            <button id="btn-touch-fly" onmousedown="window.pgTouchFly(true)" onmouseup="window.pgTouchFly(false)" ontouchstart="window.pgTouchFly(true)" ontouchend="window.pgTouchFly(false)" style="padding: 8px 4px; background: linear-gradient(180deg, #00f0ff, #0099b8); color: #05070d; font-weight: 900; font-size: 0.75rem; border: none; border-radius: 6px; cursor: pointer; box-shadow: 0 0 8px rgba(0,240,255,0.4);">
+              🚀 FLY
             </button>
-            <button onclick="window.fpsBuyArmory()" style="padding: 6px 2px; background: linear-gradient(135deg, #1b263b, #111a2b); color: #ff4655; font-weight: 900; font-size: 0.62rem; border: 1px solid #ff4655; border-radius: 4px; cursor: pointer; text-transform: uppercase;">
-              🛡️ ARMOR +50
+            <button onclick="window.pgThrowGrenade()" style="padding: 8px 4px; background: linear-gradient(180deg, #ffc837, #d49a17); color: #05070d; font-weight: 900; font-size: 0.72rem; border: none; border-radius: 6px; cursor: pointer;">
+              💣 NADE
+            </button>
+            <button onclick="window.pgReloadWeapon()" style="padding: 8px 4px; background: linear-gradient(180deg, #ff4655, #b91c1c); color: #fff; font-weight: 900; font-size: 0.72rem; border: none; border-radius: 6px; cursor: pointer;">
+              🔄 RLD
             </button>
           </div>
 
-          <!-- FOOTER META TELEMETRY -->
-          <div style="display: flex; justify-content: space-between; padding: 4px 8px; background: #080c14; font-size: 0.58rem; color: #64748b; border-top: 1px solid rgba(255,255,255,0.04);">
-            <span>AIM: Cursor / Touch &bull; FIRE: Tap &bull; KEYS: C, Q, E, X, R</span>
-            <span style="color: #00ff88;">VALORANT ENGINE v3.0 &bull; 60 FPS</span>
+          <!-- KEYBOARD TIPS FOOTER -->
+          <div style="display: flex; justify-content: space-between; padding: 4px 8px; background: #060911; font-size: 0.52rem; color: #64748b;">
+            <span>A/D: Move &bull; W/Space: Jetpack &bull; Click: Fire &bull; G: Grenade</span>
+            <span style="color: #00ff88;">SYDAS.X PIXEL ENGINE</span>
           </div>
 
         </div>
       `;
 
-      initFPSEngine();
+      initPixelArcadeEngine();
     }
 
-    function initFPSEngine() {
-      const canvas = document.getElementById('fps-game-canvas');
+    function initPixelArcadeEngine() {
+      const canvas = document.getElementById('pixel-game-canvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       const W = canvas.width;
       const H = canvas.height;
 
-      fpsState = {
-        // Player stats
-        hp: 100, maxHp: 100, shield: 50, maxShield: 100,
-        credits: 4500,
-        // Weapons Arsenal
-        weapons: [
-          { name: 'VANDAL', ammo: 25, maxAmmo: 25, reserve: 75, damage: 40, hsDamage: 160, fireRate: 110, recoil: 4, spread: 2, color: '#ff4655', sound: 'heavy' },
-          { name: 'OPERATOR', ammo: 5, maxAmmo: 5, reserve: 15, damage: 150, hsDamage: 255, fireRate: 850, recoil: 12, spread: 0.2, color: '#00f0ff', sound: 'sniper', hasScope: true },
-          { name: 'PHANTOM', ammo: 30, maxAmmo: 30, reserve: 90, damage: 35, hsDamage: 140, fireRate: 90, recoil: 2.2, spread: 1.5, color: '#00ff88', sound: 'silenced' },
-          { name: 'SHERIFF', ammo: 6, maxAmmo: 6, reserve: 24, damage: 55, hsDamage: 145, fireRate: 300, recoil: 6, spread: 1.2, color: '#ffc837', sound: 'pistol' },
-          { name: 'BLADE DAGGERS', ammo: 5, maxAmmo: 5, reserve: 999, damage: 75, hsDamage: 180, fireRate: 150, recoil: 0, spread: 0, color: '#00f0ff', sound: 'knife' }
-        ],
-        currentWeapon: 0,
-        scoped: false,
-        
-        // Match Scores & Rounds
-        radiantScore: 5,
-        omegaScore: 3,
-        kills: 0,
-        deaths: 0,
-        headshots: 0,
-        matchTimer: 45,
-        matchTimerTicks: 0,
-        spikePlanted: true,
-        spikeTimer: 45,
-        spikeDefusing: false,
-        spikeDefuseProgress: 0,
-        multiKillStreak: 0,
-        lastKillTime: 0,
-        
-        // Abilities
-        abilities: {
-          smokeCharges: 2,
-          flashCharges: 2,
-          dashCooldown: 0,
-          ultPoints: 7,
-          ultMax: 7,
-          ultActive: false
+      // 5 FAMOUS CHARACTERS SPECIFICATIONS
+      const FAMOUS_CHARACTERS = [
+        {
+          id: 'john_wick',
+          name: 'JOHN WICK',
+          tag: 'The Baba Yaga',
+          avatarText: 'JW',
+          perk: '+20% Reload Speed & Precision',
+          suitColor: '#111827',
+          shirtColor: '#ffffff',
+          tieColor: '#000000',
+          hairColor: '#1f2937',
+          skinColor: '#e0a899',
+          hpMultiplier: 1.0,
+          speed: 2.2,
+          bulletDmgBoost: 1.2
         },
-        smokes: [], // Active smoke spheres on map
-        flashes: [], // Active flash bursts
-        dashTrail: 0,
+        {
+          id: 'master_chief',
+          name: 'MASTER CHIEF',
+          tag: 'Spartan-117 (Halo)',
+          avatarText: 'MC',
+          perk: '+50 Shield Armor Energy',
+          suitColor: '#15803d',
+          shirtColor: '#14532d',
+          tieColor: '#eab308', // Visor
+          hairColor: '#14532d',
+          skinColor: '#eab308',
+          hpMultiplier: 1.3,
+          speed: 2.0,
+          bulletDmgBoost: 1.15
+        },
+        {
+          id: 'kratos',
+          name: 'KRATOS',
+          tag: 'Ghost of Sparta',
+          avatarText: 'KR',
+          perk: 'Spartan Rage (+30% Damage)',
+          suitColor: '#78350f',
+          shirtColor: '#f1f5f9', // Ash white skin
+          tieColor: '#ef4444', // Red war tattoo
+          hairColor: '#451a03',
+          skinColor: '#f8fafc',
+          hpMultiplier: 1.25,
+          speed: 2.1,
+          bulletDmgBoost: 1.35
+        },
+        {
+          id: 'terminator',
+          name: 'TERMINATOR',
+          tag: 'Cyberdyne T-800',
+          avatarText: 'T8',
+          perk: 'Titanium Endoskeleton (+40 HP)',
+          suitColor: '#0f172a',
+          shirtColor: '#475569',
+          tieColor: '#ef4444', // Red eye glow
+          hairColor: '#334155',
+          skinColor: '#94a3b8',
+          hpMultiplier: 1.4,
+          speed: 1.9,
+          bulletDmgBoost: 1.2
+        },
+        {
+          id: 'neo',
+          name: 'NEO (THE ONE)',
+          tag: 'The Matrix',
+          avatarText: 'NE',
+          perk: 'Bullet Time (+30% Jetpack Nitro)',
+          suitColor: '#030712',
+          shirtColor: '#030712',
+          tieColor: '#00f0ff',
+          hairColor: '#111827',
+          skinColor: '#e0a899',
+          hpMultiplier: 1.05,
+          speed: 2.4,
+          bulletDmgBoost: 1.25
+        }
+      ];
+
+      // 5 WEAPON ARSENAL SPECIFICATIONS
+      const WEAPON_TYPES = [
+        { name: 'M4A1 RIFLE', ammo: 30, maxAmmo: 30, dmg: 22, rate: 100, spread: 0.08, speed: 8, color: '#ffc837', burst: 1 },
+        { name: 'BARRETT SNIPER', ammo: 5, maxAmmo: 5, dmg: 95, rate: 650, spread: 0.01, speed: 14, color: '#00f0ff', burst: 1 },
+        { name: 'SAWED SHOTGUN', ammo: 6, maxAmmo: 6, dmg: 16, rate: 450, spread: 0.25, speed: 7, color: '#ff4655', burst: 5 },
+        { name: 'RPG ROCKET', ammo: 3, maxAmmo: 3, dmg: 120, rate: 800, spread: 0.02, speed: 5, color: '#00ff88', isExplosive: true, burst: 1 },
+        { name: 'DUAL UZI', ammo: 40, maxAmmo: 40, dmg: 15, rate: 70, spread: 0.15, speed: 7.5, color: '#ff007a', burst: 1 }
+      ];
+
+      // 3 MINI MILITIA DAYLIGHT MAPS
+      const DAYLIGHT_MAPS = [
+        {
+          id: 'outpost',
+          name: 'OUTPOST',
+          sub: 'Daylight Desert Canyon',
+          skyTop: '#38bdf8',
+          skyBottom: '#bae6fd',
+          sunColor: '#fef08a',
+          groundColor: '#d97706',
+          grassColor: '#b45309',
+          platforms: [
+            { x: 0, y: 390, w: 320, h: 50 }, // Base ground
+            { x: 30, y: 300, w: 90, h: 14 },
+            { x: 200, y: 300, w: 90, h: 14 },
+            { x: 110, y: 210, w: 100, h: 14 },
+            { x: 20, y: 130, w: 80, h: 14 },
+            { x: 220, y: 130, w: 80, h: 14 }
+          ]
+        },
+        {
+          id: 'catacon',
+          name: 'CATACON',
+          sub: 'Daylight Jungle Ruins',
+          skyTop: '#0284c7',
+          skyBottom: '#7dd3fc',
+          sunColor: '#fffbeb',
+          groundColor: '#15803d',
+          grassColor: '#4ade80',
+          platforms: [
+            { x: 0, y: 390, w: 320, h: 50 },
+            { x: 40, y: 320, w: 80, h: 14 },
+            { x: 195, y: 320, w: 85, h: 14 },
+            { x: 100, y: 235, w: 120, h: 14 },
+            { x: 15, y: 150, w: 90, h: 14 },
+            { x: 215, y: 150, w: 90, h: 14 }
+          ]
+        },
+        {
+          id: 'suspension',
+          name: 'SUSPENSION',
+          sub: 'Daylight Sky Bridges',
+          skyTop: '#0369a1',
+          skyBottom: '#e0f2fe',
+          sunColor: '#fde047',
+          groundColor: '#475569',
+          grassColor: '#94a3b8',
+          platforms: [
+            { x: 0, y: 390, w: 320, h: 50 },
+            { x: 20, y: 310, w: 100, h: 12 },
+            { x: 200, y: 310, w: 100, h: 12 },
+            { x: 90, y: 220, w: 140, h: 12 },
+            { x: 30, y: 135, w: 85, h: 12 },
+            { x: 205, y: 135, w: 85, h: 12 }
+          ]
+        }
+      ];
+
+      // GLOBAL ENGINE STATE
+      pixelGameState = {
+        screen: 'intro', // 'intro', 'menu', 'char', 'wep', 'game', 'settings', 'gameover'
+        soundEnabled: true,
         
-        // Aim coordinates & Camera Bob
-        aimX: W / 2,
-        aimY: H / 2,
-        camBob: 0,
-        recoilOffset: 0,
+        // Progression & Save Data
+        stageIndex: 1,
+        score: 0,
+        highScore: 0,
+        totalKills: 0,
+        credits: 1000,
         
-        // Enemies (Omega Team Bots)
-        enemies: [],
-        maxEnemies: 3,
-        spawnTimer: 0,
-        spawnInterval: 80,
+        // Selections
+        selectedCharIndex: 0,
+        selectedWeaponIndex: 0,
+        selectedMapIndex: 0,
         
-        // Visual effects
+        // Player In-Game Entity
+        player: {
+          x: 160,
+          y: 350,
+          vx: 0,
+          vy: 0,
+          w: 16,
+          h: 24,
+          hp: 100,
+          maxHp: 100,
+          nitro: 100,
+          maxNitro: 100,
+          isFlying: false,
+          isGrounded: true,
+          facing: 1, // 1: right, -1: left
+          grenades: 3,
+          reloading: false,
+          reloadTimer: 0,
+          invulnerableTimer: 0
+        },
+        
+        // Touch Input
+        touchMoveDir: 0,
+        touchFlyHeld: false,
+        aimX: 160,
+        aimY: 100,
+        
+        // Entities & Objects
+        bots: [],
+        botSpawnTimer: 0,
+        bullets: [],
+        grenadesList: [],
         particles: [],
-        damageNumbers: [],
-        killFeed: [],
-        muzzleFlash: 0,
-        hitMarkerTimer: 0,
-        
-        // Loop State
-        reloading: false,
-        reloadTimer: 0,
-        reloadDuration: 55,
-        gameOver: false,
-        roundWon: false,
-        frameCount: 0,
-        
-        // 3D Scene Geometry (Haven/Ascent Radianite site)
-        crates: [
-          { x: 30, y: 220, w: 55, h: 48, color: '#162235', trim: '#00ff88', glow: true },
-          { x: 235, y: 215, w: 60, h: 52, color: '#162235', trim: '#00ff88', glow: true },
-          { x: 130, y: 175, w: 60, h: 32, color: '#0f172a', trim: '#00f0ff', glow: false }
+        clouds: [
+          { x: 20, y: 40, speed: 0.25, size: 28 },
+          { x: 140, y: 70, speed: 0.18, size: 34 },
+          { x: 250, y: 30, speed: 0.3, size: 24 }
         ],
-        spikePos: { x: W / 2, y: 225 }
+        
+        // Target Counters for Stage
+        stageTargetKills: 5,
+        stageCurrentKills: 0,
+        
+        // Timers & Controls
+        lastFireTime: 0,
+        frameCount: 0
       };
 
-      // Spawn initial enemies
-      spawnFPSEnemy();
-      spawnFPSEnemy();
-      spawnFPSEnemy();
+      // Populate Character UI Cards
+      const charContainer = document.getElementById('pg-char-cards-container');
+      if (charContainer) {
+        charContainer.innerHTML = FAMOUS_CHARACTERS.map((c, idx) => `
+          <div id="char-card-${idx}" onclick="window.pgSelectChar(${idx})" style="display: flex; align-items: center; justify-content: space-between; background: ${idx === 0 ? 'rgba(0, 240, 255, 0.15)' : '#162032'}; border: 1.5px solid ${idx === 0 ? '#00f0ff' : '#334155'}; border-radius: 6px; padding: 6px 10px; cursor: pointer; transition: all 0.2s ease;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 26px; height: 26px; background: ${c.suitColor}; border: 1px solid #fff; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 900; color: ${c.tieColor};">${c.avatarText}</div>
+              <div>
+                <div style="font-size: 0.72rem; font-weight: 900; color: #fff;">${c.name}</div>
+                <div style="font-size: 0.55rem; color: #00f0ff;">${c.tag}</div>
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-size: 0.52rem; color: #00ff88; font-weight: 800;">${c.perk}</div>
+              <span id="char-badge-${idx}" style="font-size: 0.52rem; background: ${idx === 0 ? '#00f0ff' : 'transparent'}; color: ${idx === 0 ? '#05070d' : '#64748b'}; font-weight: 900; padding: 1px 5px; border-radius: 3px;">${idx === 0 ? 'ACTIVE' : 'SELECT'}</span>
+            </div>
+          </div>
+        `).join('');
+      }
 
-      // Keyboard Controls (C, Q, E, X, R, 1, 2, 3)
+      // Populate Weapon Options
+      const wepContainer = document.getElementById('pg-wep-options-grid');
+      if (wepContainer) {
+        wepContainer.innerHTML = WEAPON_TYPES.map((w, idx) => `
+          <div id="wep-card-${idx}" onclick="window.pgSelectWeapon(${idx})" style="background: ${idx === 0 ? 'rgba(0, 240, 255, 0.15)' : '#162032'}; border: 1.5px solid ${idx === 0 ? '#00f0ff' : '#334155'}; border-radius: 6px; padding: 6px; cursor: pointer; text-align: center;">
+            <div style="font-size: 0.65rem; font-weight: 900; color: #fff;">${w.name}</div>
+            <div style="font-size: 0.52rem; color: #00ff88;">DMG: ${w.dmg} &bull; MAG: ${w.ammo}</div>
+          </div>
+        `).join('');
+      }
+
+      // Populate Map Options (Daylight Maps)
+      const mapContainer = document.getElementById('pg-map-options-grid');
+      if (mapContainer) {
+        mapContainer.innerHTML = DAYLIGHT_MAPS.map((m, idx) => `
+          <div id="map-card-${idx}" onclick="window.pgSelectMap(${idx})" style="background: ${idx === 0 ? 'rgba(0, 255, 136, 0.15)' : '#162032'}; border: 1.5px solid ${idx === 0 ? '#00ff88' : '#334155'}; border-radius: 6px; padding: 5px; cursor: pointer; text-align: center;">
+            <div style="font-size: 0.62rem; font-weight: 900; color: #fff;">${m.name}</div>
+            <div style="font-size: 0.48rem; color: #94a3b8;">${m.sub}</div>
+          </div>
+        `).join('');
+      }
+
+      // Automatically transition from Black Screen Intro to Main Menu after 2.2s
+      setTimeout(() => {
+        window.pgSkipIntro();
+      }, 2200);
+
+      // Keyboard Controls (WASD / Arrows / Space / G / R)
       const handleKeyDown = (e) => {
-        if (!document.getElementById('fps-game-canvas')) {
+        if (!document.getElementById('pixel-game-canvas')) {
           window.removeEventListener('keydown', handleKeyDown);
           return;
         }
         const key = e.key.toLowerCase();
-        if (key === 'r') window.fpsReload();
-        else if (key === 'c') window.fpsCastSmoke();
-        else if (key === 'q') window.fpsCastFlash();
-        else if (key === 'e') window.fpsCastDash();
-        else if (key === 'x') window.fpsCastUlt();
-        else if (key === '1') { fpsState.currentWeapon = 0; updateFPSWeaponHUD(); }
-        else if (key === '2') { fpsState.currentWeapon = 1; updateFPSWeaponHUD(); }
-        else if (key === '3') { fpsState.currentWeapon = 2; updateFPSWeaponHUD(); }
+        if (key === 'a' || key === 'arrowleft') pixelGameState.player.vx = -pixelGameState.player.speed;
+        if (key === 'd' || key === 'arrowright') pixelGameState.player.vx = pixelGameState.player.speed;
+        if (key === 'w' || key === 'arrowup' || key === ' ') pixelGameState.player.isFlying = true;
+        if (key === 'r') window.pgReloadWeapon();
+        if (key === 'g') window.pgThrowGrenade();
+      };
+      const handleKeyUp = (e) => {
+        const key = e.key.toLowerCase();
+        if ((key === 'a' || key === 'arrowleft') && pixelGameState.player.vx < 0) pixelGameState.player.vx = 0;
+        if ((key === 'd' || key === 'arrowright') && pixelGameState.player.vx > 0) pixelGameState.player.vx = 0;
+        if (key === 'w' || key === 'arrowup' || key === ' ') pixelGameState.player.isFlying = false;
       };
       window.addEventListener('keydown', handleKeyDown);
+      window.addEventListener('keyup', handleKeyUp);
 
-      // Aim Tracking
+      // Canvas Aim & Shoot Controls
       canvas.addEventListener('mousemove', (e) => {
         const rect = canvas.getBoundingClientRect();
-        fpsState.aimX = (e.clientX - rect.left) * (W / rect.width);
-        fpsState.aimY = (e.clientY - rect.top) * (H / rect.height);
+        pixelGameState.aimX = (e.clientX - rect.left) * (W / rect.width);
+        pixelGameState.aimY = (e.clientY - rect.top) * (H / rect.height);
+      });
+      canvas.addEventListener('mousedown', (e) => {
+        if (pixelGameState.screen === 'game') {
+          pgShootWeapon();
+        }
       });
       canvas.addEventListener('touchmove', (e) => {
         e.preventDefault();
         const rect = canvas.getBoundingClientRect();
         const touch = e.touches[0];
-        fpsState.aimX = (touch.clientX - rect.left) * (W / rect.width);
-        fpsState.aimY = (touch.clientY - rect.top) * (H / rect.height);
+        pixelGameState.aimX = (touch.clientX - rect.left) * (W / rect.width);
+        pixelGameState.aimY = (touch.clientY - rect.top) * (H / rect.height);
       }, { passive: false });
-
-      // Fire Controls
-      canvas.addEventListener('mousedown', (e) => {
-        if (e.button === 2) {
-          e.preventDefault();
-          window.fpsToggleScope();
-        } else {
-          fpsFireWeapon();
-        }
-      });
-      canvas.addEventListener('contextmenu', (e) => e.preventDefault());
-
       canvas.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        const rect = canvas.getBoundingClientRect();
-        const touch = e.touches[0];
-        fpsState.aimX = (touch.clientX - rect.left) * (W / rect.width);
-        fpsState.aimY = (touch.clientY - rect.top) * (H / rect.height);
-        fpsFireWeapon();
+        if (pixelGameState.screen === 'game') {
+          e.preventDefault();
+          const rect = canvas.getBoundingClientRect();
+          const touch = e.touches[0];
+          pixelGameState.aimX = (touch.clientX - rect.left) * (W / rect.width);
+          pixelGameState.aimY = (touch.clientY - rect.top) * (H / rect.height);
+          pgShootWeapon();
+        }
       }, { passive: false });
 
-      // Game Loop
-      function fpsLoop() {
-        if (!document.getElementById('fps-game-canvas')) return;
-        fpsState.frameCount++;
-        updateFPS();
-        drawFPS(ctx, W, H);
-        requestAnimationFrame(fpsLoop);
+      // MAIN ANIMATION LOOP (PIXEL ART RENDERER)
+      function pixelGameLoop() {
+        if (!document.getElementById('pixel-game-canvas')) return;
+        pixelGameState.frameCount++;
+        
+        // Update
+        if (pixelGameState.screen === 'game' || pixelGameState.screen === 'menu') {
+          updatePixelGame(W, H);
+        }
+        // Draw High-Res Pixel Art
+        drawPixelGame(ctx, W, H);
+
+        requestAnimationFrame(pixelGameLoop);
       }
-      fpsLoop();
+      pixelGameLoop();
     }
 
-    function spawnFPSEnemy() {
-      if (!fpsState || fpsState.enemies.length >= fpsState.maxEnemies) return;
-      const W = 320;
-      const agentNames = ['REYNA', 'PHOENIX', 'JETT', 'OMEN', 'SOVA', 'SAGE', 'CYPHER', 'VIPER'];
-      const name = agentNames[Math.floor(Math.random() * agentNames.length)];
-      
-      const spawnZones = [
-        { x: 35 + Math.random() * 40, y: 155, coverX: 55 },
-        { x: 135 + Math.random() * 50, y: 145, coverX: 160 },
-        { x: 235 + Math.random() * 50, y: 150, coverX: 255 }
-      ];
-      const zone = spawnZones[Math.floor(Math.random() * spawnZones.length)];
-      
-      fpsState.enemies.push({
-        id: Math.random().toString(36).substring(2, 7),
-        name,
-        x: zone.x,
-        y: zone.y,
-        originX: zone.x,
-        targetX: zone.x + (Math.random() - 0.5) * 40,
-        hp: 100,
-        maxHp: 100,
-        scale: 0.9 + Math.random() * 0.15,
-        alive: true,
-        strafing: true,
-        strafeSpeed: 0.45 + Math.random() * 0.4,
-        strafeDir: Math.random() > 0.5 ? 1 : -1,
-        strafeTimer: 0,
-        crouched: false,
-        flashedTimer: 0,
-        shootTimer: 0,
-        shootCooldown: 90 + Math.floor(Math.random() * 70),
-        shooting: false
-      });
-      updateEnemyTeamDots();
-    }
+    // ═══ SCREEN NAVIGATION & SELECTION HANDLERS ═══
+    window.pgSkipIntro = function() {
+      const intro = document.getElementById('pg-intro-screen');
+      const menu = document.getElementById('pg-menu-screen');
+      if (intro) intro.style.display = 'none';
+      if (menu) menu.style.display = 'flex';
+      if (pixelGameState) {
+        pixelGameState.screen = 'menu';
+        // Spawn ambient bots for background shooting range animation
+        spawnAmbientRangeBots();
+      }
+      window.playMatrixChime();
+    };
 
-    function updateEnemyTeamDots() {
-      if (!fpsState) return;
-      for (let i = 0; i < 3; i++) {
-        const dot = document.getElementById(`enemy-dot-${i}`);
-        if (dot) {
-          const e = fpsState.enemies[i];
-          dot.style.background = (e && e.alive) ? '#ff4655' : '#334155';
-          dot.style.boxShadow = (e && e.alive) ? '0 0 6px #ff4655' : 'none';
+    window.pgBackToMenu = function() {
+      document.getElementById('pg-char-screen').style.display = 'none';
+      document.getElementById('pg-wep-screen').style.display = 'none';
+      document.getElementById('pg-settings-screen').style.display = 'none';
+      document.getElementById('pg-gameover-screen').style.display = 'none';
+      document.getElementById('pg-menu-screen').style.display = 'flex';
+      if (pixelGameState) pixelGameState.screen = 'menu';
+      window.playMatrixChime();
+    };
+
+    window.pgOpenCharSelect = function() {
+      document.getElementById('pg-menu-screen').style.display = 'none';
+      document.getElementById('pg-char-screen').style.display = 'flex';
+      if (pixelGameState) pixelGameState.screen = 'char';
+      window.playMatrixChime();
+    };
+
+    window.pgSelectChar = function(idx) {
+      if (!pixelGameState) return;
+      pixelGameState.selectedCharIndex = idx;
+      for (let i = 0; i < 5; i++) {
+        const card = document.getElementById(`char-card-${i}`);
+        const badge = document.getElementById(`char-badge-${i}`);
+        if (card && badge) {
+          if (i === idx) {
+            card.style.background = 'rgba(0, 240, 255, 0.15)';
+            card.style.borderColor = '#00f0ff';
+            badge.style.background = '#00f0ff';
+            badge.style.color = '#05070d';
+            badge.textContent = 'ACTIVE';
+          } else {
+            card.style.background = '#162032';
+            card.style.borderColor = '#334155';
+            badge.style.background = 'transparent';
+            badge.style.color = '#64748b';
+            badge.textContent = 'SELECT';
+          }
         }
       }
+      window.playMatrixChime();
+    };
+
+    window.pgOpenWeaponSelect = function() {
+      document.getElementById('pg-char-screen').style.display = 'none';
+      document.getElementById('pg-wep-screen').style.display = 'flex';
+      if (pixelGameState) pixelGameState.screen = 'wep';
+      window.playMatrixChime();
+    };
+
+    window.pgSelectWeapon = function(idx) {
+      if (!pixelGameState) return;
+      pixelGameState.selectedWeaponIndex = idx;
+      for (let i = 0; i < 5; i++) {
+        const card = document.getElementById(`wep-card-${i}`);
+        if (card) {
+          card.style.background = i === idx ? 'rgba(0, 240, 255, 0.15)' : '#162032';
+          card.style.borderColor = i === idx ? '#00f0ff' : '#334155';
+        }
+      }
+      window.playMatrixChime();
+    };
+
+    window.pgSelectMap = function(idx) {
+      if (!pixelGameState) return;
+      pixelGameState.selectedMapIndex = idx;
+      for (let i = 0; i < 3; i++) {
+        const card = document.getElementById(`map-card-${i}`);
+        if (card) {
+          card.style.background = i === idx ? 'rgba(0, 255, 136, 0.15)' : '#162032';
+          card.style.borderColor = i === idx ? '#00ff88' : '#334155';
+        }
+      }
+      window.playMatrixChime();
+    };
+
+    window.pgOpenSettings = function() {
+      document.getElementById('pg-menu-screen').style.display = 'none';
+      document.getElementById('pg-settings-screen').style.display = 'flex';
+      if (pixelGameState) pixelGameState.screen = 'settings';
+      window.playMatrixChime();
+    };
+
+    window.pgToggleSound = function(btn) {
+      if (!pixelGameState) return;
+      pixelGameState.soundEnabled = !pixelGameState.soundEnabled;
+      btn.textContent = pixelGameState.soundEnabled ? 'ON' : 'OFF';
+      btn.style.background = pixelGameState.soundEnabled ? '#00ff88' : '#64748b';
+      window.playMatrixChime();
+    };
+
+    // ═══ SAVE & LOAD SYSTEM (LOCALSTORAGE PERSISTENCE) ═══
+    window.pgSaveCurrentGame = function() {
+      if (!pixelGameState) return;
+      const saveData = {
+        stageIndex: pixelGameState.stageIndex,
+        score: pixelGameState.score,
+        highScore: Math.max(pixelGameState.highScore, pixelGameState.score),
+        totalKills: pixelGameState.totalKills,
+        credits: pixelGameState.credits,
+        selectedCharIndex: pixelGameState.selectedCharIndex,
+        selectedWeaponIndex: pixelGameState.selectedWeaponIndex,
+        selectedMapIndex: pixelGameState.selectedMapIndex,
+        savedAt: new Date().toISOString()
+      };
+      try {
+        localStorage.setItem('SYDASX_PIXEL_COMBAT_SAVE', JSON.stringify(saveData));
+        showToast('PROGRESS SAVED (STAGE ' + pixelGameState.stageIndex + ') 💾');
+      } catch (e) {
+        showToast('PROGRESS SAVED TO MEMORY 💾');
+      }
+      window.playMatrixChime();
+    };
+
+    window.pgLoadSavedGame = function() {
+      try {
+        const raw = localStorage.getItem('SYDASX_PIXEL_COMBAT_SAVE');
+        if (raw) {
+          const data = JSON.parse(raw);
+          pixelGameState.stageIndex = data.stageIndex || 1;
+          pixelGameState.score = data.score || 0;
+          pixelGameState.highScore = data.highScore || 0;
+          pixelGameState.totalKills = data.totalKills || 0;
+          pixelGameState.credits = data.credits || 1000;
+          pixelGameState.selectedCharIndex = data.selectedCharIndex || 0;
+          pixelGameState.selectedWeaponIndex = data.selectedWeaponIndex || 0;
+          pixelGameState.selectedMapIndex = data.selectedMapIndex || 0;
+
+          // Update menu stats
+          const stEl = document.getElementById('menu-stat-stage');
+          const scEl = document.getElementById('menu-stat-score');
+          if (stEl) stEl.textContent = `${pixelGameState.stageIndex}-1`;
+          if (scEl) scEl.textContent = pixelGameState.score;
+          
+          showToast('SAVE LOADED: STAGE ' + pixelGameState.stageIndex + ' 📂');
+          window.pgStartGameSession();
+          return;
+        }
+      } catch (e) {}
+      showToast('NO SAVE FILE FOUND! STARTING STAGE 1');
+      window.pgOpenCharSelect();
+    };
+
+    window.pgResetAll = function() {
+      try {
+        localStorage.removeItem('SYDASX_PIXEL_COMBAT_SAVE');
+      } catch (e) {}
+      if (pixelGameState) {
+        pixelGameState.stageIndex = 1;
+        pixelGameState.score = 0;
+        pixelGameState.totalKills = 0;
+        pixelGameState.selectedCharIndex = 0;
+        pixelGameState.selectedWeaponIndex = 0;
+        pixelGameState.selectedMapIndex = 0;
+      }
+      showToast('GAME RESET TO STAGE 1');
+      window.pgBackToMenu();
+    };
+
+    function showToast(msg) {
+      const toast = document.getElementById('pg-toast-banner');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.style.opacity = '1';
+      setTimeout(() => { if (toast) toast.style.opacity = '0'; }, 2000);
     }
 
-    function fpsFireWeapon() {
-      if (!fpsState || fpsState.gameOver || fpsState.reloading) return;
-      const weapon = fpsState.weapons[fpsState.currentWeapon];
+    // ═══ START GAME SESSION (DEPLOY INTO BATTLE) ═══
+    window.pgStartGameSession = function() {
+      document.getElementById('pg-wep-screen').style.display = 'none';
+      document.getElementById('pg-menu-screen').style.display = 'none';
+      document.getElementById('pg-gameover-screen').style.display = 'none';
       
-      if (weapon.ammo <= 0) {
-        window.fpsReload();
-        return;
+      const char = getSelectedChar();
+      const wep = getSelectedWeapon();
+      const map = getSelectedMap();
+
+      pixelGameState.screen = 'game';
+      pixelGameState.player.x = 160;
+      pixelGameState.player.y = 350;
+      pixelGameState.player.vx = 0;
+      pixelGameState.player.vy = 0;
+      pixelGameState.player.hp = 100 * char.hpMultiplier;
+      pixelGameState.player.maxHp = 100 * char.hpMultiplier;
+      pixelGameState.player.nitro = 100;
+      pixelGameState.player.speed = char.speed;
+      pixelGameState.player.grenades = 3;
+      pixelGameState.bullets = [];
+      pixelGameState.grenadesList = [];
+      pixelGameState.particles = [];
+      
+      // Stage Objectives (Task 10)
+      pixelGameState.stageTargetKills = 4 + pixelGameState.stageIndex * 2;
+      pixelGameState.stageCurrentKills = 0;
+
+      // Update HUD Elements
+      const hAvatar = document.getElementById('hud-hero-avatar');
+      const hName = document.getElementById('hud-weapon-name');
+      const hAmmo = document.getElementById('hud-ammo-cur');
+      const hStage = document.getElementById('hud-stage-name');
+      const hKills = document.getElementById('hud-target-kills');
+      const hMax = document.getElementById('hud-target-max');
+
+      if (hAvatar) hAvatar.textContent = char.avatarText;
+      if (hName) hName.textContent = wep.name;
+      if (hAmmo) hAmmo.textContent = wep.ammo;
+      if (hStage) hStage.textContent = `STAGE ${pixelGameState.stageIndex} &bull; ${map.name}`;
+      if (hKills) hKills.textContent = '0';
+      if (hMax) hMax.textContent = pixelGameState.stageTargetKills;
+
+      // Spawn initial combat bots
+      pixelGameState.bots = [];
+      for (let i = 0; i < Math.min(3, pixelGameState.stageTargetKills); i++) {
+        spawnCombatBot();
       }
 
-      const now = fpsState.frameCount;
-      const rateFrames = Math.floor(weapon.fireRate / 16.67);
-      if (fpsState.lastFireTime && now - fpsState.lastFireTime < rateFrames) return;
-
-      fpsState.lastFireTime = now;
-      weapon.ammo--;
-      updateFPSWeaponHUD();
-
-      fpsState.muzzleFlash = 7;
-      fpsState.recoilOffset = weapon.recoil;
       window.playMatrixChime();
+    };
 
-      // Spread calculation (Operator has perfect accuracy in scope)
-      const currentSpread = (weapon.hasScope && fpsState.scoped) ? 0.1 : weapon.spread;
-      const spreadX = (Math.random() - 0.5) * currentSpread * 4;
-      const spreadY = (Math.random() - 0.5) * currentSpread * 4;
-      const shotX = fpsState.aimX + spreadX;
-      const shotY = fpsState.aimY + spreadY - (fpsState.recoilOffset * 0.4);
+    window.pgAdvanceStage = function() {
+      if (!pixelGameState) return;
+      pixelGameState.stageIndex++;
+      pixelGameState.selectedMapIndex = (pixelGameState.selectedMapIndex + 1) % 3;
+      window.pgSaveCurrentGame();
+      window.pgStartGameSession();
+    };
 
-      // Bullet Tracer Particles
-      for (let i = 0; i < 4; i++) {
-        fpsState.particles.push({
-          x: 160 + (Math.random() - 0.5) * 10,
-          y: 330,
-          vx: (shotX - 160) / 8 + (Math.random() - 0.5) * 2,
-          vy: (shotY - 330) / 8 + (Math.random() - 0.5) * 2,
-          life: 8, maxLife: 8,
-          color: weapon.color, size: 2.5
+    function getSelectedChar() {
+      const chars = [
+        { id: 'jw', name: 'JOHN WICK', avatarText: 'JW', suitColor: '#111827', shirtColor: '#ffffff', tieColor: '#000000', hpMultiplier: 1.0, speed: 2.2, dmgBoost: 1.2 },
+        { id: 'mc', name: 'MASTER CHIEF', avatarText: 'MC', suitColor: '#15803d', shirtColor: '#14532d', tieColor: '#eab308', hpMultiplier: 1.3, speed: 2.0, dmgBoost: 1.15 },
+        { id: 'kr', name: 'KRATOS', avatarText: 'KR', suitColor: '#78350f', shirtColor: '#f1f5f9', tieColor: '#ef4444', hpMultiplier: 1.25, speed: 2.1, dmgBoost: 1.35 },
+        { id: 't8', name: 'TERMINATOR', avatarText: 'T8', suitColor: '#0f172a', shirtColor: '#475569', tieColor: '#ef4444', hpMultiplier: 1.4, speed: 1.9, dmgBoost: 1.2 },
+        { id: 'ne', name: 'NEO', avatarText: 'NE', suitColor: '#030712', shirtColor: '#030712', tieColor: '#00f0ff', hpMultiplier: 1.05, speed: 2.4, dmgBoost: 1.25 }
+      ];
+      return chars[pixelGameState.selectedCharIndex || 0] || chars[0];
+    }
+
+    function getSelectedWeapon() {
+      const weps = [
+        { name: 'M4A1 RIFLE', ammo: 30, maxAmmo: 30, dmg: 24, rate: 110, spread: 0.08, speed: 8, color: '#ffc837', burst: 1 },
+        { name: 'BARRETT SNIPER', ammo: 5, maxAmmo: 5, dmg: 95, rate: 650, spread: 0.01, speed: 14, color: '#00f0ff', burst: 1 },
+        { name: 'SAWED SHOTGUN', ammo: 6, maxAmmo: 6, dmg: 16, rate: 450, spread: 0.25, speed: 7, color: '#ff4655', burst: 5 },
+        { name: 'RPG ROCKET', ammo: 3, maxAmmo: 3, dmg: 120, rate: 800, spread: 0.02, speed: 5, color: '#00ff88', isExplosive: true, burst: 1 },
+        { name: 'DUAL UZI', ammo: 40, maxAmmo: 40, dmg: 15, rate: 70, spread: 0.15, speed: 7.5, color: '#ff007a', burst: 1 }
+      ];
+      return weps[pixelGameState.selectedWeaponIndex || 0] || weps[0];
+    }
+
+    function getSelectedMap() {
+      const maps = [
+        {
+          id: 'outpost', name: 'OUTPOST', sub: 'Desert Canyon',
+          skyTop: '#38bdf8', skyBottom: '#bae6fd', groundColor: '#d97706', grassColor: '#b45309',
+          platforms: [{ x: 0, y: 390, w: 320, h: 50 }, { x: 30, y: 300, w: 90, h: 14 }, { x: 200, y: 300, w: 90, h: 14 }, { x: 110, y: 210, w: 100, h: 14 }, { x: 20, y: 130, w: 80, h: 14 }, { x: 220, y: 130, w: 80, h: 14 }]
+        },
+        {
+          id: 'catacon', name: 'CATACON', sub: 'Jungle Ruins',
+          skyTop: '#0284c7', skyBottom: '#7dd3fc', groundColor: '#15803d', grassColor: '#4ade80',
+          platforms: [{ x: 0, y: 390, w: 320, h: 50 }, { x: 40, y: 320, w: 80, h: 14 }, { x: 195, y: 320, w: 85, h: 14 }, { x: 100, y: 235, w: 120, h: 14 }, { x: 15, y: 150, w: 90, h: 14 }, { x: 215, y: 150, w: 90, h: 14 }]
+        },
+        {
+          id: 'suspension', name: 'SUSPENSION', sub: 'Sky Bridges',
+          skyTop: '#0369a1', skyBottom: '#e0f2fe', groundColor: '#475569', grassColor: '#94a3b8',
+          platforms: [{ x: 0, y: 390, w: 320, h: 50 }, { x: 20, y: 310, w: 100, h: 12 }, { x: 200, y: 310, w: 100, h: 12 }, { x: 90, y: 220, w: 140, h: 12 }, { x: 30, y: 135, w: 85, h: 12 }, { x: 205, y: 135, w: 85, h: 12 }]
+        }
+      ];
+      return maps[pixelGameState.selectedMapIndex || 0] || maps[0];
+    }
+
+    // ═══ TOUCH CONTROLS DISPATCHERS ═══
+    window.pgTouchMove = function(dir, isHeld) {
+      if (!pixelGameState) return;
+      const char = getSelectedChar();
+      pixelGameState.player.vx = isHeld ? (dir * char.speed) : 0;
+    };
+
+    window.pgTouchFly = function(isHeld) {
+      if (!pixelGameState) return;
+      pixelGameState.player.isFlying = isHeld;
+    };
+
+    window.pgReloadWeapon = function() {
+      if (!pixelGameState || pixelGameState.player.reloading) return;
+      const wep = getSelectedWeapon();
+      pixelGameState.player.reloading = true;
+      pixelGameState.player.reloadTimer = 45;
+      const ammoEl = document.getElementById('hud-ammo-cur');
+      if (ammoEl) ammoEl.textContent = '...';
+      window.playMatrixChime();
+    };
+
+    window.pgThrowGrenade = function() {
+      if (!pixelGameState || pixelGameState.player.grenades <= 0 || pixelGameState.screen !== 'game') return;
+      pixelGameState.player.grenades--;
+      const p = pixelGameState.player;
+      const angle = Math.atan2(pixelGameState.aimY - p.y, pixelGameState.aimX - p.x);
+      
+      pixelGameState.grenadesList.push({
+        x: p.x + 8,
+        y: p.y,
+        vx: Math.cos(angle) * 6,
+        vy: Math.sin(angle) * 6 - 2,
+        timer: 70
+      });
+      window.playMatrixChime();
+    };
+
+    function pgShootWeapon() {
+      if (!pixelGameState || pixelGameState.player.reloading || pixelGameState.screen !== 'game') return;
+      const wep = getSelectedWeapon();
+      const char = getSelectedChar();
+      const now = pixelGameState.frameCount;
+
+      if (now - pixelGameState.lastFireTime < Math.floor(wep.rate / 16.67)) return;
+      pixelGameState.lastFireTime = now;
+
+      const p = pixelGameState.player;
+      const baseAngle = Math.atan2(pixelGameState.aimY - (p.y + 10), pixelGameState.aimX - (p.x + 8));
+
+      // Fire bullets based on weapon burst (e.g. shotgun fires 5 pellets)
+      for (let b = 0; b < wep.burst; b++) {
+        const spread = (Math.random() - 0.5) * wep.spread * 2;
+        const angle = baseAngle + spread;
+        pixelGameState.bullets.push({
+          x: p.x + 8,
+          y: p.y + 10,
+          vx: Math.cos(angle) * wep.speed,
+          vy: Math.sin(angle) * wep.speed,
+          dmg: wep.dmg * char.dmgBoost,
+          color: wep.color,
+          isExplosive: wep.isExplosive || false,
+          isPlayer: true,
+          life: 60
         });
       }
 
-      // Check hits on active enemy agents
-      let hitAgent = false;
-      for (let i = fpsState.enemies.length - 1; i >= 0; i--) {
-        const e = fpsState.enemies[i];
-        if (!e.alive) continue;
-
-        const bodyW = 20 * e.scale;
-        const bodyH = (e.crouched ? 28 : 40) * e.scale;
-        const headR = 7 * e.scale;
-        const headCY = e.y - bodyH - headR + 2;
-
-        // 1. HEADSHOT HITBOX CHECK
-        const distHead = Math.hypot(shotX - e.x, shotY - headCY);
-        if (distHead <= headR + 3) {
-          const dmg = weapon.hsDamage;
-          e.hp -= dmg;
-          hitAgent = true;
-          fpsState.hitMarkerTimer = 14;
-          triggerValorantHitmarker(true);
-          spawnDamageNumber(e.x, headCY - 10, `-${dmg} HEADSHOT`, '#ffc837', true);
-          spawnHitSparks(e.x, headCY, '#ffc837', 15);
-
-          if (e.hp <= 0) {
-            handleEnemyElimination(e, i, true);
-          }
-          break;
-        }
-
-        // 2. BODY HITBOX CHECK
-        if (shotX >= e.x - bodyW / 2 && shotX <= e.x + bodyW / 2 && shotY >= e.y - bodyH && shotY <= e.y) {
-          const dmg = weapon.damage;
-          e.hp -= dmg;
-          hitAgent = true;
-          fpsState.hitMarkerTimer = 9;
-          triggerValorantHitmarker(false);
-          spawnDamageNumber(shotX, shotY, `-${dmg}`, '#ffffff', false);
-          spawnHitSparks(shotX, shotY, weapon.color, 8);
-
-          if (e.hp <= 0) {
-            handleEnemyElimination(e, i, false);
-          }
-          break;
-        }
+      // Muzzle spark particles
+      for (let i = 0; i < 3; i++) {
+        pixelGameState.particles.push({
+          x: p.x + 8,
+          y: p.y + 10,
+          vx: Math.cos(baseAngle) * 3 + (Math.random() - 0.5) * 2,
+          vy: Math.sin(baseAngle) * 3 + (Math.random() - 0.5) * 2,
+          color: '#ffc837',
+          size: 2,
+          life: 8, maxLife: 8
+        });
       }
+
+      window.playMatrixChime();
     }
 
-    function handleEnemyElimination(enemy, index, isHeadshot) {
-      enemy.alive = false;
-      fpsState.kills++;
-      if (isHeadshot) fpsState.headshots++;
+    function spawnCombatBot() {
+      if (!pixelGameState) return;
+      const map = getSelectedMap();
+      const spawnPlat = map.platforms[1 + Math.floor(Math.random() * (map.platforms.length - 1))];
       
-      const now = fpsState.frameCount;
-      if (now - fpsState.lastKillTime < 300) {
-        fpsState.multiKillStreak++;
+      pixelGameState.bots.push({
+        id: Math.random().toString(36).substring(2, 6),
+        x: spawnPlat.x + Math.random() * (spawnPlat.w - 16),
+        y: spawnPlat.y - 24,
+        vx: (Math.random() > 0.5 ? 1 : -1) * (0.8 + Math.random() * 0.6),
+        vy: 0,
+        w: 16,
+        h: 24,
+        hp: 45 + pixelGameState.stageIndex * 15,
+        maxHp: 45 + pixelGameState.stageIndex * 15,
+        shootCooldown: 70 + Math.floor(Math.random() * 60),
+        shootTimer: 0,
+        isFlying: Math.random() > 0.5,
+        flyTimer: 0,
+        facing: 1
+      });
+    }
+
+    function spawnAmbientRangeBots() {
+      if (!pixelGameState) return;
+      pixelGameState.bots = [
+        { x: 50, y: 280, vx: 0.6, vy: 0, w: 16, h: 24, hp: 100, maxHp: 100, isFlying: false, shootTimer: 0, shootCooldown: 999 },
+        { x: 220, y: 190, vx: -0.6, vy: 0, w: 16, h: 24, hp: 100, maxHp: 100, isFlying: true, shootTimer: 0, shootCooldown: 999 }
+      ];
+    }
+
+    // ═══ GAME PHYSICS & AI UPDATE LOOP ═══
+    function updatePixelGame(W, H) {
+      if (!pixelGameState) return;
+      const p = pixelGameState.player;
+      const map = getSelectedMap();
+
+      // 1. Player Jetpack Flight & Physics
+      if (p.isFlying && p.nitro > 0) {
+        p.vy = -3.2;
+        p.nitro = Math.max(0, p.nitro - 0.75);
+        // Jetpack particle flames
+        if (pixelGameState.frameCount % 2 === 0) {
+          pixelGameState.particles.push({
+            x: p.x + (p.facing === 1 ? 2 : 14),
+            y: p.y + 20,
+            vx: (Math.random() - 0.5) * 1.5,
+            vy: 2 + Math.random() * 2,
+            color: Math.random() > 0.5 ? '#00f0ff' : '#ffc837',
+            size: 3,
+            life: 10, maxLife: 10
+          });
+        }
       } else {
-        fpsState.multiKillStreak = 1;
-      }
-      fpsState.lastKillTime = now;
-
-      // Add to kill feed
-      const weapon = fpsState.weapons[fpsState.currentWeapon];
-      addValorantKillFeed(enemy.name, weapon.name, isHeadshot);
-
-      // Trigger Valorant Multi-Kill Skull Banner
-      showValorantKillBanner(isHeadshot, fpsState.multiKillStreak);
-
-      // Particles & Blood/Spark burst
-      spawnHitSparks(enemy.x, enemy.y - 20, '#ff4655', 25);
-      updateEnemyTeamDots();
-
-      // Check if team wiped
-      const aliveCount = fpsState.enemies.filter(e => e.alive).length;
-      if (aliveCount === 0) {
-        fpsState.radiantScore++;
-        const radEl = document.getElementById('valo-radiant-score');
-        if (radEl) radEl.textContent = fpsState.radiantScore;
-        
-        setTimeout(() => {
-          if (!fpsState) return;
-          fpsState.enemies = [];
-          for (let i = 0; i < 3; i++) spawnFPSEnemy();
-          fpsState.weapons.forEach(w => w.ammo = w.maxAmmo);
-          updateFPSWeaponHUD();
-          window.playMatrixChime();
-        }, 1200);
-      }
-    }
-
-    function triggerValorantHitmarker(isHeadshot) {
-      const marker = document.getElementById('fps-hit-marker');
-      if (!marker) return;
-      marker.style.stroke = isHeadshot ? '#ffc837' : '#ff4655';
-      marker.style.opacity = '1';
-      marker.style.transform = isHeadshot ? 'translate(-50%, -50%) scale(1.3)' : 'translate(-50%, -50%) scale(1)';
-      setTimeout(() => { if (marker) marker.style.opacity = '0'; }, 180);
-    }
-
-    function showValorantKillBanner(isHeadshot, streak) {
-      const banner = document.getElementById('fps-kill-banner');
-      const mainText = document.getElementById('fps-kill-banner-text');
-      const subText = document.getElementById('fps-kill-banner-sub');
-      if (!banner || !mainText || !subText) return;
-
-      const titles = ['ELIMINATED', 'DOUBLE KILL', 'TRIPLE KILL', 'QUADRA KILL', 'ACE // CLUTCH'];
-      const title = streak > 1 ? (titles[Math.min(streak - 1, 4)]) : (isHeadshot ? 'HEADSHOT' : 'ELIMINATED');
-      
-      mainText.textContent = title;
-      mainText.style.color = streak >= 3 ? '#ff4655' : (isHeadshot ? '#ffc837' : '#00f0ff');
-      subText.textContent = isHeadshot ? 'CRITICAL HEADSHOT KILL' : `TACTICAL STREAK x${streak}`;
-
-      banner.style.opacity = '1';
-      banner.style.transform = 'translateX(-50%) scale(1)';
-      
-      setTimeout(() => {
-        if (banner) {
-          banner.style.opacity = '0';
-          banner.style.transform = 'translateX(-50%) scale(0.6)';
+        // Gravity
+        p.vy = Math.min(6, p.vy + 0.28);
+        if (p.isGrounded) {
+          p.nitro = Math.min(100, p.nitro + 0.45); // Recharge nitro on ground
         }
-      }, 1500);
+      }
+
+      // Update position
+      p.x += p.vx;
+      p.y += p.vy;
+
+      // Map bounds
+      if (p.x < 5) p.x = 5;
+      if (p.x > W - p.w - 5) p.x = W - p.w - 5;
+
+      // Platform collisions
+      p.isGrounded = false;
+      map.platforms.forEach(plat => {
+        if (p.x + p.w > plat.x && p.x < plat.x + plat.w) {
+          if (p.y + p.h >= plat.y && p.y + p.h <= plat.y + 12 && p.vy >= 0) {
+            p.y = plat.y - p.h;
+            p.vy = 0;
+            p.isGrounded = true;
+          }
+        }
+      });
+
+      // Player facing direction based on aim
+      p.facing = pixelGameState.aimX >= p.x + p.w / 2 ? 1 : -1;
+
+      // Reload timer
+      if (p.reloading) {
+        p.reloadTimer--;
+        if (p.reloadTimer <= 0) {
+          p.reloading = false;
+          const wep = getSelectedWeapon();
+          const ammoEl = document.getElementById('hud-ammo-cur');
+          if (ammoEl) ammoEl.textContent = wep.ammo;
+        }
+      }
+
+      // Update HUD Bars
+      const hpBar = document.getElementById('hud-hp-bar');
+      const hpVal = document.getElementById('hud-hp-val');
+      const nitroBar = document.getElementById('hud-nitro-bar');
+      if (hpBar) hpBar.style.width = `${Math.max(0, (p.hp / p.maxHp) * 100)}%`;
+      if (hpVal) hpVal.textContent = Math.max(0, Math.floor(p.hp));
+      if (nitroBar) nitroBar.style.width = `${p.nitro}%`;
+
+      // 2. Grenades Physics & Detonation
+      for (let i = pixelGameState.grenadesList.length - 1; i >= 0; i--) {
+        const g = pixelGameState.grenadesList[i];
+        g.x += g.vx;
+        g.y += g.vy;
+        g.vy += 0.25; // gravity
+        g.vx *= 0.98; // air drag
+        
+        // Bounce on platforms
+        map.platforms.forEach(plat => {
+          if (g.x > plat.x && g.x < plat.x + plat.w && g.y >= plat.y && g.y <= plat.y + 10) {
+            g.y = plat.y - 2;
+            g.vy = -g.vy * 0.6;
+          }
+        });
+
+        g.timer--;
+        if (g.timer <= 0) {
+          // Detonate Frag Grenade
+          detonateFragGrenade(g.x, g.y);
+          pixelGameState.grenadesList.splice(i, 1);
+        }
+      }
+
+      // 3. Bullets Physics & Collisions
+      for (let i = pixelGameState.bullets.length - 1; i >= 0; i--) {
+        const b = pixelGameState.bullets[i];
+        b.x += b.vx;
+        b.y += b.vy;
+        b.life--;
+
+        // Player bullet hits enemy bot
+        if (b.isPlayer) {
+          for (let j = pixelGameState.bots.length - 1; j >= 0; j--) {
+            const bot = pixelGameState.bots[j];
+            if (b.x > bot.x && b.x < bot.x + bot.w && b.y > bot.y && b.y < bot.y + bot.h) {
+              bot.hp -= b.dmg;
+              spawnDamagePopup(b.x, b.y, `-${Math.floor(b.dmg)}`, '#ffc837');
+              spawnSparks(b.x, b.y, b.color, 6);
+              b.life = 0;
+
+              if (bot.hp <= 0) {
+                // Eliminate Bot
+                handleBotEliminated(bot, j);
+              }
+              break;
+            }
+          }
+        } else {
+          // Enemy bot bullet hits player
+          if (b.x > p.x && b.x < p.x + p.w && b.y > p.y && b.y < p.y + p.h) {
+            p.hp -= b.dmg;
+            spawnDamagePopup(b.x, b.y, `-${Math.floor(b.dmg)}`, '#ff4655');
+            spawnSparks(b.x, b.y, '#ff4655', 6);
+            b.life = 0;
+
+            if (p.hp <= 0) {
+              triggerGameOver(false);
+            }
+          }
+        }
+
+        if (b.life <= 0 || b.x < 0 || b.x > W || b.y < 0 || b.y > H) {
+          pixelGameState.bullets.splice(i, 1);
+        }
+      }
+
+      // 4. Combat Bots AI (Mini Militia Jetpack & Ground Patrols)
+      for (let i = pixelGameState.bots.length - 1; i >= 0; i--) {
+        const bot = pixelGameState.bots[i];
+
+        // Jetpack / Flying Toggle
+        bot.flyTimer++;
+        if (bot.flyTimer > 80 + Math.random() * 60) {
+          bot.flyTimer = 0;
+          bot.isFlying = !bot.isFlying;
+        }
+
+        if (bot.isFlying) {
+          bot.vy = Math.sin(pixelGameState.frameCount * 0.05) * 1.8;
+          if (pixelGameState.frameCount % 4 === 0) {
+            pixelGameState.particles.push({
+              x: bot.x + 8, y: bot.y + 20, vx: (Math.random() - 0.5), vy: 2, color: '#00f0ff', size: 2, life: 8, maxLife: 8
+            });
+          }
+        } else {
+          bot.vy = Math.min(5, bot.vy + 0.25);
+        }
+
+        bot.x += bot.vx;
+        bot.y += bot.vy;
+
+        // Platform collisions
+        map.platforms.forEach(plat => {
+          if (bot.x + bot.w > plat.x && bot.x < plat.x + plat.w) {
+            if (bot.y + bot.h >= plat.y && bot.y + bot.h <= plat.y + 10 && bot.vy >= 0) {
+              bot.y = plat.y - bot.h;
+              bot.vy = 0;
+            }
+          }
+        });
+
+        // Patrol boundaries
+        if (bot.x < 20 || bot.x > W - 35) bot.vx *= -1;
+
+        // Shoot at player
+        if (pixelGameState.screen === 'game') {
+          bot.shootTimer++;
+          if (bot.shootTimer >= bot.shootCooldown) {
+            bot.shootTimer = 0;
+            const bAngle = Math.atan2(p.y - bot.y, p.x - bot.x);
+            pixelGameState.bullets.push({
+              x: bot.x + 8,
+              y: bot.y + 10,
+              vx: Math.cos(bAngle) * 5.5,
+              vy: Math.sin(bAngle) * 5.5,
+              dmg: 12 + pixelGameState.stageIndex * 2,
+              color: '#ff4655',
+              isPlayer: false,
+              life: 55
+            });
+          }
+        }
+      }
+
+      // Respawn Bots if below stage quota
+      if (pixelGameState.screen === 'game') {
+        const remainingToSpawn = pixelGameState.stageTargetKills - (pixelGameState.stageCurrentKills + pixelGameState.bots.length);
+        if (remainingToSpawn > 0 && pixelGameState.bots.length < 3) {
+          pixelGameState.botSpawnTimer++;
+          if (pixelGameState.botSpawnTimer > 90) {
+            pixelGameState.botSpawnTimer = 0;
+            spawnCombatBot();
+          }
+        }
+      }
+
+      // 5. Particles Update
+      for (let i = pixelGameState.particles.length - 1; i >= 0; i--) {
+        const pt = pixelGameState.particles[i];
+        pt.x += pt.vx;
+        pt.y += pt.vy;
+        pt.life--;
+        if (pt.life <= 0) pixelGameState.particles.splice(i, 1);
+      }
+
+      // 6. Daylight Clouds Parallax
+      pixelGameState.clouds.forEach(c => {
+        c.x += c.speed;
+        if (c.x > W + 40) c.x = -50;
+      });
     }
 
-    function addValorantKillFeed(enemyName, weaponName, isHeadshot) {
-      const feed = document.getElementById('fps-kill-feed');
-      if (!feed) return;
-      const item = document.createElement('div');
-      item.style.cssText = "background: rgba(11, 16, 27, 0.9); border: 1px solid rgba(255,70,85,0.4); border-left: 3px solid #00f0ff; border-radius: 3px; padding: 2px 6px; font-size: 0.55rem; font-weight: 800; display: flex; align-items: center; gap: 4px; color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.5); animation: fadeIn 0.2s ease;";
-      item.innerHTML = `
-        <span style="color: #00f0ff;">YOU</span>
-        <span style="color: #64748b; font-size: 0.5rem;">[${weaponName}]</span>
-        ${isHeadshot ? '<span style="color:#ffc837;">🎯</span>' : '<span style="color:#ff4655;">💀</span>'}
-        <span style="color: #ff4655;">${enemyName}</span>
-      `;
-      feed.prepend(item);
-      if (feed.children.length > 4) feed.removeChild(feed.lastChild);
-      setTimeout(() => { if (item.parentNode) item.parentNode.removeChild(item); }, 4000);
+    function handleBotEliminated(bot, index) {
+      pixelGameState.bots.splice(index, 1);
+      pixelGameState.totalKills++;
+      pixelGameState.stageCurrentKills++;
+      pixelGameState.score += 250;
+
+      // Update HUD Counter
+      const killEl = document.getElementById('hud-target-kills');
+      if (killEl) killEl.textContent = pixelGameState.stageCurrentKills;
+
+      // Big explosion spark burst
+      spawnSparks(bot.x + 8, bot.y + 12, '#ff4655', 20);
+      spawnSparks(bot.x + 8, bot.y + 12, '#ffc837', 15);
+
+      // Check Stage Target Clear (Task 10)
+      if (pixelGameState.stageCurrentKills >= pixelGameState.stageTargetKills) {
+        setTimeout(() => {
+          triggerGameOver(true);
+        }, 600);
+      }
     }
 
-    function spawnDamageNumber(x, y, text, color, isCrit) {
-      const container = document.getElementById('fps-damage-numbers');
-      if (!container) return;
+    function detonateFragGrenade(x, y) {
+      const flare = document.getElementById('pixel-blast-flare');
+      if (flare) {
+        flare.style.opacity = '1';
+        setTimeout(() => { if (flare) flare.style.opacity = '0'; }, 120);
+      }
+      spawnSparks(x, y, '#ffc837', 30);
+      spawnSparks(x, y, '#ff4655', 25);
+
+      // Damage bots in blast radius
+      pixelGameState.bots.forEach((bot, j) => {
+        const dist = Math.hypot(bot.x + 8 - x, bot.y + 12 - y);
+        if (dist < 65) {
+          const dmg = Math.floor(100 * (1 - dist / 65));
+          bot.hp -= dmg;
+          spawnDamagePopup(bot.x, bot.y, `-${dmg} BLAST`, '#ff007a');
+          if (bot.hp <= 0) handleBotEliminated(bot, j);
+        }
+      });
+    }
+
+    function triggerGameOver(isWin) {
+      const goScreen = document.getElementById('pg-gameover-screen');
+      const goTitle = document.getElementById('go-title');
+      const goSub = document.getElementById('go-subtitle');
+      const btnNext = document.getElementById('btn-next-stage');
+      const kStat = document.getElementById('go-stat-kills');
+      const sStat = document.getElementById('go-stat-score');
+      const nStat = document.getElementById('go-stat-next');
+
+      if (!goScreen) return;
+      goScreen.style.display = 'flex';
+      pixelGameState.screen = 'gameover';
+
+      if (isWin) {
+        goTitle.textContent = 'STAGE CLEAR! 🏆';
+        goTitle.style.color = '#00ff88';
+        goSub.textContent = `STAGE ${pixelGameState.stageIndex} BOT OBJECTIVE FULFILLED`;
+        if (btnNext) btnNext.style.display = 'block';
+        if (nStat) nStat.textContent = `STAGE ${pixelGameState.stageIndex + 1}`;
+      } else {
+        goTitle.textContent = 'FALLEN IN ACTION 💀';
+        goTitle.style.color = '#ff4655';
+        goSub.textContent = 'HERO ELIMINATED BY ENEMY SQUAD';
+        if (btnNext) btnNext.style.display = 'none';
+        if (nStat) nStat.textContent = 'RETRY STAGE';
+      }
+
+      if (kStat) kStat.textContent = pixelGameState.stageCurrentKills;
+      if (sStat) sStat.textContent = pixelGameState.score;
+      window.playMatrixChime();
+    }
+
+    function spawnDamagePopup(x, y, text, color) {
+      const layer = document.getElementById('pixel-damage-layer');
+      if (!layer) return;
       const el = document.createElement('div');
       el.style.cssText = `
         position: absolute;
         left: ${x}px;
         top: ${y}px;
         color: ${color};
-        font-weight: 900;
-        font-size: ${isCrit ? '0.85rem' : '0.68rem'};
-        text-shadow: 0 0 6px ${color};
-        transform: translate(-50%, -50%);
-        pointer-events: none;
-        transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-        opacity: 1;
         font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        font-weight: 900;
+        text-shadow: 1px 1px 0 #000, 0 0 6px ${color};
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        opacity: 1;
       `;
       el.textContent = text;
-      container.appendChild(el);
-      
+      layer.appendChild(el);
       requestAnimationFrame(() => {
-        el.style.top = `${y - 25}px`;
+        el.style.top = `${y - 20}px`;
         el.style.opacity = '0';
       });
-      setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 650);
+      setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 550);
     }
 
-    function spawnHitSparks(x, y, color, count) {
+    function spawnSparks(x, y, color, count) {
       for (let i = 0; i < count; i++) {
-        fpsState.particles.push({
+        pixelGameState.particles.push({
           x, y,
-          vx: (Math.random() - 0.5) * 8,
-          vy: (Math.random() - 0.5) * 8 - 1,
-          life: 14 + Math.random() * 8,
-          maxLife: 22,
+          vx: (Math.random() - 0.5) * 6,
+          vy: (Math.random() - 0.5) * 6 - 1,
           color,
-          size: 1.5 + Math.random() * 2
+          size: 2 + Math.random() * 2,
+          life: 12 + Math.random() * 8,
+          maxLife: 20
         });
       }
     }
 
-    // ═══ AGENT ABILITY CASTING (C, Q, E, X) ═══
-    window.fpsCastSmoke = function() {
-      if (!fpsState || fpsState.abilities.smokeCharges <= 0) return;
-      fpsState.abilities.smokeCharges--;
-      fpsState.smokes.push({
-        x: fpsState.aimX,
-        y: fpsState.aimY,
-        radius: 0,
-        maxRadius: 45,
-        duration: 360 // 6 seconds at 60fps
-      });
-      window.playMatrixChime();
-    };
+    // ═══ HIGH-RESOLUTION PIXEL ART RENDERER ═══
+    function drawPixelGame(ctx, W, H) {
+      if (!pixelGameState) return;
+      const map = getSelectedMap();
 
-    window.fpsCastFlash = function() {
-      if (!fpsState || fpsState.abilities.flashCharges <= 0) return;
-      fpsState.abilities.flashCharges--;
-      const flashEl = document.getElementById('fps-blind-flash');
-      if (flashEl) {
-        flashEl.style.opacity = '0.9';
-        setTimeout(() => { if (flashEl) flashEl.style.opacity = '0'; }, 300);
-      }
-      // Blind active enemies
-      fpsState.enemies.forEach(e => {
-        if (e.alive) {
-          e.flashedTimer = 180; // Blinded for 3 seconds
-        }
-      });
-      window.playMatrixChime();
-    };
-
-    window.fpsCastDash = function() {
-      if (!fpsState || fpsState.abilities.dashCooldown > 0) return;
-      fpsState.dashTrail = 18;
-      fpsState.abilities.dashCooldown = 180;
-      fpsState.recoilOffset = 0;
-      window.playMatrixChime();
-    };
-
-    window.fpsCastUlt = function() {
-      if (!fpsState) return;
-      // Activate Blade Storm
-      fpsState.currentWeapon = 4; // Switch to Blade Daggers
-      fpsState.abilities.ultActive = true;
-      updateFPSWeaponHUD();
-      showValorantKillBanner(true, 5);
-      window.playMatrixChime();
-    };
-
-    window.fpsToggleScope = function() {
-      if (!fpsState) return;
-      fpsState.scoped = !fpsState.scoped;
-      const overlay = document.getElementById('fps-scope-overlay');
-      const btn = document.getElementById('fps-btn-scope');
-      if (overlay) overlay.style.opacity = fpsState.scoped ? '1' : '0';
-      if (btn) {
-        btn.style.background = fpsState.scoped ? '#ffc837' : '#162032';
-        btn.style.color = fpsState.scoped ? '#05070d' : '#ffc837';
-      }
-      window.playMatrixChime();
-    };
-
-    window.fpsDefuseSpike = function() {
-      if (!fpsState || fpsState.gameOver) return;
-      const pBarBg = document.getElementById('defuse-progress-bar-bg');
-      const pBar = document.getElementById('defuse-progress-bar');
-      if (pBarBg) pBarBg.style.display = 'block';
-
-      fpsState.spikeDefusing = true;
-      let progress = 0;
-      const defuseInterval = setInterval(() => {
-        if (!fpsState || fpsState.gameOver || !fpsState.spikeDefusing) {
-          clearInterval(defuseInterval);
-          if (pBarBg) pBarBg.style.display = 'none';
-          return;
-        }
-        progress += 25;
-        if (pBar) pBar.style.width = `${progress}%`;
-
-        if (progress >= 100) {
-          clearInterval(defuseInterval);
-          fpsState.spikeDefused = true;
-          fpsState.radiantScore++;
-          const radEl = document.getElementById('valo-radiant-score');
-          if (radEl) radEl.textContent = fpsState.radiantScore;
-          showValorantKillBanner(false, 5);
-          const bannerText = document.getElementById('fps-kill-banner-text');
-          if (bannerText) bannerText.textContent = 'SPIKE DEFUSED // VICTORY';
-          if (pBarBg) pBarBg.style.display = 'none';
-          window.playMatrixChime();
-        }
-      }, 800);
-    };
-
-    window.fpsSwitchWeapon = function() {
-      if (!fpsState) return;
-      fpsState.currentWeapon = (fpsState.currentWeapon + 1) % (fpsState.weapons.length - 1);
-      fpsState.reloading = false;
-      if (fpsState.scoped) window.fpsToggleScope();
-      updateFPSWeaponHUD();
-      window.playMatrixChime();
-    };
-
-    window.fpsReload = function() {
-      if (!fpsState || fpsState.reloading || fpsState.gameOver) return;
-      const w = fpsState.weapons[fpsState.currentWeapon];
-      if (w.ammo >= w.maxAmmo) return;
-      fpsState.reloading = true;
-      fpsState.reloadTimer = fpsState.reloadDuration;
-      const ammoCur = document.getElementById('valo-ammo-cur');
-      if (ammoCur) ammoCur.textContent = '...';
-    };
-
-    window.fpsBuyArmory = function() {
-      if (!fpsState) return;
-      fpsState.shield = Math.min(fpsState.maxShield, fpsState.shield + 50);
-      const shieldNum = document.getElementById('valo-shield-num');
-      if (shieldNum) shieldNum.textContent = fpsState.shield;
-      window.playMatrixChime();
-    };
-
-    function updateFPSWeaponHUD() {
-      if (!fpsState) return;
-      const w = fpsState.weapons[fpsState.currentWeapon];
-      const nameEl = document.getElementById('valo-weapon-name');
-      const curEl = document.getElementById('valo-ammo-cur');
-      const maxEl = document.getElementById('valo-ammo-max');
-      const btnWep = document.getElementById('fps-btn-weapon');
-
-      if (nameEl) { nameEl.textContent = w.name; nameEl.style.color = w.color; }
-      if (curEl) curEl.textContent = w.ammo;
-      if (maxEl) maxEl.textContent = `/ ${w.reserve}`;
-      if (btnWep) btnWep.textContent = `🔫 ${w.name}`;
-    }
-
-    function updateFPS() {
-      if (!fpsState || fpsState.gameOver) return;
-
-      // Match Clock
-      fpsState.matchTimerTicks++;
-      if (fpsState.matchTimerTicks >= 60) {
-        fpsState.matchTimerTicks = 0;
-        if (fpsState.matchTimer > 0) {
-          fpsState.matchTimer--;
-          const timerEl = document.getElementById('valo-match-timer');
-          if (timerEl) timerEl.textContent = `0:${fpsState.matchTimer < 10 ? '0' : ''}${fpsState.matchTimer}`;
-        }
-      }
-
-      // Decay recoil
-      if (fpsState.recoilOffset > 0) fpsState.recoilOffset *= 0.86;
-      if (fpsState.muzzleFlash > 0) fpsState.muzzleFlash--;
-      if (fpsState.hitMarkerTimer > 0) fpsState.hitMarkerTimer--;
-      if (fpsState.dashTrail > 0) fpsState.dashTrail--;
-
-      // Reload handler
-      if (fpsState.reloading) {
-        fpsState.reloadTimer--;
-        if (fpsState.reloadTimer <= 0) {
-          fpsState.reloading = false;
-          const w = fpsState.weapons[fpsState.currentWeapon];
-          w.ammo = w.maxAmmo;
-          updateFPSWeaponHUD();
-        }
-      }
-
-      // Smokes update
-      for (let i = fpsState.smokes.length - 1; i >= 0; i--) {
-        const s = fpsState.smokes[i];
-        if (s.radius < s.maxRadius) s.radius += 2.5;
-        s.duration--;
-        if (s.duration <= 0) fpsState.smokes.splice(i, 1);
-      }
-
-      // Enemy AI & Movement
-      for (let i = fpsState.enemies.length - 1; i >= 0; i--) {
-        const e = fpsState.enemies[i];
-        if (!e.alive) {
-          e.y += 2;
-          if (e.y > 380) fpsState.enemies.splice(i, 1);
-          continue;
-        }
-
-        // Flashed recovery
-        if (e.flashedTimer > 0) {
-          e.flashedTimer--;
-          continue;
-        }
-
-        // Strafing logic
-        e.strafeTimer++;
-        if (e.strafeTimer > 40 + Math.random() * 30) {
-          e.strafeTimer = 0;
-          e.strafeDir *= -1;
-          e.crouched = Math.random() > 0.65;
-        }
-        e.x += e.strafeDir * e.strafeSpeed;
-        e.x = Math.max(25, Math.min(295, e.x));
-
-        // Enemy shooting at player
-        e.shootTimer++;
-        if (e.shootTimer >= e.shootCooldown) {
-          e.shootTimer = 0;
-          e.shooting = true;
-          
-          // Damage player
-          const dmg = 8 + Math.floor(Math.random() * 12);
-          if (fpsState.shield > 0) {
-            const shldDmg = Math.min(fpsState.shield, dmg);
-            fpsState.shield -= shldDmg;
-            const rem = dmg - shldDmg;
-            if (rem > 0) fpsState.hp -= rem;
-          } else {
-            fpsState.hp -= dmg;
-          }
-
-          // Damage flash
-          const dmgFlash = document.getElementById('fps-damage-flash');
-          if (dmgFlash) {
-            dmgFlash.style.opacity = '0.7';
-            setTimeout(() => { if (dmgFlash) dmgFlash.style.opacity = '0'; }, 150);
-          }
-
-          // Update HP / Shield HUD
-          const hpNum = document.getElementById('valo-hp-num');
-          const shldNum = document.getElementById('valo-shield-num');
-          if (hpNum) hpNum.textContent = Math.max(0, fpsState.hp);
-          if (shldNum) shldNum.textContent = Math.max(0, fpsState.shield);
-
-          if (fpsState.hp <= 0) {
-            fpsState.hp = 0;
-            fpsState.deaths++;
-            fpsState.omegaScore++;
-            const omgEl = document.getElementById('valo-omega-score');
-            if (omgEl) omgEl.textContent = fpsState.omegaScore;
-            fpsState.gameOver = true;
-          }
-        } else {
-          e.shooting = false;
-        }
-      }
-
-      // Particles update
-      for (let i = fpsState.particles.length - 1; i >= 0; i--) {
-        const p = fpsState.particles[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.12;
-        p.life--;
-        if (p.life <= 0) fpsState.particles.splice(i, 1);
-      }
-    }
-
-    function drawFPS(ctx, W, H) {
-      if (!fpsState) return;
-
-      // 1. HAVEN/ASCENT SKYBOX & VOLUMETRIC GRADIENT
-      const skyGrad = ctx.createLinearGradient(0, 0, 0, H * 0.6);
-      skyGrad.addColorStop(0, '#060a14');
-      skyGrad.addColorStop(0.5, '#0b1626');
-      skyGrad.addColorStop(1, '#111f38');
+      // 1. DAYLIGHT SKYBOX & PARALLAX CLOUDS
+      const skyGrad = ctx.createLinearGradient(0, 0, 0, H);
+      skyGrad.addColorStop(0, map.skyTop);
+      skyGrad.addColorStop(1, map.skyBottom);
       ctx.fillStyle = skyGrad;
-      ctx.fillRect(0, 0, W, H * 0.6);
+      ctx.fillRect(0, 0, W, H);
 
-      // Distant Radianite Cyber Spires
-      ctx.fillStyle = '#09101d';
-      ctx.fillRect(20, H * 0.3, 30, H * 0.3);
-      ctx.fillRect(70, H * 0.25, 45, H * 0.35);
-      ctx.fillRect(210, H * 0.22, 50, H * 0.38);
-      ctx.fillRect(275, H * 0.28, 35, H * 0.32);
-
-      // Glowing Cyan Trim on Distant Buildings
-      ctx.strokeStyle = 'rgba(0, 240, 255, 0.15)';
-      ctx.lineWidth = 1;
-      ctx.strokeRect(70, H * 0.25, 45, H * 0.35);
-      ctx.strokeRect(210, H * 0.22, 50, H * 0.38);
-
-      // 2. TACTICAL GROUND & BOMB SITE MARKINGS
-      const groundGrad = ctx.createLinearGradient(0, H * 0.55, 0, H);
-      groundGrad.addColorStop(0, '#101726');
-      groundGrad.addColorStop(0.4, '#0d131f');
-      groundGrad.addColorStop(1, '#070b12');
-      ctx.fillStyle = groundGrad;
-      ctx.fillRect(0, H * 0.55, W, H * 0.45);
-
-      // Yellow Site Hazard Floor Stripes (A Site)
-      ctx.strokeStyle = 'rgba(255, 200, 55, 0.25)';
-      ctx.lineWidth = 3;
-      ctx.setLineDash([8, 8]);
+      // Bright Daylight Sun
+      ctx.fillStyle = '#fffbeb';
       ctx.beginPath();
-      ctx.ellipse(W / 2, 230, 95, 38, 0, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      // Site A Letter Stencil
-      ctx.font = "900 16px 'JetBrains Mono', monospace";
-      ctx.fillStyle = 'rgba(255, 200, 55, 0.3)';
-      ctx.textAlign = 'center';
-      ctx.fillText('A SITE', W / 2, 220);
-
-      // 3. RADIANITE COVER CRATES (VALORANT CRATES WITH EMERALD SEAMS)
-      fpsState.crates.forEach(c => {
-        // Crate Shadow
-        ctx.fillStyle = 'rgba(0,0,0,0.5)';
-        ctx.beginPath();
-        ctx.ellipse(c.x + c.w / 2, c.y + c.h, c.w * 0.6, 6, 0, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Main Crate Body
-        ctx.fillStyle = c.color;
-        ctx.fillRect(c.x, c.y, c.w, c.h);
-        
-        // Metallic Edge Trim
-        ctx.strokeStyle = c.trim;
-        ctx.lineWidth = 1.5;
-        ctx.strokeRect(c.x, c.y, c.w, c.h);
-
-        // Radianite Core Emblem
-        if (c.glow) {
-          ctx.fillStyle = 'rgba(0, 255, 136, 0.25)';
-          ctx.fillRect(c.x + 8, c.y + 8, c.w - 16, c.h - 16);
-          ctx.strokeStyle = '#00ff88';
-          ctx.lineWidth = 1;
-          ctx.strokeRect(c.x + 8, c.y + 8, c.w - 16, c.h - 16);
-        }
-      });
-
-      // 4. THE SPIKE (PLANTED BOMB WITH PULSING ENERGY RING)
-      const sp = fpsState.spikePos;
-      ctx.fillStyle = '#ff4655';
-      ctx.shadowColor = '#ff4655';
-      ctx.shadowBlur = 10;
-      // Spike Diamond Structure
-      ctx.beginPath();
-      ctx.moveTo(sp.x, sp.y - 14);
-      ctx.lineTo(sp.x + 7, sp.y - 4);
-      ctx.lineTo(sp.x, sp.y + 4);
-      ctx.lineTo(sp.x - 7, sp.y - 4);
-      ctx.closePath();
+      ctx.arc(260, 45, 18, 0, Math.PI * 2);
       ctx.fill();
-      ctx.shadowBlur = 0;
-
-      // Pulsing Defusal Ring
-      const pulseR = 12 + (fpsState.frameCount % 30) * 0.8;
-      ctx.strokeStyle = 'rgba(255, 70, 85, 0.4)';
-      ctx.lineWidth = 1.5;
+      ctx.fillStyle = 'rgba(254, 240, 138, 0.35)';
       ctx.beginPath();
-      ctx.ellipse(sp.x, sp.y + 2, pulseR, pulseR * 0.4, 0, 0, Math.PI * 2);
-      ctx.stroke();
+      ctx.arc(260, 45, 26, 0, Math.PI * 2);
+      ctx.fill();
 
-      // 5. DRAW ACTIVE SMOKES (VOLUMETRIC CYBER SMOKE SPHERES)
-      fpsState.smokes.forEach(s => {
-        const smokeGrad = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.radius);
-        smokeGrad.addColorStop(0, 'rgba(0, 240, 255, 0.85)');
-        smokeGrad.addColorStop(0.7, 'rgba(10, 25, 45, 0.9)');
-        smokeGrad.addColorStop(1, 'rgba(0, 240, 255, 0)');
-        ctx.fillStyle = smokeGrad;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-        ctx.fill();
+      // Pixel Clouds
+      ctx.fillStyle = '#ffffff';
+      pixelGameState.clouds.forEach(c => {
+        drawPixelCloud(ctx, c.x, c.y, c.size);
       });
 
-      // 6. ENEMY AGENTS RENDERING (DETAILED VALORANT HUMANOID MODELS)
-      fpsState.enemies.forEach(e => {
-        ctx.save();
-        const alpha = e.alive ? (e.flashedTimer > 0 ? 0.6 : 1) : 0.25;
-        ctx.globalAlpha = alpha;
+      // 2. DAYLIGHT MINI MILITIA PLATFORMS (CRISP PIXEL ART)
+      map.platforms.forEach(plat => {
+        // Platform Top Grass / Trim
+        ctx.fillStyle = map.grassColor;
+        ctx.fillRect(plat.x, plat.y, plat.w, 4);
 
-        const bodyW = 20 * e.scale;
-        const bodyH = (e.crouched ? 28 : 40) * e.scale;
-        const headR = 7 * e.scale;
-        const headCY = e.y - bodyH - headR + 2;
+        // Platform Rock / Earth Body
+        ctx.fillStyle = map.groundColor;
+        ctx.fillRect(plat.x, plat.y + 4, plat.w, plat.h - 4);
 
-        // Shadow
-        ctx.fillStyle = 'rgba(0,0,0,0.4)';
-        ctx.beginPath();
-        ctx.ellipse(e.x, e.y + 2, bodyW * 0.7, 4, 0, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Flashed Visual Halo
-        if (e.flashedTimer > 0) {
-          ctx.strokeStyle = '#ffc837';
-          ctx.lineWidth = 2;
-          ctx.beginPath();
-          ctx.arc(e.x, headCY - 4, headR + 6, 0, Math.PI * 2);
-          ctx.stroke();
+        // Pixel Edge Details
+        ctx.fillStyle = 'rgba(0,0,0,0.25)';
+        for (let px = plat.x; px < plat.x + plat.w; px += 8) {
+          ctx.fillRect(px, plat.y + 6, 4, 3);
         }
-
-        // Legs / Tactical Boots
-        ctx.fillStyle = '#1e293b';
-        ctx.fillRect(e.x - bodyW * 0.4, e.y - 12 * e.scale, bodyW * 0.35, 12 * e.scale);
-        ctx.fillRect(e.x + bodyW * 0.05, e.y - 12 * e.scale, bodyW * 0.35, 12 * e.scale);
-
-        // Tactical Armor Torso
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(e.x - bodyW / 2, e.y - bodyH, bodyW, bodyH - 10 * e.scale);
-        
-        // Armor Plate Trim
-        ctx.strokeStyle = e.shooting ? '#ff4655' : '#334155';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(e.x - bodyW / 2, e.y - bodyH, bodyW, bodyH - 10 * e.scale);
-
-        // Radiant Chest Core (Glowing red for enemies)
-        ctx.fillStyle = '#ff4655';
-        ctx.fillRect(e.x - 3, e.y - bodyH + 6 * e.scale, 6, 6 * e.scale);
-
-        // Arms & Weapon in hands
-        ctx.fillStyle = '#1e293b';
-        ctx.fillRect(e.x + bodyW / 2 - 2, e.y - bodyH + 8 * e.scale, 10 * e.scale, 4 * e.scale);
-        // Enemy Gun Model
-        ctx.fillStyle = '#475569';
-        ctx.fillRect(e.x + bodyW / 2 + 4, e.y - bodyH + 7 * e.scale, 14 * e.scale, 3 * e.scale);
-
-        // Enemy Muzzle Flash Burst
-        if (e.shooting && e.alive) {
-          ctx.fillStyle = '#ff6600';
-          ctx.shadowColor = '#ff6600';
-          ctx.shadowBlur = 12;
-          ctx.beginPath();
-          ctx.arc(e.x + bodyW / 2 + 18 * e.scale, e.y - bodyH + 8 * e.scale, 5 * e.scale, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.shadowBlur = 0;
-        }
-
-        // Head Model
-        ctx.fillStyle = '#cbd5e1';
-        ctx.beginPath();
-        ctx.arc(e.x, headCY, headR, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Glowing Tactical Visor / Eyes
-        ctx.fillStyle = '#ff4655';
-        ctx.fillRect(e.x - headR * 0.6, headCY - 1, headR * 1.2, 2.5 * e.scale);
-
-        // Head Hitbox Outline (Subtle target cue)
-        ctx.strokeStyle = 'rgba(255, 70, 85, 0.4)';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(e.x - headR - 1, headCY - headR - 1, (headR + 1) * 2, (headR + 1) * 2);
-
-        // Agent Nameplate & HP Bar
-        if (e.alive) {
-          // Name
-          ctx.font = `900 ${Math.max(7, 8 * e.scale)}px 'JetBrains Mono', monospace`;
-          ctx.fillStyle = '#ff4655';
-          ctx.textAlign = 'center';
-          ctx.fillText(e.name, e.x, headCY - headR - 8);
-
-          // Health Bar
-          const barW = 28 * e.scale;
-          const barH = 3;
-          const barX = e.x - barW / 2;
-          const barY = headCY - headR - 5;
-          ctx.fillStyle = 'rgba(0,0,0,0.6)';
-          ctx.fillRect(barX, barY, barW, barH);
-          ctx.fillStyle = e.hp > 50 ? '#00ff88' : (e.hp > 25 ? '#ffc837' : '#ff4655');
-          ctx.fillRect(barX, barY, barW * (e.hp / e.maxHp), barH);
-        }
-
-        ctx.restore();
       });
 
-      // 7. BULLET PARTICLES & HIT SPARKS
-      fpsState.particles.forEach(p => {
-        ctx.globalAlpha = p.life / p.maxLife;
-        ctx.fillStyle = p.color;
-        ctx.shadowColor = p.color;
-        ctx.shadowBlur = 6;
-        ctx.fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size);
+      // 3. DRAW FRAG GRENADES
+      pixelGameState.grenadesList.forEach(g => {
+        ctx.fillStyle = '#15803d';
+        ctx.fillRect(g.x - 3, g.y - 3, 6, 6);
+        ctx.fillStyle = '#ef4444';
+        ctx.fillRect(g.x - 1, g.y - 4, 2, 2);
       });
-      ctx.shadowBlur = 0;
+
+      // 4. DRAW ENEMY COMBAT BOTS (PIXEL CYBORG SOLDIERS)
+      pixelGameState.bots.forEach(b => {
+        drawPixelBot(ctx, b.x, b.y, b.w, b.h, b.hp, b.maxHp);
+      });
+
+      // 5. DRAW PLAYER (SELECTED FAMOUS HERO SPRITE IN HIGH-RES PIXEL ART)
+      if (pixelGameState.screen === 'game' || pixelGameState.screen === 'menu') {
+        const p = pixelGameState.player;
+        const char = getSelectedChar();
+        drawPixelHero(ctx, p.x, p.y, p.w, p.h, char, p.facing);
+      }
+
+      // 6. DRAW BULLETS
+      pixelGameState.bullets.forEach(b => {
+        ctx.fillStyle = b.color;
+        ctx.fillRect(b.x - 2, b.y - 2, 4, 4);
+      });
+
+      // 7. DRAW PARTICLES
+      pixelGameState.particles.forEach(pt => {
+        ctx.globalAlpha = pt.life / pt.maxLife;
+        ctx.fillStyle = pt.color;
+        ctx.fillRect(pt.x - pt.size / 2, pt.y - pt.size / 2, pt.size, pt.size);
+      });
       ctx.globalAlpha = 1;
 
-      // 8. FIRST-PERSON WEAPON MODEL & MUZZLE BURST (BOTTOM RIGHT)
-      const weapon = fpsState.weapons[fpsState.currentWeapon];
-      const gunBaseX = W - 75;
-      const gunBaseY = H + fpsState.recoilOffset - 5;
-
-      ctx.save();
-      // Gun Body Angle
-      ctx.fillStyle = '#0f172a';
-      ctx.strokeStyle = weapon.color;
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.moveTo(gunBaseX, gunBaseY);
-      ctx.lineTo(gunBaseX + 45, gunBaseY - 35);
-      ctx.lineTo(gunBaseX + 65, gunBaseY - 35);
-      ctx.lineTo(gunBaseX + 75, gunBaseY);
-      ctx.closePath();
-      ctx.fill();
-      ctx.stroke();
-
-      // Gun Barrel & Silencer
-      ctx.fillStyle = '#1e293b';
-      ctx.fillRect(gunBaseX + 25, gunBaseY - 38, 30, 6);
-      ctx.strokeStyle = 'rgba(255,255,255,0.2)';
-      ctx.strokeRect(gunBaseX + 25, gunBaseY - 38, 30, 6);
-
-      // Player Muzzle Flash Light
-      if (fpsState.muzzleFlash > 0) {
-        ctx.fillStyle = weapon.color;
-        ctx.shadowColor = weapon.color;
-        ctx.shadowBlur = 25;
+      // 8. TACTICAL AIM CROSSHAIR (IN-GAME)
+      if (pixelGameState.screen === 'game') {
+        const cx = pixelGameState.aimX;
+        const cy = pixelGameState.aimY;
+        ctx.strokeStyle = '#00f0ff';
+        ctx.lineWidth = 1.5;
+        // Crosshair reticle
         ctx.beginPath();
-        ctx.arc(gunBaseX + 25, gunBaseY - 35, fpsState.muzzleFlash * 4, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.shadowBlur = 0;
+        ctx.arc(cx, cy, 6, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(cx - 9, cy); ctx.lineTo(cx + 9, cy);
+        ctx.moveTo(cx, cy - 9); ctx.lineTo(cx, cy + 9);
+        ctx.stroke();
+      }
+    }
+
+    // High-Res Pixel Cloud Helper
+    function drawPixelCloud(ctx, x, y, size) {
+      ctx.fillStyle = 'rgba(255,255,255,0.85)';
+      ctx.fillRect(x, y + 4, size, size * 0.45);
+      ctx.fillRect(x + size * 0.2, y, size * 0.6, size * 0.5);
+      ctx.fillRect(x + size * 0.4, y - 4, size * 0.35, size * 0.5);
+    }
+
+    // High-Res Pixel Bot Sprite (Mini Militia Flying Robot Soldier)
+    function drawPixelBot(ctx, x, y, w, h, hp, maxHp) {
+      // HP Bar
+      const barW = 20;
+      ctx.fillStyle = 'rgba(0,0,0,0.6)';
+      ctx.fillRect(x - 2, y - 8, barW, 3);
+      ctx.fillStyle = hp > maxHp * 0.5 ? '#00ff88' : '#ff4655';
+      ctx.fillRect(x - 2, y - 8, barW * (hp / maxHp), 3);
+
+      // Bot Head & Visor
+      ctx.fillStyle = '#475569';
+      ctx.fillRect(x + 3, y, 10, 8);
+      ctx.fillStyle = '#ef4444'; // Glowing red sensor
+      ctx.fillRect(x + 5, y + 2, 6, 2);
+
+      // Bot Torso Armor
+      ctx.fillStyle = '#334155';
+      ctx.fillRect(x + 2, y + 8, 12, 10);
+      ctx.fillStyle = '#00f0ff'; // Core
+      ctx.fillRect(x + 6, y + 11, 4, 4);
+
+      // Bot Jetpack & Legs
+      ctx.fillStyle = '#1e293b';
+      ctx.fillRect(x + 3, y + 18, 4, 6);
+      ctx.fillRect(x + 9, y + 18, 4, 6);
+
+      // Bot Weapon
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(x - 2, y + 10, 6, 3);
+    }
+
+    // High-Res Pixel Hero Sprite (John Wick, Master Chief, Kratos, Terminator, Neo)
+    function drawPixelHero(ctx, x, y, w, h, char, facing) {
+      ctx.save();
+      // Head
+      ctx.fillStyle = char.skinColor;
+      ctx.fillRect(x + 4, y + 2, 8, 7);
+
+      // Hair / Helmet
+      ctx.fillStyle = char.hairColor;
+      ctx.fillRect(x + 3, y, 10, 4);
+      if (char.id === 'john_wick') {
+        // Long hair & beard
+        ctx.fillRect(x + 2, y + 2, 2, 6);
+        ctx.fillRect(x + 12, y + 2, 2, 6);
+        ctx.fillStyle = '#111827';
+        ctx.fillRect(x + 5, y + 7, 6, 2); // Beard
+      } else if (char.id === 'kratos') {
+        // Red war stripe
+        ctx.fillStyle = '#ef4444';
+        ctx.fillRect(x + 5, y + 1, 2, 8);
+        ctx.fillStyle = '#451a03';
+        ctx.fillRect(x + 4, y + 7, 8, 3); // Spartan Beard
+      } else if (char.id === 'master_chief') {
+        // Gold Visor
+        ctx.fillStyle = '#eab308';
+        ctx.fillRect(x + 5, y + 3, 6, 3);
+      } else if (char.id === 'terminator') {
+        // Sunglasses + Red eye
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(x + 4, y + 3, 8, 3);
+        ctx.fillStyle = '#ef4444';
+        ctx.fillRect(x + 9, y + 4, 2, 2);
+      } else if (char.id === 'neo') {
+        // Matrix Shades
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(x + 4, y + 3, 8, 2);
+      }
+
+      // Torso / Suit
+      ctx.fillStyle = char.suitColor;
+      ctx.fillRect(x + 3, y + 9, 10, 10);
+      
+      // Shirt & Tie / Armor Seams
+      ctx.fillStyle = char.shirtColor;
+      ctx.fillRect(x + 6, y + 9, 4, 5);
+      ctx.fillStyle = char.tieColor;
+      ctx.fillRect(x + 7, y + 10, 2, 6);
+
+      // Legs / Pants
+      ctx.fillStyle = char.suitColor;
+      ctx.fillRect(x + 3, y + 19, 4, 5);
+      ctx.fillRect(x + 9, y + 19, 4, 5);
+
+      // Gun in hand
+      ctx.fillStyle = '#0f172a';
+      if (facing === 1) {
+        ctx.fillRect(x + 11, y + 11, 8, 3);
+      } else {
+        ctx.fillRect(x - 3, y + 11, 8, 3);
       }
       ctx.restore();
-
-      // 9. VALORANT 4-PRONG DYNAMIC CROSSHAIR
-      if (!fpsState.scoped) {
-        const cx = fpsState.aimX;
-        const cy = fpsState.aimY - (fpsState.recoilOffset * 0.5);
-        const spread = weapon.spread * 1.5 + (fpsState.recoilOffset * 0.8);
-        const prongLen = 7;
-        const prongGap = 4 + spread;
-
-        ctx.strokeStyle = fpsState.hitMarkerTimer > 0 ? '#ff4655' : '#00ff88';
-        ctx.lineWidth = 1.5;
-        ctx.shadowColor = fpsState.hitMarkerTimer > 0 ? '#ff4655' : '#00ff88';
-        ctx.shadowBlur = 4;
-
-        // Top prong
-        ctx.beginPath(); ctx.moveTo(cx, cy - prongGap); ctx.lineTo(cx, cy - prongGap - prongLen); ctx.stroke();
-        // Bottom prong
-        ctx.beginPath(); ctx.moveTo(cx, cy + prongGap); ctx.lineTo(cx, cy + prongGap + prongLen); ctx.stroke();
-        // Left prong
-        ctx.beginPath(); ctx.moveTo(cx - prongGap, cy); ctx.lineTo(cx - prongGap - prongLen, cy); ctx.stroke();
-        // Right prong
-        ctx.beginPath(); ctx.moveTo(cx + prongGap, cy); ctx.lineTo(cx + prongGap + prongLen, cy); ctx.stroke();
-
-        // Center dot
-        ctx.fillStyle = fpsState.hitMarkerTimer > 0 ? '#ff4655' : '#ffffff';
-        ctx.beginPath();
-        ctx.arc(cx, cy, 1.2, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      }
-
-      // 10. TACTICAL RADAR MINIMAP (TOP LEFT)
-      const mmX = 8, mmY = 8, mmW = 55, mmH = 42;
-      ctx.fillStyle = 'rgba(11, 16, 27, 0.85)';
-      ctx.fillRect(mmX, mmY, mmW, mmH);
-      ctx.strokeStyle = 'rgba(0, 240, 255, 0.35)';
-      ctx.lineWidth = 1;
-      ctx.strokeRect(mmX, mmY, mmW, mmH);
-
-      // Radar Grid Line
-      ctx.strokeStyle = 'rgba(255,255,255,0.06)';
-      ctx.beginPath(); ctx.moveTo(mmX + mmW / 2, mmY); ctx.lineTo(mmX + mmW / 2, mmY + mmH); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(mmX, mmY + mmH / 2); ctx.lineTo(mmX + mmW, mmY + mmH / 2); ctx.stroke();
-
-      // Player Radar Ping & Vision Cone
-      const pmX = mmX + mmW / 2;
-      const pmY = mmY + mmH - 6;
-      ctx.fillStyle = 'rgba(0, 240, 255, 0.2)';
-      ctx.beginPath();
-      ctx.moveTo(pmX, pmY);
-      ctx.lineTo(pmX - 16, mmY + 4);
-      ctx.lineTo(pmX + 16, mmY + 4);
-      ctx.closePath();
-      ctx.fill();
-
-      ctx.fillStyle = '#00f0ff';
-      ctx.beginPath(); ctx.arc(pmX, pmY, 2.5, 0, Math.PI * 2); ctx.fill();
-
-      // Enemy Radar Pings
-      fpsState.enemies.forEach(e => {
-        if (!e.alive) return;
-        const emX = mmX + (e.x / W) * mmW;
-        const emY = mmY + (e.y / H) * mmH;
-        ctx.fillStyle = '#ff4655';
-        ctx.shadowColor = '#ff4655';
-        ctx.shadowBlur = 4;
-        ctx.beginPath(); ctx.arc(emX, emY, 2, 0, Math.PI * 2); ctx.fill();
-        ctx.shadowBlur = 0;
-      });
-
-      // Spike Marker on Radar
-      ctx.fillStyle = '#ffc837';
-      ctx.fillRect(mmX + mmW / 2 - 2, mmY + mmH / 2 - 2, 4, 4);
-
-      // 11. GAME OVER / ROUND VICTORY OVERLAY
-      if (fpsState.gameOver) {
-        ctx.fillStyle = 'rgba(5, 8, 15, 0.9)';
-        ctx.fillRect(0, 0, W, H);
-
-        ctx.font = "900 20px 'JetBrains Mono', monospace";
-        ctx.fillStyle = '#ff4655';
-        ctx.textAlign = 'center';
-        ctx.fillText('DEFEAT // ROUND LOST', W / 2, H / 2 - 25);
-
-        ctx.font = "700 11px 'JetBrains Mono', monospace";
-        ctx.fillStyle = '#cbd5e1';
-        ctx.fillText(`KILLS: ${fpsState.kills}  |  HEADSHOTS: ${fpsState.headshots}`, W / 2, H / 2 + 5);
-
-        ctx.font = "900 9px 'JetBrains Mono', monospace";
-        ctx.fillStyle = '#00ff88';
-        ctx.fillText('CLICK RESPAWN TO BUY & RE-ENTER', W / 2, H / 2 + 28);
-      }
     }
     // ARCHETYPE 8: WEATHER & UTILITY
     function renderWeatherApp(container, appName) {
