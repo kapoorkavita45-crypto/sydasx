@@ -68,7 +68,7 @@
 
 
     <!-- ================================================================= -->
-    <!-- STEP 1: CATEGORY SELECTION (49 CATEGORIES)                        -->
+    <!-- STEP 1: CATEGORY SELECTION (49 CATEGORIES WITH HOVER REVEAL)       -->
     <!-- ================================================================= -->
     <section id="view-step-1" class="matrix-step-view active-view">
       
@@ -111,7 +111,7 @@
               </div>
               <div>
                 <h3 class="pillar-section-title">Pillar I: General Applications</h3>
-                <p class="pillar-section-desc">32 Official Google Play Store Ecosystem Domains</p>
+                <p class="pillar-section-desc">32 Official Google Play Store Ecosystem Domains (Hover card to reveal specifications)</p>
               </div>
             </div>
             <span class="pillar-count-badge cyan-count">32 DOMAINS</span>
@@ -938,54 +938,55 @@
     border: 1px solid rgba(0, 255, 136, 0.25);
   }
 
-  /* Card Grid — Full Width Responsive */
+  /* CATEGORY CARDS GRID WITH HOVER REVEAL & SELECTION REACTIONS */
   .categories-cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1.1rem;
     width: 100%;
+    align-items: start;
   }
 
   .matrix-cat-card {
-    padding: 1.15rem;
-    border-radius: 14px;
-    background: rgba(15, 20, 36, 0.75);
-    backdrop-filter: blur(12px);
+    position: relative;
+    padding: 1rem 1.15rem;
+    border-radius: 16px;
+    background: rgba(12, 16, 28, 0.75);
+    backdrop-filter: blur(14px);
     border: 1px solid rgba(255, 255, 255, 0.08);
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    min-height: 125px;
-    transition: all 0.25s ease;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.25s ease, 
+                box-shadow 0.3s ease, 
+                background 0.25s ease;
+    user-select: none;
+    overflow: hidden;
   }
 
-  .matrix-cat-card:hover {
-    transform: translateY(-4px);
-    border-color: #00f0ff;
-    box-shadow: 0 10px 25px rgba(0, 240, 255, 0.2);
-  }
-
-  .matrix-cat-card.active-selected-cyan {
-    border-color: #00f0ff !important;
-    background: rgba(0, 240, 255, 0.12) !important;
-    box-shadow: 0 0 25px rgba(0, 240, 255, 0.35) !important;
-  }
-
-  .matrix-cat-card.active-selected-green {
-    border-color: #00ff88 !important;
-    background: rgba(0, 255, 136, 0.12) !important;
-    box-shadow: 0 0 25px rgba(0, 255, 136, 0.35) !important;
+  /* Default Resting State: Compact & Clean */
+  .card-top-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
   }
 
   .cat-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0.65rem;
+    transition: transform 0.3s ease;
+  }
+
+  .cat-card-text {
+    flex: 1;
+    min-width: 0;
   }
 
   .cat-title {
@@ -993,13 +994,147 @@
     font-weight: 800;
     color: #ffffff;
     line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cat-sub-hint {
+    font-family: monospace;
+    font-size: 0.65rem;
+    color: #64748b;
+    text-transform: uppercase;
+  }
+
+  /* Selected Checkmark Badge (Hidden by default, pops when selected) */
+  .selected-check-badge {
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 900;
+  }
+
+  /* HOVER REVEAL DRAWER (HIDDEN BY DEFAULT, REVEALED ON HOVER OR SELECTED) */
+  .cat-details-drawer {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-6px);
+    transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                opacity 0.25s ease, 
+                transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                margin-top 0.3s ease;
+    margin-top: 0;
+    pointer-events: none;
   }
 
   .cat-desc {
-    font-size: 0.72rem;
+    font-size: 0.74rem;
     color: #94a3b8;
     line-height: 1.45;
-    margin-top: 0.35rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 0.5rem;
+  }
+
+  .cat-drawer-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.4rem;
+  }
+
+  .cat-hover-pill {
+    font-family: monospace;
+    font-size: 0.62rem;
+    font-weight: 800;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+  }
+
+  /* HOVER EXPANSION */
+  .matrix-cat-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: #00f0ff;
+    background: rgba(15, 24, 44, 0.9);
+    box-shadow: 0 12px 30px rgba(0, 240, 255, 0.25);
+    z-index: 10;
+  }
+
+  .matrix-cat-card:hover .cat-avatar {
+    transform: scale(1.1);
+  }
+
+  .matrix-cat-card:hover .cat-details-drawer {
+    max-height: 140px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 0.6rem;
+    pointer-events: auto;
+  }
+
+  .matrix-cat-card.is-game-card:hover {
+    border-color: #00ff88;
+    box-shadow: 0 12px 30px rgba(0, 255, 136, 0.25);
+  }
+
+  /* CLICK & SELECTED STATE REACTIONS */
+  @keyframes selectBounce {
+    0% { transform: scale(0.95); }
+    50% { transform: scale(1.04); }
+    100% { transform: scale(1.02); }
+  }
+
+  .matrix-cat-card.active-selected-cyan {
+    border-color: #00f0ff !important;
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.16), rgba(15, 20, 36, 0.95)) !important;
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.4), inset 0 0 15px rgba(0, 240, 255, 0.15) !important;
+    animation: selectBounce 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: scale(1.02);
+  }
+
+  .matrix-cat-card.active-selected-cyan .selected-check-badge {
+    opacity: 1;
+    transform: scale(1);
+    background: #00f0ff;
+    color: #05070d;
+    box-shadow: 0 0 10px #00f0ff;
+  }
+
+  .matrix-cat-card.active-selected-cyan .cat-details-drawer {
+    max-height: 140px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 0.6rem;
+  }
+
+  .matrix-cat-card.active-selected-green {
+    border-color: #00ff88 !important;
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.16), rgba(15, 20, 36, 0.95)) !important;
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.4), inset 0 0 15px rgba(0, 255, 136, 0.15) !important;
+    animation: selectBounce 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: scale(1.02);
+  }
+
+  .matrix-cat-card.active-selected-green .selected-check-badge {
+    opacity: 1;
+    transform: scale(1);
+    background: #00ff88;
+    color: #05070d;
+    box-shadow: 0 0 10px #00ff88;
+  }
+
+  .matrix-cat-card.active-selected-green .cat-details-drawer {
+    max-height: 140px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 0.6rem;
   }
 
   /* Bottom Floating Bar */
@@ -1891,12 +2026,6 @@
     color: #94a3b8;
   }
 
-  .live-card-body {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
   /* Interactive Map Radar Canvas */
   .interactive-map-canvas {
     width: 100%;
@@ -2289,8 +2418,8 @@
 
     const State = {
       currentStep: 1,
-      selectedCategory: MATRIX_CATEGORIES[0], // default to Maps
-      appName: 'Nexus Maps Pro',
+      selectedCategory: null,
+      appName: 'Nexus Protocol',
       techType: 'native',
       userScaleIndex: 4,
       complexityStars: 3,
@@ -2328,7 +2457,7 @@
       }
     }, 1000);
 
-    // Render Categories
+    // Render Categories with Hover Detail Drawer & Click Reactions
     function renderMasterCategories(list) {
       const gridApps = document.getElementById('grid-apps');
       const gridGames = document.getElementById('grid-games');
@@ -2343,17 +2472,33 @@
 
         const card = document.createElement('div');
         card.id = `matrix-card-${cat.id}`;
-        card.className = `matrix-cat-card ${isSelected ? (isGame ? 'active-selected-green' : 'active-selected-cyan') : ''}`;
+        card.className = `matrix-cat-card ${isGame ? 'is-game-card' : 'is-app-card'} ${isSelected ? (isGame ? 'active-selected-green' : 'active-selected-cyan') : ''}`;
         card.onclick = () => window.selectMatrixCategory(cat);
 
         card.innerHTML = `
-          <div>
+          <div class="card-top-row">
             <div class="cat-avatar ${isGame ? 'green-box' : 'cyan-box'}">
               <span style="font-size: 1.25rem;">${cat.icon}</span>
             </div>
-            <h4 class="cat-title">${cat.name}</h4>
+            <div class="cat-card-text">
+              <h4 class="cat-title">${cat.name}</h4>
+              <span class="cat-sub-hint">${isGame ? 'Game Engine' : 'Play Store Domain'}</span>
+            </div>
+            <div class="selected-check-badge">✓</div>
           </div>
-          <p class="cat-desc">${cat.desc}</p>
+
+          <!-- REVEALED ON HOVER OR SELECTED -->
+          <div class="cat-details-drawer">
+            <p class="cat-desc">${cat.desc}</p>
+            <div class="cat-drawer-footer">
+              <span class="cat-hover-pill ${isGame ? 'green-pill' : 'cyan-pill'}">
+                ${isGame ? 'VULKAN / PHYSICS' : 'CLOUD NATIVE'}
+              </span>
+              <span style="font-family: monospace; font-size: 0.65rem; color: ${isGame ? '#00ff88' : '#00f0ff'};">
+                Click to Select &rarr;
+              </span>
+            </div>
+          </div>
         `;
 
         if (cat.pillar === 'apps') {
@@ -2383,10 +2528,12 @@
         nextBtn.className = "btn-continue-architecture ready";
       }
 
+      // Remove previous selection styling
       document.querySelectorAll('.matrix-cat-card').forEach(el => {
         el.classList.remove('active-selected-cyan', 'active-selected-green');
       });
 
+      // Add selected styling & trigger animation
       const activeCard = document.getElementById(`matrix-card-${cat.id}`);
       if (activeCard) {
         activeCard.classList.add(cat.pillar === 'games' ? 'active-selected-green' : 'active-selected-cyan');
@@ -2405,6 +2552,9 @@
         'game_racing': 'Apex Drift Hyper'
       };
       State.appName = defaultNames[cat.id] || `${cat.name.split(' ')[0]}Pro`;
+
+      // Play high-tech selection chime
+      window.playMatrixChime();
     };
 
     window.filterMatrixPillar = function(type) {
@@ -2431,6 +2581,7 @@
         if (secApps) secApps.style.display = 'none';
         if (secGames) secGames.style.display = 'flex';
       }
+      window.playMatrixChime();
     };
 
     window.searchMatrixCategories = function(query) {
@@ -2503,6 +2654,7 @@
           if (dot) dot.classList.remove('active');
         }
       });
+      window.playMatrixChime();
     };
 
     window.updateMatrixUsers = function(val) {
@@ -2598,7 +2750,6 @@
 
       if (!bodyEl) return;
 
-      // Render Archetype specific UI
       const type = cat.type || (cat.pillar === 'games' ? 'game' : 'task');
 
       if (type === 'map') {
@@ -2673,7 +2824,6 @@
         ctx.fillStyle = '#050b14';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Draw grid lines
         ctx.strokeStyle = 'rgba(0, 240, 255, 0.15)';
         ctx.lineWidth = 1;
         for (let x = 0; x < canvas.width; x += 30) {
@@ -2683,7 +2833,6 @@
           ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
         }
 
-        // Draw Route Path
         ctx.strokeStyle = '#00f0ff';
         ctx.lineWidth = 3;
         ctx.shadowColor = '#00f0ff';
@@ -2696,19 +2845,16 @@
         ctx.stroke();
         ctx.shadowBlur = 0;
 
-        // User Pulse Marker
         ctx.fillStyle = '#00ff88';
         ctx.beginPath();
         ctx.arc(120, 80, 6, 0, Math.PI * 2);
         ctx.fill();
 
-        // Destination Marker
         ctx.fillStyle = '#ff007a';
         ctx.beginPath();
         ctx.arc(260, 40, 7, 0, Math.PI * 2);
         ctx.fill();
 
-        // Radar sweep
         ctx.strokeStyle = 'rgba(0, 255, 136, 0.4)';
         ctx.beginPath();
         ctx.moveTo(120, 80);
@@ -2922,7 +3068,6 @@
       State.liveData.chatMessages.push({ sender: 'user', text: text });
       renderLiveInteractiveApp();
 
-      // Bot instant reply
       setTimeout(() => {
         State.liveData.chatMessages.push({
           sender: 'bot',
@@ -3111,7 +3256,6 @@
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
 
-      // Initialize stars
       starsList = [];
       for (let i = 0; i < 20; i++) {
         starsList.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, speed: 1 + Math.random() * 2 });
@@ -3122,7 +3266,6 @@
         ctx.fillStyle = '#030712';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Render moving stars
         ctx.fillStyle = '#64748b';
         starsList.forEach(s => {
           ctx.fillRect(s.x, s.y, 2, 2);
@@ -3133,7 +3276,6 @@
           }
         });
 
-        // Render Player Ship
         ctx.fillStyle = '#00f0ff';
         ctx.shadowColor = '#00f0ff';
         ctx.shadowBlur = 12;
@@ -3145,7 +3287,6 @@
         ctx.fill();
         ctx.shadowBlur = 0;
 
-        // Render Thruster Fire
         ctx.fillStyle = '#00ff88';
         ctx.fillRect(playerX - 3, playerY + 22, 6, 6);
 
@@ -3344,7 +3485,6 @@
       const users = State.userScaleIndex;
       const stars = State.complexityStars;
 
-      // Timeline calculation
       let minWeeks = 4 + (stars * 2);
       let maxWeeks = 6 + (stars * 3.5);
       if (tech === 'native') {
@@ -3359,7 +3499,6 @@
       if (timelineEl) timelineEl.textContent = `${Math.round(minWeeks)} - ${Math.round(maxWeeks)} Weeks`;
       if (timelineDescEl) timelineDescEl.textContent = `Full cycle agile sprint based on ${tech.toUpperCase()} core & ${stars}★ complexity.`;
 
-      // Infrastructure Cost
       const costMultipliers = [25, 60, 150, 450, 950, 2400, 5800];
       const baseCost = costMultipliers[users - 1] || 150;
       const complexityMultiplier = 0.8 + (stars * 0.25);
@@ -3370,7 +3509,6 @@
       if (costEl) costEl.textContent = `$${finalCost.toLocaleString()} / mo`;
       if (costDescEl) costDescEl.textContent = `Auto-scaling Kubernetes mesh for ${State.userScaleLabels[users - 1]}.`;
 
-      // Populate Stack Pills
       const stackPillsContainer = document.getElementById('metric-stack-pills');
       if (stackPillsContainer) {
         stackPillsContainer.innerHTML = '';
@@ -3433,8 +3571,8 @@
     };
 
     window.resetMatrixEngine = function() {
-      State.selectedCategory = MATRIX_CATEGORIES[0];
-      State.appName = 'Nexus Maps Pro';
+      State.selectedCategory = null;
+      State.appName = 'Nexus Protocol';
       State.currentStep = 1;
       
       const searchInput = document.getElementById('category-search-input');
