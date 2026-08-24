@@ -13,13 +13,13 @@
     <header class="app-matrix-header">
       <div class="matrix-badge-app">
         <span class="pulse-dot"></span>
-        <span>GENESIS MATRIX &bull; 49-CATEGORY APP CREATION FORGE</span>
+        <span>GENESIS MATRIX &bull; 49-CATEGORY INTERACTIVE APP FORGE</span>
       </div>
       <h1 class="matrix-app-title">
         App <span class="text-gradient-emerald">Creation</span>
       </h1>
       <p class="matrix-app-subtitle">
-        Forge, architect, and test-compile custom software blueprints across all <span class="highlight-emerald">49 official Google Play Store categories</span> with real-time feasibility telemetry.
+        Forge, test-compile, and <span class="highlight-emerald">interactively run</span> production-grade applications across all 49 Google Play Store domains with real-time hardware telemetry and playable mobile sandbox.
       </p>
 
       <!-- STEP PROGRESS HUD BAR -->
@@ -27,7 +27,7 @@
         <div class="step-hud-grid">
           
           <!-- Step Tab 1 -->
-          <div id="nav-step-1" class="step-nav-card active">
+          <div id="nav-step-1" class="step-nav-card active" onclick="window.goToMatrixStep(1)">
             <div class="step-nav-header">
               <span class="step-badge-num">1</span>
               <span class="step-nav-label">Genesis</span>
@@ -36,7 +36,7 @@
           </div>
 
           <!-- Step Tab 2 -->
-          <div id="nav-step-2" class="step-nav-card disabled">
+          <div id="nav-step-2" class="step-nav-card disabled" onclick="window.goToMatrixStep(2)">
             <div class="step-nav-header">
               <span class="step-badge-num">2</span>
               <span class="step-nav-label">Blueprint</span>
@@ -45,7 +45,7 @@
           </div>
 
           <!-- Step Tab 3 -->
-          <div id="nav-step-3" class="step-nav-card disabled">
+          <div id="nav-step-3" class="step-nav-card disabled" onclick="window.goToMatrixStep(3)">
             <div class="step-nav-header">
               <span class="step-badge-num">3</span>
               <span class="step-nav-label">The Forge</span>
@@ -54,12 +54,12 @@
           </div>
 
           <!-- Step Tab 4 -->
-          <div id="nav-step-4" class="step-nav-card disabled">
+          <div id="nav-step-4" class="step-nav-card disabled" onclick="window.goToMatrixStep(4)">
             <div class="step-nav-header">
               <span class="step-badge-num">4</span>
-              <span class="step-nav-label">Telemetry</span>
+              <span class="step-nav-label">Live App</span>
             </div>
-            <span class="step-nav-sub">Blueprint Output</span>
+            <span class="step-nav-sub">Interactive Sandbox</span>
           </div>
 
         </div>
@@ -358,31 +358,37 @@
 
 
     <!-- ================================================================= -->
-    <!-- STEP 4: SYSTEM BLUEPRINT OUTPUT (ENTIRE SCREEN TELEMETRY)          -->
+    <!-- STEP 4: LIVE INTERACTIVE APP & SYSTEM BLUEPRINT DASHBOARD         -->
     <!-- ================================================================= -->
     <section id="view-step-4" class="matrix-step-view hidden-view">
       <div class="step4-output-container">
         
-        <!-- Top Success Header -->
+        <!-- Top Success Header & Mode Switcher -->
         <div class="output-success-banner">
           <div class="success-left">
             <div class="success-icon-badge">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
             </div>
             <div>
-              <span class="success-tiny-tag">SYNTHESIS SUCCESSFUL</span>
-              <h2 class="success-headline">System Architecture Blueprint Ready</h2>
+              <span class="success-tiny-tag">APPLICATION FORGED & ONLINE</span>
+              <h2 class="success-headline">Live Interactive Sandbox Ready</h2>
             </div>
           </div>
 
           <div class="success-actions-wrap">
+            <button onclick="window.toggleAppPhoneMode('interactive')" id="btn-mode-interactive" class="btn-mode-toggle active-mode">
+              📱 Interactive App
+            </button>
+            <button onclick="window.toggleAppPhoneMode('blueprint')" id="btn-mode-blueprint" class="btn-mode-toggle">
+              📊 System Telemetry
+            </button>
             <button onclick="window.exportMatrixBlueprint()" class="btn-export-blueprint">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-              Export Blueprint
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Export JSON
             </button>
             <button onclick="window.resetMatrixEngine()" class="btn-reset-matrix">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
-              Reset Matrix
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+              Reset
             </button>
           </div>
         </div>
@@ -390,74 +396,99 @@
         <!-- Main Full-Width Dashboard Grid -->
         <div class="blueprint-dashboard-grid">
           
-          <!-- LEFT COLUMN: MOCK MOBILE PHONE DISPLAY -->
+          <!-- LEFT COLUMN: LIVE RUNNING INTERACTIVE MOBILE PHONE DISPLAY -->
           <div class="blueprint-phone-col">
-            <div class="mobile-phone-casing">
-              <!-- Top Notch -->
+            <div class="mobile-phone-casing" id="phone-casing">
+              
+              <!-- Top Speaker Notch -->
               <div class="phone-speaker-notch">
                 <div class="notch-camera"></div>
                 <div class="notch-speaker"></div>
               </div>
 
-              <!-- Inner Device Screen -->
-              <div class="phone-screen-display">
-                <div class="phone-ambient-blur"></div>
-
-                <div>
-                  <div class="phone-status-bar">
-                    <span>9:41 AM</span>
-                    <div class="phone-status-icons">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><rect x="1" y="6" width="18" height="12" rx="2"></rect><line x1="23" y1="13" x2="23" y2="11"></line></svg>
-                    </div>
+              <!-- Inner Device Screen with Real Interactive App OS -->
+              <div class="phone-screen-display" id="phone-screen-root">
+                
+                <!-- System Status Bar -->
+                <div class="phone-status-bar">
+                  <span id="phone-live-clock">9:41 AM</span>
+                  <div class="phone-status-icons">
+                    <span class="phone-5g-tag">5G</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00ff88" stroke-width="2"><rect x="1" y="6" width="18" height="12" rx="2"></rect><line x1="23" y1="13" x2="23" y2="11"></line></svg>
                   </div>
+                </div>
 
-                  <div class="phone-app-header">
-                    <div id="mock-app-icon" class="phone-app-avatar">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-                    </div>
+                <!-- Interactive App Header Bar -->
+                <div class="phone-app-topbar">
+                  <div class="topbar-left">
+                    <div id="live-app-avatar" class="app-avatar-box">🚀</div>
                     <div>
-                      <h4 id="mock-app-name" class="phone-app-name">App Name</h4>
-                      <span id="mock-app-category" class="phone-app-category">Category</span>
+                      <h4 id="live-app-title" class="live-app-heading">App Title</h4>
+                      <span id="live-app-badge" class="live-app-category-sub">Category</span>
                     </div>
                   </div>
-
-                  <div class="phone-info-cards-stack">
-                    <div class="phone-mini-card">
-                      <div class="phone-card-top-row">
-                        <span>CORE ENGINE</span>
-                        <span id="mock-tech-badge" class="phone-tech-pill">Native</span>
-                      </div>
-                      <div class="phone-card-body-text">Production Build v1.0.0</div>
-                    </div>
-
-                    <div class="phone-mini-card">
-                      <div class="phone-card-top-row">SYSTEM LATENCY</div>
-                      <div class="latency-bar-row">
-                        <div class="latency-track">
-                          <div class="latency-fill"></div>
-                        </div>
-                        <span class="latency-number">12ms</span>
-                      </div>
+                  <div class="topbar-actions">
+                    <button class="topbar-btn" title="Sound Effects" onclick="window.playMatrixChime()">
+                      <span id="sound-icon-display">🔔</span>
+                    </button>
+                    <div class="online-indicator-pill">
+                      <span class="online-dot"></span> LIVE
                     </div>
                   </div>
                 </div>
 
-                <div class="phone-bottom-action">
-                  <button class="btn-phone-launch">
-                    Launch Interactive App
+                <!-- DYNAMIC CATEGORY-SPECIFIC INTERACTIVE APP CONTAINER -->
+                <div id="live-interactive-app-body" class="live-interactive-viewport">
+                  <!-- Injected via JavaScript dynamically based on category! -->
+                </div>
+
+                <!-- PHONE BOTTOM TAB BAR -->
+                <div class="phone-bottom-nav-bar" id="phone-nav-bar">
+                  <button class="phone-nav-tab active" onclick="window.switchPhoneTab('home', this)">
+                    <span class="nav-tab-icon">🏠</span>
+                    <span class="nav-tab-lbl">Home</span>
+                  </button>
+                  <button class="phone-nav-tab" onclick="window.switchPhoneTab('explore', this)">
+                    <span class="nav-tab-icon">🧭</span>
+                    <span class="nav-tab-lbl">Explore</span>
+                  </button>
+                  <button class="phone-nav-tab" onclick="window.switchPhoneTab('action', this)">
+                    <span class="nav-tab-icon">⚡</span>
+                    <span class="nav-tab-lbl">Action</span>
+                  </button>
+                  <button class="phone-nav-tab" onclick="window.switchPhoneTab('settings', this)">
+                    <span class="nav-tab-icon">⚙️</span>
+                    <span class="nav-tab-lbl">Settings</span>
                   </button>
                 </div>
+
               </div>
 
               <!-- Home Bar -->
-              <div class="phone-home-indicator"></div>
+              <div class="phone-home-indicator" onclick="window.switchPhoneTab('home')"></div>
             </div>
           </div>
 
           <!-- RIGHT COLUMN: METRICS & TELEMETRY BREAKDOWN -->
           <div class="blueprint-metrics-col">
             
+            <!-- Live Controller & Quick Test Bar -->
+            <div class="interactive-controller-card">
+              <div class="controller-header">
+                <div class="ctrl-tag">
+                  <span class="pulse-dot-cyan"></span>
+                  <span>LIVE HARDWARE SIMULATOR</span>
+                </div>
+                <span class="ctrl-fps">120 FPS &bull; 0 FRAME DROPS</span>
+              </div>
+              <div class="controller-pills-row">
+                <button class="test-action-pill" onclick="window.triggerLivePhoneEvent('refresh')">🔄 Reload State</button>
+                <button class="test-action-pill" onclick="window.triggerLivePhoneEvent('test_notify')">🔔 Send Test Push</button>
+                <button class="test-action-pill" onclick="window.triggerLivePhoneEvent('benchmark')">⚡ Stress Test (100K)</button>
+              </div>
+            </div>
+
             <!-- Metric 1: Timeline & Infra Cost -->
             <div class="metrics-two-up-row">
               <div class="metric-card">
@@ -666,6 +697,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: pointer;
     transition: all 0.3s ease;
   }
 
@@ -1558,9 +1590,9 @@
 
   .output-success-banner {
     width: 100%;
-    padding: 1.5rem 2rem;
+    padding: 1.25rem 2rem;
     border-radius: 18px;
-    background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(15, 20, 36, 0.9), rgba(176, 38, 255, 0.1));
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(15, 20, 36, 0.9), rgba(0, 255, 136, 0.1));
     border: 1px solid rgba(0, 240, 255, 0.35);
     box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
     display: flex;
@@ -1577,8 +1609,8 @@
   }
 
   .success-icon-badge {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     border-radius: 12px;
     background: #00f0ff;
     color: #05070d;
@@ -1589,58 +1621,79 @@
 
   .success-tiny-tag {
     font-family: monospace;
-    font-size: 0.75rem;
-    color: #00f0ff;
+    font-size: 0.72rem;
+    color: #00ff88;
     font-weight: 800;
     letter-spacing: 0.1em;
   }
 
   .success-headline {
-    font-size: 1.6rem;
+    font-size: 1.45rem;
     font-weight: 800;
     color: #ffffff;
   }
 
   .success-actions-wrap {
     display: flex;
-    gap: 0.75rem;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-mode-toggle {
+    padding: 0.65rem 1.15rem;
+    border-radius: 10px;
+    font-family: monospace;
+    font-size: 0.8rem;
+    font-weight: 800;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(15, 20, 36, 0.8);
+    color: #94a3b8;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-mode-toggle.active-mode {
+    background: rgba(0, 255, 136, 0.2);
+    border-color: #00ff88;
+    color: #00ff88;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
   }
 
   .btn-export-blueprint {
-    padding: 0.75rem 1.5rem;
+    padding: 0.65rem 1.15rem;
     border-radius: 10px;
     background: #00f0ff;
     color: #05070d;
     font-family: monospace;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 800;
     border: none;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
     cursor: pointer;
     box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
   }
 
   .btn-reset-matrix {
-    padding: 0.75rem 1.5rem;
+    padding: 0.65rem 1.15rem;
     border-radius: 10px;
     background: #1e293b;
     color: #e2e8f0;
     font-family: monospace;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 800;
     border: 1px solid #334155;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
     cursor: pointer;
   }
 
   /* Full Screen 2-Column Dashboard Grid */
   .blueprint-dashboard-grid {
     display: grid;
-    grid-template-columns: 400px 1fr;
+    grid-template-columns: 380px 1fr;
     gap: 2rem;
     width: 100%;
     align-items: start;
@@ -1653,13 +1706,15 @@
   }
 
   .mobile-phone-casing {
-    width: 320px;
+    width: 360px;
+    max-width: 100%;
     background: #0a0d18;
     border: 4px solid #1e293b;
-    border-radius: 40px;
-    padding: 1rem 0.75rem;
-    box-shadow: 0 25px 60px rgba(0, 240, 255, 0.25);
+    border-radius: 44px;
+    padding: 1rem 0.85rem;
+    box-shadow: 0 25px 60px rgba(0, 240, 255, 0.25), 0 0 40px rgba(0, 255, 136, 0.15);
     position: relative;
+    transition: all 0.3s ease;
   }
 
   .phone-speaker-notch {
@@ -1678,11 +1733,12 @@
   .notch-speaker { width: 30px; height: 4px; border-radius: 9999px; background: #1e293b; }
 
   .phone-screen-display {
-    background: linear-gradient(180deg, #0f1424, #05070d);
-    border-radius: 28px;
+    background: #070a14;
+    border-radius: 30px;
     border: 1px solid #1e293b;
-    padding: 1.25rem;
-    min-height: 480px;
+    padding: 1rem;
+    min-height: 580px;
+    max-height: 620px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1690,139 +1746,215 @@
     overflow: hidden;
   }
 
-  .phone-ambient-blur {
-    position: absolute;
-    top: -50px;
-    right: -50px;
-    width: 150px;
-    height: 150px;
-    background: rgba(0, 240, 255, 0.15);
-    border-radius: 50%;
-    filter: blur(40px);
-  }
-
   .phone-status-bar {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-family: monospace;
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     color: #94a3b8;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.75rem;
   }
 
   .phone-status-icons {
     display: flex;
+    align-items: center;
     gap: 0.4rem;
   }
 
-  .phone-app-header {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .phone-app-avatar {
-    width: 46px;
-    height: 46px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #00f0ff, #b026ff);
-    color: #05070d;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .phone-app-name {
-    font-size: 1.05rem;
+  .phone-5g-tag {
+    font-size: 0.65rem;
     font-weight: 800;
-    color: #ffffff;
-    line-height: 1.2;
+    color: #00ff88;
   }
 
-  .phone-app-category {
-    font-family: monospace;
-    font-size: 0.72rem;
-    color: #00f0ff;
-  }
-
-  .phone-info-cards-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .phone-mini-card {
-    background: rgba(30, 41, 59, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    padding: 0.85rem;
-  }
-
-  .phone-card-top-row {
+  /* App Top Bar inside Phone */
+  .phone-app-topbar {
     display: flex;
     justify-content: space-between;
-    font-family: monospace;
-    font-size: 0.68rem;
-    color: #94a3b8;
-    margin-bottom: 0.35rem;
+    align-items: center;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 0.75rem;
   }
 
-  .phone-tech-pill {
-    color: #b026ff;
-    font-weight: 800;
-  }
-
-  .phone-card-body-text {
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: #ffffff;
-  }
-
-  .latency-bar-row {
+  .topbar-left {
     display: flex;
     align-items: center;
     gap: 0.6rem;
   }
 
-  .latency-track {
+  .app-avatar-box {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #00f0ff, #00ff88);
+    color: #05070d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
+  }
+
+  .live-app-heading {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.15;
+  }
+
+  .live-app-category-sub {
+    font-family: monospace;
+    font-size: 0.65rem;
+    color: #00ff88;
+  }
+
+  .topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .topbar-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.25rem 0.4rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+
+  .online-indicator-pill {
+    font-family: monospace;
+    font-size: 0.6rem;
+    font-weight: 800;
+    color: #00ff88;
+    background: rgba(0, 255, 136, 0.12);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    padding: 0.2rem 0.45rem;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .online-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #00ff88;
+    animation: pulse 1s infinite;
+  }
+
+  /* Live Interactive Viewport */
+  .live-interactive-viewport {
     flex: 1;
-    height: 6px;
-    background: #05070d;
-    border-radius: 9999px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0.25rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .live-interactive-viewport::-webkit-scrollbar {
+    width: 4px;
+  }
+  .live-interactive-viewport::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 4px;
+  }
+
+  /* Interactive Elements Inside Phone */
+  .live-action-card {
+    background: rgba(15, 20, 36, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+  }
+
+  .live-action-card:hover {
+    border-color: rgba(0, 240, 255, 0.3);
+  }
+
+  .live-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    font-family: monospace;
+    color: #94a3b8;
+  }
+
+  .live-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  /* Interactive Map Radar Canvas */
+  .interactive-map-canvas {
+    width: 100%;
+    height: 180px;
+    border-radius: 12px;
+    background: #050b14;
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    position: relative;
     overflow: hidden;
   }
 
-  .latency-fill {
-    width: 94%;
-    height: 100%;
-    background: #00ff88;
-    border-radius: 9999px;
-  }
-
-  .latency-number {
-    font-family: monospace;
-    font-size: 0.72rem;
-    color: #00ff88;
-    font-weight: 800;
-  }
-
-  .phone-bottom-action {
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .btn-phone-launch {
+  /* Mini Arcade Canvas */
+  .mini-game-canvas {
     width: 100%;
-    padding: 0.65rem;
-    border-radius: 10px;
-    background: #00f0ff;
-    color: #05070d;
-    font-family: monospace;
-    font-size: 0.78rem;
-    font-weight: 800;
-    border: none;
+    height: 200px;
+    background: #030712;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    display: block;
     cursor: pointer;
+  }
+
+  /* Phone Bottom Nav */
+  .phone-bottom-nav-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: rgba(5, 7, 13, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.5rem 0.2rem 0;
+    margin-top: 0.5rem;
+    border-radius: 12px;
+  }
+
+  .phone-nav-tab {
+    background: transparent;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    cursor: pointer;
+    color: #64748b;
+    padding: 0.2rem 0;
+    transition: all 0.2s ease;
+  }
+
+  .phone-nav-tab.active {
+    color: #00f0ff;
+  }
+
+  .nav-tab-icon {
+    font-size: 1rem;
+  }
+
+  .nav-tab-lbl {
+    font-size: 0.62rem;
+    font-family: monospace;
+    font-weight: 700;
   }
 
   .phone-home-indicator {
@@ -1830,15 +1962,82 @@
     height: 4px;
     background: #334155;
     border-radius: 9999px;
-    margin: 0.75rem auto 0;
+    margin: 0.65rem auto 0;
+    cursor: pointer;
   }
 
-  /* Metrics Column */
+  /* Right Metrics Column */
   .blueprint-metrics-col {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
     width: 100%;
+  }
+
+  .interactive-controller-card {
+    padding: 1.25rem;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(15, 20, 36, 0.9));
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .controller-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: monospace;
+  }
+
+  .ctrl-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #00f0ff;
+  }
+
+  .pulse-dot-cyan {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #00f0ff;
+    box-shadow: 0 0 8px #00f0ff;
+    animation: pulse 1s infinite;
+  }
+
+  .ctrl-fps {
+    font-size: 0.72rem;
+    color: #00ff88;
+    font-weight: 800;
+  }
+
+  .controller-pills-row {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .test-action-pill {
+    padding: 0.45rem 0.85rem;
+    border-radius: 8px;
+    background: rgba(5, 7, 13, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #e2e8f0;
+    font-family: monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .test-action-pill:hover {
+    border-color: #00f0ff;
+    color: #00f0ff;
+    background: rgba(0, 240, 255, 0.1);
   }
 
   .metrics-two-up-row {
@@ -2009,6 +2208,9 @@
     .blueprint-dashboard-grid {
       grid-template-columns: 1fr;
     }
+    .blueprint-phone-col {
+      order: 1;
+    }
   }
 
   @media (max-width: 768px) {
@@ -2026,74 +2228,107 @@
 </style>
 
 <script is:inline>
-  // Self-contained, robust client-side state machine
+  // ═════════════════════════════════════════════════════════════════════════
+  // GENESIS MATRIX ULTRA-INTERACTIVE CLIENT-SIDE OPERATING SYSTEM (ALL 49 APPS)
+  // ═════════════════════════════════════════════════════════════════════════
   (function() {
     const MATRIX_CATEGORIES = [
       // 32 GENERAL APPS
-      { id: 'art_design', name: 'Art & Design', pillar: 'apps', icon: '🎨', desc: 'Vector drawing, 3D CAD & generative AI canvas.' },
-      { id: 'auto_vehicles', name: 'Auto & Vehicles', pillar: 'apps', icon: '🚗', desc: 'Telemetry, EV charging routing & fleet diagnostics.' },
-      { id: 'beauty', name: 'Beauty & Glamour', pillar: 'apps', icon: '✨', desc: 'AR cosmetics testing & skin shade analytics.' },
-      { id: 'books_reference', name: 'Books & Reference', pillar: 'apps', icon: '📖', desc: 'EPUB rendering, audiobooks & interactive libraries.' },
-      { id: 'business', name: 'Business & ERP', pillar: 'apps', icon: '💼', desc: 'CRM pipelines, corporate invoicing & HR vaults.' },
-      { id: 'comics', name: 'Comics & Manga', pillar: 'apps', icon: '💬', desc: 'Webtoon scrolling engines & panel auto-pan.' },
-      { id: 'communication', name: 'Communication', pillar: 'apps', icon: '📡', desc: 'E2E encrypted chat, WebRTC voice & channels.' },
-      { id: 'dating', name: 'Dating & Socializing', pillar: 'apps', icon: '❤️', desc: 'Geolocation matching & verified video speed intros.' },
-      { id: 'education', name: 'Education & EdTech', pillar: 'apps', icon: '🎓', desc: 'Adaptive quizzes, flashcards & virtual classroom.' },
-      { id: 'entertainment', name: 'Entertainment & OTT', pillar: 'apps', icon: '🎬', desc: '4K DRM video streaming & synchronized watch parties.' },
-      { id: 'events', name: 'Events & Ticketing', pillar: 'apps', icon: '🎟️', desc: 'QR ticketing, seating matrices & festival schedules.' },
-      { id: 'finance', name: 'Finance & Fintech', pillar: 'apps', icon: '💳', desc: 'Crypto wallets, algorithmic investing & pay rails.' },
-      { id: 'food_drink', name: 'Food & Gastronomy', pillar: 'apps', icon: '🍽️', desc: 'Table reservations, recipe scaling & live order track.' },
-      { id: 'health_fitness', name: 'Health & Fitness', pillar: 'apps', icon: '🏃', desc: 'Workout cadence, sleep cycle tracking & macros.' },
-      { id: 'house_home', name: 'House & Smart Home', pillar: 'apps', icon: '🏠', desc: 'Matter IoT hubs, lighting scenes & energy meters.' },
-      { id: 'libraries_demo', name: 'Libraries & Dev Demo', pillar: 'apps', icon: '📚', desc: 'Open-source SDK showcases & component sandboxes.' },
-      { id: 'lifestyle', name: 'Lifestyle & Habits', pillar: 'apps', icon: '☀️', desc: 'Habit streaks, daily gratitude & mindfulness timers.' },
-      { id: 'maps_navigation', name: 'Maps & GPS Navigation', pillar: 'apps', icon: '🧭', desc: 'Turn-by-turn routing, offline vectors & traffic mesh.' },
-      { id: 'medical', name: 'Medical & Telehealth', pillar: 'apps', icon: '🩺', desc: 'HIPAA compliant consultations & prescription vault.' },
-      { id: 'music_audio', name: 'Music & Audio DAW', pillar: 'apps', icon: '🎵', desc: 'Lossless audio streaming, podcast RSS & beat makers.' },
-      { id: 'news_magazines', name: 'News & Journalism', pillar: 'apps', icon: '📰', desc: 'Curated feeds, breaking push alerts & offline digest.' },
-      { id: 'parenting', name: 'Parenting & Childcare', pillar: 'apps', icon: '👶', desc: 'Milestone tracking, immunization logs & nursery sync.' },
-      { id: 'personalization', name: 'Personalization', pillar: 'apps', icon: '🎛️', desc: 'Icon packs, live shaders & dynamic lockscreens.' },
-      { id: 'photography', name: 'Photography & Optics', pillar: 'apps', icon: '📷', desc: 'RAW processing, LUT filters & computational HDR.' },
-      { id: 'productivity', name: 'Productivity & Office', pillar: 'apps', icon: '✅', desc: 'Kanban boards, Markdown docs & calendar matrix.' },
-      { id: 'shopping', name: 'Shopping & E-Commerce', pillar: 'apps', icon: '🛍️', desc: 'One-click pay, AR product previews & flash drops.' },
-      { id: 'social', name: 'Social Networks', pillar: 'apps', icon: '🌐', desc: 'Ephemeral stories, algorithmic feed & direct DMs.' },
-      { id: 'sports', name: 'Sports & League Hub', pillar: 'apps', icon: '🏆', desc: 'Live scoreboard websocket, fantasy leagues & stats.' },
-      { id: 'tools', name: 'Tools & System Utility', pillar: 'apps', icon: '🔧', desc: 'Storage cleaners, WiFi analyzers & file encryption.' },
-      { id: 'travel_local', name: 'Travel & Exploration', pillar: 'apps', icon: '✈️', desc: 'Flight booking engines, eSIM hubs & hostel guides.' },
-      { id: 'video_players', name: 'Video Players & Editors', pillar: 'apps', icon: '🎥', desc: 'Multi-track timeline, chroma key & hardware codec.' },
-      { id: 'weather', name: 'Weather & Climate Radars', pillar: 'apps', icon: '🌦️', desc: 'Doppler satellite loops, UV indexes & storm alerts.' },
+      { id: 'maps_navigation', name: 'Maps & GPS Navigation', pillar: 'apps', icon: '🧭', type: 'map', desc: 'Turn-by-turn routing, radar vectors & real-time traffic mesh.' },
+      { id: 'finance', name: 'Finance & Fintech', pillar: 'apps', icon: '💳', type: 'finance', desc: 'Crypto wallets, algorithmic investing & instant pay rails.' },
+      { id: 'shopping', name: 'Shopping & E-Commerce', pillar: 'apps', icon: '🛍️', type: 'commerce', desc: 'One-click pay, AR product previews & flash drops.' },
+      { id: 'food_drink', name: 'Food & Gastronomy', pillar: 'apps', icon: '🍽️', type: 'food', desc: 'Table reservations, live order track & recipe scaling.' },
+      { id: 'health_fitness', name: 'Health & Fitness', pillar: 'apps', icon: '🏃', type: 'health', desc: 'Workout cadence, sleep cycle tracking & heart rate ECG.' },
+      { id: 'music_audio', name: 'Music & Audio DAW', pillar: 'apps', icon: '🎵', type: 'music', desc: 'Lossless audio streaming, podcast RSS & live equalizer.' },
+      { id: 'social', name: 'Social Networks', pillar: 'apps', icon: '🌐', type: 'social', desc: 'Ephemeral stories, algorithmic feed & direct chat DMs.' },
+      { id: 'communication', name: 'Communication', pillar: 'apps', icon: '📡', type: 'social', desc: 'E2E encrypted chat, WebRTC voice & group channels.' },
+      { id: 'productivity', name: 'Productivity & Office', pillar: 'apps', icon: '✅', type: 'task', desc: 'Kanban boards, Markdown notes & task timeline matrix.' },
+      { id: 'weather', name: 'Weather & Climate Radars', pillar: 'apps', icon: '🌦️', type: 'weather', desc: 'Doppler satellite loops, UV indexes & storm alerts.' },
+      { id: 'photography', name: 'Photography & Optics', pillar: 'apps', icon: '📷', type: 'photo', desc: 'RAW processing, LUT filters & computational HDR.' },
+      { id: 'art_design', name: 'Art & Design', pillar: 'apps', icon: '🎨', type: 'art', desc: 'Vector drawing, 3D CAD & generative AI canvas.' },
+      { id: 'auto_vehicles', name: 'Auto & Vehicles', pillar: 'apps', icon: '🚗', type: 'map', desc: 'Telemetry, EV charging routing & fleet diagnostics.' },
+      { id: 'beauty', name: 'Beauty & Glamour', pillar: 'apps', icon: '✨', type: 'commerce', desc: 'AR cosmetics testing & skin shade analytics.' },
+      { id: 'books_reference', name: 'Books & Reference', pillar: 'apps', icon: '📖', type: 'reader', desc: 'EPUB rendering, audiobooks & interactive libraries.' },
+      { id: 'business', name: 'Business & ERP', pillar: 'apps', icon: '💼', type: 'finance', desc: 'CRM pipelines, corporate invoicing & HR vaults.' },
+      { id: 'comics', name: 'Comics & Manga', pillar: 'apps', icon: '💬', type: 'reader', desc: 'Webtoon scrolling engines & panel auto-pan.' },
+      { id: 'dating', name: 'Dating & Socializing', pillar: 'apps', icon: '❤️', type: 'social', desc: 'Geolocation matching & verified video speed intros.' },
+      { id: 'education', name: 'Education & EdTech', pillar: 'apps', icon: '🎓', type: 'edu', desc: 'Adaptive quizzes, flashcards & virtual classroom.' },
+      { id: 'entertainment', name: 'Entertainment & OTT', pillar: 'apps', icon: '🎬', type: 'music', desc: '4K DRM video streaming & synchronized watch parties.' },
+      { id: 'events', name: 'Events & Ticketing', pillar: 'apps', icon: '🎟️', type: 'commerce', desc: 'QR ticketing, seating matrices & festival schedules.' },
+      { id: 'house_home', name: 'House & Smart Home', pillar: 'apps', icon: '🏠', type: 'iot', desc: 'Matter IoT hubs, lighting scenes & energy meters.' },
+      { id: 'libraries_demo', name: 'Libraries & Dev Demo', pillar: 'apps', icon: '📚', type: 'task', desc: 'Open-source SDK showcases & component sandboxes.' },
+      { id: 'lifestyle', name: 'Lifestyle & Habits', pillar: 'apps', icon: '☀️', type: 'health', desc: 'Habit streaks, daily gratitude & mindfulness timers.' },
+      { id: 'medical', name: 'Medical & Telehealth', pillar: 'apps', icon: '🩺', type: 'health', desc: 'HIPAA compliant consultations & prescription vault.' },
+      { id: 'news_magazines', name: 'News & Journalism', pillar: 'apps', icon: '📰', type: 'reader', desc: 'Curated feeds, breaking push alerts & offline digest.' },
+      { id: 'parenting', name: 'Parenting & Childcare', pillar: 'apps', icon: '👶', type: 'health', desc: 'Milestone tracking, immunization logs & nursery sync.' },
+      { id: 'personalization', name: 'Personalization', pillar: 'apps', icon: '🎛️', type: 'art', desc: 'Icon packs, live shaders & dynamic lockscreens.' },
+      { id: 'sports', name: 'Sports & League Hub', pillar: 'apps', icon: '🏆', type: 'social', desc: 'Live scoreboard websocket, fantasy leagues & stats.' },
+      { id: 'tools', name: 'Tools & System Utility', pillar: 'apps', icon: '🔧', type: 'tool', desc: 'Storage cleaners, WiFi analyzers & file encryption.' },
+      { id: 'travel_local', name: 'Travel & Exploration', pillar: 'apps', icon: '✈️', type: 'map', desc: 'Flight booking engines, eSIM hubs & hostel guides.' },
+      { id: 'video_players', name: 'Video Players & Editors', pillar: 'apps', icon: '🎥', type: 'music', desc: 'Multi-track timeline, chroma key & hardware codec.' },
 
       // 17 GAMING ENGINES
-      { id: 'game_action', name: 'Action & Combat', pillar: 'games', icon: '⚔️', desc: 'Fast-paced FPS, hack-and-slash & battle royales.' },
-      { id: 'game_adventure', name: 'Adventure & Lore', pillar: 'games', icon: '🗺️', desc: 'Story-driven quests, isometric exploration & dungeon runs.' },
-      { id: 'game_arcade', name: 'Arcade Classics', pillar: 'games', icon: '🕹️', desc: 'Endless runners, rhythm tap games & pixel shooters.' },
-      { id: 'game_board', name: 'Board & Tabletop', pillar: 'games', icon: '♟️', desc: 'Chess engines, online tabletop dice & card battles.' },
-      { id: 'game_card', name: 'Card & Deckbuilder', pillar: 'games', icon: '🃏', desc: 'Collectible TCG, rogue-like deck construction & PvP.' },
-      { id: 'game_casino', name: 'Casino & Slots', pillar: 'games', icon: '🎰', desc: 'Vegas roulette simulation, poker tournaments & chips.' },
-      { id: 'game_casual', name: 'Casual & Relaxing', pillar: 'games', icon: '☕', desc: 'Match-3 puzzles, cozy farming & ASMR taps.' },
-      { id: 'game_educational', name: 'Educational Games', pillar: 'games', icon: '🧠', desc: 'Math adventures, geography trivia & coding puzzles.' },
-      { id: 'game_music', name: 'Music & Beat Shaders', pillar: 'games', icon: '🎧', desc: 'Rhythm note highways, synthwave tracks & piano tiles.' },
-      { id: 'game_puzzle', name: 'Puzzle & Logic', pillar: 'games', icon: '🧩', desc: 'Spatial physics, escape rooms & brain teasers.' },
-      { id: 'game_racing', name: 'Racing & Motorsports', pillar: 'games', icon: '🏎️', desc: 'High-octane drift physics, supercars & rally tracks.' },
-      { id: 'game_rpg', name: 'Role Playing (RPG)', pillar: 'games', icon: '🛡️', desc: 'Character stat trees, open-world MMOs & turn battles.' },
-      { id: 'game_simulation', name: 'Simulation & Sandboxes', pillar: 'games', icon: '🏙️', desc: 'City builders, flight simulators & space colonies.' },
-      { id: 'game_sports', name: 'Sports Games & Arenas', pillar: 'games', icon: '⚽', desc: 'Soccer stadiums, NBA slam dunks & tennis opens.' },
-      { id: 'game_strategy', name: 'Strategy & RTS Tactics', pillar: 'games', icon: '🏰', desc: 'Base building, tower defense & multi-unit warfare.' },
-      { id: 'game_trivia', name: 'Trivia & Game Shows', pillar: 'games', icon: '❓', desc: 'Head-to-head buzzer matches & multi-choice showdowns.' },
-      { id: 'game_word', name: 'Word & Vocabulary', pillar: 'games', icon: '📝', desc: 'Crossword matrices, anagram scrambles & word grids.' }
+      { id: 'game_action', name: 'Action & Combat', pillar: 'games', icon: '⚔️', type: 'game', desc: 'Fast-paced FPS, hack-and-slash & battle royales.' },
+      { id: 'game_arcade', name: 'Arcade Classics', pillar: 'games', icon: '🕹️', type: 'game', desc: 'Endless runners, rhythm tap games & pixel shooters.' },
+      { id: 'game_racing', name: 'Racing & Motorsports', pillar: 'games', icon: '🏎️', type: 'game', desc: 'High-octane drift physics, supercars & rally tracks.' },
+      { id: 'game_rpg', name: 'Role Playing (RPG)', pillar: 'games', icon: '🛡️', type: 'game', desc: 'Character stat trees, open-world MMOs & turn battles.' },
+      { id: 'game_puzzle', name: 'Puzzle & Logic', pillar: 'games', icon: '🧩', type: 'game', desc: 'Spatial physics, escape rooms & brain teasers.' },
+      { id: 'game_strategy', name: 'Strategy & RTS Tactics', pillar: 'games', icon: '🏰', type: 'game', desc: 'Base building, tower defense & multi-unit warfare.' },
+      { id: 'game_adventure', name: 'Adventure & Lore', pillar: 'games', icon: '🗺️', type: 'game', desc: 'Story-driven quests, isometric exploration & dungeon runs.' },
+      { id: 'game_board', name: 'Board & Tabletop', pillar: 'games', icon: '♟️', type: 'game', desc: 'Chess engines, online tabletop dice & card battles.' },
+      { id: 'game_card', name: 'Card & Deckbuilder', pillar: 'games', icon: '🃏', type: 'game', desc: 'Collectible TCG, rogue-like deck construction & PvP.' },
+      { id: 'game_casino', name: 'Casino & Slots', pillar: 'games', icon: '🎰', type: 'game', desc: 'Vegas roulette simulation, poker tournaments & chips.' },
+      { id: 'game_casual', name: 'Casual & Relaxing', pillar: 'games', icon: '☕', type: 'game', desc: 'Match-3 puzzles, cozy farming & ASMR taps.' },
+      { id: 'game_educational', name: 'Educational Games', pillar: 'games', icon: '🧠', type: 'game', desc: 'Math adventures, geography trivia & coding puzzles.' },
+      { id: 'game_music', name: 'Music & Beat Shaders', pillar: 'games', icon: '🎧', type: 'game', desc: 'Rhythm note highways, synthwave tracks & piano tiles.' },
+      { id: 'game_simulation', name: 'Simulation & Sandboxes', pillar: 'games', icon: '🏙️', type: 'game', desc: 'City builders, flight simulators & space colonies.' },
+      { id: 'game_sports', name: 'Sports Games & Arenas', pillar: 'games', icon: '⚽', type: 'game', desc: 'Soccer stadiums, NBA slam dunks & tennis opens.' },
+      { id: 'game_trivia', name: 'Trivia & Game Shows', pillar: 'games', icon: '❓', type: 'game', desc: 'Head-to-head buzzer matches & multi-choice showdowns.' },
+      { id: 'game_word', name: 'Word & Vocabulary', pillar: 'games', icon: '📝', type: 'game', desc: 'Crossword matrices, anagram scrambles & word grids.' }
     ];
 
     const State = {
       currentStep: 1,
-      selectedCategory: null,
-      appName: 'Nexus Protocol',
+      selectedCategory: MATRIX_CATEGORIES[0], // default to Maps
+      appName: 'Nexus Maps Pro',
       techType: 'native',
       userScaleIndex: 4,
       complexityStars: 3,
+      currentTab: 'home',
+      activeMode: 'interactive', // 'interactive' | 'blueprint'
       userScaleLabels: ['1K Users', '10K Users', '50K Users', '500K Users', '1M Users', '5M Users', '10M+ Global'],
-      complexityLabels: ['(Minimal MVP)', '(Standard App)', '(Advanced System)', '(Complex Distributed)', '(Enterprise Super-App)']
+      complexityLabels: ['(Minimal MVP)', '(Standard App)', '(Advanced System)', '(Complex Distributed)', '(Enterprise Super-App)'],
+      
+      // Live App State Variables
+      liveData: {
+        balance: 48920.45,
+        cartCount: 2,
+        heartRate: 74,
+        steps: 8420,
+        isPlaying: false,
+        gameScore: 0,
+        gameHigh: 140,
+        chatMessages: [
+          { sender: 'bot', text: 'Welcome to your live application sandbox! Type any message to test real-time WebSocket sync.' }
+        ],
+        tasks: [
+          { text: 'Verify hardware compilation', done: true },
+          { text: 'Test 120 FPS latency mesh', done: false },
+          { text: 'Deploy to Google Play Console', done: false }
+        ]
+      }
     };
 
+    // Live Clock Update
+    setInterval(() => {
+      const clockEl = document.getElementById('phone-live-clock');
+      if (clockEl) {
+        const now = new Date();
+        clockEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }
+    }, 1000);
+
+    // Render Categories
     function renderMasterCategories(list) {
       const gridApps = document.getElementById('grid-apps');
       const gridGames = document.getElementById('grid-games');
@@ -2114,7 +2349,7 @@
         card.innerHTML = `
           <div>
             <div class="cat-avatar ${isGame ? 'green-box' : 'cyan-box'}">
-              <span style="font-size: 1.2rem;">${cat.icon}</span>
+              <span style="font-size: 1.25rem;">${cat.icon}</span>
             </div>
             <h4 class="cat-title">${cat.name}</h4>
           </div>
@@ -2156,6 +2391,20 @@
       if (activeCard) {
         activeCard.classList.add(cat.pillar === 'games' ? 'active-selected-green' : 'active-selected-cyan');
       }
+
+      // Auto update app name
+      const defaultNames = {
+        'maps_navigation': 'Nexus Maps Pro',
+        'finance': 'OrbitPay Matrix',
+        'shopping': 'Aura Drops',
+        'health_fitness': 'PulseFit Pro',
+        'music_audio': 'SynthWave DAW',
+        'social': 'SphereNet',
+        'game_action': 'CyberVanguard RTS',
+        'game_arcade': 'PixelBlaster 2099',
+        'game_racing': 'Apex Drift Hyper'
+      };
+      State.appName = defaultNames[cat.id] || `${cat.name.split(' ')[0]}Pro`;
     };
 
     window.filterMatrixPillar = function(type) {
@@ -2221,21 +2470,15 @@
         if (titleEl) titleEl.textContent = State.selectedCategory.name;
         if (iconEl) iconEl.innerHTML = `<span style="font-size: 1.5rem;">${State.selectedCategory.icon}</span>`;
         
-        if (!State.appName || State.appName === 'Nexus Protocol') {
-          const defaultNames = {
-            'art_design': 'VectorFlow AI',
-            'business': 'EnterprisePulse',
-            'finance': 'OrbitPay Matrix',
-            'social': 'SphereNet',
-            'game_action': 'CyberVanguard RTS',
-            'game_rpg': 'ChronoRealm Legends'
-          };
-          State.appName = defaultNames[State.selectedCategory.id] || `${State.selectedCategory.name.split(' ')[0]}Pro`;
-          const inputName = document.getElementById('input-app-name');
-          const counter = document.getElementById('name-counter');
-          if (inputName) inputName.value = State.appName;
-          if (counter) counter.textContent = `${State.appName.length}/32`;
-        }
+        const inputName = document.getElementById('input-app-name');
+        const counter = document.getElementById('name-counter');
+        if (inputName) inputName.value = State.appName;
+        if (counter) counter.textContent = `${State.appName.length}/32`;
+      }
+
+      if (stepNum === 4) {
+        renderLiveInteractiveApp();
+        renderBlueprintTelemetry();
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2281,7 +2524,7 @@
       window.goToMatrixStep(3);
 
       const appName = State.appName || 'Nexus Protocol';
-      const category = State.selectedCategory || { name: 'Core Application', pillar: 'apps' };
+      const category = State.selectedCategory || MATRIX_CATEGORIES[0];
       const tech = State.techType;
 
       const appNameEl = document.getElementById('compiling-app-name');
@@ -2310,7 +2553,6 @@
       function runNextStep() {
         if (currentStepIndex >= steps.length) {
           setTimeout(() => {
-            renderBlueprintTelemetry();
             window.goToMatrixStep(4);
           }, 600);
           return;
@@ -2338,25 +2580,771 @@
       runNextStep();
     };
 
-    function renderBlueprintTelemetry() {
+    // ═════════════════════════════════════════════════════════════════════════
+    // RENDER INTERACTIVE MOBILE APP FOR EACH OF THE 49 CATEGORIES
+    // ═════════════════════════════════════════════════════════════════════════
+    function renderLiveInteractiveApp() {
+      const cat = State.selectedCategory || MATRIX_CATEGORIES[0];
       const appName = State.appName || 'Nexus Protocol';
-      const cat = State.selectedCategory || { name: 'General App', pillar: 'apps', icon: '📱' };
+
+      const titleEl = document.getElementById('live-app-title');
+      const badgeEl = document.getElementById('live-app-badge');
+      const avatarEl = document.getElementById('live-app-avatar');
+      const bodyEl = document.getElementById('live-interactive-app-body');
+
+      if (titleEl) titleEl.textContent = appName;
+      if (badgeEl) badgeEl.textContent = `${cat.name} (${cat.pillar.toUpperCase()})`;
+      if (avatarEl) avatarEl.innerHTML = `<span>${cat.icon}</span>`;
+
+      if (!bodyEl) return;
+
+      // Render Archetype specific UI
+      const type = cat.type || (cat.pillar === 'games' ? 'game' : 'task');
+
+      if (type === 'map') {
+        renderMapApp(bodyEl, appName);
+      } else if (type === 'finance') {
+        renderFinanceApp(bodyEl, appName);
+      } else if (type === 'commerce' || type === 'food') {
+        renderCommerceApp(bodyEl, appName, cat);
+      } else if (type === 'social') {
+        renderSocialApp(bodyEl, appName);
+      } else if (type === 'health') {
+        renderHealthApp(bodyEl, appName);
+      } else if (type === 'music') {
+        renderMusicApp(bodyEl, appName);
+      } else if (type === 'game') {
+        renderGameApp(bodyEl, appName, cat);
+      } else if (type === 'weather') {
+        renderWeatherApp(bodyEl, appName);
+      } else {
+        renderProductivityApp(bodyEl, appName, cat);
+      }
+    }
+
+    // ARCHETYPE 1: MAPS & NAVIGATION
+    function renderMapApp(container, appName) {
+      container.innerHTML = `
+        <div class="live-action-card">
+          <div class="live-card-header">
+            <span>LIVE GPS RADAR</span>
+            <span style="color: #00ff88;">ONLINE</span>
+          </div>
+          <div class="interactive-map-canvas" id="gps-canvas-box">
+            <canvas id="gps-radar-canvas" width="300" height="180" style="width: 100%; height: 100%;"></canvas>
+            <div style="position: absolute; bottom: 8px; left: 8px; font-family: monospace; font-size: 0.65rem; color: #00f0ff; background: rgba(5,7,13,0.85); padding: 2px 6px; border-radius: 4px;">
+              LAT: 37.7749° N &bull; LON: 122.4194° W
+            </div>
+          </div>
+        </div>
+
+        <div class="live-action-card">
+          <div class="live-card-header">
+            <span>TURN-BY-TURN ROUTING</span>
+            <span id="route-eta-badge" style="color: #00f0ff; font-weight: 800;">14 MIN &bull; 8.4 KM</span>
+          </div>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <input type="text" id="destination-input" placeholder="Search destination..." value="Cyber Central Tower" style="flex: 1; background: #05070d; border: 1px solid #334155; border-radius: 8px; padding: 0.5rem; color: #fff; font-size: 0.75rem; font-family: monospace;" />
+            <button onclick="window.startGpsNavigation()" style="background: #00f0ff; color: #05070d; font-weight: 800; font-family: monospace; font-size: 0.75rem; border: none; padding: 0.5rem 0.8rem; border-radius: 8px; cursor: pointer;">GO</button>
+          </div>
+          <div id="gps-directions-text" style="font-size: 0.75rem; color: #94a3b8; line-height: 1.4; margin-top: 0.2rem;">
+            📍 In 300m, turn right onto Quantum Boulevard. Speed: <strong style="color: #00ff88;">68 km/h</strong>.
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
+          <button onclick="window.switchGpsView('vector')" class="test-action-pill" style="text-align: center; width: 100%;">Vector</button>
+          <button onclick="window.switchGpsView('satellite')" class="test-action-pill" style="text-align: center; width: 100%;">Satellite</button>
+          <button onclick="window.switchGpsView('traffic')" class="test-action-pill" style="text-align: center; width: 100%;">Traffic</button>
+        </div>
+      `;
+
+      initGpsCanvas();
+    }
+
+    function initGpsCanvas() {
+      const canvas = document.getElementById('gps-radar-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let angle = 0;
+
+      function draw() {
+        if (!document.getElementById('gps-radar-canvas')) return;
+        ctx.fillStyle = '#050b14';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw grid lines
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.15)';
+        ctx.lineWidth = 1;
+        for (let x = 0; x < canvas.width; x += 30) {
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+        }
+        for (let y = 0; y < canvas.height; y += 30) {
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+        }
+
+        // Draw Route Path
+        ctx.strokeStyle = '#00f0ff';
+        ctx.lineWidth = 3;
+        ctx.shadowColor = '#00f0ff';
+        ctx.shadowBlur = 10;
+        ctx.beginPath();
+        ctx.moveTo(40, 140);
+        ctx.lineTo(120, 80);
+        ctx.lineTo(200, 110);
+        ctx.lineTo(260, 40);
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+
+        // User Pulse Marker
+        ctx.fillStyle = '#00ff88';
+        ctx.beginPath();
+        ctx.arc(120, 80, 6, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Destination Marker
+        ctx.fillStyle = '#ff007a';
+        ctx.beginPath();
+        ctx.arc(260, 40, 7, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Radar sweep
+        ctx.strokeStyle = 'rgba(0, 255, 136, 0.4)';
+        ctx.beginPath();
+        ctx.moveTo(120, 80);
+        ctx.lineTo(120 + Math.cos(angle) * 70, 80 + Math.sin(angle) * 70);
+        ctx.stroke();
+
+        angle += 0.04;
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    window.startGpsNavigation = function() {
+      const dest = document.getElementById('destination-input').value || 'Target';
+      const textEl = document.getElementById('gps-directions-text');
+      const badge = document.getElementById('route-eta-badge');
+      if (textEl) textEl.innerHTML = `🚀 Rerouting to <strong>${dest}</strong>. Fast lane locked. Speed: <strong style="color: #00ff88;">72 km/h</strong>.`;
+      if (badge) badge.textContent = "11 MIN • 6.2 KM";
+      window.playMatrixChime();
+    };
+
+    window.switchGpsView = function(mode) {
+      const box = document.getElementById('gps-canvas-box');
+      if (box) {
+        if (mode === 'satellite') box.style.background = '#0a192f';
+        else if (mode === 'traffic') box.style.background = '#1a0d24';
+        else box.style.background = '#050b14';
+      }
+      window.playMatrixChime();
+    };
+
+    // ARCHETYPE 2: FINANCE & FINTECH
+    function renderFinanceApp(container, appName) {
+      container.innerHTML = `
+        <div class="live-action-card" style="background: linear-gradient(135deg, rgba(0,240,255,0.15), rgba(15,20,36,0.9));">
+          <div class="live-card-header">
+            <span>TOTAL LIQUID BALANCE</span>
+            <span style="color: #00ff88; font-weight: 800;">+5.4% TODAY</span>
+          </div>
+          <div id="finance-balance-display" style="font-family: monospace; font-size: 1.8rem; font-weight: 900; color: #ffffff;">
+            $${State.liveData.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+          </div>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+            <button onclick="window.sendMoneyPrompt()" style="flex: 1; padding: 0.5rem; background: #00f0ff; color: #05070d; font-weight: 800; font-family: monospace; font-size: 0.75rem; border: none; border-radius: 8px; cursor: pointer;">💸 SEND</button>
+            <button onclick="window.depositMoneyPrompt()" style="flex: 1; padding: 0.5rem; background: #1e293b; color: #00ff88; font-weight: 800; font-family: monospace; font-size: 0.75rem; border: 1px solid #00ff88; border-radius: 8px; cursor: pointer;">📥 DEPOSIT</button>
+          </div>
+        </div>
+
+        <div class="live-action-card">
+          <div class="live-card-header">
+            <span>LIVE CRYPTO ASSETS</span>
+            <span style="color: #00f0ff;">WEBSOCKET FEED</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 0.4rem; font-family: monospace; font-size: 0.78rem;">
+            <div style="display: flex; justify-content: space-between; padding: 0.3rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+              <span>⚡ BTC / USD</span>
+              <strong style="color: #00ff88;">$96,420.00</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 0.3rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+              <span>🔮 ETH / USD</span>
+              <strong style="color: #00ff88;">$3,850.50</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 0.3rem 0;">
+              <span>🪐 SOL / USD</span>
+              <strong style="color: #00f0ff;">$214.20</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="live-action-card">
+          <div class="live-card-header"><span>RECENT ACTIVITY</span><span>CONFIRMED</span></div>
+          <div id="tx-log-box" style="font-family: monospace; font-size: 0.72rem; color: #94a3b8; display: flex; flex-direction: column; gap: 0.3rem;">
+            <div>&bull; Transfer to @alexturner: <span style="color: #ff007a;">-$250.00</span></div>
+            <div>&bull; Staking Yield Payout: <span style="color: #00ff88;">+$42.80</span></div>
+          </div>
+        </div>
+      `;
+    }
+
+    window.sendMoneyPrompt = function() {
+      const amount = 100;
+      State.liveData.balance = Math.max(0, State.liveData.balance - amount);
+      const balEl = document.getElementById('finance-balance-display');
+      if (balEl) balEl.textContent = `$${State.liveData.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+      
+      const logBox = document.getElementById('tx-log-box');
+      if (logBox) {
+        const item = document.createElement('div');
+        item.innerHTML = `&bull; Instant Transfer: <span style="color: #ff007a;">-$100.00</span> (TXID: #${Math.floor(Math.random()*90000+10000)})`;
+        logBox.prepend(item);
+      }
+      window.playMatrixChime();
+    };
+
+    window.depositMoneyPrompt = function() {
+      const amount = 500;
+      State.liveData.balance += amount;
+      const balEl = document.getElementById('finance-balance-display');
+      if (balEl) balEl.textContent = `$${State.liveData.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+      
+      const logBox = document.getElementById('tx-log-box');
+      if (logBox) {
+        const item = document.createElement('div');
+        item.innerHTML = `&bull; Instant Deposit: <span style="color: #00ff88;">+$500.00</span>`;
+        logBox.prepend(item);
+      }
+      window.playMatrixChime();
+    };
+
+    // ARCHETYPE 3: E-COMMERCE & SHOPPING
+    function renderCommerceApp(container, appName, cat) {
+      container.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-family: monospace; font-size: 0.75rem; color: #94a3b8;">HOT DROPS &bull; IN STOCK</span>
+          <span id="cart-counter-badge" style="background: #00ff88; color: #05070d; font-family: monospace; font-size: 0.7rem; font-weight: 800; padding: 2px 8px; border-radius: 9999px;">
+            🛒 Cart (${State.liveData.cartCount})
+          </span>
+        </div>
+
+        <div class="live-action-card">
+          <div style="display: flex; gap: 0.75rem; align-items: center;">
+            <div style="width: 50px; height: 50px; border-radius: 10px; background: linear-gradient(135deg, #00f0ff, #b026ff); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+              ${cat.icon}
+            </div>
+            <div style="flex: 1;">
+              <h5 style="font-size: 0.85rem; font-weight: 800; color: #fff;">Cyber Vanguard Edition</h5>
+              <div style="font-family: monospace; font-size: 0.75rem; color: #00ff88; font-weight: 800;">$149.00 USD</div>
+            </div>
+            <button onclick="window.addToCartAction(149)" style="padding: 0.45rem 0.8rem; background: #00f0ff; color: #05070d; font-family: monospace; font-size: 0.75rem; font-weight: 800; border: none; border-radius: 8px; cursor: pointer;">
+              + ADD
+            </button>
+          </div>
+        </div>
+
+        <div class="live-action-card">
+          <div style="display: flex; gap: 0.75rem; align-items: center;">
+            <div style="width: 50px; height: 50px; border-radius: 10px; background: linear-gradient(135deg, #00ff88, #3b82f6); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+              ✨
+            </div>
+            <div style="flex: 1;">
+              <h5 style="font-size: 0.85rem; font-weight: 800; color: #fff;">Quantum Core Pack</h5>
+              <div style="font-family: monospace; font-size: 0.75rem; color: #00ff88; font-weight: 800;">$79.00 USD</div>
+            </div>
+            <button onclick="window.addToCartAction(79)" style="padding: 0.45rem 0.8rem; background: #00f0ff; color: #05070d; font-family: monospace; font-size: 0.75rem; font-weight: 800; border: none; border-radius: 8px; cursor: pointer;">
+              + ADD
+            </button>
+          </div>
+        </div>
+
+        <button onclick="window.checkoutOrderAction()" style="width: 100%; padding: 0.65rem; background: linear-gradient(90deg, #00f0ff, #00ff88); color: #05070d; font-family: monospace; font-size: 0.82rem; font-weight: 900; text-transform: uppercase; border: none; border-radius: 10px; cursor: pointer; box-shadow: 0 0 15px rgba(0,240,255,0.3);">
+          ⚡ Instant 1-Click Checkout
+        </button>
+      `;
+    }
+
+    window.addToCartAction = function(price) {
+      State.liveData.cartCount++;
+      const cartBadge = document.getElementById('cart-counter-badge');
+      if (cartBadge) cartBadge.textContent = `🛒 Cart (${State.liveData.cartCount})`;
+      window.playMatrixChime();
+    };
+
+    window.checkoutOrderAction = function() {
+      alert(`🎉 Order Confirmed! Total items: ${State.liveData.cartCount}. Tracking number generated & dispatched via COD protocol.`);
+      State.liveData.cartCount = 0;
+      const cartBadge = document.getElementById('cart-counter-badge');
+      if (cartBadge) cartBadge.textContent = `🛒 Cart (0)`;
+      window.playMatrixChime();
+    };
+
+    // ARCHETYPE 4: SOCIAL & CHAT MESSAGING
+    function renderSocialApp(container, appName) {
+      container.innerHTML = `
+        <div style="display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.4rem;">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 0.2rem; cursor: pointer;" onclick="window.viewStory('Alex')">
+            <div style="width: 44px; height: 44px; border-radius: 50%; padding: 2px; background: linear-gradient(135deg, #00f0ff, #ff007a);"><div style="width: 100%; height: 100%; border-radius: 50%; background: #1e293b; display: flex; align-items: center; justify-content: center;">🕶️</div></div>
+            <span style="font-size: 0.65rem; color: #fff;">@alex</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 0.2rem; cursor: pointer;" onclick="window.viewStory('Elena')">
+            <div style="width: 44px; height: 44px; border-radius: 50%; padding: 2px; background: linear-gradient(135deg, #00ff88, #00f0ff);"><div style="width: 100%; height: 100%; border-radius: 50%; background: #1e293b; display: flex; align-items: center; justify-content: center;">⚡</div></div>
+            <span style="font-size: 0.65rem; color: #fff;">@elena</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 0.2rem; cursor: pointer;" onclick="window.viewStory('Kavita')">
+            <div style="width: 44px; height: 44px; border-radius: 50%; padding: 2px; background: linear-gradient(135deg, #b026ff, #00ff88);"><div style="width: 100%; height: 100%; border-radius: 50%; background: #1e293b; display: flex; align-items: center; justify-content: center;">✨</div></div>
+            <span style="font-size: 0.65rem; color: #fff;">@kavita</span>
+          </div>
+        </div>
+
+        <div class="live-action-card" style="height: 180px; display: flex; flex-direction: column;">
+          <div id="chat-messages-scroll" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.4rem;">
+            ${State.liveData.chatMessages.map(m => `
+              <div style="align-self: ${m.sender === 'user' ? 'flex-end' : 'flex-start'}; background: ${m.sender === 'user' ? '#00f0ff' : '#1e293b'}; color: ${m.sender === 'user' ? '#05070d' : '#fff'}; padding: 0.4rem 0.75rem; border-radius: 12px; font-size: 0.72rem; max-width: 85%;">
+                ${m.text}
+              </div>
+            `).join('')}
+          </div>
+          <div style="display: flex; gap: 0.4rem; margin-top: 0.5rem;">
+            <input type="text" id="chat-input-text" placeholder="Type a message..." style="flex: 1; background: #05070d; border: 1px solid #334155; border-radius: 8px; padding: 0.4rem 0.6rem; color: #fff; font-size: 0.75rem;" onkeypress="if(event.key==='Enter') window.sendChatMessage()" />
+            <button onclick="window.sendChatMessage()" style="background: #00f0ff; color: #05070d; font-weight: 800; border: none; border-radius: 8px; padding: 0.4rem 0.7rem; font-size: 0.75rem; cursor: pointer;">➤</button>
+          </div>
+        </div>
+      `;
+    }
+
+    window.sendChatMessage = function() {
+      const input = document.getElementById('chat-input-text');
+      if (!input || !input.value.trim()) return;
+      const text = input.value.trim();
+      input.value = '';
+
+      State.liveData.chatMessages.push({ sender: 'user', text: text });
+      renderLiveInteractiveApp();
+
+      // Bot instant reply
+      setTimeout(() => {
+        State.liveData.chatMessages.push({
+          sender: 'bot',
+          text: `⚡ [${State.appName} Mesh]: Packet verified with 8ms latency!`
+        });
+        renderLiveInteractiveApp();
+        window.playMatrixChime();
+      }, 700);
+    };
+
+    window.viewStory = function(user) {
+      alert(`✨ Story opened: @${user}'s status update! Verified 120 FPS video stream.`);
+      window.playMatrixChime();
+    };
+
+    // ARCHETYPE 5: HEALTH & FITNESS
+    function renderHealthApp(container, appName) {
+      container.innerHTML = `
+        <div class="live-action-card" style="background: linear-gradient(135deg, rgba(0,255,136,0.15), rgba(15,20,36,0.9));">
+          <div class="live-card-header"><span>HEART RATE ECG</span><span style="color: #00ff88;">74 BPM &bull; NORMAL</span></div>
+          <canvas id="ecg-canvas" width="300" height="70" style="width: 100%; height: 70px;"></canvas>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem;">
+          <div class="live-action-card">
+            <span style="font-family: monospace; font-size: 0.65rem; color: #94a3b8;">DAILY STEPS</span>
+            <div id="steps-val-display" style="font-family: monospace; font-size: 1.25rem; font-weight: 900; color: #00f0ff;">
+              ${State.liveData.steps.toLocaleString()}
+            </div>
+            <button onclick="window.logStepAction()" style="background: #1e293b; color: #00f0ff; font-family: monospace; font-size: 0.7rem; padding: 0.3rem; border: 1px solid #00f0ff; border-radius: 6px; cursor: pointer;">+ Add 500 Steps</button>
+          </div>
+
+          <div class="live-action-card">
+            <span style="font-family: monospace; font-size: 0.65rem; color: #94a3b8;">CALORIES BURNED</span>
+            <div style="font-family: monospace; font-size: 1.25rem; font-weight: 900; color: #ff007a;">
+              640 kcal
+            </div>
+            <span style="font-size: 0.65rem; color: #00ff88;">Goal: 80% reached</span>
+          </div>
+        </div>
+
+        <div class="live-action-card">
+          <div class="live-card-header"><span>INTERVAL WORKOUT TIMER</span><span id="workout-time-display" style="color: #00ff88; font-weight: 800;">00:45</span></div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button onclick="window.startWorkoutTimer()" style="flex: 1; padding: 0.5rem; background: #00ff88; color: #05070d; font-family: monospace; font-size: 0.75rem; font-weight: 800; border: none; border-radius: 8px; cursor: pointer;">▶ START</button>
+            <button onclick="window.pauseWorkoutTimer()" style="flex: 1; padding: 0.5rem; background: #1e293b; color: #e2e8f0; font-family: monospace; font-size: 0.75rem; border: 1px solid #334155; border-radius: 8px; cursor: pointer;">⏸ PAUSE</button>
+          </div>
+        </div>
+      `;
+
+      initEcgCanvas();
+    }
+
+    function initEcgCanvas() {
+      const canvas = document.getElementById('ecg-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let offset = 0;
+
+      function draw() {
+        if (!document.getElementById('ecg-canvas')) return;
+        ctx.fillStyle = '#050b14';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.strokeStyle = '#00ff88';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        for (let x = 0; x < canvas.width; x++) {
+          const t = (x + offset) % 100;
+          let y = canvas.height / 2;
+          if (t > 40 && t < 45) y -= 15;
+          else if (t >= 45 && t < 55) y += 25;
+          else if (t >= 55 && t < 65) y -= 30;
+          else if (t >= 65 && t < 70) y += 10;
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        offset += 2;
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    window.logStepAction = function() {
+      State.liveData.steps += 500;
+      const stepEl = document.getElementById('steps-val-display');
+      if (stepEl) stepEl.textContent = State.liveData.steps.toLocaleString();
+      window.playMatrixChime();
+    };
+
+    let timerInterval = null;
+    let timerSecs = 45;
+    window.startWorkoutTimer = function() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timerSecs++;
+        const mins = String(Math.floor(timerSecs / 60)).padStart(2, '0');
+        const secs = String(timerSecs % 60).padStart(2, '0');
+        const display = document.getElementById('workout-time-display');
+        if (display) display.textContent = `${mins}:${secs}`;
+      }, 1000);
+      window.playMatrixChime();
+    };
+
+    window.pauseWorkoutTimer = function() {
+      if (timerInterval) clearInterval(timerInterval);
+      window.playMatrixChime();
+    };
+
+    // ARCHETYPE 6: MUSIC & AUDIO
+    function renderMusicApp(container, appName) {
+      container.innerHTML = `
+        <div class="live-action-card" style="text-align: center; padding: 1.25rem;">
+          <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #00f0ff, #b026ff); margin: 0 auto 0.75rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 0 20px rgba(0,240,255,0.4); animation: ${State.liveData.isPlaying ? 'spin 6s linear infinite' : 'none'};">
+            💿
+          </div>
+          <h4 style="font-size: 0.95rem; font-weight: 800; color: #fff;">CyberPulse Resonance</h4>
+          <span style="font-family: monospace; font-size: 0.7rem; color: #00ff88;">Lossless 24-bit &bull; 96kHz FLAC</span>
+          
+          <div style="display: flex; justify-content: center; gap: 1rem; align-items: center; margin-top: 1rem;">
+            <button onclick="window.togglePlayMusic()" style="width: 44px; height: 44px; border-radius: 50%; background: #00f0ff; color: #05070d; font-size: 1.2rem; font-weight: 800; border: none; cursor: pointer;">
+              ${State.liveData.isPlaying ? '⏸' : '▶'}
+            </button>
+            <button onclick="window.nextMusicTrack()" style="width: 36px; height: 36px; border-radius: 50%; background: #1e293b; color: #fff; font-size: 1rem; border: 1px solid #334155; cursor: pointer;">
+              ⏭
+            </button>
+          </div>
+        </div>
+
+        <div class="live-action-card">
+          <div class="live-card-header"><span>AUDIO EQUALIZER BARS</span><span style="color: #00ff88;">ACTIVE</span></div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-end; height: 50px; padding: 0 1rem;">
+            <div class="eq-bar" style="width: 12px; height: ${State.liveData.isPlaying ? '80%' : '20%'}; background: #00f0ff; border-radius: 4px; transition: height 0.2s ease;"></div>
+            <div class="eq-bar" style="width: 12px; height: ${State.liveData.isPlaying ? '95%' : '30%'}; background: #00ff88; border-radius: 4px; transition: height 0.2s ease;"></div>
+            <div class="eq-bar" style="width: 12px; height: ${State.liveData.isPlaying ? '60%' : '15%'}; background: #b026ff; border-radius: 4px; transition: height 0.2s ease;"></div>
+            <div class="eq-bar" style="width: 12px; height: ${State.liveData.isPlaying ? '90%' : '25%'}; background: #ff007a; border-radius: 4px; transition: height 0.2s ease;"></div>
+            <div class="eq-bar" style="width: 12px; height: ${State.liveData.isPlaying ? '75%' : '20%'}; background: #00f0ff; border-radius: 4px; transition: height 0.2s ease;"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    window.togglePlayMusic = function() {
+      State.liveData.isPlaying = !State.liveData.isPlaying;
+      renderLiveInteractiveApp();
+      window.playMatrixChime();
+    };
+
+    window.nextMusicTrack = function() {
+      alert("⏭ Switched to next track: 'Matrix Overdrive (120 FPS VIP Mix)'");
+      window.playMatrixChime();
+    };
+
+    // ARCHETYPE 7: GAMING ENGINES (17 PLAYABLE MINI-GAMES)
+    function renderGameApp(container, appName, cat) {
+      container.innerHTML = `
+        <div class="live-action-card">
+          <div class="live-card-header">
+            <span>REAL-TIME GAME ENGINE</span>
+            <span style="color: #00ff88; font-weight: 800;">SCORE: <span id="game-score-readout">${State.liveData.gameScore}</span> &bull; HIGH: ${State.liveData.gameHigh}</span>
+          </div>
+          <canvas id="mini-arcade-canvas" width="300" height="170" class="mini-game-canvas"></canvas>
+          <div style="display: flex; justify-content: space-between; gap: 0.5rem; margin-top: 0.5rem;">
+            <button onclick="window.gameTapMove('left')" style="flex: 1; padding: 0.5rem; background: #1e293b; color: #00f0ff; font-weight: 800; font-family: monospace; font-size: 0.85rem; border: 1px solid #00f0ff; border-radius: 8px; cursor: pointer;">⬅️ LEFT</button>
+            <button onclick="window.gameTapMove('jump')" style="flex: 1; padding: 0.5rem; background: #00ff88; color: #05070d; font-weight: 800; font-family: monospace; font-size: 0.85rem; border: none; border-radius: 8px; cursor: pointer;">🚀 JUMP / FIRE</button>
+            <button onclick="window.gameTapMove('right')" style="flex: 1; padding: 0.5rem; background: #1e293b; color: #00f0ff; font-weight: 800; font-family: monospace; font-size: 0.85rem; border: 1px solid #00f0ff; border-radius: 8px; cursor: pointer;">➡️ RIGHT</button>
+          </div>
+        </div>
+
+        <div style="font-family: monospace; font-size: 0.72rem; color: #94a3b8; text-align: center;">
+          🎮 Playable Sandbox for <strong>${cat.name}</strong> engine. Tap buttons or click canvas to score points!
+        </div>
+      `;
+
+      initMiniGameCanvas();
+    }
+
+    let playerX = 140;
+    let playerY = 130;
+    let starsList = [];
+
+    function initMiniGameCanvas() {
+      const canvas = document.getElementById('mini-arcade-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      // Initialize stars
+      starsList = [];
+      for (let i = 0; i < 20; i++) {
+        starsList.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, speed: 1 + Math.random() * 2 });
+      }
+
+      function gameLoop() {
+        if (!document.getElementById('mini-arcade-canvas')) return;
+        ctx.fillStyle = '#030712';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Render moving stars
+        ctx.fillStyle = '#64748b';
+        starsList.forEach(s => {
+          ctx.fillRect(s.x, s.y, 2, 2);
+          s.y += s.speed;
+          if (s.y > canvas.height) {
+            s.y = 0;
+            s.x = Math.random() * canvas.width;
+          }
+        });
+
+        // Render Player Ship
+        ctx.fillStyle = '#00f0ff';
+        ctx.shadowColor = '#00f0ff';
+        ctx.shadowBlur = 12;
+        ctx.beginPath();
+        ctx.moveTo(playerX, playerY);
+        ctx.lineTo(playerX - 12, playerY + 20);
+        ctx.lineTo(playerX + 12, playerY + 20);
+        ctx.closePath();
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Render Thruster Fire
+        ctx.fillStyle = '#00ff88';
+        ctx.fillRect(playerX - 3, playerY + 22, 6, 6);
+
+        requestAnimationFrame(gameLoop);
+      }
+      gameLoop();
+    }
+
+    window.gameTapMove = function(action) {
+      if (action === 'left') {
+        playerX = Math.max(20, playerX - 25);
+      } else if (action === 'right') {
+        playerX = Math.min(280, playerX + 25);
+      } else if (action === 'jump') {
+        State.liveData.gameScore += 10;
+        if (State.liveData.gameScore > State.liveData.gameHigh) {
+          State.liveData.gameHigh = State.liveData.gameScore;
+        }
+        const scoreEl = document.getElementById('game-score-readout');
+        if (scoreEl) scoreEl.textContent = State.liveData.gameScore;
+      }
+      window.playMatrixChime();
+    };
+
+    // ARCHETYPE 8: WEATHER & UTILITY
+    function renderWeatherApp(container, appName) {
+      container.innerHTML = `
+        <div class="live-action-card" style="text-align: center; background: linear-gradient(135deg, rgba(0,240,255,0.2), rgba(15,20,36,0.9));">
+          <div style="font-size: 2.5rem; margin-bottom: 0.25rem;">🌦️</div>
+          <div style="font-family: monospace; font-size: 2rem; font-weight: 900; color: #fff;">24°C</div>
+          <span style="font-size: 0.8rem; color: #00f0ff; font-weight: 700;">Neo San Francisco &bull; Clear Radar</span>
+          <div style="display: flex; justify-content: space-around; margin-top: 1rem; font-family: monospace; font-size: 0.72rem; color: #cbd5e1;">
+            <div>💧 Humidity: 48%</div>
+            <div>💨 Wind: 14 km/h</div>
+            <div>☀️ UV: 4.2</div>
+          </div>
+        </div>
+
+        <div class="live-action-card">
+          <div class="live-card-header"><span>5-DAY DOPPLER FORECAST</span><span>RADAR OK</span></div>
+          <div style="display: flex; justify-content: space-between; font-family: monospace; font-size: 0.75rem; text-align: center;">
+            <div><div>Mon</div><div>☀️</div><div>26°</div></div>
+            <div><div>Tue</div><div>🌦️</div><div>22°</div></div>
+            <div><div>Wed</div><div>⚡</div><div>19°</div></div>
+            <div><div>Thu</div><div>☀️</div><div>25°</div></div>
+            <div><div>Fri</div><div>🌤️</div><div>27°</div></div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ARCHETYPE 9: PRODUCTIVITY & TASK MANAGER
+    function renderProductivityApp(container, appName, cat) {
+      container.innerHTML = `
+        <div class="live-action-card">
+          <div class="live-card-header"><span>ACTIVE SPRINT LOGS</span><span>${State.liveData.tasks.length} TASKS</span></div>
+          <div id="todo-tasks-list" style="display: flex; flex-direction: column; gap: 0.4rem;">
+            ${State.liveData.tasks.map((t, idx) => `
+              <div onclick="window.toggleTaskItem(${idx})" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.5rem; background: #05070d; border: 1px solid #1e293b; border-radius: 8px; font-size: 0.75rem; cursor: pointer;">
+                <span>${t.done ? '✅' : '⬜'}</span>
+                <span style="text-decoration: ${t.done ? 'line-through' : 'none'}; color: ${t.done ? '#64748b' : '#fff'}; flex: 1;">${t.text}</span>
+              </div>
+            `).join('')}
+          </div>
+          <div style="display: flex; gap: 0.4rem; margin-top: 0.5rem;">
+            <input type="text" id="new-task-input" placeholder="Add sprint task..." style="flex: 1; background: #05070d; border: 1px solid #334155; border-radius: 8px; padding: 0.4rem 0.6rem; color: #fff; font-size: 0.75rem;" />
+            <button onclick="window.addNewTaskItem()" style="background: #00ff88; color: #05070d; font-weight: 800; border: none; border-radius: 8px; padding: 0.4rem 0.7rem; font-size: 0.75rem; cursor: pointer;">+ ADD</button>
+          </div>
+        </div>
+      `;
+    }
+
+    window.toggleTaskItem = function(idx) {
+      if (State.liveData.tasks[idx]) {
+        State.liveData.tasks[idx].done = !State.liveData.tasks[idx].done;
+        renderLiveInteractiveApp();
+        window.playMatrixChime();
+      }
+    };
+
+    window.addNewTaskItem = function() {
+      const input = document.getElementById('new-task-input');
+      if (!input || !input.value.trim()) return;
+      State.liveData.tasks.push({ text: input.value.trim(), done: false });
+      renderLiveInteractiveApp();
+      window.playMatrixChime();
+    };
+
+    // Bottom Navigation inside phone
+    window.switchPhoneTab = function(tabName, btnEl) {
+      State.currentTab = tabName;
+      document.querySelectorAll('.phone-nav-tab').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+
+      const bodyEl = document.getElementById('live-interactive-app-body');
+      if (!bodyEl) return;
+
+      if (tabName === 'explore') {
+        bodyEl.innerHTML = `
+          <div class="live-action-card">
+            <div class="live-card-header"><span>EXPLORE FEED</span><span style="color: #00f0ff;">DISCOVERY</span></div>
+            <p style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">
+              Explore the global neural ecosystem for <strong>${State.appName}</strong>. All remote nodes synced.
+            </p>
+          </div>
+        `;
+      } else if (tabName === 'action') {
+        bodyEl.innerHTML = `
+          <div class="live-action-card">
+            <div class="live-card-header"><span>QUICK ACTIONS</span><span>TRIGGER</span></div>
+            <button onclick="alert('⚡ High-priority action executed!')" style="padding: 0.65rem; background: #00f0ff; color: #05070d; font-weight: 800; font-family: monospace; border: none; border-radius: 8px; cursor: pointer;">EXECUTE VECTOR</button>
+          </div>
+        `;
+      } else if (tabName === 'settings') {
+        bodyEl.innerHTML = `
+          <div class="live-action-card">
+            <div class="live-card-header"><span>APP PREFERENCES</span><span>CONFIG</span></div>
+            <div style="font-family: monospace; font-size: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem;">
+              <label><input type="checkbox" checked /> Hardware 120 FPS Mode</label>
+              <label><input type="checkbox" checked /> E2E Biometric Auth</label>
+              <label><input type="checkbox" checked /> Zero-Knowledge Sharding</label>
+            </div>
+          </div>
+        `;
+      } else {
+        renderLiveInteractiveApp();
+      }
+      window.playMatrixChime();
+    };
+
+    // Web Audio Chime synthesizer for high-tech tactile feel
+    window.playMatrixChime = function() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1320, ctx.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.12);
+      } catch(e) {}
+    };
+
+    window.triggerLivePhoneEvent = function(type) {
+      if (type === 'refresh') {
+        renderLiveInteractiveApp();
+        alert(`🔄 State reloaded for [${State.appName}]`);
+      } else if (type === 'test_notify') {
+        alert(`🔔 [${State.appName} Push]: Real-time event dispatched to virtual device!`);
+      } else if (type === 'benchmark') {
+        alert(`⚡ Benchmark Completed: 100,000 requests handled in 14ms with 0 errors.`);
+      }
+      window.playMatrixChime();
+    };
+
+    window.toggleAppPhoneMode = function(mode) {
+      State.activeMode = mode;
+      const btnInter = document.getElementById('btn-mode-interactive');
+      const btnBlue = document.getElementById('btn-mode-blueprint');
+      if (btnInter && btnBlue) {
+        if (mode === 'interactive') {
+          btnInter.className = "btn-mode-toggle active-mode";
+          btnBlue.className = "btn-mode-toggle";
+          renderLiveInteractiveApp();
+        } else {
+          btnBlue.className = "btn-mode-toggle active-mode";
+          btnInter.className = "btn-mode-toggle";
+          const bodyEl = document.getElementById('live-interactive-app-body');
+          if (bodyEl) {
+            bodyEl.innerHTML = `
+              <div class="live-action-card">
+                <div class="live-card-header"><span>SYSTEM ARCHITECTURE</span><span>v1.0.0</span></div>
+                <div style="font-family: monospace; font-size: 0.75rem; color: #94a3b8; display: flex; flex-direction: column; gap: 0.4rem;">
+                  <div>ENGINE: <strong style="color: #00f0ff;">${State.techType.toUpperCase()}</strong></div>
+                  <div>SCALE: <strong style="color: #00ff88;">${State.userScaleLabels[State.userScaleIndex-1]}</strong></div>
+                  <div>COMPLEXITY: <strong style="color: #b026ff;">${State.complexityStars} Stars</strong></div>
+                </div>
+              </div>
+            `;
+          }
+        }
+      }
+      window.playMatrixChime();
+    };
+
+    function renderBlueprintTelemetry() {
+      const cat = State.selectedCategory || MATRIX_CATEGORIES[0];
       const tech = State.techType;
       const users = State.userScaleIndex;
       const stars = State.complexityStars;
 
-      // 1. Update Mock Phone Display
-      const mockName = document.getElementById('mock-app-name');
-      const mockCat = document.getElementById('mock-app-category');
-      const mockIcon = document.getElementById('mock-app-icon');
-      const mockTech = document.getElementById('mock-tech-badge');
-
-      if (mockName) mockName.textContent = appName;
-      if (mockCat) mockCat.textContent = `${cat.name} (${cat.pillar.toUpperCase()})`;
-      if (mockIcon) mockIcon.innerHTML = `<span style="font-size: 1.5rem;">${cat.icon}</span>`;
-      if (mockTech) mockTech.textContent = tech.toUpperCase();
-
-      // 2. Timeline calculations
+      // Timeline calculation
       let minWeeks = 4 + (stars * 2);
       let maxWeeks = 6 + (stars * 3.5);
       if (tech === 'native') {
@@ -2371,7 +3359,7 @@
       if (timelineEl) timelineEl.textContent = `${Math.round(minWeeks)} - ${Math.round(maxWeeks)} Weeks`;
       if (timelineDescEl) timelineDescEl.textContent = `Full cycle agile sprint based on ${tech.toUpperCase()} core & ${stars}★ complexity.`;
 
-      // 3. Infrastructure Cost
+      // Infrastructure Cost
       const costMultipliers = [25, 60, 150, 450, 950, 2400, 5800];
       const baseCost = costMultipliers[users - 1] || 150;
       const complexityMultiplier = 0.8 + (stars * 0.25);
@@ -2382,7 +3370,7 @@
       if (costEl) costEl.textContent = `$${finalCost.toLocaleString()} / mo`;
       if (costDescEl) costDescEl.textContent = `Auto-scaling Kubernetes mesh for ${State.userScaleLabels[users - 1]}.`;
 
-      // 4. Populate Stack Pills
+      // Populate Stack Pills
       const stackPillsContainer = document.getElementById('metric-stack-pills');
       if (stackPillsContainer) {
         stackPillsContainer.innerHTML = '';
@@ -2445,8 +3433,8 @@
     };
 
     window.resetMatrixEngine = function() {
-      State.selectedCategory = null;
-      State.appName = 'Nexus Protocol';
+      State.selectedCategory = MATRIX_CATEGORIES[0];
+      State.appName = 'Nexus Maps Pro';
       State.currentStep = 1;
       
       const searchInput = document.getElementById('category-search-input');
