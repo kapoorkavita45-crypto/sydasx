@@ -382,6 +382,10 @@
           </div>
 
           <div class="success-actions-wrap">
+            <button onclick="window.togglePhoneTilt()" id="btn-toggle-tilt" class="btn-mode-toggle" style="background: linear-gradient(135deg, rgba(0,240,255,0.2), rgba(0,255,136,0.2)); border: 1.5px solid #00f0ff; color: #00f0ff; font-weight: 900;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:4px;"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><path d="M12 18h.01"></path><path d="M19 8l2 2-2 2"></path></svg>
+              <span>TILT PHONE 🔄</span>
+            </button>
             <button onclick="window.toggleAppPhoneMode('interactive')" id="btn-mode-interactive" class="btn-mode-toggle active-mode">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:4px;"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
               Interactive App
@@ -1878,7 +1882,7 @@
   }
 
   .mobile-phone-casing {
-    width: 350px;
+    width: 360px;
     max-width: 100%;
     background: #0a0d18;
     border: 4px solid #1e293b;
@@ -1886,7 +1890,28 @@
     padding: 0.85rem 0.75rem;
     box-shadow: 0 25px 60px rgba(0, 240, 255, 0.25), 0 0 40px rgba(0, 255, 136, 0.15);
     position: relative;
-    transition: all 0.3s ease;
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: center center;
+  }
+
+  .mobile-phone-casing.tilted-landscape {
+    width: 660px !important;
+    max-width: 100% !important;
+    padding: 0.85rem 1.25rem !important;
+    border-radius: 36px !important;
+    box-shadow: 0 30px 80px rgba(0, 240, 255, 0.35), 0 0 60px rgba(0, 255, 136, 0.25) !important;
+    animation: phoneTiltWobble 0.6s ease forwards;
+  }
+
+  .blueprint-dashboard-grid.tilted-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  @keyframes phoneTiltWobble {
+    0% { transform: rotate(0deg) scale(0.95); }
+    40% { transform: rotate(-4deg) scale(1.03); }
+    75% { transform: rotate(2deg) scale(1.01); }
+    100% { transform: rotate(0deg) scale(1); }
   }
 
   .phone-speaker-notch {
@@ -3618,7 +3643,7 @@
 
             <!-- Center: Stage & Target Counter (Mini Militia Bot Target) -->
             <div style="display: flex; flex-direction: column; align-items: center; background: rgba(11, 16, 27, 0.8); border: 1px solid rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 4px;">
-              <span id="hud-stage-name" style="font-size: 0.52rem; color: #ffc837; font-weight: 900; letter-spacing: 0.5px;">STAGE 1 &bull; OUTPOST</span>
+              <span id="hud-stage-name" style="font-size: 0.6rem; color: #ffc837; font-weight: 900; letter-spacing: 0.5px;">STAGE 1 • OUTPOST</span>
               <span id="hud-target-text" style="font-size: 0.65rem; color: #fff; font-weight: 900;">BOTS: <span id="hud-target-kills" style="color: #00ff88;">0</span> / <span id="hud-target-max">5</span></span>
             </div>
 
@@ -3633,8 +3658,8 @@
           </div>
 
           <!-- MAIN PIXEL CANVAS (320x460 HIGH-RES PIXEL ART VIEWPORT) -->
-          <div style="position: relative; width: 100%; height: 500px; background: #87CEEB; overflow: hidden; border-radius: 6px;">
-            <canvas id="pixel-game-canvas" width="320" height="500" style="width: 100%; height: 100%; display: block; image-rendering: pixelated; cursor: crosshair; touch-action: none;"></canvas>
+          <div id="pixel-canvas-wrapper" style="position: relative; width: 100%; height: 380px; background: #87CEEB; overflow: hidden; border-radius: 8px; border: 1.5px solid rgba(0,240,255,0.3);">
+            <canvas id="pixel-game-canvas" width="600" height="380" style="width: 100%; height: 100%; display: block; image-rendering: pixelated; cursor: crosshair; touch-action: none;"></canvas>
             
             <!-- Damage Numbers Layer -->
             <div id="pixel-damage-layer" style="position: absolute; inset: 0; pointer-events: none; z-index: 18;"></div>
@@ -3673,6 +3698,31 @@
 
       initPixelArcadeEngine();
     }
+
+    
+    window.togglePhoneTilt = function() {
+      const casing = document.getElementById('phone-casing');
+      const grid = document.querySelector('.blueprint-dashboard-grid');
+      const btn = document.getElementById('btn-toggle-tilt');
+      if (!casing) return;
+      
+      const isLandscape = casing.classList.toggle('tilted-landscape');
+      if (grid) grid.classList.toggle('tilted-grid', isLandscape);
+      
+      if (btn) {
+        btn.innerHTML = isLandscape 
+          ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:4px;"><rect width="20" height="14" x="2" y="5" rx="2" ry="2"></rect><path d="M18 12h.01"></path><path d="M8 19l2-2-2-2"></path></svg><span>PORTRAIT MODE 📱</span>'
+          : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:4px;"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><path d="M12 18h.01"></path><path d="M19 8l2 2-2 2"></path></svg><span>TILT PHONE 🔄</span>';
+      }
+
+      // Re-center canvas dimensions
+      const canvas = document.getElementById('pixel-game-canvas');
+      if (canvas) {
+        canvas.width = isLandscape ? 600 : 360;
+        canvas.height = 380;
+      }
+      window.playMatrixChime();
+    };
 
     function initPixelArcadeEngine() {
       const canvas = document.getElementById('pixel-game-canvas');
@@ -3781,12 +3831,13 @@
           groundColor: '#d97706',
           grassColor: '#b45309',
           platforms: [
-            { x: 0, y: 390, w: 320, h: 50 }, // Base ground
-            { x: 30, y: 300, w: 90, h: 14 },
-            { x: 200, y: 300, w: 90, h: 14 },
-            { x: 110, y: 210, w: 100, h: 14 },
-            { x: 20, y: 130, w: 80, h: 14 },
-            { x: 220, y: 130, w: 80, h: 14 }
+            { x: 0, y: 330, w: 600, h: 50 }, // Base ground
+            { x: 30, y: 250, w: 140, h: 14 },
+            { x: 430, y: 250, w: 140, h: 14 },
+            { x: 220, y: 200, w: 160, h: 14 }, // Central High-ground
+            { x: 40, y: 130, w: 120, h: 14 },
+            { x: 440, y: 130, w: 120, h: 14 },
+            { x: 250, y: 90, w: 100, h: 14 }
           ]
         },
         {
@@ -3799,12 +3850,13 @@
           groundColor: '#15803d',
           grassColor: '#4ade80',
           platforms: [
-            { x: 0, y: 390, w: 320, h: 50 },
-            { x: 40, y: 320, w: 80, h: 14 },
-            { x: 195, y: 320, w: 85, h: 14 },
-            { x: 100, y: 235, w: 120, h: 14 },
-            { x: 15, y: 150, w: 90, h: 14 },
-            { x: 215, y: 150, w: 90, h: 14 }
+            { x: 0, y: 330, w: 600, h: 50 },
+            { x: 50, y: 260, w: 130, h: 14 },
+            { x: 420, y: 260, w: 130, h: 14 },
+            { x: 200, y: 190, w: 200, h: 14 },
+            { x: 30, y: 120, w: 130, h: 14 },
+            { x: 440, y: 120, w: 130, h: 14 },
+            { x: 240, y: 80, w: 120, h: 14 }
           ]
         },
         {
@@ -3817,12 +3869,12 @@
           groundColor: '#475569',
           grassColor: '#94a3b8',
           platforms: [
-            { x: 0, y: 390, w: 320, h: 50 },
-            { x: 20, y: 310, w: 100, h: 12 },
-            { x: 200, y: 310, w: 100, h: 12 },
-            { x: 90, y: 220, w: 140, h: 12 },
-            { x: 30, y: 135, w: 85, h: 12 },
-            { x: 205, y: 135, w: 85, h: 12 }
+            { x: 0, y: 330, w: 600, h: 50 },
+            { x: 40, y: 250, w: 160, h: 12 },
+            { x: 400, y: 250, w: 160, h: 12 },
+            { x: 180, y: 170, w: 240, h: 12 },
+            { x: 60, y: 100, w: 130, h: 12 },
+            { x: 410, y: 100, w: 130, h: 12 }
           ]
         }
       ];
@@ -4198,8 +4250,16 @@
       const map = getSelectedMap();
 
       pixelGameState.screen = 'game';
-      pixelGameState.player.x = 160;
-      pixelGameState.player.y = 410;
+      const casing = document.getElementById('phone-casing');
+      const grid = document.querySelector('.blueprint-dashboard-grid');
+      if (casing && !casing.classList.contains('tilted-landscape')) {
+        casing.classList.add('tilted-landscape');
+        if (grid) grid.classList.add('tilted-grid');
+        const btn = document.getElementById('btn-toggle-tilt');
+        if (btn) btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:4px;"><rect width="20" height="14" x="2" y="5" rx="2" ry="2"></rect><path d="M18 12h.01"></path></svg><span>PORTRAIT 📱</span>';
+      }
+      pixelGameState.player.x = 280;
+      pixelGameState.player.y = 290;
       pixelGameState.player.vx = 0;
       pixelGameState.player.vy = 0;
       pixelGameState.player.hp = 100 * char.hpMultiplier;
@@ -4226,7 +4286,7 @@
       if (hAvatar) hAvatar.textContent = char.avatarText;
       if (hName) hName.textContent = wep.name;
       if (hAmmo) hAmmo.textContent = wep.ammo;
-      if (hStage) hStage.textContent = `STAGE ${pixelGameState.stageIndex} &bull; ${map.name}`;
+      if (hStage) hStage.textContent = `STAGE ${pixelGameState.stageIndex} • ${map.name}`;
       if (hKills) hKills.textContent = '0';
       if (hMax) hMax.textContent = pixelGameState.stageTargetKills;
 
@@ -4274,7 +4334,7 @@
         {
           id: 'outpost', name: 'OUTPOST', sub: 'Desert Canyon',
           skyTop: '#38bdf8', skyBottom: '#bae6fd', groundColor: '#d97706', grassColor: '#b45309',
-          platforms: [{ x: 0, y: 450, w: 320, h: 50 }, { x: 25, y: 360, w: 95, h: 14 }, { x: 200, y: 360, w: 95, h: 14 }, { x: 110, y: 270, w: 100, h: 14 }, { x: 20, y: 180, w: 85, h: 14 }, { x: 215, y: 180, w: 85, h: 14 }, { x: 115, y: 100, w: 90, h: 14 }]
+          platforms: [{ x: 0, y: 330, w: 600, h: 50 }, { x: 30, y: 250, w: 140, h: 14 }, { x: 430, y: 250, w: 140, h: 14 }, { x: 220, y: 200, w: 160, h: 14 }, { x: 40, y: 130, w: 120, h: 14 }, { x: 440, y: 130, w: 120, h: 14 }, { x: 250, y: 90, w: 100, h: 14 }]
         },
         {
           id: 'catacon', name: 'CATACON', sub: 'Jungle Ruins',
