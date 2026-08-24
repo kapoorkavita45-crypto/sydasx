@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Genesis Matrix — App Creator Simulator</title>
+  
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            cyber: ['Orbitron', 'sans-serif'],
+          },
+          colors: {
+            cyber: {
+              black: '#05070d',
+              dark: '#0a0d18',
+              card: '#0f1424',
+              cyan: '#00f0ff',
+              green: '#00ff88',
+              purple: '#b026ff',
+              pink: '#ff007a',
+              amber: '#ffb703'
+            }
+          },
+          boxShadow: {
+            'neon-cyan': '0 0 25px rgba(0, 240, 255, 0.45)',
+            'neon-green': '0 0 25px rgba(0, 255, 136, 0.45)',
+            'neon-purple': '0 0 25px rgba(176, 38, 255, 0.45)',
+            'neon-pink': '0 0 25px rgba(255, 0, 122, 0.45)'
+          },
+          animation: {
+            'pulse-fast': 'pulse 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'spin-slow': 'spin 8s linear infinite',
+            'scanline': 'scanline 8s linear infinite',
+            'glow': 'glow 2s ease-in-out infinite alternate',
+          },
+          keyframes: {
+            scanline: {
+              '0%': { transform: 'translateY(-100%)' },
+              '100%': { transform: 'translateY(1000%)' }
+            },
+            glow: {
+              'from': { textShadow: '0 0 10px #00f0ff, 0 0 20px #00f0ff' },
+              'to': { textShadow: '0 0 20px #b026ff, 0 0 30px #b026ff' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a0d18;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #00f0ff;
+    }
+
+    /* Grid Background Pattern */
+    .matrix-bg-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+
+    /* Scanline Overlay */
+    .scanlines {
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0, 0, 0, 0.3) 50%,
+        rgba(0, 0, 0, 0.3)
+      );
+      background-size: 100% 4px;
+    }
+
+    /* Glass Panels */
+    .glass-card {
+      background: rgba(15, 20, 36, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-hover {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card-hover:hover {
+      transform: translateY(-2px);
+      border-color: rgba(0, 240, 255, 0.4);
+      box-shadow: 0 10px 30px -10px rgba(0, 240, 255, 0.25);
+    }
+
+    /* Gradient Range Sliders */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: #1e293b;
+      border-radius: 9999px;
+      height: 8px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 22px;
+      width: 22px;
+      border-radius: 50%;
+      background: #00f0ff;
+      cursor: pointer;
+      border: 3px solid #0a0d18;
+      box-shadow: 0 0 12px #00f0ff;
+      transition: all 0.2s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 20px #00f0ff;
+    }
+  </style>
+</head>
+
+<body class="bg-[#05070d] text-slate-100 font-sans min-h-screen relative overflow-x-hidden matrix-bg-grid selection:bg-cyan-500 selection:text-black">
+
+  <!-- Ambient Glow Blobs -->
+  <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[140px] pointer-events-none"></div>
+  <div class="fixed bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[160px] pointer-events-none"></div>
+  <div class="fixed top-[40%] right-[20%] w-[400px] h-[400px] bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none"></div>
+
+  <!-- MAIN WRAPPER -->
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    
+    <!-- HEADER -->
+    <header class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/40 text-cyan-400 font-mono text-xs font-semibold tracking-wider uppercase mb-4 shadow-[0_0_15px_rgba(0,240,255,0.15)]">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        Genesis Matrix System v4.9
+      </div>
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-4">
+        App Creator <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-purple-500">Simulator</span>
+      </h1>
+      <p class="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+        Experimentally forge, architect, and test-compile custom software blueprints across all <span class="text-cyan-400 font-semibold">49 official Google Play Store categories</span> with real-time feasibility telemetry.
+      </p>
+
+      <!-- STEP PROGRESS HUD BAR -->
+      <div class="mt-8 max-w-3xl mx-auto">
+        <div class="grid grid-cols-4 gap-2 sm:gap-4">
+          
+          <!-- Step Tab 1 -->
+          <div id="nav-step-1" class="step-indicator group flex flex-col items-center p-2.5 rounded-xl border border-cyan-500 bg-cyan-950/30 transition-all duration-300">
+            <div class="flex items-center gap-2 text-cyan-400 font-mono text-xs sm:text-sm font-bold">
+              <span class="step-badge w-6 h-6 rounded-lg bg-cyan-500 text-black flex items-center justify-center font-extrabold text-xs">1</span>
+              <span class="hidden sm:inline">Genesis</span>
+            </div>
+            <span class="text-[10px] text-slate-400 mt-1">Category (49)</span>
+          </div>
+
+          <!-- Step Tab 2 -->
+          <div id="nav-step-2" class="step-indicator group flex flex-col items-center p-2.5 rounded-xl border border-slate-800 bg-slate-900/40 transition-all duration-300 opacity-60">
+            <div class="flex items-center gap-2 text-slate-400 font-mono text-xs sm:text-sm font-bold">
+              <span class="step-badge w-6 h-6 rounded-lg bg-slate-800 text-slate-400 flex items-center justify-center font-extrabold text-xs">2</span>
+              <span class="hidden sm:inline">Blueprint</span>
+            </div>
+            <span class="text-[10px] text-slate-500 mt-1">Specs & Scale</span>
+          </div>
+
+          <!-- Step Tab 3 -->
+          <div id="nav-step-3" class="step-indicator group flex flex-col items-center p-2.5 rounded-xl border border-slate-800 bg-slate-900/40 transition-all duration-300 opacity-60">
+            <div class="flex items-center gap-2 text-slate-400 font-mono text-xs sm:text-sm font-bold">
+              <span class="step-badge w-6 h-6 rounded-lg bg-slate-800 text-slate-400 flex items-center justify-center font-extrabold text-xs">3</span>
+              <span class="hidden sm:inline">The Forge</span>
+            </div>
+            <span class="text-[10px] text-slate-500 mt-1">Compilation</span>
+          </div>
+
+          <!-- Step Tab 4 -->
+          <div id="nav-step-4" class="step-indicator group flex flex-col items-center p-2.5 rounded-xl border border-slate-800 bg-slate-900/40 transition-all duration-300 opacity-60">
+            <div class="flex items-center gap-2 text-slate-400 font-mono text-xs sm:text-sm font-bold">
+              <span class="step-badge w-6 h-6 rounded-lg bg-slate-800 text-slate-400 flex items-center justify-center font-extrabold text-xs">4</span>
+              <span class="hidden sm:inline">Telemetry</span>
+            </div>
+            <span class="text-[10px] text-slate-500 mt-1">Blueprint Output</span>
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+
+    <!-- ================================================================= -->
+    <!-- STEP 1: THE MATRIX GENESIS (CATEGORY SELECTION - 49 CATEGORIES)   -->
+    <!-- ================================================================= -->
+    <section id="view-step-1" class="step-view block transition-all duration-500">
+      
+      <!-- Top Control Bar (Pillars Toggle & Search) -->
+      <div class="glass-card rounded-2xl p-4 sm:p-6 mb-8 border border-slate-800/80">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+          
+          <!-- Pillar Switch Buttons -->
+          <div class="flex items-center gap-2 w-full md:w-auto bg-slate-950/80 p-1.5 rounded-xl border border-slate-800">
+            <button id="btn-pillar-all" onclick="filterPillar('all')" class="pillar-btn px-4 py-2 rounded-lg font-mono text-xs sm:text-sm font-bold transition-all duration-200 bg-cyan-500 text-black shadow-[0_0_15px_rgba(0,240,255,0.4)]">
+              All Pillars (49)
+            </button>
+            <button id="btn-pillar-apps" onclick="filterPillar('apps')" class="pillar-btn px-4 py-2 rounded-lg font-mono text-xs sm:text-sm font-bold text-slate-400 hover:text-white transition-all duration-200">
+              <span class="inline-block w-2 h-2 rounded-full bg-cyan-400 mr-1.5"></span>General Apps (32)
+            </button>
+            <button id="btn-pillar-games" onclick="filterPillar('games')" class="pillar-btn px-4 py-2 rounded-lg font-mono text-xs sm:text-sm font-bold text-slate-400 hover:text-white transition-all duration-200">
+              <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1.5"></span>Gaming Engines (17)
+            </button>
+          </div>
+
+          <!-- Quick Search Filter -->
+          <div class="relative w-full md:w-72">
+            <input 
+              type="text" 
+              id="category-search" 
+              placeholder="Search 49 categories..." 
+              oninput="searchCategories(this.value)"
+              class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-4 py-2.5 pl-10 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all font-sans"
+            />
+            <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5"></i>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Categories Container (Split into Pillars) -->
+      <div id="categories-wrapper" class="space-y-10">
+
+        <!-- PILLAR 1: GENERAL APPS (32 CATEGORIES) -->
+        <div id="pillar-apps-section" class="space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                <i data-lucide="layout-grid" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-wide">Pillar I: General Applications</h3>
+                <p class="text-xs text-slate-400">32 Official Google Play Store Ecosystem Domains</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono text-cyan-400 font-semibold px-2.5 py-1 rounded-md bg-cyan-950/60 border border-cyan-500/20">32 DOMAINS</span>
+          </div>
+
+          <div id="grid-apps" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+
+        <!-- PILLAR 2: GAMING ENGINES (17 CATEGORIES) -->
+        <div id="pillar-games-section" class="space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                <i data-lucide="gamepad-2" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-wide">Pillar II: Gaming Engines & Real-Time Worlds</h3>
+                <p class="text-xs text-slate-400">17 Specialized Game Architectures</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono text-emerald-400 font-semibold px-2.5 py-1 rounded-md bg-emerald-950/60 border border-emerald-500/20">17 ENGINES</span>
+          </div>
+
+          <div id="grid-games" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Floating Action Bar -->
+      <div class="sticky bottom-6 z-20 mt-10 p-4 rounded-2xl glass-card border border-cyan-500/30 shadow-[0_10px_35px_rgba(0,0,0,0.8)] flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <div id="selected-preview-icon" class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400">
+            <i data-lucide="cpu" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="text-xs text-slate-400 font-mono">SELECTED MATRIX VECTOR:</div>
+            <div id="selected-preview-name" class="text-sm font-bold text-white">None Selected</div>
+          </div>
+        </div>
+
+        <button 
+          id="btn-step1-next" 
+          onclick="goToStep(2)" 
+          disabled 
+          class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-mono text-sm font-bold tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2 bg-slate-800 text-slate-500 cursor-not-allowed"
+        >
+          <span>Continue to Architecture</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+    </section>
+
+
+    <!-- ================================================================= -->
+    <!-- STEP 2: BLUEPRINT ARCHITECTURE (SPECIFICATIONS & SLIDERS)         -->
+    <!-- ================================================================= -->
+    <section id="view-step-2" class="step-view hidden transition-all duration-500">
+      
+      <div class="max-w-4xl mx-auto space-y-8">
+        
+        <!-- Top Status Card -->
+        <div class="glass-card rounded-2xl p-6 border border-cyan-500/30 flex items-center justify-between flex-wrap gap-4">
+          <div class="flex items-center gap-4">
+            <div id="step2-category-icon" class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/40 text-cyan-400 flex items-center justify-center">
+              <i data-lucide="layers" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-xs font-mono text-cyan-400 font-bold uppercase tracking-wider">Configuring Architecture For</span>
+              <h2 id="step2-category-title" class="text-xl sm:text-2xl font-bold text-white">Selected Category</h2>
+            </div>
+          </div>
+          <button onclick="goToStep(1)" class="text-xs font-mono text-slate-400 hover:text-cyan-400 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 transition-colors">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+            Change Category
+          </button>
+        </div>
+
+        <!-- Specifications Form Card -->
+        <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-8 border border-slate-800">
+          
+          <!-- 1. App Name Input -->
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <label for="input-app-name" class="text-sm font-mono font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                <i data-lucide="terminal" class="w-4 h-4 text-cyan-400"></i>
+                1. Application / Project Name
+              </label>
+              <span id="name-counter" class="text-xs font-mono text-slate-500">0/32</span>
+            </div>
+            <input 
+              type="text" 
+              id="input-app-name" 
+              maxlength="32" 
+              placeholder="e.g., Nexus Protocol, HyperPulse, OrbitPay..."
+              oninput="handleNameInput(this.value)"
+              class="w-full bg-slate-950/90 border border-slate-700/80 rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all font-mono font-medium"
+            />
+          </div>
+
+          <!-- 2. Technology Type (Segmented Control) -->
+          <div class="space-y-3">
+            <label class="text-sm font-mono font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+              <i data-lucide="code-2" class="w-4 h-4 text-purple-400"></i>
+              2. Core Technology Engine
+            </label>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              
+              <!-- Native Engine -->
+              <label class="tech-radio-label relative flex flex-col p-4 rounded-xl border border-slate-800 bg-slate-950/60 cursor-pointer hover:border-slate-700 transition-all">
+                <input type="radio" name="tech_type" value="native" onchange="handleTechChange('native')" class="sr-only" checked />
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-bold text-sm text-white flex items-center gap-2">
+                    <span class="tech-check-dot w-3 h-3 rounded-full border border-cyan-400 bg-cyan-400"></span>
+                    Native Core
+                  </span>
+                  <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-500/30">MAX SPEED</span>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed mb-2">Kotlin & Swift direct hardware level compilation for flawless 120 FPS latency.</p>
+                <div class="text-[11px] font-mono text-slate-500 mt-auto">Stack: Kotlin, Swift, Android NDK</div>
+              </label>
+
+              <!-- Cross-Platform Engine -->
+              <label class="tech-radio-label relative flex flex-col p-4 rounded-xl border border-slate-800 bg-slate-950/60 cursor-pointer hover:border-slate-700 transition-all">
+                <input type="radio" name="tech_type" value="cross" onchange="handleTechChange('cross')" class="sr-only" />
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-bold text-sm text-white flex items-center gap-2">
+                    <span class="tech-check-dot w-3 h-3 rounded-full border border-slate-600 bg-transparent"></span>
+                    Cross-Platform
+                  </span>
+                  <span class="text-[10px] font-mono text-purple-400 bg-purple-950/80 px-2 py-0.5 rounded border border-purple-500/30">VERSATILE</span>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed mb-2">Unified high-performance codebase targeting Android, iOS, and Web simultaneously.</p>
+                <div class="text-[11px] font-mono text-slate-500 mt-auto">Stack: Flutter, React Native, Rust</div>
+              </label>
+
+              <!-- Hybrid Engine -->
+              <label class="tech-radio-label relative flex flex-col p-4 rounded-xl border border-slate-800 bg-slate-950/60 cursor-pointer hover:border-slate-700 transition-all">
+                <input type="radio" name="tech_type" value="hybrid" onchange="handleTechChange('hybrid')" class="sr-only" />
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-bold text-sm text-white flex items-center gap-2">
+                    <span class="tech-check-dot w-3 h-3 rounded-full border border-slate-600 bg-transparent"></span>
+                    Hybrid Edge
+                  </span>
+                  <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-500/30">RAPID DEPLOY</span>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed mb-2">Web-view progressive architecture with native bridge bindings for swift iteration.</p>
+                <div class="text-[11px] font-mono text-slate-500 mt-auto">Stack: Capacitor, Astro, WebGL</div>
+              </label>
+
+            </div>
+          </div>
+
+          <!-- 3. Sliders: Monthly Users & Feature Complexity -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-800/80">
+            
+            <!-- Monthly Users Slider -->
+            <div class="space-y-3 bg-slate-950/50 p-4 rounded-xl border border-slate-800">
+              <div class="flex justify-between items-center">
+                <label for="slider-users" class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                  <i data-lucide="users" class="w-3.5 h-3.5 text-cyan-400"></i>
+                  Target Monthly Users
+                </label>
+                <span id="val-users" class="font-mono text-cyan-400 font-extrabold text-sm px-2.5 py-0.5 bg-cyan-950 border border-cyan-500/30 rounded-md">
+                  500K Users
+                </span>
+              </div>
+              <input 
+                type="range" 
+                id="slider-users" 
+                min="1" 
+                max="7" 
+                value="4" 
+                step="1"
+                oninput="updateUserScale(this.value)"
+                class="w-full"
+              />
+              <div class="flex justify-between text-[10px] font-mono text-slate-500">
+                <span>1K (MVP)</span>
+                <span>50K</span>
+                <span>500K</span>
+                <span>2M</span>
+                <span>10M+ (Global)</span>
+              </div>
+            </div>
+
+            <!-- Feature Complexity Slider -->
+            <div class="space-y-3 bg-slate-950/50 p-4 rounded-xl border border-slate-800">
+              <div class="flex justify-between items-center">
+                <label for="slider-complexity" class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5 text-purple-400"></i>
+                  Feature Complexity
+                </label>
+                <div class="flex items-center gap-1">
+                  <span id="star-rating" class="text-amber-400 font-bold text-sm">★★★☆☆</span>
+                  <span id="val-complexity-text" class="text-xs font-mono text-purple-300 font-semibold">(Advanced)</span>
+                </div>
+              </div>
+              <input 
+                type="range" 
+                id="slider-complexity" 
+                min="1" 
+                max="5" 
+                value="3" 
+                step="1"
+                oninput="updateComplexity(this.value)"
+                class="w-full"
+              />
+              <div class="flex justify-between text-[10px] font-mono text-slate-500">
+                <span>1★ Minimal</span>
+                <span>2★ Standard</span>
+                <span>3★ Advanced</span>
+                <span>4★ Complex</span>
+                <span>5★ Enterprise</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <button 
+            onclick="goToStep(1)" 
+            class="w-full sm:w-auto px-6 py-3.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider border border-slate-700 bg-slate-900 text-slate-300 hover:bg-slate-800 transition-all flex items-center justify-center gap-2"
+          >
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span>Back to Category Selection</span>
+          </button>
+
+          <button 
+            onclick="startCompilation()" 
+            class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-mono text-sm font-bold uppercase tracking-wider bg-gradient-to-r from-cyan-400 via-teal-400 to-purple-500 text-black shadow-neon-cyan hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+          >
+            <i data-lucide="zap" class="w-4 h-4 fill-black"></i>
+            <span>Initialize Genesis & Compile</span>
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================================================= -->
+    <!-- STEP 3: THE MATRIX FORGE (COMPILATION SIMULATION)                 -->
+    <!-- ================================================================= -->
+    <section id="view-step-3" class="step-view hidden transition-all duration-500">
+      
+      <div class="max-w-3xl mx-auto space-y-6">
+        
+        <div class="glass-card rounded-2xl p-6 sm:p-8 border border-cyan-500/40 shadow-2xl relative overflow-hidden">
+          
+          <!-- Animated Radar Scanning Grid -->
+          <div class="relative flex flex-col items-center justify-center py-8">
+            
+            <div class="relative w-36 h-36 sm:w-44 sm:h-44 flex items-center justify-center mb-6">
+              <!-- Outer Spinning Ring -->
+              <div class="absolute inset-0 rounded-full border-2 border-dashed border-cyan-400/40 animate-spin-slow"></div>
+              <!-- Middle Pulsing Ring -->
+              <div class="absolute inset-3 rounded-full border border-purple-500/50 animate-ping opacity-30"></div>
+              <!-- Inner Core -->
+              <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-cyan-950 to-purple-950 border border-cyan-400/80 flex flex-col items-center justify-center shadow-neon-cyan relative z-10">
+                <i data-lucide="cpu" class="w-8 h-8 text-cyan-300 animate-pulse"></i>
+                <span id="compile-percentage" class="text-xs font-mono font-extrabold text-white mt-1">0%</span>
+              </div>
+            </div>
+
+            <h3 class="text-xl sm:text-2xl font-bold font-cyber text-white tracking-wider uppercase mb-1">
+              Forging <span id="compiling-app-name" class="text-cyan-400">Application</span>
+            </h3>
+            <p id="compile-current-action" class="text-xs sm:text-sm font-mono text-purple-300">
+              Allocating Genesis Matrix Virtual Nodes...
+            </p>
+
+            <!-- Progress Bar -->
+            <div class="w-full max-w-lg mt-6 bg-slate-950 rounded-full h-3 p-0.5 border border-slate-800 relative overflow-hidden">
+              <div id="forge-progress-bar" class="h-full bg-gradient-to-r from-cyan-400 via-teal-300 to-purple-500 rounded-full transition-all duration-150 w-0 shadow-[0_0_15px_#00f0ff]"></div>
+            </div>
+
+          </div>
+
+          <!-- Pseudo-Terminal Log Output -->
+          <div class="bg-slate-950/90 rounded-xl p-4 border border-slate-800 font-mono text-xs text-slate-300 shadow-inner h-48 overflow-y-auto flex flex-col-reverse relative">
+            <div id="terminal-logs" class="space-y-1.5">
+              <!-- Logs injected dynamically -->
+            </div>
+            <div class="sticky top-0 bg-slate-950/90 pb-2 border-b border-slate-800/80 text-slate-500 flex justify-between items-center text-[10px]">
+              <span>TERMINAL TELEMETRY FEED (MATRIX_STDOUT)</span>
+              <span class="flex items-center gap-1 text-emerald-400">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                ACTIVE
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================================================= -->
+    <!-- STEP 4: SYSTEM BLUEPRINT OUTPUT (TELEMETRY & MOCK SCREEN)         -->
+    <!-- ================================================================= -->
+    <section id="view-step-4" class="step-view hidden transition-all duration-500">
+      
+      <div class="max-w-5xl mx-auto space-y-8">
+        
+        <!-- Top Success Banner -->
+        <div class="p-4 sm:p-6 rounded-2xl bg-gradient-to-r from-cyan-950/70 via-slate-900/90 to-purple-950/70 border border-cyan-500/40 flex items-center justify-between flex-wrap gap-4 shadow-neon-cyan">
+          <div class="flex items-center gap-3.5">
+            <div class="w-10 h-10 rounded-xl bg-cyan-400 text-black flex items-center justify-center font-extrabold text-lg">
+              <i data-lucide="check-check" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-mono text-cyan-300 uppercase tracking-widest font-bold">SYNTHESIS SUCCESSFUL</span>
+              <h2 class="text-xl sm:text-2xl font-bold text-white">System Architecture Blueprint Ready</h2>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <button 
+              onclick="exportBlueprint()" 
+              class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-mono text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,240,255,0.4)]"
+            >
+              <i data-lucide="download" class="w-4 h-4"></i>
+              Export Blueprint
+            </button>
+            <button 
+              onclick="resetMatrix()" 
+              class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-mono text-xs font-bold transition-all flex items-center justify-center gap-2 border border-slate-700"
+            >
+              <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+              Reset Matrix
+            </button>
+          </div>
+        </div>
+
+        <!-- Main Blueprint Dashboard Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- LEFT COLUMN: MOCK MOBILE DEVICE SCREEN (5 cols) -->
+          <div class="lg:col-span-5 flex flex-col items-center justify-center">
+            
+            <!-- Mobile Phone Frame -->
+            <div class="w-full max-w-[300px] sm:max-w-[320px] rounded-[40px] p-3 bg-slate-950 border-4 border-slate-800 shadow-[0_25px_60px_-15px_rgba(0,240,255,0.3)] relative overflow-hidden">
+              
+              <!-- Top Speaker Notch -->
+              <div class="w-24 h-4 bg-slate-900 rounded-full mx-auto mb-3 flex items-center justify-center gap-1.5">
+                <div class="w-2 h-2 rounded-full bg-slate-800"></div>
+                <div class="w-8 h-1.5 rounded-full bg-slate-800"></div>
+              </div>
+
+              <!-- Inner Device Display Screen -->
+              <div class="rounded-[28px] bg-gradient-to-b from-slate-900 to-[#070a14] border border-slate-800 p-5 min-h-[440px] flex flex-col justify-between text-left relative overflow-hidden">
+                
+                <!-- Background Ambient Gradient Inside Phone -->
+                <div class="absolute -top-12 -right-12 w-36 h-36 bg-cyan-500/20 rounded-full blur-2xl pointer-events-none"></div>
+
+                <!-- Phone Top Bar -->
+                <div>
+                  <div class="flex justify-between items-center text-[10px] font-mono text-slate-400 mb-6">
+                    <span>9:41 AM</span>
+                    <div class="flex items-center gap-1">
+                      <i data-lucide="wifi" class="w-3 h-3 text-cyan-400"></i>
+                      <i data-lucide="battery" class="w-3 h-3 text-slate-300"></i>
+                    </div>
+                  </div>
+
+                  <!-- Mock App Header -->
+                  <div class="flex items-center gap-3 mb-5">
+                    <div id="mock-app-icon" class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 to-purple-600 p-0.5 shadow-md flex items-center justify-center text-black">
+                      <i data-lucide="smartphone" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div>
+                      <h4 id="mock-app-name" class="font-bold text-white text-base leading-tight">App Name</h4>
+                      <span id="mock-app-category" class="text-[10px] font-mono text-cyan-400">Category</span>
+                    </div>
+                  </div>
+
+                  <!-- Mock Interactive Card Preview -->
+                  <div class="space-y-2.5">
+                    <div class="p-3 rounded-xl bg-slate-800/60 border border-slate-700/50">
+                      <div class="flex justify-between text-[10px] font-mono text-slate-400 mb-1">
+                        <span>CORE ENGINE</span>
+                        <span id="mock-tech-badge" class="text-purple-400 font-bold">Native</span>
+                      </div>
+                      <div class="text-xs font-semibold text-slate-200">Production Build v1.0.0</div>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-slate-800/60 border border-slate-700/50">
+                      <div class="text-[10px] font-mono text-slate-400 mb-1">SYSTEM LATENCY</div>
+                      <div class="flex items-center gap-2">
+                        <div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden">
+                          <div class="w-[94%] bg-emerald-400 h-full rounded-full"></div>
+                        </div>
+                        <span class="text-[10px] font-mono text-emerald-400">12ms</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Phone Bottom Bar Mock -->
+                <div class="pt-4 border-t border-slate-800/80">
+                  <button class="w-full py-2.5 rounded-xl bg-cyan-400 text-black font-mono text-xs font-bold text-center">
+                    Launch Interactive App
+                  </button>
+                </div>
+
+              </div>
+
+              <!-- Home Indicator Bar -->
+              <div class="w-28 h-1 bg-slate-700 rounded-full mx-auto mt-3"></div>
+
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN: FEASIBILITY & MATRIX METRICS (7 cols) -->
+          <div class="lg:col-span-7 space-y-4">
+            
+            <!-- Metric 1: Timeline & Infra Cost -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              
+              <!-- Est Development Time -->
+              <div class="glass-card rounded-xl p-5 border border-slate-800 space-y-1">
+                <div class="flex items-center justify-between text-slate-400 text-xs font-mono">
+                  <span>EST. TIME TO MARKET</span>
+                  <i data-lucide="clock" class="w-4 h-4 text-cyan-400"></i>
+                </div>
+                <div id="metric-timeline" class="text-2xl font-extrabold text-white font-mono">6 - 8 Weeks</div>
+                <p id="metric-timeline-desc" class="text-[11px] text-slate-400">Based on Native core and 3★ complexity</p>
+              </div>
+
+              <!-- Est Server Cost -->
+              <div class="glass-card rounded-xl p-5 border border-slate-800 space-y-1">
+                <div class="flex items-center justify-between text-slate-400 text-xs font-mono">
+                  <span>EST. CLOUD INFRA / MO</span>
+                  <i data-lucide="server" class="w-4 h-4 text-emerald-400"></i>
+                </div>
+                <div id="metric-cost" class="text-2xl font-extrabold text-emerald-400 font-mono">$120 / mo</div>
+                <p id="metric-cost-desc" class="text-[11px] text-slate-400">Auto-scaling for 500K monthly users</p>
+              </div>
+
+            </div>
+
+            <!-- Metric 2: Recommended Architecture Stack -->
+            <div class="glass-card rounded-xl p-5 border border-slate-800 space-y-3">
+              <div class="flex items-center justify-between">
+                <h4 class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                  <i data-lucide="layers" class="w-4 h-4 text-purple-400"></i>
+                  Recommended Matrix Tech Stack
+                </h4>
+                <span class="text-[10px] font-mono text-purple-400 bg-purple-950/80 px-2 py-0.5 rounded border border-purple-500/30">OPTIMIZED</span>
+              </div>
+              <div id="metric-stack-pills" class="flex flex-wrap gap-2">
+                <!-- Stack Pills Injected via JS -->
+              </div>
+            </div>
+
+            <!-- Metric 3: Feasibility & Security Matrix -->
+            <div class="glass-card rounded-xl p-5 border border-slate-800 space-y-3">
+              <h4 class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                <i data-lucide="shield-check" class="w-4 h-4 text-cyan-400"></i>
+                Enterprise Compliance & Security
+              </h4>
+              <div class="grid grid-cols-3 gap-2 text-center text-xs font-mono">
+                <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
+                  <div class="text-cyan-400 font-bold text-sm">99.98%</div>
+                  <div class="text-[10px] text-slate-500 mt-0.5">UPTIME SLA</div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
+                  <div class="text-emerald-400 font-bold text-sm">AES-256</div>
+                  <div class="text-[10px] text-slate-500 mt-0.5">ENCRYPTION</div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
+                  <div class="text-purple-400 font-bold text-sm">SOC-2 Type II</div>
+                  <div class="text-[10px] text-slate-500 mt-0.5">READY</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Direct Contact CTA -->
+            <div class="p-4 rounded-xl bg-gradient-to-r from-cyan-950/40 to-slate-900 border border-cyan-500/20 flex items-center justify-between">
+              <div class="text-xs text-slate-300">
+                Want our team of senior engineers to build this exact blueprint?
+              </div>
+              <a href="mailto:clientsupport@sydasx.com" class="px-4 py-2 rounded-lg bg-white text-black font-mono text-xs font-bold hover:bg-cyan-300 transition-colors whitespace-nowrap">
+                Consult Engineering →
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <!-- ================================================================= -->
+  <!-- JAVASCRIPT SIMULATOR ENGINE (COMPLETE SELF-CONTAINED LOGIC)      -->
+  <!-- ================================================================= -->
+  <script>
+    // ═════════════════════════════════════════════════════════════════
+    // 1. ALL 49 GOOGLE PLAY CATEGORIES DATA (32 APPS + 17 GAMES)
+    // ═════════════════════════════════════════════════════════════════
+    const MATRIX_CATEGORIES = [
+      // 32 GENERAL APPS
+      { id: 'art_design', name: 'Art & Design', pillar: 'apps', icon: 'palette', desc: 'Vector drawing, 3D CAD & generative AI canvas.' },
+      { id: 'auto_vehicles', name: 'Auto & Vehicles', pillar: 'apps', icon: 'car', desc: 'Telemetry, EV charging routing & fleet diagnostics.' },
+      { id: 'beauty', name: 'Beauty & Glamour', pillar: 'apps', icon: 'sparkles', desc: 'AR cosmetics testing & skin shade analytics.' },
+      { id: 'books_reference', name: 'Books & Reference', pillar: 'apps', icon: 'book-open', desc: 'EPUB rendering, audiobooks & interactive libraries.' },
+      { id: 'business', name: 'Business & ERP', pillar: 'apps', icon: 'briefcase', desc: 'CRM pipelines, corporate invoicing & HR vaults.' },
+      { id: 'comics', name: 'Comics & Manga', pillar: 'apps', icon: 'message-square', desc: 'Webtoon scrolling engines & panel auto-pan.' },
+      { id: 'communication', name: 'Communication', pillar: 'apps', icon: 'message-circle', desc: 'E2E encrypted chat, WebRTC voice & channels.' },
+      { id: 'dating', name: 'Dating & Socializing', pillar: 'apps', icon: 'heart', desc: 'Geolocation matching & verified video speed intros.' },
+      { id: 'education', name: 'Education & EdTech', pillar: 'apps', icon: 'graduation-cap', desc: 'Adaptive quizzes, flashcards & virtual classroom.' },
+      { id: 'entertainment', name: 'Entertainment & OTT', pillar: 'apps', icon: 'film', desc: '4K DRM video streaming & synchronized watch parties.' },
+      { id: 'events', name: 'Events & Ticketing', pillar: 'apps', icon: 'calendar', desc: 'QR ticketing, seating matrices & festival schedules.' },
+      { id: 'finance', name: 'Finance & Fintech', pillar: 'apps', icon: 'dollar-sign', desc: 'Crypto wallets, algorithmic investing & pay rails.' },
+      { id: 'food_drink', name: 'Food & Gastronomy', pillar: 'apps', icon: 'utensils', desc: 'Table reservations, recipe scaling & live order track.' },
+      { id: 'health_fitness', name: 'Health & Fitness', pillar: 'apps', icon: 'activity', desc: 'Workout cadence, sleep cycle tracking & macros.' },
+      { id: 'house_home', name: 'House & Smart Home', pillar: 'apps', icon: 'home', desc: 'Matter IoT hubs, lighting scenes & energy meters.' },
+      { id: 'libraries_demo', name: 'Libraries & Dev Demo', pillar: 'apps', icon: 'library', desc: 'Open-source SDK showcases & component sandboxes.' },
+      { id: 'lifestyle', name: 'Lifestyle & Habits', pillar: 'apps', icon: 'sun', desc: 'Habit streaks, daily gratitude & mindfulness timers.' },
+      { id: 'maps_navigation', name: 'Maps & GPS Navigation', pillar: 'apps', icon: 'navigation', desc: 'Turn-by-turn routing, offline vectors & traffic mesh.' },
+      { id: 'medical', name: 'Medical & Telehealth', pillar: 'apps', icon: 'cross', desc: 'HIPAA compliant consultations & prescription vault.' },
+      { id: 'music_audio', name: 'Music & Audio DAW', pillar: 'apps', icon: 'music', desc: 'Lossless audio streaming, podcast RSS & beat makers.' },
+      { id: 'news_magazines', name: 'News & Journalism', pillar: 'apps', icon: 'newspaper', desc: 'Curated feeds, breaking push alerts & offline digest.' },
+      { id: 'parenting', name: 'Parenting & Childcare', pillar: 'apps', icon: 'smile', desc: 'Milestone tracking, immunization logs & nursery sync.' },
+      { id: 'personalization', name: 'Personalization', pillar: 'apps', icon: 'sliders', desc: 'Icon packs, live shaders & dynamic lockscreens.' },
+      { id: 'photography', name: 'Photography & Optics', pillar: 'apps', icon: 'camera', desc: 'RAW processing, LUT filters & computational HDR.' },
+      { id: 'productivity', name: 'Productivity & Office', pillar: 'apps', icon: 'check-circle', desc: 'Kanban boards, Markdown docs & calendar matrix.' },
+      { id: 'shopping', name: 'Shopping & E-Commerce', pillar: 'apps', icon: 'shopping-bag', desc: 'One-click pay, AR product previews & flash drops.' },
+      { id: 'social', name: 'Social Networks', pillar: 'apps', icon: 'share-2', desc: 'Ephemeral stories, algorithmic feed & direct DMs.' },
+      { id: 'sports', name: 'Sports & League Hub', pillar: 'apps', icon: 'trophy', desc: 'Live scoreboard websocket, fantasy leagues & stats.' },
+      { id: 'tools', name: 'Tools & System Utility', pillar: 'apps', icon: 'wrench', desc: 'Storage cleaners, WiFi analyzers & file encryption.' },
+      { id: 'travel_local', name: 'Travel & Exploration', pillar: 'apps', icon: 'compass', desc: 'Flight booking engines, eSIM hubs & hostel guides.' },
+      { id: 'video_players', name: 'Video Players & Editors', pillar: 'apps', icon: 'video', desc: 'Multi-track timeline, chroma key & hardware codec.' },
+      { id: 'weather', name: 'Weather & Climate Radars', pillar: 'apps', icon: 'cloud-rain', desc: 'Doppler satellite loops, UV indexes & storm alerts.' },
+
+      // 17 GAMING ENGINES
+      { id: 'game_action', name: 'Action & Combat', pillar: 'games', icon: 'crosshair', desc: 'Fast-paced FPS, hack-and-slash & battle royales.' },
+      { id: 'game_adventure', name: 'Adventure & Lore', pillar: 'games', icon: 'map', desc: 'Story-driven quests, isometric exploration & dungeon runs.' },
+      { id: 'game_arcade', name: 'Arcade Classics', pillar: 'games', icon: 'joystick', desc: 'Endless runners, rhythm tap games & pixel shooters.' },
+      { id: 'game_board', name: 'Board & Tabletop', pillar: 'games', icon: 'grid', desc: 'Chess engines, online tabletop dice & card battles.' },
+      { id: 'game_card', name: 'Card & Deckbuilder', pillar: 'games', icon: 'layers', desc: 'Collectible TCG, rogue-like deck construction & PvP.' },
+      { id: 'game_casino', name: 'Casino & Slots', pillar: 'games', icon: 'circle-dot', desc: 'Vegas roulette simulation, poker tournaments & chips.' },
+      { id: 'game_casual', name: 'Casual & Relaxing', pillar: 'games', icon: 'coffee', desc: 'Match-3 puzzles, cozy farming & ASMR taps.' },
+      { id: 'game_educational', name: 'Educational Games', pillar: 'games', icon: 'brain', desc: 'Math adventures, geography trivia & coding puzzles.' },
+      { id: 'game_music', name: 'Music & Beat Shaders', pillar: 'games', icon: 'disc', desc: 'Rhythm note highways, synthwave tracks & piano tiles.' },
+      { id: 'game_puzzle', name: 'Puzzle & Logic', pillar: 'games', icon: 'puzzle', desc: 'Spatial physics, escape rooms & brain teasers.' },
+      { id: 'game_racing', name: 'Racing & Motorsports', pillar: 'games', icon: 'gauge', desc: 'High-octane drift physics, supercars & rally tracks.' },
+      { id: 'game_rpg', name: 'Role Playing (RPG)', pillar: 'games', icon: 'shield', desc: 'Character stat trees, open-world MMOs & turn battles.' },
+      { id: 'game_simulation', name: 'Simulation & Sandboxes', pillar: 'games', icon: 'cpu', desc: 'City builders, flight simulators & space colonies.' },
+      { id: 'game_sports', name: 'Sports Games & Arenas', pillar: 'games', icon: 'target', desc: 'Soccer stadiums, NBA slam dunks & tennis opens.' },
+      { id: 'game_strategy', name: 'Strategy & RTS Tactics', pillar: 'games', icon: 'git-commit', desc: 'Base building, tower defense & multi-unit warfare.' },
+      { id: 'game_trivia', name: 'Trivia & Game Shows', pillar: 'games', icon: 'help-circle', desc: 'Head-to-head buzzer matches & multi-choice showdowns.' },
+      { id: 'game_word', name: 'Word & Vocabulary', pillar: 'games', icon: 'type', desc: 'Crossword matrices, anagram scrambles & word grids.' }
+    ];
+
+    // ═════════════════════════════════════════════════════════════════
+    // 2. SIMULATOR STATE
+    // ═════════════════════════════════════════════════════════════════
+    const AppState = {
+      currentStep: 1,
+      selectedCategory: null,
+      appName: 'Nexus Protocol',
+      techType: 'native', // 'native' | 'cross' | 'hybrid'
+      userScaleIndex: 4, // 1 to 7
+      complexityStars: 3, // 1 to 5
+      userScaleLabels: ['1K Users', '10K Users', '50K Users', '500K Users', '1M Users', '5M Users', '10M+ Global'],
+      complexityLabels: ['(Minimal MVP)', '(Standard App)', '(Advanced System)', '(Complex Distributed)', '(Enterprise Super-App)']
+    };
+
+    // ═════════════════════════════════════════════════════════════════
+    // 3. INITIALIZATION & CATEGORY RENDERING
+    // ═════════════════════════════════════════════════════════════════
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCategories(MATRIX_CATEGORIES);
+      lucide.createIcons();
+    });
+
+    function renderCategories(categoriesList) {
+      const gridApps = document.getElementById('grid-apps');
+      const gridGames = document.getElementById('grid-games');
+
+      gridApps.innerHTML = '';
+      gridGames.innerHTML = '';
+
+      categoriesList.forEach(cat => {
+        const isGame = cat.pillar === 'games';
+        const accentGlow = isGame ? 'hover:border-emerald-500 hover:shadow-[0_0_20px_rgba(0,255,136,0.25)]' : 'hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(0,240,255,0.25)]';
+        const iconColor = isGame ? 'text-emerald-400' : 'text-cyan-400';
+        const isSelected = AppState.selectedCategory && AppState.selectedCategory.id === cat.id;
+
+        const card = document.createElement('div');
+        card.id = `cat-card-${cat.id}`;
+        card.className = `category-card group p-3.5 sm:p-4 rounded-xl glass-card cursor-pointer transition-all duration-300 flex flex-col justify-between ${accentGlow} ${isSelected ? (isGame ? 'border-emerald-400 bg-emerald-950/40 shadow-[0_0_25px_rgba(0,255,136,0.35)]' : 'border-cyan-400 bg-cyan-950/40 shadow-[0_0_25px_rgba(0,240,255,0.35)]') : 'border-slate-800'}`;
+        card.onclick = () => selectCategory(cat);
+
+        card.innerHTML = `
+          <div>
+            <div class="w-9 h-9 rounded-lg ${isGame ? 'bg-emerald-950/80 border-emerald-500/30' : 'bg-cyan-950/80 border-cyan-500/30'} border flex items-center justify-center ${iconColor} mb-2.5 group-hover:scale-110 transition-transform">
+              <i data-lucide="${cat.icon}" class="w-4 h-4"></i>
+            </div>
+            <h4 class="text-xs sm:text-sm font-bold text-white leading-tight mb-1">${cat.name}</h4>
+          </div>
+          <p class="text-[10px] text-slate-400 line-clamp-2 leading-relaxed mt-2">${cat.desc}</p>
+        `;
+
+        if (cat.pillar === 'apps') {
+          gridApps.appendChild(card);
+        } else {
+          gridGames.appendChild(card);
+        }
+      });
+
+      lucide.createIcons();
+    }
+
+    // ═════════════════════════════════════════════════════════════════
+    // 4. CATEGORY SELECTION & FILTERS
+    // ═════════════════════════════════════════════════════════════════
+    function selectCategory(cat) {
+      AppState.selectedCategory = cat;
+
+      // Update Preview Bar
+      const previewIcon = document.getElementById('selected-preview-icon');
+      const previewName = document.getElementById('selected-preview-name');
+      const nextBtn = document.getElementById('btn-step1-next');
+
+      previewIcon.innerHTML = `<i data-lucide="${cat.icon}" class="w-5 h-5"></i>`;
+      previewIcon.className = `w-10 h-10 rounded-xl flex items-center justify-center ${cat.pillar === 'games' ? 'bg-emerald-950 text-emerald-400 border border-emerald-500/40' : 'bg-cyan-950 text-cyan-400 border border-cyan-500/40'}`;
+      previewName.textContent = `${cat.name} (${cat.pillar === 'games' ? 'Game Engine' : 'App'})`;
+
+      // Enable Next Button
+      nextBtn.disabled = false;
+      nextBtn.className = "w-full sm:w-auto px-8 py-3.5 rounded-xl font-mono text-sm font-bold tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-400 via-teal-300 to-purple-500 text-black shadow-neon-cyan hover:scale-[1.02] cursor-pointer";
+
+      // Update highlighted cards
+      document.querySelectorAll('.category-card').forEach(el => {
+        el.classList.remove('border-cyan-400', 'border-emerald-400', 'bg-cyan-950/40', 'bg-emerald-950/40', 'shadow-[0_0_25px_rgba(0,240,255,0.35)]', 'shadow-[0_0_25px_rgba(0,255,136,0.35)]');
+        el.classList.add('border-slate-800');
+      });
+
+      const activeCard = document.getElementById(`cat-card-${cat.id}`);
+      if (activeCard) {
+        activeCard.classList.remove('border-slate-800');
+        if (cat.pillar === 'games') {
+          activeCard.classList.add('border-emerald-400', 'bg-emerald-950/40', 'shadow-[0_0_25px_rgba(0,255,136,0.35)]');
+        } else {
+          activeCard.classList.add('border-cyan-400', 'bg-cyan-950/40', 'shadow-[0_0_25px_rgba(0,240,255,0.35)]');
+        }
+      }
+
+      lucide.createIcons();
+    }
+
+    function filterPillar(pillarType) {
+      const btnAll = document.getElementById('btn-pillar-all');
+      const btnApps = document.getElementById('btn-pillar-apps');
+      const btnGames = document.getElementById('btn-pillar-games');
+      const secApps = document.getElementById('pillar-apps-section');
+      const secGames = document.getElementById('pillar-games-section');
+
+      // Reset Styles
+      [btnAll, btnApps, btnGames].forEach(b => {
+        b.className = "pillar-btn px-4 py-2 rounded-lg font-mono text-xs sm:text-sm font-bold text-slate-400 hover:text-white transition-all duration-200";
+      });
+
+      if (pillarType === 'all') {
+        btnAll.className = "pillar-btn px-4 py-2 rounded-lg font-mono text-xs sm:text-sm font-bold transition-all duration-200 bg-cyan-500 text-black shadow-[0_0_15px_rgba(0,240,255,0.4)]";
+        secApps.classList.remove('hidden');
+        secGames.classList.remove('hidden');
+      } else if (pillarType === 'apps') {
+        btnApps.className = "pillar-btn px-4 py-2 rounded-lg font-mono text-xs sm:text-sm font-bold transition-all duration-200 bg-cyan-500 text-black shadow-[0_0_15px_rgba(0,240,255,0.4)]";
+        secApps.classList.remove('hidden');
+        secGames.classList.add('hidden');
+      } else if (pillarType === 'games') {
+        btnGames.className = "pillar-btn px-4 py-2 rounded-lg font-mono text-xs sm:text-sm font-bold transition-all duration-200 bg-emerald-400 text-black shadow-[0_0_15px_rgba(0,255,136,0.4)]";
+        secApps.classList.add('hidden');
+        secGames.classList.remove('hidden');
+      }
+    }
+
+    function searchCategories(query) {
+      const term = query.toLowerCase().trim();
+      const filtered = MATRIX_CATEGORIES.filter(c => 
+        c.name.toLowerCase().includes(term) || 
+        c.desc.toLowerCase().includes(term) ||
+        c.id.toLowerCase().includes(term)
+      );
+      renderCategories(filtered);
+    }
+
+    // ═════════════════════════════════════════════════════════════════
+    // 5. STEP TRANSITIONS & NAVIGATION
+    // ═════════════════════════════════════════════════════════════════
+    function goToStep(stepNum) {
+      if (stepNum === 2 && !AppState.selectedCategory) return;
+      
+      AppState.currentStep = stepNum;
+
+      // Hide all views
+      document.querySelectorAll('.step-view').forEach(v => v.classList.add('hidden'));
+      const targetView = document.getElementById(`view-step-${stepNum}`);
+      if (targetView) targetView.classList.remove('hidden');
+
+      // Update Navigation Indicators
+      for (let i = 1; i <= 4; i++) {
+        const navEl = document.getElementById(`nav-step-${i}`);
+        const badge = navEl.querySelector('.step-badge');
+        
+        if (i === stepNum) {
+          navEl.className = "step-indicator group flex flex-col items-center p-2.5 rounded-xl border border-cyan-500 bg-cyan-950/30 transition-all duration-300 shadow-neon-cyan";
+          badge.className = "step-badge w-6 h-6 rounded-lg bg-cyan-500 text-black flex items-center justify-center font-extrabold text-xs";
+          navEl.querySelector('div').className = "flex items-center gap-2 text-cyan-400 font-mono text-xs sm:text-sm font-bold";
+        } else if (i < stepNum) {
+          navEl.className = "step-indicator group flex flex-col items-center p-2.5 rounded-xl border border-emerald-500/40 bg-emerald-950/20 transition-all duration-300";
+          badge.className = "step-badge w-6 h-6 rounded-lg bg-emerald-500 text-black flex items-center justify-center font-extrabold text-xs";
+          navEl.querySelector('div').className = "flex items-center gap-2 text-emerald-400 font-mono text-xs sm:text-sm font-bold";
+        } else {
+          navEl.className = "step-indicator group flex flex-col items-center p-2.5 rounded-xl border border-slate-800 bg-slate-900/40 transition-all duration-300 opacity-60";
+          badge.className = "step-badge w-6 h-6 rounded-lg bg-slate-800 text-slate-400 flex items-center justify-center font-extrabold text-xs";
+          navEl.querySelector('div').className = "flex items-center gap-2 text-slate-400 font-mono text-xs sm:text-sm font-bold";
+        }
+      }
+
+      // Populate Step 2 details if going to step 2
+      if (stepNum === 2 && AppState.selectedCategory) {
+        document.getElementById('step2-category-title').textContent = AppState.selectedCategory.name;
+        document.getElementById('step2-category-icon').innerHTML = `<i data-lucide="${AppState.selectedCategory.icon}" class="w-6 h-6"></i>`;
+        
+        // Auto default app name if empty
+        if (!AppState.appName || AppState.appName === 'Nexus Protocol') {
+          const defaultNames = {
+            'art_design': 'VectorFlow AI',
+            'business': 'EnterprisePulse',
+            'finance': 'OrbitPay Matrix',
+            'social': 'SphereNet',
+            'game_action': 'CyberVanguard RTS',
+            'game_rpg': 'ChronoRealm Legends'
+          };
+          AppState.appName = defaultNames[AppState.selectedCategory.id] || `${AppState.selectedCategory.name.split(' ')[0]}Pro`;
+          document.getElementById('input-app-name').value = AppState.appName;
+          document.getElementById('name-counter').textContent = `${AppState.appName.length}/32`;
+        }
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      lucide.createIcons();
+    }
+
+    // ═════════════════════════════════════════════════════════════════
+    // 6. STEP 2 INPUT HANDLERS
+    // ═════════════════════════════════════════════════════════════════
+    function handleNameInput(val) {
+      AppState.appName = val.trim() || 'Genesis App';
+      document.getElementById('name-counter').textContent = `${val.length}/32`;
+    }
+
+    function handleTechChange(type) {
+      AppState.techType = type;
+      document.querySelectorAll('.tech-radio-label').forEach(label => {
+        const dot = label.querySelector('.tech-check-dot');
+        const input = label.querySelector('input');
+        if (input.value === type) {
+          label.classList.add('border-cyan-400', 'bg-cyan-950/20');
+          label.classList.remove('border-slate-800');
+          dot.className = "tech-check-dot w-3 h-3 rounded-full border border-cyan-400 bg-cyan-400";
+        } else {
+          label.classList.remove('border-cyan-400', 'bg-cyan-950/20');
+          label.classList.add('border-slate-800');
+          dot.className = "tech-check-dot w-3 h-3 rounded-full border border-slate-600 bg-transparent";
+        }
+      });
+    }
+
+    function updateUserScale(val) {
+      AppState.userScaleIndex = parseInt(val, 10);
+      document.getElementById('val-users').textContent = AppState.userScaleLabels[AppState.userScaleIndex - 1];
+    }
+
+    function updateComplexity(val) {
+      AppState.complexityStars = parseInt(val, 10);
+      const starStrings = ['★☆☆☆☆', '★★☆☆☆', '★★★☆☆', '★★★★☆', '★★★★★'];
+      document.getElementById('star-rating').textContent = starStrings[AppState.complexityStars - 1];
+      document.getElementById('val-complexity-text').textContent = AppState.complexityLabels[AppState.complexityStars - 1];
+    }
+
+    // ═════════════════════════════════════════════════════════════════
+    // 7. STEP 3: COMPILATION SIMULATION (THE MATRIX FORGE)
+    // ═════════════════════════════════════════════════════════════════
+    function startCompilation() {
+      goToStep(3);
+
+      const appName = AppState.appName || 'Nexus Protocol';
+      const category = AppState.selectedCategory;
+      const tech = AppState.techType;
+
+      document.getElementById('compiling-app-name').textContent = appName;
+
+      const terminalLogs = document.getElementById('terminal-logs');
+      const progressBar = document.getElementById('forge-progress-bar');
+      const percentageText = document.getElementById('compile-percentage');
+      const actionText = document.getElementById('compile-current-action');
+
+      terminalLogs.innerHTML = '';
+      progressBar.style.width = '0%';
+      percentageText.textContent = '0%';
+
+      const steps = [
+        { pct: 15, msg: `Initializing Genesis Virtual Core for [${appName}]...`, action: 'Allocating Distributed GPU Shards...' },
+        { pct: 30, msg: `Injecting [${category.name}] domain schemas & security protocols...`, action: 'Synthesizing Data Pipeline...' },
+        { pct: 50, msg: `Configuring ${tech.toUpperCase()} runtime binaries & WebRTC channels...`, action: `Compiling ${tech.toUpperCase()} Toolchain...` },
+        { pct: 70, msg: `Benchmarking load tolerance for ${AppState.userScaleLabels[AppState.userScaleIndex - 1]} concurrency...`, action: 'Stress Testing Virtual Nodes...' },
+        { pct: 88, msg: `Optimizing memory buffers for ${AppState.complexityStars}★ feature complexity...`, action: 'Finalizing Latency Tuning...' },
+        { pct: 100, msg: `SUCCESS: System Blueprint [${appName}.x] forged and verified.`, action: 'Compiling Completed!' }
+      ];
+
+      let currentStepIndex = 0;
+
+      function runNextCompilationStep() {
+        if (currentStepIndex >= steps.length) {
+          setTimeout(() => {
+            renderBlueprintOutput();
+            goToStep(4);
+          }, 600);
+          return;
+        }
+
+        const step = steps[currentStepIndex];
+        progressBar.style.width = `${step.pct}%`;
+        percentageText.textContent = `${step.pct}%`;
+        actionText.textContent = step.action;
+
+        const logEntry = document.createElement('div');
+        logEntry.className = "flex items-start gap-2 animate-fadeIn";
+        logEntry.innerHTML = `
+          <span class="text-cyan-400 select-none">></span>
+          <span class="${step.pct === 100 ? 'text-emerald-400 font-bold' : 'text-slate-300'}">${step.msg}</span>
+          <span class="text-slate-600 text-[10px] ml-auto font-mono">${new Date().toISOString().substring(14, 22)}</span>
+        `;
+        terminalLogs.prepend(logEntry);
+
+        currentStepIndex++;
+        setTimeout(runNextCompilationStep, 600);
+      }
+
+      runNextCompilationStep();
+    }
+
+    // ═════════════════════════════════════════════════════════════════
+    // 8. STEP 4: BLUEPRINT OUTPUT & DYNAMIC TELEMETRY CALCULATIONS
+    // ═════════════════════════════════════════════════════════════════
+    function renderBlueprintOutput() {
+      const appName = AppState.appName || 'Nexus Protocol';
+      const cat = AppState.selectedCategory;
+      const tech = AppState.techType;
+      const users = AppState.userScaleIndex;
+      const stars = AppState.complexityStars;
+
+      // 1. Update Mock Phone Display
+      document.getElementById('mock-app-name').textContent = appName;
+      document.getElementById('mock-app-category').textContent = `${cat.name} (${cat.pillar.toUpperCase()})`;
+      document.getElementById('mock-app-icon').innerHTML = `<i data-lucide="${cat.icon}" class="w-6 h-6 text-white"></i>`;
+      document.getElementById('mock-tech-badge').textContent = tech.toUpperCase();
+
+      // 2. Calculate Development Time (Based on Tech & Stars)
+      let minWeeks = 4 + (stars * 2);
+      let maxWeeks = 6 + (stars * 3.5);
+      if (tech === 'native') {
+        minWeeks += 2;
+        maxWeeks += 3;
+      } else if (tech === 'hybrid') {
+        minWeeks = Math.max(3, minWeeks - 2);
+        maxWeeks = Math.max(5, maxWeeks - 2);
+      }
+      document.getElementById('metric-timeline').textContent = `${Math.round(minWeeks)} - ${Math.round(maxWeeks)} Weeks`;
+      document.getElementById('metric-timeline-desc').textContent = `Full cycle agile sprint based on ${tech.toUpperCase()} core & ${stars}★ complexity.`;
+
+      // 3. Calculate Cloud Infrastructure Cost (Based on Users & Stars)
+      const costMultipliers = [25, 60, 150, 450, 950, 2400, 5800];
+      const baseCost = costMultipliers[users - 1] || 150;
+      const complexityMultiplier = 0.8 + (stars * 0.25);
+      const finalCost = Math.round(baseCost * complexityMultiplier);
+      
+      document.getElementById('metric-cost').textContent = `$${finalCost.toLocaleString()} / mo`;
+      document.getElementById('metric-cost-desc').textContent = `Auto-scaling Kubernetes mesh for ${AppState.userScaleLabels[users - 1]}.`;
+
+      // 4. Populate Recommended Stack Pills
+      const stackPillsContainer = document.getElementById('metric-stack-pills');
+      stackPillsContainer.innerHTML = '';
+
+      let stacks = [];
+      if (tech === 'native') {
+        stacks = ['Kotlin 2.0', 'Swift 6', 'Android Jetpack', 'SwiftUI', 'PostgreSQL', 'Redis Cluster', 'GraphQL Mesh', 'gRPC'];
+      } else if (tech === 'cross') {
+        stacks = ['Flutter 3.x / React Native', 'Dart', 'TypeScript', 'Node.js Fastify', 'Supabase', 'Docker', 'Google Cloud Run'];
+      } else {
+        stacks = ['Capacitor 6', 'Astro Web Core', 'Tailwind CSS', 'WebSockets', 'Cloudflare Workers', 'Edge DB', 'Vite'];
+      }
+
+      if (cat.pillar === 'games') {
+        stacks.unshift('Unity / Unreal C++', 'Vulkan Shaders');
+      }
+
+      stacks.forEach(techItem => {
+        const pill = document.createElement('span');
+        pill.className = "text-xs font-mono font-semibold px-3 py-1 rounded-lg bg-slate-900 border border-slate-700/80 text-slate-200";
+        pill.textContent = techItem;
+        stackPillsContainer.appendChild(pill);
+      });
+
+      lucide.createIcons();
+    }
+
+    function exportBlueprint() {
+      const blueprintData = {
+        system: "SYDAS.x Genesis Matrix",
+        version: "4.9",
+        timestamp: new Date().toISOString(),
+        application: {
+          name: AppState.appName,
+          category: AppState.selectedCategory.name,
+          pillar: AppState.selectedCategory.pillar,
+          technology_engine: AppState.techType,
+          scale: AppState.userScaleLabels[AppState.userScaleIndex - 1],
+          complexity_stars: AppState.complexityStars
+        },
+        metrics: {
+          estimated_timeline: document.getElementById('metric-timeline').textContent,
+          estimated_monthly_infra: document.getElementById('metric-cost').textContent,
+          uptime_sla: "99.98%",
+          encryption: "AES-256 GCM",
+          compliance: "SOC-2 Type II Ready"
+        }
+      };
+
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(blueprintData, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `${AppState.appName.toLowerCase().replace(/\s+/g, '_')}_genesis_blueprint.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function resetMatrix() {
+      AppState.selectedCategory = null;
+      AppState.appName = 'Nexus Protocol';
+      AppState.currentStep = 1;
+      
+      const searchInput = document.getElementById('category-search');
+      if (searchInput) searchInput.value = '';
+
+      filterPillar('all');
+      renderCategories(MATRIX_CATEGORIES);
+
+      document.getElementById('selected-preview-name').textContent = 'None Selected';
+      document.getElementById('btn-step1-next').disabled = true;
+      document.getElementById('btn-step1-next').className = "w-full sm:w-auto px-8 py-3.5 rounded-xl font-mono text-sm font-bold tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2 bg-slate-800 text-slate-500 cursor-not-allowed";
+
+      goToStep(1);
+    }
+  </script>
+
+</body>
+</html>
