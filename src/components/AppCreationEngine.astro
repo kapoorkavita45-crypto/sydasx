@@ -3509,8 +3509,9 @@
 
     // ═══════════════════════════════════════════════════════════════════════════
     // SYDAS.X PIXEL COMBAT // MINI MILITIA ARCADE SHOOTER (11-TASK PRO GRADE)
-    // 30x HUGE VAST MAP (6000px World), Smooth Follow Camera, 1v1 Bot Duel,
-    // Distance Radar HUD, 5 Famous Heroes, 5 Weapons & Save/Load System.
+    // 30x HUGE VAST MAP (6000m), Strict Screen Boundaries (No Leaving Screen),
+    // Solid Steppable Floating Brick Platforms, Wall Bullet Blocking,
+    // Limited Jetpack Nitro for BOTH Player & Bot, 1v1 Bot Duel.
     // ═══════════════════════════════════════════════════════════════════════════
     let pixelGameState = null;
 
@@ -3566,7 +3567,7 @@
             </div>
           </div>
 
-          <!-- SCREEN 3: CHARACTER SELECT -->
+          <!-- SCREEN 3: HEROES SELECT (RENAMED FROM FAMOUS HEROES) -->
           <div id="pg-char-screen" style="position: absolute; inset: 0; z-index: 55; display: none; flex-direction: column; justify-content: space-between; padding: 10px 14px; background: rgba(11, 16, 27, 0.95); backdrop-filter: blur(4px);">
             <div style="text-align: center;">
               <span style="font-size: 0.55rem; color: #00f0ff; font-weight: 800; letter-spacing: 1px;">SELECT YOUR DUELIST</span>
@@ -3712,32 +3713,32 @@
             <div id="pixel-blast-flare" style="position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(255,200,50,0.5), transparent 70%); pointer-events: none; opacity: 0; z-index: 15; transition: opacity 0.1s ease;"></div>
           </div>
 
-          <!-- TOUCH CONTROLS BAR -->
-          <div id="pg-touch-bar" style="display: grid; grid-template-columns: 1.2fr 1.2fr 1.5fr 1fr 1fr 1fr; gap: 4px; padding: 6px 10px; background: #0c121e; border-top: 1px solid rgba(255,255,255,0.08); z-index: 25;">
+          <!-- TOUCH CONTROLS BAR (WASD, L-SHIFT, R-SHIFT) -->
+          <div id="pg-touch-bar" style="display: grid; grid-template-columns: 1fr 1fr 1.3fr 1fr 1.1fr 1.1fr; gap: 4px; padding: 6px 10px; background: #0c121e; border-top: 1px solid rgba(255,255,255,0.08); z-index: 25;">
             <button id="btn-touch-left" onmousedown="window.pgTouchMove(-1, true)" onmouseup="window.pgTouchMove(0, false)" ontouchstart="window.pgTouchMove(-1, true)" ontouchend="window.pgTouchMove(0, false)" style="padding: 8px 4px; background: #162032; color: #cbd5e1; font-weight: 900; font-size: 0.75rem; border: 1px solid #334155; border-radius: 6px; cursor: pointer;">
-              ◀ LEFT
+              ◀ A: BACK
             </button>
             <button id="btn-touch-right" onmousedown="window.pgTouchMove(1, true)" onmouseup="window.pgTouchMove(0, false)" ontouchstart="window.pgTouchMove(1, true)" ontouchend="window.pgTouchMove(0, false)" style="padding: 8px 4px; background: #162032; color: #cbd5e1; font-weight: 900; font-size: 0.75rem; border: 1px solid #334155; border-radius: 6px; cursor: pointer;">
-              RIGHT ▶
+              D: FWD ▶
             </button>
             <button id="btn-touch-fly" onmousedown="window.pgTouchFly(true)" onmouseup="window.pgTouchFly(false)" ontouchstart="window.pgTouchFly(true)" ontouchend="window.pgTouchFly(false)" style="padding: 8px 4px; background: linear-gradient(180deg, #00f0ff, #0099b8); color: #05070d; font-weight: 900; font-size: 0.75rem; border: none; border-radius: 6px; cursor: pointer; box-shadow: 0 0 8px rgba(0,240,255,0.4);">
-              🚀 JETPACK FLY
+              🚀 W: JETPACK
+            </button>
+            <button onmousedown="window.pgTouchDown(true)" onmouseup="window.pgTouchDown(false)" ontouchstart="window.pgTouchDown(true)" ontouchend="window.pgTouchDown(false)" style="padding: 8px 4px; background: #1e293b; color: #94a3b8; font-weight: 900; font-size: 0.72rem; border: 1px solid #475569; border-radius: 6px; cursor: pointer;">
+              ▼ S: DOWN
             </button>
             <button onclick="window.pgThrowGrenade()" style="padding: 8px 4px; background: linear-gradient(180deg, #ffc837, #d49a17); color: #05070d; font-weight: 900; font-size: 0.72rem; border: none; border-radius: 6px; cursor: pointer;">
-              💣 NADE
+              💣 L-SHIFT
             </button>
-            <button onclick="window.pgReloadWeapon()" style="padding: 8px 4px; background: linear-gradient(180deg, #ff4655, #b91c1c); color: #fff; font-weight: 900; font-size: 0.72rem; border: none; border-radius: 6px; cursor: pointer;">
-              🔄 RLD
-            </button>
-            <button onclick="window.togglePhoneTilt()" style="padding: 8px 4px; background: #1e293b; color: #00f0ff; font-weight: 900; font-size: 0.72rem; border: 1px solid #00f0ff; border-radius: 6px; cursor: pointer;">
-              🔄 TILT
+            <button onclick="window.pgShootWeaponTouch()" style="padding: 8px 4px; background: linear-gradient(180deg, #ff4655, #b91c1c); color: #fff; font-weight: 900; font-size: 0.72rem; border: none; border-radius: 6px; cursor: pointer;">
+              🔥 R-SHIFT
             </button>
           </div>
 
-          <!-- FOOTER TIP -->
+          <!-- FOOTER TIP WITH EXACT WASD CONTROLS -->
           <div style="display: flex; justify-content: space-between; padding: 4px 8px; background: #060911; font-size: 0.52rem; color: #64748b;">
             <span>W: Jetpack Up &bull; S: Down &bull; A: Back &bull; D: Forward &bull; L-Shift: Nade &bull; R-Shift / Click: Shoot &bull; Mouse: Target Aim</span>
-            <span style="color: #00ff88;">30X VAST MAP &bull; 1v1 BOT DUEL</span>
+            <span style="color: #00ff88;">30X VAST MAP &bull; 1v1 BOT DUEL &bull; SOLID FLOATING BRICKS</span>
           </div>
 
         </div>
@@ -3756,35 +3757,35 @@
 
       // 5 FAMOUS HEROES SPECIFICATIONS
       const FAMOUS_CHARACTERS = [
-        { id: 'john_wick', name: 'JOHN WICK', tag: 'The Baba Yaga', avatarText: 'JW', perk: '+20% Reload & Crit Accuracy', suitColor: '#111827', shirtColor: '#ffffff', tieColor: '#000000', hairColor: '#1f2937', skinColor: '#e0a899', hpMultiplier: 1.0, speed: 2.6, bulletDmgBoost: 1.2 },
-        { id: 'master_chief', name: 'MASTER CHIEF', tag: 'Spartan-117 (Halo)', avatarText: 'MC', perk: '+50 Shield Energy Armor', suitColor: '#15803d', shirtColor: '#14532d', tieColor: '#eab308', hairColor: '#14532d', skinColor: '#eab308', hpMultiplier: 1.3, speed: 2.3, bulletDmgBoost: 1.15 },
-        { id: 'kratos', name: 'KRATOS', tag: 'Ghost of Sparta', avatarText: 'KR', perk: 'Spartan Rage (+30% Damage)', suitColor: '#78350f', shirtColor: '#f1f5f9', tieColor: '#ef4444', hairColor: '#451a03', skinColor: '#f8fafc', hpMultiplier: 1.25, speed: 2.4, bulletDmgBoost: 1.35 },
-        { id: 'terminator', name: 'TERMINATOR', tag: 'Cyberdyne T-800', avatarText: 'T8', perk: 'Titanium Endoskeleton (+40 HP)', suitColor: '#0f172a', shirtColor: '#475569', tieColor: '#ef4444', hairColor: '#334155', skinColor: '#94a3b8', hpMultiplier: 1.4, speed: 2.2, bulletDmgBoost: 1.2 },
-        { id: 'neo', name: 'NEO (THE ONE)', tag: 'The Matrix', avatarText: 'NE', perk: 'Bullet Time (+30% Jetpack Nitro)', suitColor: '#030712', shirtColor: '#030712', tieColor: '#00f0ff', hairColor: '#111827', skinColor: '#e0a899', hpMultiplier: 1.05, speed: 2.8, bulletDmgBoost: 1.25 }
+        { id: 'john_wick', name: 'JOHN WICK', tag: 'The Baba Yaga', avatarText: 'JW', perk: '+20% Reload & Crit Accuracy', suitColor: '#111827', shirtColor: '#ffffff', tieColor: '#000000', hairColor: '#1f2937', skinColor: '#e0a899', hpMultiplier: 1.0, speed: 2.8, bulletDmgBoost: 1.2 },
+        { id: 'master_chief', name: 'MASTER CHIEF', tag: 'Spartan-117 (Halo)', avatarText: 'MC', perk: '+50 Shield Energy Armor', suitColor: '#15803d', shirtColor: '#14532d', tieColor: '#eab308', hairColor: '#14532d', skinColor: '#eab308', hpMultiplier: 1.3, speed: 2.5, bulletDmgBoost: 1.15 },
+        { id: 'kratos', name: 'KRATOS', tag: 'Ghost of Sparta', avatarText: 'KR', perk: 'Spartan Rage (+30% Damage)', suitColor: '#78350f', shirtColor: '#f1f5f9', tieColor: '#ef4444', hairColor: '#451a03', skinColor: '#f8fafc', hpMultiplier: 1.25, speed: 2.6, bulletDmgBoost: 1.35 },
+        { id: 'terminator', name: 'TERMINATOR', tag: 'Cyberdyne T-800', avatarText: 'T8', perk: 'Titanium Endoskeleton (+40 HP)', suitColor: '#0f172a', shirtColor: '#475569', tieColor: '#ef4444', hairColor: '#334155', skinColor: '#94a3b8', hpMultiplier: 1.4, speed: 2.4, bulletDmgBoost: 1.2 },
+        { id: 'neo', name: 'NEO (THE ONE)', tag: 'The Matrix', avatarText: 'NE', perk: 'Bullet Time (+30% Jetpack Nitro)', suitColor: '#030712', shirtColor: '#030712', tieColor: '#00f0ff', hairColor: '#111827', skinColor: '#e0a899', hpMultiplier: 1.05, speed: 3.0, bulletDmgBoost: 1.25 }
       ];
 
       // 5 WEAPON ARSENAL SPECIFICATIONS
       const WEAPON_TYPES = [
-        { name: 'M4A1 RIFLE', ammo: 30, maxAmmo: 30, dmg: 24, rate: 100, spread: 0.06, speed: 10, color: '#ffc837', burst: 1 },
-        { name: 'BARRETT SNIPER', ammo: 5, maxAmmo: 5, dmg: 110, rate: 650, spread: 0.005, speed: 18, color: '#00f0ff', burst: 1 },
-        { name: 'SAWED SHOTGUN', ammo: 6, maxAmmo: 6, dmg: 18, rate: 450, spread: 0.22, speed: 8.5, color: '#ff4655', burst: 5 },
-        { name: 'RPG ROCKET', ammo: 3, maxAmmo: 3, dmg: 140, rate: 800, spread: 0.02, speed: 6.5, color: '#00ff88', isExplosive: true, burst: 1 },
-        { name: 'DUAL UZI', ammo: 40, maxAmmo: 40, dmg: 16, rate: 65, spread: 0.12, speed: 9, color: '#ff007a', burst: 1 }
+        { name: 'M4A1 RIFLE', ammo: 30, maxAmmo: 30, dmg: 24, rate: 100, spread: 0.06, speed: 11, color: '#ffc837', burst: 1 },
+        { name: 'BARRETT SNIPER', ammo: 5, maxAmmo: 5, dmg: 110, rate: 650, spread: 0.005, speed: 19, color: '#00f0ff', burst: 1 },
+        { name: 'SAWED SHOTGUN', ammo: 6, maxAmmo: 6, dmg: 18, rate: 450, spread: 0.22, speed: 9, color: '#ff4655', burst: 5 },
+        { name: 'RPG ROCKET', ammo: 3, maxAmmo: 3, dmg: 140, rate: 800, spread: 0.02, speed: 7, color: '#00ff88', isExplosive: true, burst: 1 },
+        { name: 'DUAL UZI', ammo: 40, maxAmmo: 40, dmg: 16, rate: 65, spread: 0.12, speed: 9.5, color: '#ff007a', burst: 1 }
       ];
 
-      // GENERATE 30X VAST DAYLIGHT MAPS (6000 METERS LENGTH)
-      function generate30xPlatforms(groundY, style) {
-        const plats = [{ x: 0, y: groundY, w: WORLD_WIDTH, h: 60 }]; // Infinite continuous ground
+      // GENERATE SOLID STEPPABLE FLOATING BRICK PLATFORMS ACROSS 6000m
+      function generateSolidBrickPlatforms(groundY, style) {
+        const plats = [{ x: 0, y: groundY, w: WORLD_WIDTH, h: 60, isGround: true }]; // Solid Continuous Base Ground
         
-        // Procedural multi-level platforms every 200px across the 6000m map
-        for (let x = 120; x < WORLD_WIDTH - 200; x += 180 + Math.floor(Math.random() * 80)) {
-          const w = 120 + Math.floor(Math.random() * 140);
-          const y = 100 + Math.floor(Math.random() * 180);
-          plats.push({ x, y, w, h: 14 });
+        // Multi-tier floating brick structures every 160px across the 6000m map
+        for (let x = 120; x < WORLD_WIDTH - 200; x += 180) {
+          const w = 130 + ((x * 13) % 90);
+          const y = 220 + ((x * 7) % 80);
+          plats.push({ x, y, w, h: 16, isBrick: true });
           
-          // Elevated sniper roost / sky bridge
-          if (Math.random() > 0.45) {
-            plats.push({ x: x + 40, y: Math.max(70, y - 90), w: 90 + Math.floor(Math.random() * 60), h: 12 });
+          // Higher floating brick perch (step on it)
+          if ((x % 360) === 0) {
+            plats.push({ x: x + 30, y: Math.max(90, y - 90), w: 100, h: 16, isBrick: true });
           }
         }
         return plats;
@@ -3793,18 +3794,18 @@
       const DAYLIGHT_MAPS = [
         {
           id: 'outpost', name: 'OUTPOST 30X', sub: 'Desert Canyon (6000m)',
-          skyTop: '#38bdf8', skyBottom: '#bae6fd', sunColor: '#fef08a', groundColor: '#d97706', grassColor: '#b45309',
-          platforms: generate30xPlatforms(370, 'desert')
+          skyTop: '#38bdf8', skyBottom: '#bae6fd', sunColor: '#fef08a', groundColor: '#d97706', grassColor: '#b45309', brickColor: '#b45309',
+          platforms: generateSolidBrickPlatforms(370, 'desert')
         },
         {
           id: 'catacon', name: 'CATACON 30X', sub: 'Jungle Ruins (6000m)',
-          skyTop: '#0284c7', skyBottom: '#7dd3fc', sunColor: '#fffbeb', groundColor: '#15803d', grassColor: '#4ade80',
-          platforms: generate30xPlatforms(370, 'jungle')
+          skyTop: '#0284c7', skyBottom: '#7dd3fc', sunColor: '#fffbeb', groundColor: '#15803d', grassColor: '#4ade80', brickColor: '#1e3a24',
+          platforms: generateSolidBrickPlatforms(370, 'jungle')
         },
         {
           id: 'suspension', name: 'SUSPENSION 30X', sub: 'Sky Bridges (6000m)',
-          skyTop: '#0369a1', skyBottom: '#e0f2fe', sunColor: '#fde047', groundColor: '#475569', grassColor: '#94a3b8',
-          platforms: generate30xPlatforms(370, 'sky')
+          skyTop: '#0369a1', skyBottom: '#e0f2fe', sunColor: '#fde047', groundColor: '#475569', grassColor: '#94a3b8', brickColor: '#334155',
+          platforms: generateSolidBrickPlatforms(370, 'sky')
         }
       ];
 
@@ -3825,19 +3826,21 @@
         selectedWeaponIndex: 0,
         selectedMapIndex: 0,
         
-        // Player In-Game Entity (Starts at FAR LEFT end: x = 120)
+        // PLAYER ENTITY (STARTS AT FAR LEFT END: x = 120)
         player: {
           x: 120,
           y: 330,
+          prevY: 330,
           vx: 0,
           vy: 0,
           w: 16,
           h: 24,
           hp: 100,
           maxHp: 100,
-          nitro: 100,
+          nitro: 100, // LIMITED JETPACK NITRO
           maxNitro: 100,
           isFlying: false,
+          isDescending: false,
           isGrounded: true,
           facing: 1,
           grenades: 3,
@@ -3845,7 +3848,7 @@
           reloadTimer: 0
         },
         
-        // EXACTLY 1 ACTIVE BOT AT A TIME (Starts at FAR RIGHT end: x = WORLD_WIDTH - 250)
+        // EXACTLY 1 ACTIVE BOT AT A TIME (STARTS AT FAR RIGHT END: x = WORLD_WIDTH - 250)
         bot: null,
         
         aimX: 480,
@@ -3854,11 +3857,6 @@
         bullets: [],
         grenadesList: [],
         particles: [],
-        clouds: [
-          { x: 50, y: 35, speed: 0.15, size: 40 },
-          { x: 450, y: 65, speed: 0.22, size: 55 },
-          { x: 950, y: 40, speed: 0.18, size: 45 }
-        ],
         
         stageTargetKills: 5,
         stageCurrentKills: 0,
@@ -3913,7 +3911,7 @@
         window.pgSkipIntro();
       }, 2200);
 
-      // Keyboard Controls (WASD, L-Shift: Nade, R-Shift: Shoot, Mouse Aim)
+      // Keyboard Controls (WASD, L-Shift, R-Shift, Mouse Aim)
       const handleKeyDown = (e) => {
         if (!document.getElementById('pixel-game-canvas')) {
           window.removeEventListener('keydown', handleKeyDown);
@@ -3931,15 +3929,16 @@
         if (key === 'a' || key === 'arrowleft') {
           pixelGameState.player.vx = -pixelGameState.player.speed;
         }
-        // W: Move UP and use Jetpack
+        // W: Move UP and use Jetpack (Limited Nitro)
         if (key === 'w' || key === 'arrowup' || key === ' ') {
           pixelGameState.player.isFlying = true;
         }
-        // S: Move DOWN
+        // S: Move DOWN (Drop down from platforms)
         if (key === 's' || key === 'arrowdown') {
-          pixelGameState.player.vy = Math.min(8, pixelGameState.player.vy + 2.5);
+          pixelGameState.player.isDescending = true;
+          pixelGameState.player.vy = Math.min(8, pixelGameState.player.vy + 3.0);
         }
-        // Left Shift: Throw Grenade (Nade)
+        // Left Shift: Throw Grenade
         if (code === 'ShiftLeft' || (e.shiftKey && e.location === 1)) {
           e.preventDefault();
           window.pgThrowGrenade();
@@ -3955,18 +3954,10 @@
 
       const handleKeyUp = (e) => {
         const key = e.key.toLowerCase();
-        // D release
-        if ((key === 'd' || key === 'arrowright') && pixelGameState.player.vx > 0) {
-          pixelGameState.player.vx = 0;
-        }
-        // A release
-        if ((key === 'a' || key === 'arrowleft') && pixelGameState.player.vx < 0) {
-          pixelGameState.player.vx = 0;
-        }
-        // W release
-        if (key === 'w' || key === 'arrowup' || key === ' ') {
-          pixelGameState.player.isFlying = false;
-        }
+        if ((key === 'd' || key === 'arrowright') && pixelGameState.player.vx > 0) pixelGameState.player.vx = 0;
+        if ((key === 'a' || key === 'arrowleft') && pixelGameState.player.vx < 0) pixelGameState.player.vx = 0;
+        if (key === 'w' || key === 'arrowup' || key === ' ') pixelGameState.player.isFlying = false;
+        if (key === 's' || key === 'arrowdown') pixelGameState.player.isDescending = false;
       };
       window.addEventListener('keydown', handleKeyDown);
       window.addEventListener('keyup', handleKeyUp);
@@ -4218,6 +4209,7 @@
       // 1. PLAYER STARTS AT THE FAR LEFT END (x = 120)
       pixelGameState.player.x = 120;
       pixelGameState.player.y = 330;
+      pixelGameState.player.prevY = 330;
       pixelGameState.player.vx = 0;
       pixelGameState.player.vy = 0;
       pixelGameState.player.hp = 100 * char.hpMultiplier;
@@ -4262,15 +4254,19 @@
         name,
         x: spawnX,
         y: 330,
+        prevY: 330,
         vx: -1.4 - Math.random() * 0.5, // Moves towards player
         vy: 0,
         w: 18,
         h: 26,
         hp: 80 + pixelGameState.stageIndex * 25,
         maxHp: 80 + pixelGameState.stageIndex * 25,
+        nitro: 100, // LIMITED JETPACK NITRO FOR BOT
+        maxNitro: 100,
         shootCooldown: 60 + Math.floor(Math.random() * 40),
         shootTimer: 0,
         isFlying: false,
+        isGrounded: true,
         flyTimer: 0,
         facing: -1
       };
@@ -4286,22 +4282,22 @@
 
     function getSelectedChar() {
       const chars = [
-        { id: 'jw', name: 'JOHN WICK', avatarText: 'JW', suitColor: '#111827', shirtColor: '#ffffff', tieColor: '#000000', hpMultiplier: 1.0, speed: 2.6, dmgBoost: 1.2 },
-        { id: 'mc', name: 'MASTER CHIEF', avatarText: 'MC', suitColor: '#15803d', shirtColor: '#14532d', tieColor: '#eab308', hpMultiplier: 1.3, speed: 2.3, dmgBoost: 1.15 },
-        { id: 'kr', name: 'KRATOS', avatarText: 'KR', suitColor: '#78350f', shirtColor: '#f1f5f9', tieColor: '#ef4444', hpMultiplier: 1.25, speed: 2.4, dmgBoost: 1.35 },
-        { id: 't8', name: 'TERMINATOR', avatarText: 'T8', suitColor: '#0f172a', shirtColor: '#475569', tieColor: '#ef4444', hpMultiplier: 1.4, speed: 2.2, dmgBoost: 1.2 },
-        { id: 'ne', name: 'NEO', avatarText: 'NE', suitColor: '#030712', shirtColor: '#030712', tieColor: '#00f0ff', hpMultiplier: 1.05, speed: 2.8, dmgBoost: 1.25 }
+        { id: 'jw', name: 'JOHN WICK', avatarText: 'JW', suitColor: '#111827', shirtColor: '#ffffff', tieColor: '#000000', hpMultiplier: 1.0, speed: 2.8, dmgBoost: 1.2 },
+        { id: 'mc', name: 'MASTER CHIEF', avatarText: 'MC', suitColor: '#15803d', shirtColor: '#14532d', tieColor: '#eab308', hpMultiplier: 1.3, speed: 2.5, dmgBoost: 1.15 },
+        { id: 'kr', name: 'KRATOS', avatarText: 'KR', suitColor: '#78350f', shirtColor: '#f1f5f9', tieColor: '#ef4444', hpMultiplier: 1.25, speed: 2.6, dmgBoost: 1.35 },
+        { id: 't8', name: 'TERMINATOR', avatarText: 'T8', suitColor: '#0f172a', shirtColor: '#475569', tieColor: '#ef4444', hpMultiplier: 1.4, speed: 2.4, dmgBoost: 1.2 },
+        { id: 'ne', name: 'NEO', avatarText: 'NE', suitColor: '#030712', shirtColor: '#030712', tieColor: '#00f0ff', hpMultiplier: 1.05, speed: 3.0, dmgBoost: 1.25 }
       ];
       return chars[pixelGameState.selectedCharIndex || 0] || chars[0];
     }
 
     function getSelectedWeapon() {
       const weps = [
-        { name: 'M4A1 RIFLE', ammo: 30, maxAmmo: 30, dmg: 24, rate: 100, spread: 0.06, speed: 10, color: '#ffc837', burst: 1 },
-        { name: 'BARRETT SNIPER', ammo: 5, maxAmmo: 5, dmg: 110, rate: 650, spread: 0.005, speed: 18, color: '#00f0ff', burst: 1 },
-        { name: 'SAWED SHOTGUN', ammo: 6, maxAmmo: 6, dmg: 18, rate: 450, spread: 0.22, speed: 8.5, color: '#ff4655', burst: 5 },
-        { name: 'RPG ROCKET', ammo: 3, maxAmmo: 3, dmg: 140, rate: 800, spread: 0.02, speed: 6.5, color: '#00ff88', isExplosive: true, burst: 1 },
-        { name: 'DUAL UZI', ammo: 40, maxAmmo: 40, dmg: 16, rate: 65, spread: 0.12, speed: 9, color: '#ff007a', burst: 1 }
+        { name: 'M4A1 RIFLE', ammo: 30, maxAmmo: 30, dmg: 24, rate: 100, spread: 0.06, speed: 11, color: '#ffc837', burst: 1 },
+        { name: 'BARRETT SNIPER', ammo: 5, maxAmmo: 5, dmg: 110, rate: 650, spread: 0.005, speed: 19, color: '#00f0ff', burst: 1 },
+        { name: 'SAWED SHOTGUN', ammo: 6, maxAmmo: 6, dmg: 18, rate: 450, spread: 0.22, speed: 9, color: '#ff4655', burst: 5 },
+        { name: 'RPG ROCKET', ammo: 3, maxAmmo: 3, dmg: 140, rate: 800, spread: 0.02, speed: 7, color: '#00ff88', isExplosive: true, burst: 1 },
+        { name: 'DUAL UZI', ammo: 40, maxAmmo: 40, dmg: 16, rate: 65, spread: 0.12, speed: 9.5, color: '#ff007a', burst: 1 }
       ];
       return weps[pixelGameState.selectedWeaponIndex || 0] || weps[0];
     }
@@ -4310,15 +4306,15 @@
       const maps = [
         {
           id: 'outpost', name: 'OUTPOST 30X', sub: 'Desert Canyon (6000m)',
-          skyTop: '#38bdf8', skyBottom: '#bae6fd', sunColor: '#fef08a', groundColor: '#d97706', grassColor: '#b45309'
+          skyTop: '#38bdf8', skyBottom: '#bae6fd', sunColor: '#fef08a', groundColor: '#d97706', grassColor: '#b45309', brickColor: '#b45309'
         },
         {
           id: 'catacon', name: 'CATACON 30X', sub: 'Jungle Ruins (6000m)',
-          skyTop: '#0284c7', skyBottom: '#7dd3fc', sunColor: '#fffbeb', groundColor: '#15803d', grassColor: '#4ade80'
+          skyTop: '#0284c7', skyBottom: '#7dd3fc', sunColor: '#fffbeb', groundColor: '#15803d', grassColor: '#4ade80', brickColor: '#1e3a24'
         },
         {
           id: 'suspension', name: 'SUSPENSION 30X', sub: 'Sky Bridges (6000m)',
-          skyTop: '#0369a1', skyBottom: '#e0f2fe', sunColor: '#fde047', groundColor: '#475569', grassColor: '#94a3b8'
+          skyTop: '#0369a1', skyBottom: '#e0f2fe', sunColor: '#fde047', groundColor: '#475569', grassColor: '#94a3b8', brickColor: '#334155'
         }
       ];
       return maps[pixelGameState.selectedMapIndex || 0] || maps[0];
@@ -4334,6 +4330,16 @@
     window.pgTouchFly = function(isHeld) {
       if (!pixelGameState) return;
       pixelGameState.player.isFlying = isHeld;
+    };
+
+    window.pgTouchDown = function(isHeld) {
+      if (!pixelGameState) return;
+      pixelGameState.player.isDescending = isHeld;
+      if (isHeld) pixelGameState.player.vy = Math.min(8, pixelGameState.player.vy + 3.0);
+    };
+
+    window.pgShootWeaponTouch = function() {
+      pgShootWeapon();
     };
 
     window.pgReloadWeapon = function() {
@@ -4414,10 +4420,12 @@
       const bot = pixelGameState.bot;
       const map = getSelectedMap();
 
-      // 1. Player Jetpack Flight & Movement
+      p.prevY = p.y;
+
+      // 1. Player Jetpack Flight & Limited Nitro System
       if (p.isFlying && p.nitro > 0) {
-        p.vy = -3.4;
-        p.nitro = Math.max(0, p.nitro - 0.7);
+        p.vy = -3.5;
+        p.nitro = Math.max(0, p.nitro - 0.8); // Drains limited nitro
         if (pixelGameState.frameCount % 2 === 0) {
           pixelGameState.particles.push({
             x: p.x + (p.facing === 1 ? 2 : 14),
@@ -4430,23 +4438,62 @@
           });
         }
       } else {
-        p.vy = Math.min(6, p.vy + 0.28);
-        if (p.isGrounded) p.nitro = Math.min(100, p.nitro + 0.5);
+        p.vy = Math.min(6.5, p.vy + 0.28);
       }
 
       p.x += p.vx;
       p.y += p.vy;
 
-      // Clamp player within 6000m World Map
-      if (p.x < 10) p.x = 10;
-      if (p.x > WORLD_WIDTH - p.w - 10) p.x = WORLD_WIDTH - p.w - 10;
+      // STRICT SCREEN BOUNDS CLAMP FOR PLAYER (NO LEAVING SCREEN/MAP)
+      if (p.x < 15) p.x = 15;
+      if (p.x > WORLD_WIDTH - p.w - 15) p.x = WORLD_WIDTH - p.w - 15;
+      if (p.y < 16) {
+        p.y = 16;
+        p.vy = Math.max(0, p.vy); // Ceiling hit
+      }
 
-      // Ground Collision (y: 370)
+      // STEP ON FLOATING BRICK PLATFORMS & GROUND COLLISION
       p.isGrounded = false;
+      
+      // Check ground level (y = 370)
       if (p.y + p.h >= 370 && p.vy >= 0) {
         p.y = 370 - p.h;
         p.vy = 0;
         p.isGrounded = true;
+      }
+
+      // Check all solid floating brick platforms to step on
+      for (let platX = 120; platX < WORLD_WIDTH - 200; platX += 180) {
+        const platW = 130 + ((platX * 13) % 90);
+        const platY = 220 + ((platX * 7) % 80);
+        
+        // Tier 1 Brick Platform
+        if (!p.isDescending && p.vy >= 0 && p.prevY + p.h <= platY + 6 && p.y + p.h >= platY && p.y + p.h <= platY + 16) {
+          if (p.x + p.w > platX && p.x < platX + platW) {
+            p.y = platY - p.h;
+            p.vy = 0;
+            p.isGrounded = true;
+          }
+        }
+
+        // Tier 2 High Brick Perch
+        if ((platX % 360) === 0) {
+          const p2X = platX + 30;
+          const p2Y = Math.max(90, platY - 90);
+          const p2W = 100;
+          if (!p.isDescending && p.vy >= 0 && p.prevY + p.h <= p2Y + 6 && p.y + p.h >= p2Y && p.y + p.h <= p2Y + 16) {
+            if (p.x + p.w > p2X && p.x < p2X + p2W) {
+              p.y = p2Y - p.h;
+              p.vy = 0;
+              p.isGrounded = true;
+            }
+          }
+        }
+      }
+
+      // Nitro only recharges when standing on a platform or ground!
+      if (p.isGrounded) {
+        p.nitro = Math.min(100, p.nitro + 0.6);
       }
 
       // Smooth Camera Tracking (Centers on Player)
@@ -4466,7 +4513,7 @@
       if (hpVal) hpVal.textContent = Math.max(0, Math.floor(p.hp));
       if (nitroBar) nitroBar.style.width = `${p.nitro}%`;
 
-      // Update Radar Overview (Player Dot & Bot Dot)
+      // Update Radar Overview
       const pDot = document.getElementById('radar-player-dot');
       const bDot = document.getElementById('radar-bot-dot');
       const distText = document.getElementById('hud-bot-distance');
@@ -4486,39 +4533,83 @@
         if (distText) distText.textContent = 'DUEL OPPONENT ELIMINATED! 🏆';
       }
 
-      // 2. SINGLE ENEMY BOT AI & NAVIGATION (ADVANCES TOWARDS PLAYER ACROSS 30X MAP)
+      // 2. SINGLE ENEMY BOT AI & NAVIGATION (LIMITED JETPACK & BOUNDARY ENFORCED)
       if (bot) {
+        bot.prevY = bot.y;
         const distToPlayer = p.x - bot.x;
         const absDist = Math.abs(distToPlayer);
 
         // Move towards player
         bot.vx = Math.sign(distToPlayer) * (absDist > 300 ? 2.2 : 1.2);
         
-        // Jetpack Jump / Fly when approaching obstacles or in combat
+        // Limited Jetpack AI: Flies when needed, but stops when nitro empty!
         bot.flyTimer++;
-        if (bot.flyTimer > 90) {
+        if (bot.flyTimer > 80) {
           bot.flyTimer = 0;
-          bot.isFlying = Math.random() > 0.4;
+          bot.isFlying = (Math.random() > 0.45) && (bot.nitro > 25);
         }
 
-        if (bot.isFlying) {
-          bot.vy = -2.8;
+        if (bot.isFlying && bot.nitro > 0) {
+          bot.vy = -3.0;
+          bot.nitro = Math.max(0, bot.nitro - 0.85); // Drains bot nitro
           if (pixelGameState.frameCount % 3 === 0) {
             pixelGameState.particles.push({
               x: bot.x + 8, y: bot.y + 22, vx: (Math.random() - 0.5), vy: 2, color: '#ff4655', size: 2.5, life: 8, maxLife: 8
             });
           }
         } else {
-          bot.vy = Math.min(5.5, bot.vy + 0.28);
+          bot.isFlying = false;
+          bot.vy = Math.min(6.0, bot.vy + 0.28);
         }
 
         bot.x += bot.vx;
         bot.y += bot.vy;
 
-        // Ground Collision
+        // STRICT SCREEN BOUNDS CLAMP FOR BOT (NO LEAVING SCREEN/MAP)
+        if (bot.x < 15) bot.x = 15;
+        if (bot.x > WORLD_WIDTH - bot.w - 15) bot.x = WORLD_WIDTH - bot.w - 15;
+        if (bot.y < 16) {
+          bot.y = 16;
+          bot.vy = Math.max(0, bot.vy);
+          bot.isFlying = false;
+        }
+
+        // STEP ON FLOATING BRICK PLATFORMS (BOT)
+        bot.isGrounded = false;
         if (bot.y + bot.h >= 370 && bot.vy >= 0) {
           bot.y = 370 - bot.h;
           bot.vy = 0;
+          bot.isGrounded = true;
+        }
+
+        for (let platX = 120; platX < WORLD_WIDTH - 200; platX += 180) {
+          const platW = 130 + ((platX * 13) % 90);
+          const platY = 220 + ((platX * 7) % 80);
+          
+          if (bot.vy >= 0 && bot.prevY + bot.h <= platY + 6 && bot.y + bot.h >= platY && bot.y + bot.h <= platY + 16) {
+            if (bot.x + bot.w > platX && bot.x < platX + platW) {
+              bot.y = platY - bot.h;
+              bot.vy = 0;
+              bot.isGrounded = true;
+            }
+          }
+          if ((platX % 360) === 0) {
+            const p2X = platX + 30;
+            const p2Y = Math.max(90, platY - 90);
+            const p2W = 100;
+            if (bot.vy >= 0 && bot.prevY + bot.h <= p2Y + 6 && bot.y + bot.h >= p2Y && bot.y + bot.h <= p2Y + 16) {
+              if (bot.x + bot.w > p2X && bot.x < p2X + p2W) {
+                bot.y = p2Y - bot.h;
+                bot.vy = 0;
+                bot.isGrounded = true;
+              }
+            }
+          }
+        }
+
+        // Bot Nitro recharges only on ground or platform
+        if (bot.isGrounded) {
+          bot.nitro = Math.min(100, bot.nitro + 0.6);
         }
 
         bot.facing = Math.sign(distToPlayer);
@@ -4543,15 +4634,45 @@
         }
       }
 
-      // 3. Bullets Physics & Collision
+      // 3. BULLETS PHYSICS & SOLID WALL / BRICK PLATFORM COLLISION
       for (let i = pixelGameState.bullets.length - 1; i >= 0; i--) {
         const b = pixelGameState.bullets[i];
         b.x += b.vx;
         b.y += b.vy;
         b.life--;
 
+        // SOLID FLOATING BRICK / WALL COLLISION: BULLETS CANNOT PASS THROUGH WALLS
+        if (b.y >= 370) {
+          spawnSparks(b.x, b.y, '#d97706', 4);
+          b.life = 0;
+        } else {
+          for (let platX = 120; platX < WORLD_WIDTH - 200; platX += 180) {
+            const platW = 130 + ((platX * 13) % 90);
+            const platY = 220 + ((platX * 7) % 80);
+            
+            // Check collision with Tier 1 Platform
+            if (b.x >= platX && b.x <= platX + platW && b.y >= platY && b.y <= platY + 16) {
+              spawnSparks(b.x, b.y, '#b45309', 4);
+              b.life = 0;
+              break;
+            }
+
+            // Check collision with Tier 2 Platform
+            if ((platX % 360) === 0) {
+              const p2X = platX + 30;
+              const p2Y = Math.max(90, platY - 90);
+              const p2W = 100;
+              if (b.x >= p2X && b.x <= p2X + p2W && b.y >= p2Y && b.y <= p2Y + 16) {
+                spawnSparks(b.x, b.y, '#b45309', 4);
+                b.life = 0;
+                break;
+              }
+            }
+          }
+        }
+
         // Player bullet hits the 1 bot
-        if (b.isPlayer && bot) {
+        if (b.life > 0 && b.isPlayer && bot) {
           if (b.x > bot.x && b.x < bot.x + bot.w && b.y > bot.y && b.y < bot.y + bot.h) {
             bot.hp -= b.dmg;
             spawnDamagePopup(b.x - pixelGameState.cameraX, b.y, `-${Math.floor(b.dmg)}`, '#ffc837');
@@ -4562,7 +4683,7 @@
               handleSingleBotEliminated();
             }
           }
-        } else if (!b.isPlayer) {
+        } else if (b.life > 0 && !b.isPlayer) {
           // Bot bullet hits player
           if (b.x > p.x && b.x < p.x + p.w && b.y > p.y && b.y < p.y + p.h) {
             p.hp -= b.dmg;
@@ -4579,7 +4700,7 @@
         }
       }
 
-      // 4. Grenades Physics
+      // 4. Grenades Physics & Wall Bounce
       for (let i = pixelGameState.grenadesList.length - 1; i >= 0; i--) {
         const g = pixelGameState.grenadesList[i];
         g.x += g.vx;
@@ -4626,17 +4747,16 @@
 
       pixelGameState.bot = null;
 
-      // Check Stage Target Clear (Task 10)
+      // Check Stage Target Clear
       if (pixelGameState.stageCurrentKills >= pixelGameState.stageTargetKills) {
         setTimeout(() => {
           triggerGameOver(true);
         }, 800);
       } else {
-        // Spawn the next 1v1 Bot opponent at the far opposite side of the 30x map!
+        // Spawn next 1v1 Bot opponent at the opposite side relative to player
         setTimeout(() => {
           if (!pixelGameState || pixelGameState.screen !== 'game') return;
           const p = pixelGameState.player;
-          // Spawn at opposite side relative to player
           const spawnX = p.x < pixelGameState.worldWidth / 2 
             ? pixelGameState.worldWidth - 250 
             : 150;
@@ -4741,13 +4861,13 @@
       }
     }
 
-    // ═══ HIGH-RES PIXEL ART RENDERER WITH CAMERA TRANSLATE ═══
+    // ═══ HIGH-RES PIXEL ART RENDERER WITH SOLID FLOATING BRICKS ═══
     function drawPixelGame(ctx, W, H, WORLD_WIDTH) {
       if (!pixelGameState) return;
       const map = getSelectedMap();
       const camX = pixelGameState.cameraX || 0;
 
-      // 1. SKYBOX & PARALLAX SUN & CLOUDS
+      // 1. SKYBOX & PARALLAX SUN & MOUNTAINS
       const skyGrad = ctx.createLinearGradient(0, 0, 0, H);
       skyGrad.addColorStop(0, map.skyTop);
       skyGrad.addColorStop(1, map.skyBottom);
@@ -4785,15 +4905,20 @@
       ctx.fillStyle = map.groundColor;
       ctx.fillRect(0, 376, WORLD_WIDTH, 80);
 
-      // Render Procedural Platforms along the 30X World
-      const p = pixelGameState.player;
-      for (let x = 120; x < WORLD_WIDTH - 200; x += 220) {
-        if (x > camX - 300 && x < camX + W + 300) {
-          const y = 230 + Math.sin(x * 0.01) * 60;
-          ctx.fillStyle = map.grassColor;
-          ctx.fillRect(x, y, 140, 4);
-          ctx.fillStyle = map.groundColor;
-          ctx.fillRect(x, y + 4, 140, 10);
+      // Render Solid Floating Brick Platforms
+      for (let platX = 120; platX < WORLD_WIDTH - 200; platX += 180) {
+        if (platX > camX - 300 && platX < camX + W + 300) {
+          const platW = 130 + ((platX * 13) % 90);
+          const platY = 220 + ((platX * 7) % 80);
+          
+          drawSolidBrickPlatform(ctx, platX, platY, platW, 16, map.grassColor, map.groundColor);
+
+          // Tier 2 High Brick Perch
+          if ((platX % 360) === 0) {
+            const p2X = platX + 30;
+            const p2Y = Math.max(90, platY - 90);
+            drawSolidBrickPlatform(ctx, p2X, p2Y, 100, 16, '#00f0ff', map.groundColor);
+          }
         }
       }
 
@@ -4806,11 +4931,12 @@
       // Render the 1 Single Enemy Bot Duelist
       const bot = pixelGameState.bot;
       if (bot) {
-        drawPixelBot(ctx, bot.x, bot.y, bot.w, bot.h, bot.hp, bot.maxHp, bot.name);
+        drawPixelBot(ctx, bot.x, bot.y, bot.w, bot.h, bot.hp, bot.maxHp, bot.name, bot.nitro);
       }
 
       // Render Hero Player (At starting base x = 120)
       if (pixelGameState.screen === 'game' || pixelGameState.screen === 'menu') {
+        const p = pixelGameState.player;
         const char = getSelectedChar();
         drawPixelHero(ctx, p.x, p.y, p.w, p.h, char, p.facing);
       }
@@ -4843,20 +4969,42 @@
       }
     }
 
+    // High-Res Solid Brick Platform Texture
+    function drawSolidBrickPlatform(ctx, x, y, w, h, topColor, bodyColor) {
+      // Grass / Trim top
+      ctx.fillStyle = topColor;
+      ctx.fillRect(x, y, w, 4);
+
+      // Brick body
+      ctx.fillStyle = bodyColor;
+      ctx.fillRect(x, y + 4, w, h - 4);
+
+      // Brick mortar lines
+      ctx.fillStyle = 'rgba(0,0,0,0.3)';
+      for (let bx = x; bx < x + w; bx += 20) {
+        ctx.fillRect(bx, y + 4, 1.5, h - 4);
+      }
+      ctx.fillRect(x, y + (h / 2), w, 1.5);
+    }
+
     // High-Res Bot Sprite
-    function drawPixelBot(ctx, x, y, w, h, hp, maxHp, name) {
-      // HP Bar
-      const barW = 24;
-      ctx.fillStyle = 'rgba(0,0,0,0.6)';
-      ctx.fillRect(x - 3, y - 10, barW, 4);
+    function drawPixelBot(ctx, x, y, w, h, hp, maxHp, name, nitro) {
+      // HP Bar & Nitro Bar
+      const barW = 26;
+      ctx.fillStyle = 'rgba(0,0,0,0.7)';
+      ctx.fillRect(x - 4, y - 13, barW, 4);
       ctx.fillStyle = hp > maxHp * 0.5 ? '#00ff88' : '#ff4655';
-      ctx.fillRect(x - 3, y - 10, barW * (hp / maxHp), 4);
+      ctx.fillRect(x - 4, y - 13, barW * (hp / maxHp), 4);
+
+      // Bot Nitro (Limited Jetpack Indicator)
+      ctx.fillStyle = '#00f0ff';
+      ctx.fillRect(x - 4, y - 8, barW * ((nitro || 100) / 100), 2);
 
       // Name
       ctx.font = "900 8px 'JetBrains Mono', monospace";
       ctx.fillStyle = '#ff4655';
       ctx.textAlign = 'center';
-      ctx.fillText(name || 'BOT DUELIST', x + w / 2, y - 13);
+      ctx.fillText(name || 'BOT DUELIST', x + w / 2, y - 16);
 
       // Bot Head & Visor
       ctx.fillStyle = '#475569';
