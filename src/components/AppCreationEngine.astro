@@ -279,17 +279,23 @@
               <div class="slider-header-row">
                 <label class="slider-label">Feature Complexity</label>
                 <div class="complexity-rating-wrap">
-                  <span id="star-rating" class="star-readout">★★★☆☆</span>
-                  <span id="val-complexity-text" class="complexity-subtext">(Advanced System)</span>
+                  <div id="complexity-bars-meter" class="complexity-bars-row">
+                    <span class="c-bar active"></span>
+                    <span class="c-bar active"></span>
+                    <span class="c-bar active"></span>
+                    <span class="c-bar"></span>
+                    <span class="c-bar"></span>
+                  </div>
+                  <span id="val-complexity-text" class="complexity-subtext">Level 3: Advanced System</span>
                 </div>
               </div>
               <input type="range" id="slider-complexity" min="1" max="5" value="3" step="1" oninput="window.updateMatrixComplexity(this.value)" class="matrix-range" />
               <div class="slider-ticks">
-                <span>1★ Minimal</span>
-                <span>2★ Standard</span>
-                <span>3★ Advanced</span>
-                <span>4★ Complex</span>
-                <span>5★ Enterprise</span>
+                <span>Tier 1: Minimal</span>
+                <span>Tier 2: Standard</span>
+                <span>Tier 3: Advanced</span>
+                <span>Tier 4: Complex</span>
+                <span>Tier 5: Enterprise</span>
               </div>
             </div>
           </div>
@@ -518,7 +524,7 @@
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 </div>
                 <div id="metric-timeline" class="metric-big-number">6 - 8 Weeks</div>
-                <p id="metric-timeline-desc" class="metric-caption">Based on Native core and 3★ complexity</p>
+                <p id="metric-timeline-desc" class="metric-caption">Based on Native core and Level 3 complexity</p>
               </div>
 
               <div class="metric-card">
@@ -572,7 +578,8 @@
                 <span>Direct consultation with lead systems architects.</span>
               </div>
               <a href="mailto:clientsupport@sydasx.com" class="btn-consult-architect">
-                Consult Engineering &rarr;
+                <span>Consult Engineering</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-left:4px;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
               </a>
             </div>
 
@@ -585,7 +592,7 @@
   </div>
 </div>
 
-<style>
+<style is:global>
   .app-creation-matrix-wrapper {
     position: relative;
     width: 100%;
@@ -959,7 +966,7 @@
     border: 1px solid rgba(0, 255, 136, 0.25);
   }
 
-  /* CATEGORY CARDS GRID WITH HOVER REVEAL & SQUIRCLE ICONS */
+  /* CATEGORY CARDS GRID WITH ULTRA-RESPONSIVE HOVER & SQUIRCLE ICONS */
   .categories-cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -972,21 +979,20 @@
     position: relative;
     padding: 1rem 1.15rem;
     border-radius: 16px;
-    background: rgba(12, 16, 28, 0.75);
-    backdrop-filter: blur(14px);
+    background: rgba(12, 16, 28, 0.85);
+    backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.08);
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
-                border-color 0.25s ease, 
-                box-shadow 0.3s ease, 
-                background 0.25s ease;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.2s ease, 
+                box-shadow 0.25s ease, 
+                background 0.2s ease;
     user-select: none;
     overflow: hidden;
   }
 
-  /* Default Resting State: Compact & Clean */
   .card-top-row {
     display: flex;
     align-items: center;
@@ -995,14 +1001,14 @@
   }
 
   .cat-avatar {
-    width: 38px;
-    height: 38px;
-    min-width: 38px;
-    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 11px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.25s ease;
   }
 
   .cat-card-text {
@@ -1030,28 +1036,26 @@
   /* Selected Checkmark Badge */
   .selected-check-badge {
     opacity: 0;
-    transform: scale(0.5);
+    transform: scale(0.4);
     transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.72rem;
-    font-weight: 900;
   }
 
-  /* HOVER REVEAL DRAWER (HIDDEN BY DEFAULT, REVEALED ON HOVER OR SELECTED) */
+  /* HOVER REVEAL DRAWER (SMOOTH EXPANSION) */
   .cat-details-drawer {
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    transform: translateY(-6px);
-    transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+    transform: translateY(-4px);
+    transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
                 opacity 0.25s ease, 
-                transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                margin-top 0.3s ease;
+                transform 0.25s ease,
+                margin-top 0.25s ease;
     margin-top: 0;
     pointer-events: none;
   }
@@ -1060,7 +1064,7 @@
     font-size: 0.74rem;
     color: #94a3b8;
     line-height: 1.45;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     padding-top: 0.5rem;
   }
 
@@ -1079,28 +1083,32 @@
     border-radius: 4px;
   }
 
-  /* HOVER EXPANSION */
-  .matrix-cat-card:hover {
-    transform: translateY(-5px) scale(1.02);
+  /* HOVER ACTIVE & FOCUS EFFECTS */
+  .matrix-cat-card:hover,
+  .matrix-cat-card.is-hovered {
+    transform: translateY(-4px) scale(1.02);
     border-color: #00f0ff;
-    background: rgba(15, 24, 44, 0.9);
+    background: rgba(15, 25, 48, 0.95);
     box-shadow: 0 12px 30px rgba(0, 240, 255, 0.25);
     z-index: 10;
   }
 
-  .matrix-cat-card:hover .cat-avatar {
+  .matrix-cat-card:hover .cat-avatar,
+  .matrix-cat-card.is-hovered .cat-avatar {
     transform: scale(1.1);
   }
 
-  .matrix-cat-card:hover .cat-details-drawer {
-    max-height: 140px;
+  .matrix-cat-card:hover .cat-details-drawer,
+  .matrix-cat-card.is-hovered .cat-details-drawer {
+    max-height: 160px;
     opacity: 1;
     transform: translateY(0);
     margin-top: 0.6rem;
     pointer-events: auto;
   }
 
-  .matrix-cat-card.is-game-card:hover {
+  .matrix-cat-card.is-game-card:hover,
+  .matrix-cat-card.is-game-card.is-hovered {
     border-color: #00ff88;
     box-shadow: 0 12px 30px rgba(0, 255, 136, 0.25);
   }
@@ -1122,7 +1130,7 @@
   }
 
   .matrix-cat-card.active-selected-cyan .cat-details-drawer {
-    max-height: 140px;
+    max-height: 160px;
     opacity: 1;
     transform: translateY(0);
     margin-top: 0.6rem;
@@ -1144,7 +1152,7 @@
   }
 
   .matrix-cat-card.active-selected-green .cat-details-drawer {
-    max-height: 140px;
+    max-height: 160px;
     opacity: 1;
     transform: translateY(0);
     margin-top: 0.6rem;
@@ -1481,10 +1489,26 @@
     border: 1px solid rgba(0, 240, 255, 0.25);
   }
 
-  .star-readout {
-    color: #ffb703;
-    font-size: 0.95rem;
-    letter-spacing: 0.1em;
+  /* Complexity Power Bar */
+  .complexity-bars-row {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .c-bar {
+    width: 14px;
+    height: 8px;
+    border-radius: 2px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    transition: all 0.2s ease;
+  }
+
+  .c-bar.active {
+    background: #00f0ff;
+    border-color: #00f0ff;
+    box-shadow: 0 0 6px #00f0ff;
   }
 
   .complexity-subtext {
@@ -2335,6 +2359,8 @@
     text-decoration: none;
     white-space: nowrap;
     transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
   }
 
   .btn-consult-architect:hover {
@@ -2507,7 +2533,13 @@
       currentTab: 'home',
       activeMode: 'interactive',
       userScaleLabels: ['1K Users', '10K Users', '50K Users', '500K Users', '1M Users', '5M Users', '10M+ Global'],
-      complexityLabels: ['(Minimal MVP)', '(Standard App)', '(Advanced System)', '(Complex Distributed)', '(Enterprise Super-App)'],
+      complexityLabels: [
+        'Level 1: Minimal MVP', 
+        'Level 2: Standard App', 
+        'Level 3: Advanced System', 
+        'Level 4: Complex Distributed', 
+        'Level 5: Enterprise Super-App'
+      ],
       
       liveData: {
         balance: 48920.45,
@@ -2537,7 +2569,7 @@
       }
     }, 1000);
 
-    // Render Categories with SVG Icons & Hover Drawers
+    // Render Categories with SVG Icons & Smooth JavaScript + CSS Hover Bindings
     function renderMasterCategories(list) {
       const gridApps = document.getElementById('grid-apps');
       const gridGames = document.getElementById('grid-games');
@@ -2553,6 +2585,15 @@
         const card = document.createElement('div');
         card.id = `matrix-card-${cat.id}`;
         card.className = `matrix-cat-card ${isGame ? 'is-game-card' : 'is-app-card'} ${isSelected ? (isGame ? 'active-selected-green' : 'active-selected-cyan') : ''}`;
+        
+        // Direct event listeners for bulletproof hover interactions
+        card.addEventListener('mouseenter', () => {
+          card.classList.add('is-hovered');
+        });
+        card.addEventListener('mouseleave', () => {
+          card.classList.remove('is-hovered');
+        });
+
         card.onclick = () => window.selectMatrixCategory(cat);
 
         card.innerHTML = `
@@ -2575,8 +2616,9 @@
               <span class="cat-hover-pill ${isGame ? 'green-pill' : 'cyan-pill'}">
                 ${isGame ? 'PHYSICS / VULKAN' : 'CLOUD NATIVE'}
               </span>
-              <span style="font-family: monospace; font-size: 0.65rem; color: ${isGame ? '#00ff88' : '#00f0ff'};">
-                Select &rarr;
+              <span style="font-family: monospace; font-size: 0.68rem; font-weight: 700; color: ${isGame ? '#00ff88' : '#00f0ff'}; display: inline-flex; align-items: center; gap: 3px;">
+                Select Vector
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
               </span>
             </div>
           </div>
@@ -2743,10 +2785,19 @@
 
     window.updateMatrixComplexity = function(val) {
       State.complexityStars = parseInt(val, 10);
-      const starStrings = ['★☆☆☆☆', '★★☆☆☆', '★★★☆☆', '★★★★☆', '★★★★★'];
-      const starEl = document.getElementById('star-rating');
+      const meterEl = document.getElementById('complexity-bars-meter');
       const textEl = document.getElementById('val-complexity-text');
-      if (starEl) starEl.textContent = starStrings[State.complexityStars - 1];
+      
+      if (meterEl) {
+        const bars = meterEl.querySelectorAll('.c-bar');
+        bars.forEach((bar, idx) => {
+          if (idx < State.complexityStars) {
+            bar.classList.add('active');
+          } else {
+            bar.classList.remove('active');
+          }
+        });
+      }
       if (textEl) textEl.textContent = State.complexityLabels[State.complexityStars - 1];
     };
 
@@ -2774,7 +2825,7 @@
         { pct: 30, msg: `Injecting [${category.name}] domain schemas & security protocols...`, action: 'Synthesizing Data Pipeline...' },
         { pct: 50, msg: `Configuring ${tech.toUpperCase()} runtime binaries & WebRTC channels...`, action: `Compiling ${tech.toUpperCase()} Toolchain...` },
         { pct: 70, msg: `Benchmarking load tolerance for ${State.userScaleLabels[State.userScaleIndex - 1]} concurrency...`, action: 'Stress Testing Virtual Nodes...' },
-        { pct: 88, msg: `Optimizing memory buffers for ${State.complexityStars}★ feature complexity...`, action: 'Finalizing Latency Tuning...' },
+        { pct: 88, msg: `Optimizing memory buffers for Level ${State.complexityStars} feature complexity...`, action: 'Finalizing Latency Tuning...' },
         { pct: 100, msg: `SUCCESS: System Blueprint [${appName}.x] forged and verified.`, action: 'Compiling Completed!' }
       ];
 
@@ -2906,7 +2957,7 @@
         ctx.strokeStyle = 'rgba(0, 240, 255, 0.15)';
         ctx.lineWidth = 1;
         for (let x = 0; x < canvas.width; x += 30) {
-          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(canvas.width, height); ctx.stroke();
         }
         for (let y = 0; y < canvas.height; y += 30) {
           ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
@@ -3006,8 +3057,8 @@
         <div class="live-action-card">
           <div class="live-card-header"><span>RECENT ACTIVITY</span><span>CONFIRMED</span></div>
           <div id="tx-log-box" style="font-family: monospace; font-size: 0.72rem; color: #94a3b8; display: flex; flex-direction: column; gap: 0.3rem;">
-            <div>&bull; Transfer to @alexturner: <span style="color: #ff007a;">-$250.00</span></div>
-            <div>&bull; Staking Yield Payout: <span style="color: #00ff88;">+$42.80</span></div>
+            <div>[TX] Transfer to @alexturner: <span style="color: #ff007a;">-$250.00</span></div>
+            <div>[TX] Staking Yield Payout: <span style="color: #00ff88;">+$42.80</span></div>
           </div>
         </div>
       `;
@@ -3022,7 +3073,7 @@
       const logBox = document.getElementById('tx-log-box');
       if (logBox) {
         const item = document.createElement('div');
-        item.innerHTML = `&bull; Instant Transfer: <span style="color: #ff007a;">-$100.00</span> (TXID: #${Math.floor(Math.random()*90000+10000)})`;
+        item.innerHTML = `[TX] Instant Transfer: <span style="color: #ff007a;">-$100.00</span> (TXID: #${Math.floor(Math.random()*90000+10000)})`;
         logBox.prepend(item);
       }
       window.playMatrixChime();
@@ -3037,7 +3088,7 @@
       const logBox = document.getElementById('tx-log-box');
       if (logBox) {
         const item = document.createElement('div');
-        item.innerHTML = `&bull; Instant Deposit: <span style="color: #00ff88;">+$500.00</span>`;
+        item.innerHTML = `[TX] Instant Deposit: <span style="color: #00ff88;">+$500.00</span>`;
         logBox.prepend(item);
       }
       window.playMatrixChime();
@@ -3560,7 +3611,7 @@
                 <div style="font-family: monospace; font-size: 0.75rem; color: #94a3b8; display: flex; flex-direction: column; gap: 0.4rem;">
                   <div>ENGINE: <strong style="color: #00f0ff;">${State.techType.toUpperCase()}</strong></div>
                   <div>SCALE: <strong style="color: #00ff88;">${State.userScaleLabels[State.userScaleIndex-1]}</strong></div>
-                  <div>COMPLEXITY: <strong style="color: #b026ff;">${State.complexityStars} Stars</strong></div>
+                  <div>COMPLEXITY: <strong style="color: #b026ff;">Level ${State.complexityStars}</strong></div>
                 </div>
               </div>
             `;
@@ -3588,7 +3639,7 @@
       const timelineEl = document.getElementById('metric-timeline');
       const timelineDescEl = document.getElementById('metric-timeline-desc');
       if (timelineEl) timelineEl.textContent = `${Math.round(minWeeks)} - ${Math.round(maxWeeks)} Weeks`;
-      if (timelineDescEl) timelineDescEl.textContent = `Full cycle agile sprint based on ${tech.toUpperCase()} core & ${stars}★ complexity.`;
+      if (timelineDescEl) timelineDescEl.textContent = `Full cycle agile sprint based on ${tech.toUpperCase()} core and Level ${stars} complexity.`;
 
       const costMultipliers = [25, 60, 150, 450, 950, 2400, 5800];
       const baseCost = costMultipliers[users - 1] || 150;
@@ -3641,7 +3692,7 @@
           pillar: catPillar,
           technology_engine: State.techType,
           scale: State.userScaleLabels[State.userScaleIndex - 1],
-          complexity_stars: State.complexityStars
+          complexity_level: State.complexityStars
         },
         metrics: {
           estimated_timeline: timelineVal,
