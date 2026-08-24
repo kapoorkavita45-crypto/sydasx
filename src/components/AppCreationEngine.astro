@@ -13,7 +13,7 @@
     <header class="app-matrix-header">
 
       <h1 class="matrix-app-title">
-        App <span class="text-gradient-emerald">Creation</span>
+        App <span class="text-gradient">Creation</span>
       </h1>
       <p class="matrix-app-subtitle">
         Forge, test-compile, and <span class="highlight-emerald">interactively run</span> production-grade applications across all 49 Google Play Store domains with real-time hardware telemetry and playable mobile sandbox.
@@ -688,6 +688,7 @@
   }
 
   .matrix-app-title {
+    font-family: var(--font-heading, 'Outfit', sans-serif);
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 900;
     letter-spacing: -0.02em;
@@ -695,10 +696,11 @@
     margin-bottom: 0.75rem;
   }
 
-  .text-gradient-emerald {
-    background: linear-gradient(135deg, #00ff88, #2dd4bf, #00f0ff);
+  .text-gradient {
+    background: var(--accent-gradient, linear-gradient(135deg, #00f0ff 0%, #7000ff 50%, #ff007a 100%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .matrix-app-subtitle {
