@@ -3570,7 +3570,7 @@
           <div id="pg-char-screen" style="position: absolute; inset: 0; z-index: 55; display: none; flex-direction: column; justify-content: space-between; padding: 10px 14px; background: rgba(11, 16, 27, 0.95); backdrop-filter: blur(4px);">
             <div style="text-align: center;">
               <span style="font-size: 0.55rem; color: #00f0ff; font-weight: 800; letter-spacing: 1px;">SELECT YOUR DUELIST</span>
-              <h3 style="font-size: 1.1rem; font-weight: 900; color: #fff; margin: 0;">FAMOUS HEROES (5)</h3>
+              <h3 style="font-size: 1.1rem; font-weight: 900; color: #fff; margin: 0;">HEROES</h3>
             </div>
 
             <div id="pg-char-cards-container" style="display: flex; flex-direction: column; gap: 5px; overflow-y: auto; max-height: 250px; padding: 4px;"></div>
@@ -3736,7 +3736,7 @@
 
           <!-- FOOTER TIP -->
           <div style="display: flex; justify-content: space-between; padding: 4px 8px; background: #060911; font-size: 0.52rem; color: #64748b;">
-            <span>A/D: Move &bull; W/Space: Jetpack Fly &bull; Click/Tap: Fire &bull; G: Grenade</span>
+            <span>W: Jetpack Up &bull; S: Down &bull; A: Back &bull; D: Forward &bull; L-Shift: Nade &bull; R-Shift / Click: Shoot &bull; Mouse: Target Aim</span>
             <span style="color: #00ff88;">30X VAST MAP &bull; 1v1 BOT DUEL</span>
           </div>
 
@@ -3913,24 +3913,60 @@
         window.pgSkipIntro();
       }, 2200);
 
-      // Keyboard Controls
+      // Keyboard Controls (WASD, L-Shift: Nade, R-Shift: Shoot, Mouse Aim)
       const handleKeyDown = (e) => {
         if (!document.getElementById('pixel-game-canvas')) {
           window.removeEventListener('keydown', handleKeyDown);
+          window.removeEventListener('keyup', handleKeyUp);
           return;
         }
         const key = e.key.toLowerCase();
-        if (key === 'a' || key === 'arrowleft') pixelGameState.player.vx = -pixelGameState.player.speed;
-        if (key === 'd' || key === 'arrowright') pixelGameState.player.vx = pixelGameState.player.speed;
-        if (key === 'w' || key === 'arrowup' || key === ' ') pixelGameState.player.isFlying = true;
+        const code = e.code;
+
+        // D: Move Forward (Right)
+        if (key === 'd' || key === 'arrowright') {
+          pixelGameState.player.vx = pixelGameState.player.speed;
+        }
+        // A: Move Backwards (Left)
+        if (key === 'a' || key === 'arrowleft') {
+          pixelGameState.player.vx = -pixelGameState.player.speed;
+        }
+        // W: Move UP and use Jetpack
+        if (key === 'w' || key === 'arrowup' || key === ' ') {
+          pixelGameState.player.isFlying = true;
+        }
+        // S: Move DOWN
+        if (key === 's' || key === 'arrowdown') {
+          pixelGameState.player.vy = Math.min(8, pixelGameState.player.vy + 2.5);
+        }
+        // Left Shift: Throw Grenade (Nade)
+        if (code === 'ShiftLeft' || (e.shiftKey && e.location === 1)) {
+          e.preventDefault();
+          window.pgThrowGrenade();
+        }
+        // Right Shift: Shoot Weapon
+        if (code === 'ShiftRight' || (e.shiftKey && e.location === 2)) {
+          e.preventDefault();
+          pgShootWeapon();
+        }
         if (key === 'r') window.pgReloadWeapon();
         if (key === 'g') window.pgThrowGrenade();
       };
+
       const handleKeyUp = (e) => {
         const key = e.key.toLowerCase();
-        if ((key === 'a' || key === 'arrowleft') && pixelGameState.player.vx < 0) pixelGameState.player.vx = 0;
-        if ((key === 'd' || key === 'arrowright') && pixelGameState.player.vx > 0) pixelGameState.player.vx = 0;
-        if (key === 'w' || key === 'arrowup' || key === ' ') pixelGameState.player.isFlying = false;
+        // D release
+        if ((key === 'd' || key === 'arrowright') && pixelGameState.player.vx > 0) {
+          pixelGameState.player.vx = 0;
+        }
+        // A release
+        if ((key === 'a' || key === 'arrowleft') && pixelGameState.player.vx < 0) {
+          pixelGameState.player.vx = 0;
+        }
+        // W release
+        if (key === 'w' || key === 'arrowup' || key === ' ') {
+          pixelGameState.player.isFlying = false;
+        }
       };
       window.addEventListener('keydown', handleKeyDown);
       window.addEventListener('keyup', handleKeyUp);
