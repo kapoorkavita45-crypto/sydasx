@@ -1878,12 +1878,12 @@
   }
 
   .mobile-phone-casing {
-    width: 360px;
+    width: 350px;
     max-width: 100%;
     background: #0a0d18;
     border: 4px solid #1e293b;
     border-radius: 44px;
-    padding: 1rem 0.85rem;
+    padding: 0.85rem 0.75rem;
     box-shadow: 0 25px 60px rgba(0, 240, 255, 0.25), 0 0 40px rgba(0, 255, 136, 0.15);
     position: relative;
     transition: all 0.3s ease;
@@ -1908,9 +1908,8 @@
     background: #070a14;
     border-radius: 30px;
     border: 1px solid #1e293b;
-    padding: 1rem;
-    min-height: 580px;
-    max-height: 620px;
+    padding: 0.65rem;
+    min-height: 620px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -3634,8 +3633,8 @@
           </div>
 
           <!-- MAIN PIXEL CANVAS (320x460 HIGH-RES PIXEL ART VIEWPORT) -->
-          <div style="position: relative; width: 100%; height: 440px; background: #87CEEB; overflow: hidden;">
-            <canvas id="pixel-game-canvas" width="320" height="440" style="width: 100%; height: 100%; display: block; image-rendering: pixelated; cursor: crosshair; touch-action: none;"></canvas>
+          <div style="position: relative; width: 100%; height: 500px; background: #87CEEB; overflow: hidden; border-radius: 6px;">
+            <canvas id="pixel-game-canvas" width="320" height="500" style="width: 100%; height: 100%; display: block; image-rendering: pixelated; cursor: crosshair; touch-action: none;"></canvas>
             
             <!-- Damage Numbers Layer -->
             <div id="pixel-damage-layer" style="position: absolute; inset: 0; pointer-events: none; z-index: 18;"></div>
@@ -4200,7 +4199,7 @@
 
       pixelGameState.screen = 'game';
       pixelGameState.player.x = 160;
-      pixelGameState.player.y = 350;
+      pixelGameState.player.y = 410;
       pixelGameState.player.vx = 0;
       pixelGameState.player.vy = 0;
       pixelGameState.player.hp = 100 * char.hpMultiplier;
@@ -4275,17 +4274,17 @@
         {
           id: 'outpost', name: 'OUTPOST', sub: 'Desert Canyon',
           skyTop: '#38bdf8', skyBottom: '#bae6fd', groundColor: '#d97706', grassColor: '#b45309',
-          platforms: [{ x: 0, y: 390, w: 320, h: 50 }, { x: 30, y: 300, w: 90, h: 14 }, { x: 200, y: 300, w: 90, h: 14 }, { x: 110, y: 210, w: 100, h: 14 }, { x: 20, y: 130, w: 80, h: 14 }, { x: 220, y: 130, w: 80, h: 14 }]
+          platforms: [{ x: 0, y: 450, w: 320, h: 50 }, { x: 25, y: 360, w: 95, h: 14 }, { x: 200, y: 360, w: 95, h: 14 }, { x: 110, y: 270, w: 100, h: 14 }, { x: 20, y: 180, w: 85, h: 14 }, { x: 215, y: 180, w: 85, h: 14 }, { x: 115, y: 100, w: 90, h: 14 }]
         },
         {
           id: 'catacon', name: 'CATACON', sub: 'Jungle Ruins',
           skyTop: '#0284c7', skyBottom: '#7dd3fc', groundColor: '#15803d', grassColor: '#4ade80',
-          platforms: [{ x: 0, y: 390, w: 320, h: 50 }, { x: 40, y: 320, w: 80, h: 14 }, { x: 195, y: 320, w: 85, h: 14 }, { x: 100, y: 235, w: 120, h: 14 }, { x: 15, y: 150, w: 90, h: 14 }, { x: 215, y: 150, w: 90, h: 14 }]
+          platforms: [{ x: 0, y: 450, w: 320, h: 50 }, { x: 30, y: 370, w: 85, h: 14 }, { x: 205, y: 370, w: 85, h: 14 }, { x: 100, y: 285, w: 120, h: 14 }, { x: 15, y: 195, w: 90, h: 14 }, { x: 215, y: 195, w: 90, h: 14 }, { x: 115, y: 110, w: 90, h: 14 }]
         },
         {
           id: 'suspension', name: 'SUSPENSION', sub: 'Sky Bridges',
           skyTop: '#0369a1', skyBottom: '#e0f2fe', groundColor: '#475569', grassColor: '#94a3b8',
-          platforms: [{ x: 0, y: 390, w: 320, h: 50 }, { x: 20, y: 310, w: 100, h: 12 }, { x: 200, y: 310, w: 100, h: 12 }, { x: 90, y: 220, w: 140, h: 12 }, { x: 30, y: 135, w: 85, h: 12 }, { x: 205, y: 135, w: 85, h: 12 }]
+          platforms: [{ x: 0, y: 450, w: 320, h: 50 }, { x: 20, y: 365, w: 100, h: 12 }, { x: 200, y: 365, w: 100, h: 12 }, { x: 90, y: 275, w: 140, h: 12 }, { x: 30, y: 185, w: 85, h: 12 }, { x: 205, y: 185, w: 85, h: 12 }, { x: 115, y: 95, w: 90, h: 12 }]
         }
       ];
       return maps[pixelGameState.selectedMapIndex || 0] || maps[0];
