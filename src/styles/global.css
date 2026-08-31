@@ -359,3 +359,19 @@ button {
     padding: 0.75rem !important;
   }
 }
+
+/* ⚡ HIGH PERFORMANCE WEB RENDERING DIRECTIVES */
+.hero-bg-glow,
+.ambient-glow,
+.hero-bg-image {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+section:not(.hero),
+footer,
+.blueprint-dashboard-grid {
+  content-visibility: auto;
+  contain-intrinsic-size: 800px;
+}
+
